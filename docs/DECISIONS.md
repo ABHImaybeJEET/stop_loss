@@ -112,3 +112,44 @@ This document records key design choices, resolutions to ambiguous requirements,
 - **Execution Mode**: Live connectors are activated via `--live` or explicit configuration, with automatic fallback to safe `StubConnector` instances during smoke tests and offline test suites.
 
 
+
+---
+
+# Analysis Terminal (Checkpoints 3–5): ADR T01–T10
+
+## ADR T01: Scope: Real Data End-to-End, Ingestion Untouched (2026-10-03)
+- **Context**: The `/chat` terminal brief assumed a finished backend, but the repository only contained the ingestion pipeline (`stop_loss/agents`, `api`, `analytics` were README stubs). The owner directed that nothing be mocked and that the necessary backend pieces be added.
+- **Decision**: Add `stop_loss/analytics` (providers + quant), `stop_loss/agents` (LangGraph engine) and `stop_loss/api` (FastAPI) on top of the existing `fin_terminal` modules, reusing its settings, `SourceGuard` resilience, FRED connector, schemas and evidence log. `fin_terminal` ingestion code is unchanged. The brief's `NEXT_PUBLIC_USE_MOCK` mock stream was intentionally **not** built.
+
+## ADR T02: Yahoo Finance via httpx; Alpha Vantage for Sentiment Only
+- **Context**: `yfinance` requires pandas, whose compiled DLLs are blocked by Windows Application Control on the dev machine. Alpha Vantage's free tier allows ~25 calls/day.
+- **Decision**: Call the same public Yahoo endpoints yfinance wraps (`v8/finance/chart`, `v1/finance/search`, `v10/finance/quoteSummary` with cookie+crumb) through `GuardedHTTP` (token bucket, tenacity backoff, circuit breaker, TTL cache). Use Alpha Vantage `NEWS_SENTIMENT` only for US tickers (cached 30 min) and Google News RSS for broad headline coverage. When the market is closed, the 1D chart falls back to the last trading session.
+
+## ADR T03: Agent Topology and Streaming Protocol
+- **Decision**: `coordinator → {market, news, macro, weather} → quant → hedging → audit`. Nodes emit `agent_update` / `section` / `final` / `reply` / `error` events through LangGraph's custom stream (`get_stream_writer`). Each agent isolates its own failure; the run yields a partial result with `failed_agents`.
+- **Transport**: SSE with a monotonically increasing `seq`. Runs execute detached from the HTTP connection and buffer events (`RunRegistry`), so clients resume with `?after=<seq>`, re-attach after reload, or cancel explicitly. One active run per thread (409 otherwise).
+- **Gotcha**: `run_id` is reserved in LangGraph checkpoint metadata; putting it in `config.metadata` made follow-up runs on a thread silently no-op. We use `stoploss_run_id`.
+- **Memory**: `AsyncSqliteSaver` keyed `"{uid}:{thread_id}"`; per-run keys are reset on every input.
+
+## ADR T04: OpenAI for Reasoning, Deterministic Fallback
+- **Decision**: `langchain-openai` `ChatOpenAI` (`OPENAI_CHAT_MODEL`, default `gpt-4.1-mini`) with structured outputs for routing (analysis vs follow-up reply), headline sentiment, and narrative/suggestions. Without `OPENAI_API_KEY`, or if a call fails, routing is heuristic and the narrative is assembled from evidence-catalog entries only (`narrative_source: "rules"`, shown in the UI).
+
+## ADR T05: Weather Exposure and Extreme Thresholds
+- **Decision**: Forecast the company HQ (Yahoo profile city → Open-Meteo geocoding) plus the configured Gulf Coast hub for Energy-sector assets. Assets with no known facility report `not_applicable`. Extremes: gusts ≥ 90 km/h, rain ≥ 64.5 mm/day (IMD "heavy"), Tmax ≥ 40 °C, Tmin ≤ −15 °C, WMO codes 95/96/99.
+
+## ADR T06: Risk and Trust Scores
+- **Risk (0–100)**: weighted mean of available components: 1Y volatility (60% ann. = 100, w .25), 1Y max drawdown (−50% = 100, w .20), 1-day 95% historical VaR (5% = 100, w .20), |beta| (2.0 = 100, w .10), net headline sentiment (w .15), event exposure (20 per theme/weather/macro flag, w .10). It requires at least one price-based component; otherwise it is `null`. Bands: <25 Low, <50 Moderate, <75 High, else Severe.
+- **Trust (0–100)**: equal-weight mean of data coverage, freshness, source depth, sentiment/momentum agreement and the figure audit, with human-readable reasons.
+
+## ADR T07: Evidence Catalog and Figure Audit
+- **Decision**: Every citable figure gets an id (`E1…`) with source, URL and timestamp. Narratives must cite ids. The audit agent extracts every figure from generated text and matches it against evidence values (rounding tolerant). Unmatched figures are listed in the result, lower trust, and are flagged in the UI. The rules fallback passes the audit by construction (tested).
+
+## ADR T08: Frontend Contract Extensions
+- **Decision**: The normalized types in `frontend/lib/chat/types.ts` follow the brief, with these additions: `snapshot.facts` is an ordered list (stable display order); `riskScore`/`trustScore` are nullable (no fabricated numbers); `sources.items[].themes/sentimentSource`; `historical.metrics/seasonality`; `suggestions.items[].evidenceIds`; `evidence` and `audit` on the result; extra stream events `reply` (text follow-ups), `cancelled`, and `seq` on every event. `adapters/backendToUi.ts` is the only place that knows the snake_case wire format.
+
+## ADR T09: Threads, Auth and Proxying
+- **Decision**: The backend owns agent memory. The UI persists the message list in Firestore at `users/{uid}/threads/{threadId}/messages/{messageId}` with a localStorage cache, and `?thread=` restores it after refresh. Next.js route handlers verify the Firebase ID token (`jose`, Google securetoken JWKS) and forward `X-User-Id`, plus optional `X-Internal-Token`, to the backend, which must only listen on localhost or a private network.
+
+## ADR T10: `frontend/lib` Was Silently Untracked
+- **Context**: The root `.gitignore` rule `lib/` (Python build output) also matched `frontend/lib/`, so `firebase.ts`, `userProfile.ts` and `news.ts` were never committed and every page failed to build from a clean clone.
+- **Decision**: Re-include `frontend/lib/` and recreate the modules from their call sites. The landing news feed now reads only from the backend's `/news/feed`; the static fallback dataset was removed.
