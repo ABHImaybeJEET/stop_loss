@@ -379,7 +379,7 @@ export default function NewsSection() {
           setIsUsingFallback(true);
         }
       } catch (err) {
-        console.warn("Using verified dataset fallback:", err);
+        console.warn("Market feed unavailable:", err);
         setIsUsingFallback(true);
       } finally {
         setIsApiLoading(false);
@@ -489,7 +489,7 @@ export default function NewsSection() {
               </span>
             ) : isUsingFallback ? (
               <span className="inline-flex items-center space-x-1.5 bg-amber-50 border border-amber-200 text-amber-800 px-2.5 py-1 rounded">
-                <span>VERIFIED OFFLINE DATASET</span>
+                <span>FEED UNAVAILABLE</span>
               </span>
             ) : (
               <span className="inline-flex items-center space-x-1.5 bg-emerald-50 border border-emerald-200 text-emerald-800 px-2.5 py-1 rounded">
