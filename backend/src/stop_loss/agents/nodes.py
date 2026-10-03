@@ -164,8 +164,9 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
         if kit.model_for("coordinator") is not None:
             rep.progress("Classifying intent, horizon and position")
             plan = await plan_query(kit.model_for("coordinator"), prompt, asset, history) or plan
-        if first_look or switched:
-            plan = plan.model_copy(update={"mode": "analysis"})
+            
+        # Always output a full analysis to keep the terminal panels visible.
+        plan = plan.model_copy(update={"mode": "analysis"})
         data = plan.model_dump() | {"asset_switched": switched}
         label = "Full analysis" if plan.mode == "analysis" else "Follow-up answer"
         extras = [
@@ -381,25 +382,34 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
             news_out = _ok(state.get("news"))
             news_items = [NewsItem.model_validate(n) for n in (news_out or [])]
             
-            query_terms = [asset_ref.name]
-            themes = set()
-            for n in news_items:
-                themes.update(n.themes)
-            if themes:
-                query_terms.extend(themes)
+            if state.get("user_prompt"):
+                query = state["user_prompt"]
+            else:
+                query_terms = [asset_ref.name]
+                themes = set()
+                for n in news_items:
+                    themes.update(n.themes)
+                if themes:
+                    query_terms.extend(themes)
+                query = " ".join(query_terms)
                 
-            query = " ".join(query_terms)
-            
             hits = await kit.retriever.search(query, top_k=5)
-            nse_dir = kit.settings.data_path / "processed" / "nse_historical"
+            nse_dir = kit.settings.datasets_dir / "nse_historical"
             
             results = []
             for hit in hits:
-                date_str = str(hit.metadata.get("published_at", ""))
+                pts = hit.metadata.get("published_ts")
+                if pts:
+                    import datetime
+                    date_str = datetime.datetime.fromtimestamp(float(pts), datetime.UTC).strftime("%Y-%m-%d")
+                else:
+                    date_str = ""
+                    
                 fwd = measure_forward_returns(sym, date_str, nse_dir) if date_str else {"forward_5d": None, "forward_20d": None}
                 results.append({
                     "id": hit.id,
                     "title": hit.metadata.get("title") or str(hit.metadata.get("text", ""))[:100],
+                    "text": hit.metadata.get("text", ""),
                     "published_at": date_str,
                     "score": hit.score,
                     "themes": hit.metadata.get("theme_tags", []),
@@ -485,6 +495,7 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
     def _inputs(state: AnalysisState) -> dict[str, Any]:
         market_data = _ok(state.get("market")) or {}
         quant_data = _ok(state.get("quant")) or {}
+        analogs_data = _ok(state.get("analogs")) or []
         return {
             "market": _load(ChartSeries, market_data.get("daily")),
             "profile": _load(AssetProfile, market_data.get("profile")),
@@ -493,6 +504,7 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
             "news": [NewsItem.model_validate(n) for n in _ok(state.get("news")) or []],
             "macro": _load(MacroSnapshot, _ok(state.get("macro"))),
             "weather": [WeatherOutlook.model_validate(w) for w in _ok(state.get("weather")) or []],
+            "analogs": analogs_data,
         }
 
     async def hedging(state: AnalysisState) -> dict[str, Any]:
@@ -604,7 +616,20 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
         evidence = [EvidenceItem.model_validate(e) for e in narrative["evidence"]]
         known = {e.id for e in evidence}
         data = _inputs(state)
-        statuses = {a: (state.get(a) or {}).get("status") for a in DATA_AGENTS}
+        statuses = {}
+        for a in DATA_AGENTS:
+            if a == "impact":
+                macro_st = (state.get("macro") or {}).get("status")
+                weather_st = (state.get("weather") or {}).get("status")
+                if macro_st == "ok" and weather_st in ("ok", "not_applicable"):
+                    statuses[a] = "ok"
+                elif macro_st == "not_applicable" and weather_st == "not_applicable":
+                    statuses[a] = "not_applicable"
+                else:
+                    statuses[a] = "error"
+            else:
+                statuses[a] = (state.get(a) or {}).get("status")
+                
         ok = sum(1 for s in statuses.values() if s in ("ok", "not_applicable"))
         failed = [a for a, s in statuses.items() if s not in ("ok", "not_applicable")]
         generated_at = datetime.now(UTC).isoformat()

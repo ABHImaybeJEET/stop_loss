@@ -146,7 +146,7 @@ class AnalysisService:
             from fin_terminal.config import secret_value
             from fin_terminal.vectorstore.pinecone import PineconeVectorAdapter
             from fin_terminal.vectorstore.factory import create_vectorstore
-            from fin_terminal.embeddings.factory import create_embeddings
+            from fin_terminal.embeddings import LazyEmbeddings
             
             if not secret_value(settings.pinecone_api_key):
                 return None
@@ -155,8 +155,8 @@ class AnalysisService:
             if not isinstance(adapter, PineconeVectorAdapter):
                 return None
                 
-            embedder = create_embeddings(settings)
-            return HistoricalRetriever(embedder, adapter, settings.pinecone_namespace)
+            embedder = LazyEmbeddings(settings)
+            return HistoricalRetriever(embedder, adapter, settings.pinecone_history_namespace)
         except Exception as exc:
             import logging
             logging.getLogger("stop_loss.agents").warning("Failed to init HistoricalRetriever: %s", exc)

@@ -7,7 +7,7 @@ STATUS OF DELIVERABLES AND PRIORITY TASKS:
 5. Historical Analogs Agent: Completed
 6. Cross-asset correlations in Quant Agent: Done (Brent, USD/INR, NIFTY 50, India VIX integrated into Quant agent, evidence catalog, and Risk & Trust UI panel).
    - Citation nomenclature & compound reference parsing: Fixed (normalized compound tags like [E1, 10] into individual chips, prevented evidence IDs leaking into figure audit).
-7. Price-impact estimate: Pending
+7. Price-impact estimate: Completed (Median, min, and max returns from historical analogs now aggregated and injected into the Evidence Catalog for the LLM).
 8. Hedging per holding: Pending
 9. Portfolio-scoped chat: Pending
 10. Live agent graph view: Pending
