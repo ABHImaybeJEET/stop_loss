@@ -1,4 +1,5 @@
 from functools import lru_cache
+import json
 from pathlib import Path
 
 from pydantic import Field, field_validator
@@ -31,6 +32,74 @@ class Settings(BaseSettings):
         description="Path to SQLite database file for local persistence.",
     )
 
+    # LangSmith Observability
+    langsmith_tracing: bool = Field(
+        default=False,
+        description="Toggle LangSmith execution tracing for agent runs.",
+    )
+    langsmith_api_key: str | None = Field(
+        default=None,
+        description="API key for LangSmith tracing.",
+    )
+    langsmith_project: str = Field(
+        default="stop-loss-terminal",
+        description="LangSmith project name for aggregated runs.",
+    )
+
+    # Vector Database Adapter Settings
+    vector_backend: str = Field(
+        default="weaviate",
+        description="Target vector backend: 'weaviate', 'pinecone', or 'memory'.",
+    )
+    weaviate_url: str = Field(
+        default="http://localhost:8080",
+        description="Endpoint URL for Weaviate instance.",
+    )
+    weaviate_api_key: str | None = Field(
+        default=None,
+        description="Optional API key for Weaviate instance.",
+    )
+    pinecone_api_key: str | None = Field(
+        default=None,
+        description="API key for Pinecone cloud vector database.",
+    )
+    pinecone_environment: str | None = Field(
+        default=None,
+        description="Cloud region/environment for Pinecone index.",
+    )
+    pinecone_index_name: str = Field(
+        default="stop-loss-records",
+        description="Name of the Pinecone vector index.",
+    )
+
+    # Text Embeddings Settings
+    embedding_backend: str = Field(
+        default="local",
+        description="Embeddings provider: 'local' (sentence-transformers) or 'openai'.",
+    )
+    embedding_model_name: str = Field(
+        default="BAAI/bge-small-en-v1.5",
+        description="HuggingFace model identifier for local embeddings.",
+    )
+    openai_api_key: str | None = Field(
+        default=None,
+        description="API key for OpenAI embeddings and fallback LLMs.",
+    )
+
+    # Market Providers Settings
+    alpha_vantage_api_key: str | None = Field(
+        default=None,
+        description="API key for Alpha Vantage market and news data.",
+    )
+    enable_polygon: bool = Field(
+        default=False,
+        description="Feature flag to enable Polygon.io market data provider.",
+    )
+    polygon_api_key: str | None = Field(
+        default=None,
+        description="Optional API key for Polygon.io market data.",
+    )
+
     # Operational timeouts & intervals
     http_timeout_seconds: float = Field(
         default=15.0,
@@ -59,7 +128,7 @@ class Settings(BaseSettings):
 
     # News provider settings
     news_query: str = Field(
-        default="hurricane OR refinery OR Gulf of Mexico",
+        default="hurricane OR refinery OR Gulf of Mexico OR tariff OR sanctions",
         description="Default search query for news ingestion.",
     )
 
@@ -87,8 +156,6 @@ class Settings(BaseSettings):
             if not v:
                 return []
             if v.startswith("[") and v.endswith("]"):
-                import json
-
                 try:
                     parsed = json.loads(v)
                     if isinstance(parsed, list):

@@ -3,7 +3,15 @@ from datetime import UTC, datetime
 import pytest
 from pydantic import ValidationError
 
-from stop_loss.domain.enums import DataType, ProviderErrorType, RunStatus
+from stop_loss.domain.enums import (
+    DataQuality,
+    DataType,
+    EmbeddingBackend,
+    MacroTheme,
+    ProviderErrorType,
+    RunStatus,
+    VectorBackend,
+)
 from stop_loss.domain.errors import (
     ProviderAuthenticationError,
     ProviderError,
@@ -26,7 +34,8 @@ class TestNormalizedRecord:
         record = NormalizedRecord(
             record_id="rec-001",
             data_type=DataType.MARKET_PRICE,
-            provider="yahoo_finance",
+            provider="alpha_vantage",
+            theme_tags=[MacroTheme.TARIFF],
             observed_at=now,
             fetched_at=now,
             ticker="XOM",
@@ -35,30 +44,62 @@ class TestNormalizedRecord:
         )
         assert record.record_id == "rec-001"
         assert record.data_type == DataType.MARKET_PRICE
-        assert record.provider == "yahoo_finance"
+        assert record.provider == "alpha_vantage"
         assert record.ticker == "XOM"
         assert record.numeric_value == 115.50
         assert record.text_value is None
         assert record.is_demo is False
+        assert record.theme_tags == [MacroTheme.TARIFF]
+        assert record.data_quality == DataQuality.GOOD
+        assert record.content_hash != ""  # Auto-generated deterministic hash
         assert record.metadata == {}
         assert record.raw_payload == {}
 
-    def test_valid_record_with_text_value(self) -> None:
+    def test_valid_record_with_text_value_and_macro_themes(self) -> None:
         now = datetime.now(UTC)
         record = NormalizedRecord(
             record_id="rec-002",
             data_type=DataType.NEWS,
             provider="gdelt",
+            theme_tags=[MacroTheme.WAR_CRISIS, MacroTheme.TARIFF],
             observed_at=now,
+            published_at=now,
             fetched_at=now,
-            text_value="Refinery shuts down ahead of hurricane landfall in Gulf.",
+            text_value="Refinery shuts down amid sanctions and shipping blockade in Red Sea.",
             source_url="https://example.com/news/123",
+            fetch_latency_ms=120.5,
+            process_latency_ms=45.2,
         )
         assert record.record_id == "rec-002"
         assert record.data_type == DataType.NEWS
         assert record.numeric_value is None
-        assert record.text_value == "Refinery shuts down ahead of hurricane landfall in Gulf."
+        assert "sanctions" in record.text_value
+        assert record.theme_tags == [MacroTheme.WAR_CRISIS, MacroTheme.TARIFF]
         assert record.source_url == "https://example.com/news/123"
+        assert record.fetch_latency_ms == 120.5
+        assert record.process_latency_ms == 45.2
+
+    def test_deterministic_content_hash(self) -> None:
+        now = datetime(2026, 10, 3, 12, 0, 0, tzinfo=UTC)
+        rec1 = NormalizedRecord(
+            record_id="rec-a",
+            data_type=DataType.MACRO,
+            provider="fred",
+            observed_at=now,
+            fetched_at=now,
+            indicator="DCOILWTICO",
+            numeric_value=78.5,
+        )
+        rec2 = NormalizedRecord(
+            record_id="rec-b",  # different ID
+            data_type=DataType.MACRO,
+            provider="fred",
+            observed_at=now,
+            fetched_at=now,
+            indicator="DCOILWTICO",
+            numeric_value=78.5,
+        )
+        assert rec1.content_hash == rec2.content_hash
 
     def test_valid_record_with_both_numeric_and_text(self) -> None:
         now = datetime.now(UTC)
@@ -66,6 +107,7 @@ class TestNormalizedRecord:
             record_id="rec-003",
             data_type=DataType.WEATHER,
             provider="open_meteo",
+            theme_tags=[MacroTheme.WEATHER_EXTREME],
             observed_at=now,
             fetched_at=now,
             location="Corpus Christi, Texas",
@@ -76,6 +118,7 @@ class TestNormalizedRecord:
         )
         assert record.numeric_value == 75.2
         assert record.text_value == "Category 1 sustained winds detected"
+        assert record.theme_tags == [MacroTheme.WEATHER_EXTREME]
 
     def test_missing_both_numeric_and_text_raises_validation_error(self) -> None:
         now = datetime.now(UTC)
@@ -134,8 +177,10 @@ class TestNormalizedRecord:
         )
         rec1.metadata["key"] = "value"
         rec1.raw_payload["raw"] = 123
+        rec1.theme_tags.append(MacroTheme.TARIFF)
         assert "key" not in rec2.metadata
         assert "raw" not in rec2.raw_payload
+        assert MacroTheme.TARIFF not in rec2.theme_tags
 
 
 class TestIngestionRun:
@@ -187,6 +232,24 @@ class TestDomainEnumsAndErrors:
         assert DataType.NEWS.value == "news"
         assert DataType.MARKET_PRICE.value == "market_price"
         assert DataType.MACRO.value == "macro"
+
+    def test_macro_theme_values(self) -> None:
+        assert MacroTheme.TARIFF.value == "tariff"
+        assert MacroTheme.BANK_TAX.value == "bank_tax"
+        assert MacroTheme.WAR_CRISIS.value == "war_crisis"
+        assert MacroTheme.WEATHER_EXTREME.value == "weather_extreme"
+
+    def test_data_quality_values(self) -> None:
+        assert DataQuality.GOOD.value == "good"
+        assert DataQuality.MISSING_FIELDS.value == "missing_fields"
+        assert DataQuality.DEGRADED.value == "degraded"
+        assert DataQuality.SUSPECT.value == "suspect"
+
+    def test_vector_and_embedding_enums(self) -> None:
+        assert VectorBackend.WEAVIATE.value == "weaviate"
+        assert VectorBackend.PINECONE.value == "pinecone"
+        assert EmbeddingBackend.LOCAL.value == "local"
+        assert EmbeddingBackend.OPENAI.value == "openai"
 
     def test_run_status_values(self) -> None:
         assert RunStatus.RUNNING.value == "running"

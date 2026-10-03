@@ -1,4 +1,12 @@
-from stop_loss.domain.enums import DataType, ProviderErrorType, RunStatus
+from stop_loss.domain.enums import (
+    DataQuality,
+    DataType,
+    EmbeddingBackend,
+    MacroTheme,
+    ProviderErrorType,
+    RunStatus,
+    VectorBackend,
+)
 from stop_loss.domain.errors import (
     ProviderAuthenticationError,
     ProviderError,
@@ -13,8 +21,11 @@ from stop_loss.domain.errors import (
 from stop_loss.domain.models import IngestionRun, NormalizedRecord
 
 __all__ = [
+    "DataQuality",
     "DataType",
+    "EmbeddingBackend",
     "IngestionRun",
+    "MacroTheme",
     "NormalizedRecord",
     "ProviderAuthenticationError",
     "ProviderError",
@@ -27,4 +38,5 @@ __all__ = [
     "RunStatus",
     "StopLossError",
     "StorageError",
+    "VectorBackend",
 ]
