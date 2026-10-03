@@ -14,6 +14,11 @@ class TerminalSettings(Settings):
     api_internal_token: SecretStr | None = None
     conversation_db_path: Path = Path("data/conversations.sqlite")
     feedback_db_path: Path = Path("data/feedback.sqlite")
+    # Bulk datasets (repo-level data/processed) and the backfill checkpoint file.
+    datasets_dir: Path = Path("../data/processed")
+    backfill_progress_path: Path = Path("data/backfill_progress.sqlite")
+    india_news_min_year: int = Field(default=2015, ge=1990)
+    india_news_categories: list[str] = Field(default_factory=lambda: ["business"])
     run_timeout_seconds: float = Field(default=150, gt=0)
     run_retention_seconds: float = Field(default=900, gt=0)
     quote_cache_seconds: float = Field(default=5, gt=0)

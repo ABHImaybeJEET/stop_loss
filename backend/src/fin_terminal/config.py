@@ -37,7 +37,17 @@ class Settings(LegacySettings):
     weaviate_collection: str = Field(default="FinancialDocument", pattern=r"^[A-Z][a-zA-Z0-9_]*$")
     pinecone_host: str = ""
     pinecone_namespace: str = "fin-terminal"
+    # Bulk-loaded datasets (data/processed) live in their own namespace.
+    pinecone_history_namespace: str = "history"
+    pinecone_cloud: str = "aws"
+    pinecone_region: str = "us-east-1"
     embedding_backend: Literal["local", "openai"] = "local"
+    # Local sentence-transformers runtime: "auto" picks CUDA (fp16) when available.
+    embedding_device: Literal["auto", "cuda", "cpu"] = "auto"
+    embedding_batch_size: int = Field(default=128, ge=1, le=2048)
+    embedding_dimensions: int = Field(default=768, ge=8, le=4096)
+    # BGE retrieval models expect this prefix on queries only (never on documents).
+    embedding_query_instruction: str = "Represent this sentence for searching relevant passages: "
     openai_embedding_model: str = "text-embedding-3-small"
     stub_fail_source: str = ""
     stub_failure_mode: Literal["failed", "degraded", "rate_limited"] = "failed"

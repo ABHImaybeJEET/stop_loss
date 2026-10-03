@@ -1,0 +1,4 @@
+date,title,description,url,source_file,categories,matched_keywords,relevance_score,has_negation,impact_tier
+2017-01-01 00:00:00+00:00,"Sebi puts investors , financial literacy at forefront for 2017","Sebi puts investors , financial literacy at forefront for 2017",http://www.moneycontrol.com/news/market-news/sebi-puts-investors-financial-literacy-at-forefront-for-2017_8191721.html,News_sentiment_Jan2017_to_Apr2021.csv,macro_government,sebi,3,False,MEDIUM
+2017-01-02 00:00:00+00:00,Fixture headline without url,Tariff escalation hits exporters,,fixture.csv,trade|macro,tariff;exports,,False,
+2017-01-03 00:00:00+00:00,,missing title row is dropped,,fixture.csv,,,,False,

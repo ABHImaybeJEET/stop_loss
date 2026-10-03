@@ -78,7 +78,7 @@ class Settings(BaseSettings):
         description="Embeddings provider: 'local' (sentence-transformers) or 'openai'.",
     )
     embedding_model_name: str = Field(
-        default="BAAI/bge-small-en-v1.5",
+        default="BAAI/bge-base-en-v1.5",
         description="HuggingFace model identifier for local embeddings.",
     )
     openai_api_key: str | None = Field(

@@ -34,3 +34,16 @@ All endpoints except `/health`, `/market/*`, `/assets/search` and `/news/feed` n
 Agents (`stop_loss/agents`): Query Coordinator → Market Data, News Sentiment, Macro (FRED), Weather (Open-Meteo) in parallel → Quantitative Risk → Hedging Strategy → Evidence & Audit. With `OPENAI_API_KEY` set, OpenAI writes the routing, sentiment and narrative. Without it, a deterministic, evidence-only narrative is used. See `docs/DECISIONS.md` ADR T01–T10.
 
 Tests: `uv run pytest tests/terminal` (offline; replays recorded real provider responses from `tests/fixtures/terminal/`).
+
+## Vector index (Pinecone) and historical backfill
+
+```bash
+uv sync --extra local-embeddings           # torch 2.6 + CUDA 12.4 and transformers (GPU embeddings)
+uv run --extra local-embeddings stop-loss-vectors init      # create/verify the index
+uv run --extra local-embeddings stop-loss-vectors count     # records per dataset (no upload)
+uv run --extra local-embeddings stop-loss-vectors backfill  # resumable; --source X, --limit N
+uv run --extra local-embeddings stop-loss-vectors stats
+uv run --extra local-embeddings stop-loss-vectors search "cyclone near Odisha refineries" --type cyclone
+```
+
+This needs `PINECONE_API_KEY` in the root `.env`. The model is `BAAI/bge-base-en-v1.5` (768-d), which runs locally on the GPU and downloads on first use. See ADR T11–T12.
