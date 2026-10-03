@@ -2,6 +2,9 @@
 .env
 .env.local
 
+# Node
+node_modules/
+
 # Virtual environments
 .venv/
 .venv-scaffold/
@@ -58,7 +61,9 @@ data/processed/*
 # IDEs & OS files
 .idea/
 .vscode/
+.agents/
 *.swp
 *.swo
 .DS_Store
 Thumbs.db
+
