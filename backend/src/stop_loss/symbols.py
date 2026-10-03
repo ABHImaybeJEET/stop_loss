@@ -19,3 +19,14 @@ def is_nse_symbol(value: str) -> bool:
     except ValueError:
         return False
     return True
+
+
+# Macro reference series fetched through yfinance (not tradable app assets): USD/INR,
+# Brent crude and India VIX. User-facing endpoints still accept NSE symbols only.
+MACRO_REFERENCE = frozenset({"INR=X", "BZ=F", "^INDIAVIX"})
+
+
+def market_symbol(value: str) -> str:
+    """NSE equities, NSE indices, or an allow-listed macro reference series."""
+    symbol = value.strip().upper()
+    return symbol if symbol in MACRO_REFERENCE else nse_symbol(symbol)

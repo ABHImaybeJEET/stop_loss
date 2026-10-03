@@ -243,12 +243,23 @@ def build_catalog(
                 "macro",
                 ind.label,
                 ind.latest,
-                f"{ind.latest:g} {ind.unit or ''}".strip(),
+                f"{ind.latest:,.2f} {ind.unit or ''}".strip(),
                 unit=ind.unit,
-                source="FRED",
+                source=ind.source,
                 url=ind.source_url,
                 observed_at=ind.latest_date,
             )
+            if ind.change_pct is not None and ind.previous_date:
+                cat.add(
+                    "macro",
+                    f"{ind.label} change since {ind.previous_date}",
+                    round(ind.change_pct, 2),
+                    f"{ind.change_pct:+.2f}%",
+                    unit="%",
+                    source=ind.source,
+                    url=ind.source_url,
+                    observed_at=ind.latest_date,
+                )
             if ind.yoy_pct is not None:
                 cat.add(
                     "macro",
@@ -256,12 +267,18 @@ def build_catalog(
                     round(ind.yoy_pct, 2),
                     f"{ind.yoy_pct:.2f}%",
                     unit="%",
-                    source="FRED",
+                    source=ind.source,
                     url=ind.source_url,
                     observed_at=ind.latest_date,
                 )
         for flag in macro.flags:
-            cat.add("macro", "Macro flag", flag, flag.replace("_", " "), source="FRED")
+            cat.add(
+                "macro",
+                "Macro flag",
+                flag,
+                flag.replace("_", " "),
+                source="StopLoss macro thresholds (ADR T13)",
+            )
     for outlook in weather:
         gusts = [d.wind_gust_max for d in outlook.days if d.wind_gust_max is not None]
         rain = [d.precipitation_sum for d in outlook.days if d.precipitation_sum is not None]

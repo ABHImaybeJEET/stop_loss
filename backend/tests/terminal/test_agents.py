@@ -17,7 +17,6 @@ from stop_loss.analytics.macro import macro_flags, summarize_series
 from stop_loss.analytics.models import MacroSnapshot
 from stop_loss.analytics.news import NewsClient
 from stop_loss.analytics.weather import WeatherClient
-from stop_loss.analytics.yahoo import YahooFinanceClient
 
 RELIANCE = {"symbol": "RELIANCE.NS", "name": "Reliance Industries Limited", "exchange": "NSE"}
 
@@ -97,7 +96,7 @@ class FixtureYahoo:
         return await self.chart(symbol, "1d", "1m")
 
     async def profile(self, symbol: str):
-        from stop_loss.analytics.yahoo_parsers import parse_quote_summary, SymbolNotFoundError
+        from stop_loss.analytics.yahoo_parsers import SymbolNotFoundError, parse_quote_summary
         if "RELIANCE" in symbol:
             return parse_quote_summary(load_json("yahoo_quote_summary_reliance.json"), symbol)
         raise SymbolNotFoundError(symbol)

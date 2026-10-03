@@ -11,7 +11,10 @@ from fastapi import HTTPException
 
 from stop_loss.agents.llm import classify_headlines
 from stop_loss.agents.service import AnalysisService
+from stop_loss.analytics.exposure import ExposurePoint, exposure_points
+from stop_loss.analytics.hazards import near
 from stop_loss.analytics.models import ChartSeries, NewsItem, Sentiment
+from stop_loss.analytics.news import company_terms
 from stop_loss.symbols import nse_symbol
 from stop_loss.universe import Company, NseUniverse, get_universe
 
@@ -115,7 +118,7 @@ class PortfolioData:
         return {"quotes": rows, "fetched_at": datetime.now(UTC).isoformat()}
 
     async def news(self, symbols: list[str]) -> dict[str, Any]:
-        """Headlines per holding (Google News RSS, GDELT, yfinance), merged and deduped."""
+        """Headlines per holding (Google News RSS, Indian publisher RSS, GDELT, yfinance)."""
         merged: dict[str, NewsItem] = {}
         tags: dict[str, list[str]] = {}
         failures: dict[str, str] = {}
@@ -125,7 +128,10 @@ class PortfolioData:
             name = company.name if company and company.name != symbol[:-3] else symbol[:-3]
             try:
                 items, failed = await self.kit.news.collect(
-                    f'"{name}"', yahoo=self.kit.yahoo, symbol=symbol
+                    f'"{name}"',
+                    yahoo=self.kit.yahoo,
+                    symbol=symbol,
+                    terms=company_terms(name, symbol),
                 )
             except Exception as exc:  # noqa: BLE001 - one holding's feed never fails the rest
                 failures[symbol] = type(exc).__name__
@@ -168,39 +174,54 @@ class PortfolioData:
             self.sentiment.put(labels)
 
     async def weather(self, symbols: list[str]) -> dict[str, Any]:
-        """7-day forecasts at the head-office city of each holding (deduplicated)."""
+        """7-day forecasts at each holding's exposure points (head office + sector hubs),
+        plus live GDACS/USGS hazard alerts within 600 km of any of them."""
         companies = await asyncio.gather(*(self._company(s) for s in symbols))
-        places: dict[tuple[str, str | None], list[str]] = {}
-        for symbol, company in zip(symbols, companies, strict=True):
-            if company and company.city:
-                key = (company.city, "IN" if company.country == "India" else None)
-                places.setdefault(key, []).append(symbol)
+        point_lists = await asyncio.gather(
+            *(exposure_points(c, self.kit.weather) if c else _no_points() for c in companies)
+        )
+        places: dict[str, dict[str, Any]] = {}
+        for symbol, points in zip(symbols, point_lists, strict=True):
+            for p in points:
+                entry = places.setdefault(p.label, {"point": p, "symbols": []})
+                entry["symbols"].append(symbol)
 
-        async def one(city: str, country: str | None, held: list[str]) -> dict[str, Any]:
+        async def one(entry: dict[str, Any]) -> dict[str, Any]:
+            p = entry["point"]
             try:
-                point = await self.kit.weather.geocode(city, country)
-                if point is None:
-                    return {"location": city, "symbols": held, "error": "location_not_found"}
-                lat, lon, label = point
                 outlook = await self.kit.weather.outlook(
-                    lat, lon, location=label, reason="Head office"
+                    p.latitude, p.longitude, location=p.label, reason=p.reason
                 )
             except Exception as exc:  # noqa: BLE001 - one location failing never fails the rest
-                logger.warning("weather unavailable for %s: %s", city, type(exc).__name__)
-                return {"location": city, "symbols": held, "error": type(exc).__name__}
-            return {**outlook.model_dump(mode="json"), "symbols": held}
+                logger.warning("weather unavailable for %s: %s", p.label, type(exc).__name__)
+                return {
+                    "location": p.label,
+                    "symbols": entry["symbols"],
+                    "error": type(exc).__name__,
+                }
+            return {**outlook.model_dump(mode="json"), "symbols": entry["symbols"]}
 
-        results = await asyncio.gather(
-            *(
-                one(city, country, held)
-                for (city, country), held in list(places.items())[:MAX_WEATHER_LOCATIONS]
-            )
-        )
-        missing = [s for s, c in zip(symbols, companies, strict=True) if not (c and c.city)]
+        selected = list(places.values())[:MAX_WEATHER_LOCATIONS]
+        results = await asyncio.gather(*(one(e) for e in selected))
+        alerts: list[dict[str, Any]] = []
+        alerts_status = "unavailable"
+        if self.kit.hazards is not None:
+            try:
+                live = await self.kit.hazards.alerts()
+                tracked = [
+                    (e["point"].label, e["point"].latitude, e["point"].longitude) for e in selected
+                ]
+                alerts = [a.model_dump(mode="json") for a in near(live, tracked)]
+                alerts_status = "ok"
+            except Exception as exc:  # noqa: BLE001 - alerts are additive context
+                logger.warning("hazard feeds unavailable: %s", type(exc).__name__)
+        missing = [s for s, pts in zip(symbols, point_lists, strict=True) if not pts]
         return {
             "locations": [r for r in results if "error" not in r],
             "unavailable": [r for r in results if "error" in r],
             "without_location": missing,
+            "alerts": alerts,
+            "alerts_status": alerts_status,
         }
 
     async def performance(self, holdings: dict[str, float], range_: str) -> dict[str, Any]:
@@ -238,3 +259,7 @@ class PortfolioData:
             "excluded": [s for s in symbols if s not in included]
             + ([BENCHMARK] if BENCHMARK in excluded else []),
         }
+
+
+async def _no_points() -> list[ExposurePoint]:
+    return []

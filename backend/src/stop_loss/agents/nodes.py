@@ -43,6 +43,7 @@ from stop_loss.agents.result import (
     sources_section,
 )
 from stop_loss.agents.state import AnalysisState
+from stop_loss.analytics.hazards import HazardClient
 from stop_loss.analytics.macro import MacroClient
 from stop_loss.analytics.models import (
     AssetProfile,
@@ -52,7 +53,7 @@ from stop_loss.analytics.models import (
     QuantMetrics,
     WeatherOutlook,
 )
-from stop_loss.analytics.news import NewsClient
+from stop_loss.analytics.news import NewsClient, company_terms
 from stop_loss.analytics.risk import benchmark_for, compute_quant_metrics
 from stop_loss.analytics.scoring import (
     RiskAssessment,
@@ -83,6 +84,7 @@ class Toolkit:
     llm: BaseChatModel | None
     evidence_log: EvidenceLog
     agent_models: dict[AgentId, BaseChatModel | None] = field(default_factory=dict)
+    hazards: HazardClient | None = None
 
     def model_for(self, agent: AgentId) -> BaseChatModel | None:
         return self.agent_models.get(agent) if self.agent_models else self.llm
@@ -217,7 +219,10 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
         rep.start(f"Collecting headlines for {company}")
         try:
             collected, failures = await kit.news.collect(
-                f'"{company}"', yahoo=kit.yahoo, symbol=symbol
+                f'"{company}"',
+                yahoo=kit.yahoo,
+                symbol=symbol,
+                terms=company_terms(asset["name"], symbol),
             )
         except Exception as exc:
             rep.error("Live news sources are unavailable")

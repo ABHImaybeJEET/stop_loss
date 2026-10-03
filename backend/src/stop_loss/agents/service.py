@@ -18,6 +18,7 @@ from stop_loss.agents.models import AGENTS, ChatRequest
 from stop_loss.agents.nodes import Toolkit
 from stop_loss.agents.reporting import now_iso
 from stop_loss.agents.state import PER_RUN_KEYS
+from stop_loss.analytics.hazards import HazardClient
 from stop_loss.analytics.macro import MacroClient
 from stop_loss.analytics.news import NewsClient
 from stop_loss.analytics.weather import WeatherClient
@@ -34,18 +35,21 @@ class AnalysisService:
         news: NewsClient | None = None,
         macro: MacroClient | None = None,
         weather: WeatherClient | None = None,
+        hazards: HazardClient | None = None,
         llm: BaseChatModel | None = None,
         use_llm: bool = True,
         checkpointer: BaseCheckpointSaver | None = None,
     ) -> None:
         self.settings = settings
         models = build_agent_models(settings) if use_llm and llm is None else {}
+        yahoo_client = yahoo or YahooFinanceClient(settings)
         self.kit = Toolkit(
             settings=settings,
-            yahoo=yahoo or YahooFinanceClient(settings),
+            yahoo=yahoo_client,
             news=news or NewsClient(settings),
-            macro=macro or MacroClient(settings),
+            macro=macro or MacroClient(settings, yahoo_client),
             weather=weather or WeatherClient(settings),
+            hazards=hazards or HazardClient(settings),
             llm=llm,
             agent_models=models,
             evidence_log=EvidenceLog(settings.evidence_path),
@@ -131,4 +135,6 @@ class AnalysisService:
         await self.kit.yahoo.aclose()
         await self.kit.news.aclose()
         await self.kit.weather.aclose()
+        if self.kit.hazards is not None:
+            await self.kit.hazards.aclose()
         await self._stack.aclose()

@@ -23,7 +23,7 @@ from stop_loss.analytics.yahoo_parsers import (
     parse_quote_summary,
     text,
 )
-from stop_loss.symbols import is_nse_symbol, nse_symbol
+from stop_loss.symbols import is_nse_symbol, market_symbol, nse_symbol
 from stop_loss.universe import get_universe
 
 T = TypeVar("T")
@@ -156,7 +156,7 @@ class YahooFinanceClient:
         }
 
     async def chart(self, symbol: str, range_: str, interval: str) -> ChartSeries:
-        symbol = nse_symbol(symbol)
+        symbol = market_symbol(symbol)
         if range_ not in VALID_RANGES or interval not in VALID_INTERVALS:
             raise ValueError("invalid_range_or_interval")
         cache = self._quotes if interval in INTRADAY_INTERVALS else self._history
@@ -211,6 +211,7 @@ class YahooFinanceClient:
         )
         self._profiles.put(symbol, profile)
         return profile
+
     async def search(
         self, query: str, *, quotes: int = 8, news: int = 0
     ) -> tuple[list[AssetMatch], list[NewsItem]]:

@@ -79,7 +79,7 @@ def rules_narrative(
     extremes = sum(len(w.extremes) for w in weather)
     macro_bits = [
         f"{label} {value}"
-        for label in ("WTI crude oil", "Fed funds rate", "10Y Treasury yield")
+        for label in ("USD/INR", "Brent crude", "India VIX")
         if (value := ref(label))
     ]
     sources = _join(

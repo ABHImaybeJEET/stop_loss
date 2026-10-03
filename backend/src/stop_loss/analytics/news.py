@@ -1,7 +1,9 @@
-"""Live news aggregation from Google RSS, GDELT, and yfinance with source isolation."""
+"""Live news aggregation (Google News RSS, Indian publisher RSS, GDELT, yfinance) with
+per-source isolation, caching and rate limits."""
 
 import asyncio
 import hashlib
+import re
 import xml.etree.ElementTree as ET
 from datetime import UTC, datetime
 from email.utils import parsedate_to_datetime
@@ -21,6 +23,58 @@ from stop_loss.analytics.yahoo import YahooFinanceClient, num, text
 GOOGLE_NEWS = "https://news.google.com/rss/search"
 ALPHA_VANTAGE = "https://www.alphavantage.co/query"
 GDELT = "https://api.gdeltproject.org/api/v2/doc/doc"
+# Free Indian business-news RSS (Moneycontrol blocks automated readers with 403).
+PUBLISHER_FEEDS = {
+    "The Economic Times": "https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms",
+    "Mint": "https://www.livemint.com/rss/markets",
+    "Business Standard": "https://www.business-standard.com/rss/markets-106.rss",
+}
+TAG = re.compile(r"<[^>]+>")
+
+
+def parse_publisher_rss(xml_text: str, publisher: str, limit: int = 60) -> list[NewsItem]:
+    try:
+        root = ET.fromstring(xml_text)
+    except ET.ParseError:
+        raise ConnectorError("invalid_rss") from None
+    items: list[NewsItem] = []
+    for node in root.iterfind("./channel/item"):
+        title = text(node.findtext("title"))
+        link = text(node.findtext("link"))
+        if not title or not link:
+            continue
+        summary = text(TAG.sub(" ", node.findtext("description") or ""))
+        published = None
+        if stamp := text(node.findtext("pubDate")):
+            try:
+                published = parsedate_to_datetime(stamp).astimezone(UTC)
+            except (TypeError, ValueError):
+                published = None
+        items.append(
+            NewsItem(
+                id=hashlib.sha1(link.encode()).hexdigest()[:16],
+                publisher=publisher,
+                title=title,
+                url=link,
+                published_at=published,
+                summary=summary[:400] if summary else None,
+                provider="publisher_rss",
+                themes=tag_themes(title, summary),
+            )
+        )
+        if len(items) >= limit:
+            break
+    return items
+
+
+def mentions(item: NewsItem, terms: list[str]) -> bool:
+    """Whole-word, case-insensitive match of any term in the headline or summary."""
+    blob = f"{item.title} {item.summary or ''}"
+    return any(
+        re.search(rf"(?<![A-Za-z0-9]){re.escape(term)}(?![A-Za-z0-9])", blob, re.I)
+        for term in terms
+        if len(term) >= 3
+    )
 
 
 def parse_gdelt(payload: dict[str, Any]) -> list[NewsItem]:
@@ -194,6 +248,9 @@ class NewsClient:
         self._gdelt_cache = Cached(settings.news_cache_seconds)
         self._google_cache = Cached(settings.news_cache_seconds)
         self._sentiment_cache = Cached(settings.sentiment_cache_seconds)
+        self.publishers = GuardedHTTP(settings, rate_per_second=2, burst=3, client=client)
+        self._publisher_cache = Cached(300)
+        self._gdelt_tasks: dict[str, asyncio.Task[list[NewsItem]]] = {}
 
     async def google_news(self, query: str, *, region: str = "IN") -> list[NewsItem]:
         key = f"{query}|{region}"
@@ -247,22 +304,63 @@ class NewsClient:
         self._gdelt_cache.put(query, items)
         return items
 
+    async def publisher_news(self) -> list[NewsItem]:
+        """Latest items from the Indian publisher feeds (cached 5 minutes)."""
+        if (hit := self._publisher_cache.get("all")) is not None:
+            return hit
+
+        async def one(publisher: str, url: str) -> list[NewsItem]:
+            response = await self.publishers.get(url)
+            if response.status_code != 200:
+                raise ConnectorError(f"http_{response.status_code}")
+            return parse_publisher_rss(response.text, publisher)
+
+        results = await asyncio.gather(
+            *(one(p, u) for p, u in PUBLISHER_FEEDS.items()), return_exceptions=True
+        )
+        items = [i for r in results if not isinstance(r, BaseException) for i in r]
+        if not items:
+            raise ConnectorError("publisher_feeds_unavailable")
+        self._publisher_cache.put("all", items)
+        return items
+
+    async def gdelt_cached(self, query: str) -> list[NewsItem]:
+        """GDELT allows ~1 request / 5 s, so callers never wait on it: cached results are
+        returned and misses are fetched in the background for the next refresh."""
+        if (hit := self._gdelt_cache.get(query)) is not None:
+            return hit
+        task = self._gdelt_tasks.get(query)
+        if task is None or task.done():
+            task = asyncio.create_task(self.gdelt_news(query))
+            self._gdelt_tasks[query] = task
+            task.add_done_callback(lambda t, q=query: self._gdelt_tasks.pop(q, None))
+            task.add_done_callback(lambda t: t.cancelled() or t.exception())
+        raise ConnectorError("gdelt_warming")
+
     async def collect(
         self,
         query: str,
         *,
         yahoo: YahooFinanceClient | None = None,
         symbol: str | None = None,
+        terms: list[str] | None = None,
     ) -> tuple[list[NewsItem], dict[str, str]]:
+        """terms: company names/tickers used to filter the publisher feeds; without them
+        (market-wide queries) the latest publisher headlines are returned unfiltered."""
         jobs = {"google_news_rss": self.google_news(query, region="IN")}
+
+        async def publisher() -> list[NewsItem]:
+            items = await self.publisher_news()
+            return [i for i in items if mentions(i, terms)] if terms else items[:15]
+
+        jobs["publisher_rss"] = publisher()
         if self.gdelt_enabled:
-            jobs["gdelt"] = self.gdelt_news(query)
-        if yahoo is not None:
+            jobs["gdelt"] = self.gdelt_cached(query)
+        if yahoo is not None and symbol:
 
             async def yahoo_news() -> list[NewsItem]:
-                if symbol:
-                    return await yahoo.ticker_news(symbol)
-                return (await yahoo.search(query, quotes=0, news=8))[1]
+                # Built lazily so any client error stays isolated to this one source.
+                return await yahoo.ticker_news(symbol)
 
             jobs["yfinance"] = yahoo_news()
         values = await asyncio.gather(
@@ -277,7 +375,9 @@ class NewsClient:
                 raise value
             else:
                 items.extend(value)
-        if len(failures) == len(jobs):
+        if len(failures) == len(jobs) or (
+            not items and all(k in failures for k in jobs if k != "gdelt")
+        ):
             raise ConnectorError("all_news_sources_unavailable")
         return dedupe_news(items), failures
 
@@ -285,3 +385,25 @@ class NewsClient:
         await self.google.aclose()
         await self.alpha.aclose()
         await self.gdelt.aclose()
+        await self.publishers.aclose()
+        for task in list(self._gdelt_tasks.values()):
+            task.cancel()
+
+
+_SUFFIX = re.compile(
+    r"[,.]?\s+(limited|ltd\.?|inc\.?|corporation|corp\.?|plc|co\.?|company|india)$", re.I
+)
+
+
+def company_terms(name: str, symbol: str) -> list[str]:
+    """Terms that identify a company in headlines: legal name without suffixes, plus the
+    NSE ticker when it is a distinctive word (e.g. TCS, SBIN), never generic 2-letter codes."""
+    clean = name.strip()
+    previous = None
+    while previous != clean:
+        previous, clean = clean, _SUFFIX.sub("", clean).strip()
+    base = symbol.upper().removesuffix(".NS")
+    terms = [clean] if len(clean) >= 4 else []
+    if base.isalpha() and len(base) >= 3 and base.lower() != clean.lower():
+        terms.append(base)
+    return terms
