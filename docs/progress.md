@@ -51,3 +51,23 @@ Next steps:
 Known blockers:
 - None
 
+
+## Checkpoints 3–5: Analysis Engine, API and Chat Terminal
+
+Status: Complete (feature branch `feat/chat-terminal`)
+
+Completed:
+- Quant risk engine (historical VaR/CVaR, volatility, drawdowns, beta, trend, seasonality) and transparent risk/trust scores
+- Live providers: Yahoo Finance (chart, search, profile), Google News RSS, Alpha Vantage sentiment, FRED, Open-Meteo
+- LangGraph 8-agent engine with live status streaming, evidence catalog, figure audit, per-thread memory
+- FastAPI service with resumable SSE runs, feedback store and market endpoints
+- Next.js `/chat` terminal: live orchestration panel, sectioned results, live chart, Risk & Trust panel, feedback, persistent threads
+
+Validation:
+- `cd backend && uv run pytest`: 118 passed (offline)
+- `cd frontend && npm run typecheck && npm run lint && npm run build`: pass
+- Live smoke: RELIANCE.NS and AAPL analyses end-to-end against real providers (~5 s without LLM)
+
+Known gaps:
+- `OPENAI_API_KEY` not yet configured locally, so narratives run in rules mode until it is set
+- Playwright smoke needs a Firebase test account (`E2E_EMAIL`, `E2E_PASSWORD`)

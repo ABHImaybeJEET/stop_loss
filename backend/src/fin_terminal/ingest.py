@@ -49,7 +49,8 @@ async def run(
                             "ingest_run_id": run_id,
                             "langsmith_run_id": str(trace_id) if client else None,
                         },
-                        config=run_config(run_id, trace_id, list(SOURCES), stream=stream),
+                        config=run_config(run_id, trace_id, list(SOURCES), stream=stream,
+                                          mode="live" if live else "stub"),
                     )
                 print(result["report"], flush=True)
                 cycles += 1
@@ -75,6 +76,7 @@ async def smoke_run(settings: Settings) -> None:
                 "checkpoint_path": root / "checkpoints.sqlite",
                 "database_path": root / "records.sqlite",
                 "evidence_path": root / "evidence.jsonl",
+                "dead_letter_path": root / "dead_letters.jsonl",
                 "stub_fail_source": "",
             }
         )

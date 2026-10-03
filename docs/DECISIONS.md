@@ -112,3 +112,58 @@ This document records key design choices, resolutions to ambiguous requirements,
 - **Execution Mode**: Live connectors are activated via `--live` or explicit configuration, with automatic fallback to safe `StubConnector` instances during smoke tests and offline test suites.
 
 
+
+---
+
+# Analysis Terminal (Checkpoints 3–5): ADR T01–T10
+
+## ADR T01: Scope: Real Data End-to-End, Ingestion Untouched (2026-10-03)
+- **Context**: The `/chat` terminal brief assumed a finished backend, but the repository only contained the ingestion pipeline (`stop_loss/agents`, `api`, `analytics` were README stubs). The owner directed that nothing be mocked and that the necessary backend pieces be added.
+- **Decision**: Add `stop_loss/analytics` (providers + quant), `stop_loss/agents` (LangGraph engine) and `stop_loss/api` (FastAPI) on top of the existing `fin_terminal` modules, reusing its settings, `SourceGuard` resilience, FRED connector, schemas and evidence log. `fin_terminal` ingestion code is unchanged. The brief's `NEXT_PUBLIC_USE_MOCK` mock stream was intentionally **not** built.
+
+## ADR T02: Yahoo Finance via httpx; Alpha Vantage for Sentiment Only
+- **Context**: `yfinance` requires pandas, whose compiled DLLs are blocked by Windows Application Control on the dev machine. Alpha Vantage's free tier allows ~25 calls/day.
+- **Decision**: Call the same public Yahoo endpoints yfinance wraps (`v8/finance/chart`, `v1/finance/search`, `v10/finance/quoteSummary` with cookie+crumb) through `GuardedHTTP` (token bucket, tenacity backoff, circuit breaker, TTL cache). Use Alpha Vantage `NEWS_SENTIMENT` only for US tickers (cached 30 min) and Google News RSS for broad headline coverage. When the market is closed, the 1D chart falls back to the last trading session.
+
+## ADR T03: Agent Topology and Streaming Protocol
+- **Decision**: `coordinator → {market, news, macro, weather} → quant → hedging → audit`. Nodes emit `agent_update` / `section` / `final` / `reply` / `error` events through LangGraph's custom stream (`get_stream_writer`). Each agent isolates its own failure; the run yields a partial result with `failed_agents`.
+- **Transport**: SSE with a monotonically increasing `seq`. Runs execute detached from the HTTP connection and buffer events (`RunRegistry`), so clients resume with `?after=<seq>`, re-attach after reload, or cancel explicitly. One active run per thread (409 otherwise).
+- **Gotcha**: `run_id` is reserved in LangGraph checkpoint metadata; putting it in `config.metadata` made follow-up runs on a thread silently no-op. We use `stoploss_run_id`.
+- **Memory**: `AsyncSqliteSaver` keyed `"{uid}:{thread_id}"`; per-run keys are reset on every input.
+
+## ADR T04: OpenAI for Reasoning, Deterministic Fallback
+- **Decision**: `langchain-openai` `ChatOpenAI` (`OPENAI_CHAT_MODEL`, default `gpt-4.1-mini`) with structured outputs for routing (analysis vs follow-up reply), headline sentiment, and narrative/suggestions. Without `OPENAI_API_KEY`, or if a call fails, routing is heuristic and the narrative is assembled from evidence-catalog entries only (`narrative_source: "rules"`, shown in the UI).
+
+## ADR T05: Weather Exposure and Extreme Thresholds
+- **Decision**: Forecast the company HQ (Yahoo profile city → Open-Meteo geocoding) plus the configured Gulf Coast hub for Energy-sector assets. Assets with no known facility report `not_applicable`. Extremes: gusts ≥ 90 km/h, rain ≥ 64.5 mm/day (IMD "heavy"), Tmax ≥ 40 °C, Tmin ≤ −15 °C, WMO codes 95/96/99.
+
+## ADR T06: Risk and Trust Scores
+- **Risk (0–100)**: weighted mean of available components: 1Y volatility (60% ann. = 100, w .25), 1Y max drawdown (−50% = 100, w .20), 1-day 95% historical VaR (5% = 100, w .20), |beta| (2.0 = 100, w .10), net headline sentiment (w .15), event exposure (20 per theme/weather/macro flag, w .10). It requires at least one price-based component; otherwise it is `null`. Bands: <25 Low, <50 Moderate, <75 High, else Severe.
+- **Trust (0–100)**: equal-weight mean of data coverage, freshness, source depth, sentiment/momentum agreement and the figure audit, with human-readable reasons.
+
+## ADR T07: Evidence Catalog and Figure Audit
+- **Decision**: Every citable figure gets an id (`E1…`) with source, URL and timestamp. Narratives must cite ids. The audit agent extracts every figure from generated text and matches it against evidence values (rounding tolerant). Unmatched figures are listed in the result, lower trust, and are flagged in the UI. The rules fallback passes the audit by construction (tested).
+
+## ADR T08: Frontend Contract Extensions
+- **Decision**: The normalized types in `frontend/lib/chat/types.ts` follow the brief, with these additions: `snapshot.facts` is an ordered list (stable display order); `riskScore`/`trustScore` are nullable (no fabricated numbers); `sources.items[].themes/sentimentSource`; `historical.metrics/seasonality`; `suggestions.items[].evidenceIds`; `evidence` and `audit` on the result; extra stream events `reply` (text follow-ups), `cancelled`, and `seq` on every event. `adapters/backendToUi.ts` is the only place that knows the snake_case wire format.
+
+## ADR T09: Threads, Auth and Proxying
+- **Decision**: The backend owns agent memory. The UI persists the message list in Firestore at `users/{uid}/threads/{threadId}/messages/{messageId}` with a localStorage cache, and `?thread=` restores it after refresh. Next.js route handlers verify the Firebase ID token (`jose`, Google securetoken JWKS) and forward `X-User-Id`, plus optional `X-Internal-Token`, to the backend, which must only listen on localhost or a private network.
+
+## ADR T10: `frontend/lib` Was Silently Untracked
+- **Context**: The root `.gitignore` rule `lib/` (Python build output) also matched `frontend/lib/`, so `firebase.ts`, `userProfile.ts` and `news.ts` were never committed and every page failed to build from a clean clone.
+- **Decision**: Re-include `frontend/lib/` and recreate the modules from their call sites. The landing news feed now reads only from the backend's `/news/feed`; the static fallback dataset was removed.
+
+## ADR T11: Local GPU Embeddings with bge-base-en-v1.5 (2026-10-03)
+- **Context**: No budget for paid embeddings; an RTX 4050 Laptop GPU (6 GB, driver 551.x, CUDA ≤ 12.4) is available. `sentence-transformers` pulls in scikit-learn, whose DLLs (like pandas') are blocked by Windows Application Control on the dev machine, and `transformers` imports scikit-learn whenever it is installed.
+- **Decision**: Use `BAAI/bge-base-en-v1.5` (768-d, cosine) run directly through `transformers` + `torch` 2.6 (cu124 wheels) in `TransformerEmbeddings`: CLS pooling, L2 normalization, fp16 on CUDA, and the BGE query instruction applied to queries only. The `local-embeddings` extra no longer includes sentence-transformers or langchain-huggingface. The model downloads from Hugging Face on first use.
+- **Measured on the RTX 4050 (fp16)**: bge-small 384-d ≈ 13.8k headlines/s, 7 ms single item; bge-base 768-d ≈ 4.7k headlines/s, 6 ms single item, 318 MB VRAM, with clearer relevance separation. The curated corpus is 330,887 records (< ~400k), which fits the Pinecone free tier at 768-d, so bge-base was chosen.
+- **Fallback**: Without torch/transformers, hashed features are used for wiring/tests only. The backfill refuses to index them.
+
+## ADR T12: Pinecone Index, Namespaces and Historical Backfill
+- **Decision**: One serverless index `stop-loss-records` (aws/us-east-1, cosine, 768-d), created by `stop-loss-vectors init`. `PINECONE_HOST` is optional (resolved from the index name). Namespaces: `fin-terminal` (live ingestion) and `history` (data/processed backfill).
+- **What is embedded**: stock_news (134,564), India headlines from 2015 onward that are finance-relevant (business category or finance/theme terms, 187,912), company profiles (1,654), one document per cyclone (2,781, aggregated from IBTrACS track points), and M6+ earthquakes (3,976). Price series (NSE, macro, corporate actions) are numeric and are not embedded.
+- **Metadata**: doc_type, dataset, title, text snippet (≤ 600 chars), published_ts/year (range filters), theme_tags, source_url, and type-specific fields (tickers, sector, impact_tier, magnitude, max wind, …). Nulls are dropped, never filled. Full documents stay in SQLite (`DocumentStore`).
+- **Backfill**: streaming CSV readers (no pandas) → dedupe by content_hash → GPU batch embedding → 8 concurrent upserts of 100 vectors with retry/backoff → mark stored → per-source line checkpoint (`data/backfill_progress.sqlite`). Vector components are rounded to 5 decimals on upload (fp16 precision), which halves the JSON payload. `stop-loss-vectors purge --yes` resets everything for a re-index.
+- **Cyclone documents (update)**: each storm text carries a deterministic region label (e.g. Gulf of Mexico, Bay of Bengal, South China Sea, from basin + peak position) and a Saffir-Simpson-*equivalent* intensity class from peak WMO wind. It's labelled "equivalent" because agencies use 1-min vs 10-min averaging. Both are also metadata (`region`, `intensity_category`) for structured filters. Dense ranking alone conflates near-identical templated event texts, so analog search should filter first and then rank.
+- **Data defect found**: `scripts/preprocess_data.py` (and the raw download) read IBTrACS with pandas defaults, which turn the North Atlantic basin code `"NA"` into NaN. All 470 Atlantic storms (the Gulf hurricanes) had a blank basin. The reader restores `NA` for blank basins: no other IBTrACS code collides with pandas' NA list, and 469/470 such storms start inside the North Atlantic box. The fix is recorded in each document's `transformations`. Recommended upstream fix: `read_csv(..., keep_default_na=False, na_values=[""])`.

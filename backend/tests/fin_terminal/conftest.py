@@ -24,6 +24,7 @@ def settings(tmp_path: Path) -> Settings:
         database_path=tmp_path / "records.sqlite",
         checkpoint_path=tmp_path / "checkpoints.sqlite",
         evidence_path=tmp_path / "evidence.jsonl",
+        dead_letter_path=tmp_path / "dead_letters.jsonl",
         langsmith_tracing=False,
         langsmith_api_key=None,
         source_rate_per_second=10000,

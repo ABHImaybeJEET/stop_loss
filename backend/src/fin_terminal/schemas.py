@@ -51,6 +51,10 @@ class Document(BaseModel):
     text: str | None = None
     fetch_latency_ms: float = Field(default=0, ge=0)
     process_latency_ms: float = Field(default=0, ge=0)
+    schema_version: Literal["1"] = "1"
+    raw_reference: str | None = None
+    transformations: list[str] = Field(default_factory=list)
+    language: str | None = None
 
     @field_validator("published_at", "observed_at", "fetched_at")
     @classmethod
@@ -81,6 +85,10 @@ class Document(BaseModel):
                 "data_quality",
                 "fetch_latency_ms",
                 "process_latency_ms",
+                "schema_version",
+                "raw_reference",
+                "transformations",
+                "language",
             },
         )
         digest = hashlib.sha256(
@@ -132,6 +140,10 @@ class StreamStatus(BaseModel):
     status: StreamHealth = "ok"
     records_fetched: int = Field(default=0, ge=0)
     records_normalized: int = Field(default=0, ge=0)
+    records_rejected: int = Field(default=0, ge=0)
+    records_dropped: int = Field(default=0, ge=0)
+    availability: Literal["available", "stale", "unavailable"] = "unavailable"
+    last_successful_update: AwareDatetime | None = None
     fetch_latency_ms: float = Field(default=0, ge=0)
     message: str | None = None
     checked_at: AwareDatetime = Field(default_factory=utcnow)

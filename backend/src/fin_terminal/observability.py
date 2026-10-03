@@ -58,19 +58,28 @@ def tracing_client(settings: Settings) -> Client | None:
 
 
 def run_config(
-    ingest_run_id: str, trace_id: UUID, sources: list[str], *, stream: bool = False
+    ingest_run_id: str,
+    trace_id: UUID,
+    sources: list[str],
+    *,
+    stream: bool = False,
+    mode: str = "stub",
+    agent: str = "ingestion",
 ) -> RunnableConfig:
     return {
         "run_name": "fin-terminal-ingestion",
         "run_id": trace_id,
         "tags": [
             "ingestion",
+            f"agent:{agent}",
+            *[f"stream:{s}" for s in sources],
             *[f"source:{s}" for s in sources],
             *[f"theme:{theme.value}" for theme in Theme],
         ],
         "metadata": {
             "ingest_run_id": ingest_run_id,
-            "mode": "stub",
+            "mode": mode,
+            "agent_name": agent,
             "execution_mode": "stream" if stream else "once",
         },
         "configurable": {"thread_id": ingest_run_id},
@@ -78,7 +87,9 @@ def run_config(
 
 
 @traceable(name="ingestion-report", run_type="tool")
-def render_report(statuses: dict[str, dict[str, JsonValue]], indexed: int, duplicates: int) -> str:
+def render_report(
+    statuses: dict[str, dict[str, JsonValue]], indexed: int, duplicates: int, *, mode: str = "stub"
+) -> str:
     rows = ["SOURCE               STATUS         FETCHED  NORMALIZED"]
     for source, payload in sorted(statuses.items()):
         status = StreamStatus.model_validate(payload)
@@ -86,7 +97,7 @@ def render_report(statuses: dict[str, dict[str, JsonValue]], indexed: int, dupli
             f"{source:<20} {status.status:<14} "
             f"{status.records_fetched:>7}  {status.records_normalized:>10}"
         )
-    rows.append(f"Indexed: {indexed}; duplicates skipped: {duplicates}; mode: stub")
+    rows.append(f"Indexed: {indexed}; duplicates skipped: {duplicates}; mode: {mode}")
     return "\n".join(rows)
 
 

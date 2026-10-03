@@ -1,18 +1,14 @@
-"""FRED (Federal Reserve Economic Data) async connector for macroeconomic series."""
-
-import logging
-from datetime import UTC, datetime
+from datetime import datetime
 
 import httpx
 from pydantic import JsonValue
 
-from fin_terminal.connectors.base import AsyncConnector
-from fin_terminal.resilience import RateLimitedError
-from fin_terminal.schemas import Document, MacroIndicator, StreamStatus
+from fin_terminal.connectors.alphavantage import optional_number
+from fin_terminal.connectors.errors import ConnectorError
+from fin_terminal.connectors.http import HTTPConnector
+from fin_terminal.schemas import Document, MacroIndicator, utcnow
 
-logger = logging.getLogger("fin_terminal")
-
-SERIES_UNITS: dict[str, str] = {
+SERIES_UNITS = {
     "DCOILWTICO": "USD/bbl",
     "CPIAUCSL": "Index 1982-1984=100",
     "FEDFUNDS": "Percent",
@@ -20,8 +16,8 @@ SERIES_UNITS: dict[str, str] = {
 }
 
 
-class FredMacroConnector(AsyncConnector):
-    """Fetches macroeconomic indicators via Federal Reserve Economic Data (FRED) API."""
+class FredMacroConnector(HTTPConnector):
+    provider = "fred"
 
     def __init__(
         self,
@@ -32,90 +28,58 @@ class FredMacroConnector(AsyncConnector):
         limit: int = 5,
         timeout: float = 15.0,
     ) -> None:
-        self.api_key = api_key
-        self.series = series or ["DCOILWTICO", "CPIAUCSL", "FEDFUNDS"]
-        self.limit = limit
-        self._client = client
-        self.timeout = timeout
+        self.api_key, self._client, self.timeout = api_key, client, timeout
+        self.series, self.limit = series if series is not None else [], limit
 
     @property
     def source(self) -> str:
         return "macro"
 
-    async def _get_client(self) -> httpx.AsyncClient:
-        if self._client is not None:
-            return self._client
-        return httpx.AsyncClient(timeout=self.timeout)
-
     async def fetch(self) -> list[JsonValue]:
         results: list[JsonValue] = []
-        client = await self._get_client()
-        should_close = self._client is None
-        try:
-            for sid in self.series:
-                url = (
-                    f"https://api.stlouisfed.org/fred/series/observations?"
-                    f"series_id={sid}&api_key={self.api_key}&file_type=json&sort_order=desc&limit={self.limit}"
-                )
-                response = await client.get(url)
-                if response.status_code == 429:
-                    raise RateLimitedError("FRED API rate limited (HTTP 429)")
-                response.raise_for_status()
-                data = response.json()
-                results.append({"series_id": sid, "observations": data.get("observations", [])})
-        finally:
-            if should_close:
-                await client.aclose()
+        for sid in self.series:
+            data = await self.request_json(
+                "https://api.stlouisfed.org/fred/series/observations",
+                {
+                    "series_id": sid,
+                    "api_key": self.api_key,
+                    "file_type": "json",
+                    "sort_order": "desc",
+                    "limit": self.limit,
+                },
+            )
+            if not isinstance(data.get("observations"), list):
+                raise ConnectorError("unavailable_observations")
+            results.extend(
+                {"series_id": sid, "observations": [obs]} for obs in data["observations"]
+            )
         return results
 
     async def normalize(self, raw: list[JsonValue]) -> list[Document]:
         records: list[Document] = []
         for batch in raw:
-            if not isinstance(batch, dict):
-                continue
-            series_id = batch.get("series_id")
-            observations = batch.get("observations", [])
-            unit = SERIES_UNITS.get(str(series_id), "units")
-
-            for obs in observations:
+            if not isinstance(batch, dict) or not batch.get("series_id"):
+                raise ConnectorError("missing_series")
+            sid = str(batch["series_id"])
+            for obs in batch.get("observations", []):
                 if not isinstance(obs, dict):
-                    continue
-                raw_val = obs.get("value")
-                # Zero-fabrication: FRED returns "." for missing or holiday data points
-                value: float | None = None
-                if raw_val is not None and raw_val != ".":
-                    try:
-                        value = float(raw_val)
-                    except (ValueError, TypeError):
-                        value = None
-
-                date_str = obs.get("date")
-                observed_at: datetime | None = None
-                if date_str:
-                    try:
-                        observed_at = datetime.fromisoformat(f"{date_str}T00:00:00+00:00")
-                    except ValueError:
-                        observed_at = None
-
-                record = MacroIndicator(
-                    kind="macro",
-                    source="macro",
-                    provider="fred",
-                    series_id=str(series_id),
-                    value=value,
-                    unit=unit,
-                    observed_at=observed_at,
-                    source_url=f"https://fred.stlouisfed.org/series/{series_id}",
-                    text=f"FRED macro observation {series_id}: {value} {unit} on {date_str}",
-                    fetched_at=datetime.now(UTC),
-                    ingest_run_id="init",
+                    raise ConnectorError("invalid_observation")
+                date = obs.get("date")
+                value = optional_number(obs.get("value"))
+                records.append(
+                    MacroIndicator(
+                        source=self.source,
+                        provider=self.provider,
+                        series_id=sid,
+                        value=value,
+                        unit=SERIES_UNITS.get(sid),
+                        observed_at=datetime.fromisoformat(f"{date}T00:00:00+00:00")
+                        if date
+                        else None,
+                        source_url=f"https://fred.stlouisfed.org/series/{sid}",
+                        text=f"FRED {sid}: {value} on {date}",
+                        fetched_at=utcnow(),
+                        ingest_run_id="pending",
+                    )
                 )
-                records.append(record)
         return records
-
-    async def health(self) -> StreamStatus:
-        return StreamStatus(
-            source=self.source,
-            status="ok",
-            message=f"FRED macro feed active for {','.join(self.series)}",
-        )

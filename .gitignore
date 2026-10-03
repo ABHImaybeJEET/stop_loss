@@ -26,6 +26,7 @@ downloads/
 eggs/
 .eggs/
 lib/
+!frontend/lib/
 lib64/
 parts/
 sdist/
@@ -51,6 +52,7 @@ htmlcov/
 *.db-wal
 *.db-shm
 **/data/evidence.jsonl
+**/data/dead_letters.jsonl
 
 # Data directories (preserve .gitkeep)
 data/raw/*

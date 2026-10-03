@@ -17,9 +17,46 @@
   }
 }
 
-/* Custom sharp focus ring utilities for clean minimalist inputs */
-input:focus, button:focus, a:focus {
+/* Hide the ring for pointer focus only; keyboard users always get a visible ring. */
+input:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible) {
   outline: none;
+}
+:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 2px;
+}
+
+/* Tabular figures for every number in the terminal */
+.num {
+  font-family: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes sl-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+.sl-pulse {
+  animation: sl-pulse 1.2s ease-in-out infinite;
+}
+@keyframes sl-scan {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(300%); }
+}
+.sl-scan {
+  animation: sl-scan 1.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sl-pulse, .sl-scan, .animate-pulse, .animate-spin {
+    animation: none !important;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Hide scrollbar utility for clean side-scrolling cards */

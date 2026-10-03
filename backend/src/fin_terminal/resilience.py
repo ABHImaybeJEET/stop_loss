@@ -9,6 +9,7 @@ import httpx
 from tenacity import AsyncRetrying, retry_if_exception, stop_after_attempt, wait_random_exponential
 
 from fin_terminal.config import Settings
+from fin_terminal.connectors.errors import ConnectorError
 
 T = TypeVar("T")
 
@@ -106,7 +107,9 @@ class TTLCache(Generic[T]):
 
 def is_transient(exc: BaseException) -> bool:
     return (
-        isinstance(exc, (RateLimitedError, httpx.TransportError, TimeoutError))
+        isinstance(exc, ConnectorError)
+        and exc.retryable
+        or isinstance(exc, (RateLimitedError, httpx.TransportError, TimeoutError))
         or isinstance(exc, httpx.HTTPStatusError)
         and (exc.response.status_code == 429 or exc.response.status_code >= 500)
     )
@@ -121,6 +124,7 @@ class SourceGuard:
         self.attempts = settings.retry_attempts
         self.max_wait = settings.retry_max_wait_seconds
         self.timeout = settings.http_timeout_seconds
+        self.semaphore = asyncio.Semaphore(settings.connector_policy("default").concurrency)
 
     async def call(self, operation: Callable[[], Awaitable[T]]) -> T:
         self.breaker.check()
@@ -134,7 +138,8 @@ class SourceGuard:
                 with attempt:
                     await self.bucket.acquire()
                     async with asyncio.timeout(self.timeout):
-                        result = await operation()
+                        async with self.semaphore:
+                            result = await operation()
                     self.breaker.success()
                     return result
         except asyncio.CancelledError:
