@@ -1,0 +1,8 @@
+{
+  "description": "Synthetic HTTP contract fixtures, not recordings of a live deployment.",
+  "weaviate_schema": {"class": "FinancialDocument", "vectorizer": "none"},
+  "weaviate_missing": {"error": [{"message": "not found"}]},
+  "weaviate_object": {"class": "FinancialDocument"},
+  "pinecone_upsert": {"upsertedCount": 1},
+  "pinecone_stats": {"dimension": 2, "totalVectorCount": 1}
+}
