@@ -2,6 +2,9 @@
 .env
 .env.local
 
+# Node
+node_modules/
+
 # Virtual environments
 .venv/
 .venv-scaffold/

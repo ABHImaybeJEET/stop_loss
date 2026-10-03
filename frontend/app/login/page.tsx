@@ -12,13 +12,14 @@ export default function LoginPage() {
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState<boolean>(false);
 
-  // Redirect to dashboard if user is already authenticated
+  // Redirect to homepage if user is already authenticated
   useEffect(() => {
     if (!loading && user) {
-      router.push("/dashboard");
+      router.push("/");
     }
   }, [user, loading, router]);
 
@@ -27,13 +28,24 @@ export default function LoginPage() {
     setError(null);
 
     if (!email || !password) {
-      setError("Please fill in both email and password.");
+      setError("Please fill in all required fields.");
       return;
     }
 
     if (password.length < 6) {
       setError("Password must be at least 6 characters long.");
       return;
+    }
+
+    if (isSignUp) {
+      if (!confirmPassword) {
+        setError("Please confirm your password.");
+        return;
+      }
+      if (password !== confirmPassword) {
+        setError("Passwords do not match.");
+        return;
+      }
     }
 
     setSubmitting(true);
@@ -43,7 +55,7 @@ export default function LoginPage() {
       } else {
         await signInWithEmail(email, password);
       }
-      router.push("/dashboard");
+      router.push("/");
     } catch (err: any) {
       console.error("Auth error:", err);
       let msg = err?.message || "Authentication failed. Please check your credentials.";
@@ -65,7 +77,7 @@ export default function LoginPage() {
     setSubmitting(true);
     try {
       await signInWithGoogle();
-      router.push("/dashboard");
+      router.push("/");
     } catch (err: any) {
       console.error("Google Auth error:", err);
       let msg = err?.message || "Google sign-in failed. Please try again.";
@@ -92,7 +104,7 @@ export default function LoginPage() {
       <header className="w-full bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
         <Link href="/" className="flex items-center space-x-2 text-sm font-semibold text-gray-900">
           <span className="w-2.5 h-2.5 bg-black inline-block"></span>
-          <span className="uppercase tracking-tight">StopLoss Terminal</span>
+          <span className="uppercase tracking-tight">StopLoss</span>
         </Link>
         <Link href="/" className="text-xs font-mono text-gray-500 hover:text-gray-900">
           &larr; BACK TO HOME
@@ -151,6 +163,23 @@ export default function LoginPage() {
               />
             </div>
 
+            {/* Confirm Password field when creating an account */}
+            {isSignUp && (
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-gray-700 mb-1.5">
+                  Confirm Password
+                </label>
+                <input
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="••••••••"
+                  required={isSignUp}
+                  className="w-full border border-gray-300 rounded-none px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 bg-white focus:outline-none focus:border-black transition-colors"
+                />
+              </div>
+            )}
+
             <button
               type="submit"
               disabled={submitting}
@@ -208,6 +237,7 @@ export default function LoginPage() {
               type="button"
               onClick={() => {
                 setIsSignUp(!isSignUp);
+                setConfirmPassword("");
                 setError(null);
               }}
               className="text-xs text-gray-600 hover:text-black font-mono underline uppercase"

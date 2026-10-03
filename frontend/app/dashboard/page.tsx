@@ -30,18 +30,21 @@ export default function DashboardPage() {
       <header className="w-full border-b border-gray-200 bg-white px-6 py-4 flex justify-between items-center">
         <Link href="/" className="flex items-center space-x-2 text-sm font-semibold text-gray-900">
           <span className="w-2.5 h-2.5 bg-black inline-block"></span>
-          <span className="uppercase tracking-tight">StopLoss Terminal</span>
+          <span className="uppercase tracking-tight">StopLoss</span>
         </Link>
-        <div className="flex items-center space-x-6">
-          <span className="text-xs font-mono text-gray-600">
-            USER: <span className="font-semibold text-gray-900">{user.email || user.uid}</span>
-          </span>
+        <div className="flex items-center space-x-4">
+          <Link
+            href="/dashboard"
+            className="bg-black text-white px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider hover:bg-gray-800 transition-colors rounded-none"
+          >
+            DASHBOARD
+          </Link>
           <button
             onClick={async () => {
               await logout();
               router.push("/login");
             }}
-            className="bg-white text-gray-900 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider border border-gray-300 hover:border-black transition-colors rounded-none"
+            className="bg-white text-gray-900 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider border border-gray-300 hover:border-black transition-colors rounded-none"
           >
             SIGN OUT
           </button>
