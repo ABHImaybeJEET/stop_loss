@@ -42,7 +42,7 @@ function OnboardingContent() {
     };
 
     await saveUserProfile(profile, user?.uid || user?.email);
-    router.push("/dashboard");
+    router.push("/chat");
   };
 
   return (
@@ -145,7 +145,7 @@ function OnboardingContent() {
             <div className="pt-4 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4">
               <button
                 type="button"
-                onClick={() => router.push("/dashboard")}
+                onClick={() => router.push("/chat")}
                 className="text-xs font-mono text-gray-500 hover:text-black uppercase tracking-wider"
               >
                 Skip for now &rarr;

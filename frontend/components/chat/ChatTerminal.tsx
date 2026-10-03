@@ -7,6 +7,7 @@ import { Menu } from "lucide-react";
 import Composer from "@/components/chat/Composer";
 import MessageList from "@/components/chat/MessageList";
 import ThreadSidebar from "@/components/chat/ThreadSidebar";
+import { PortfolioButton } from "@/components/portfolio/PortfolioDialog";
 import StopLossLogo from "@/components/StopLossLogo";
 import { useAuth } from "@/context/AuthContext";
 import { useChatStream } from "@/lib/chat/useChatStream";
@@ -170,6 +171,7 @@ export default function ChatTerminal() {
           </Link>
         </div>
         <nav className="flex items-center gap-2 sm:gap-3">
+          <PortfolioButton />
           <Link href="/dashboard" className="px-2 py-1 text-xs font-semibold uppercase tracking-wider text-muted hover:text-ink">
             Dashboard
           </Link>

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
+import { PortfolioProvider } from "@/context/PortfolioContext";
+import PortfolioDialog from "@/components/portfolio/PortfolioDialog";
 
 export const metadata: Metadata = {
   title: "Financial Intelligence Terminal",
@@ -15,7 +17,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full bg-white">
       <body className="h-full bg-white text-gray-900 antialiased selection:bg-gray-200">
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <PortfolioProvider>
+            {children}
+            <PortfolioDialog />
+          </PortfolioProvider>
+        </AuthProvider>
       </body>
     </html>
   );
