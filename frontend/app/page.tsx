@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { useAuth } from "@/context/AuthContext";
 import NewsSection from "@/components/NewsSection";
 import GlobalInflationMap from "@/components/GlobalInflationMap";
+import StopLossLogo from "@/components/StopLossLogo";
 
 const FaultyTerminal = dynamic(() => import("@/components/FaultyTerminal"), {
   ssr: false,
@@ -41,19 +42,18 @@ export default function EntryPage() {
         {/* Top Header Bar */}
         <header className="w-full border-b border-gray-200 bg-white/90 backdrop-blur-sm px-6 py-4 max-w-6xl mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-3">
-            <span className="w-2.5 h-2.5 bg-black inline-block"></span>
-            <span className="font-semibold text-sm tracking-tight text-gray-900 uppercase">
-              StopLoss
-            </span>
+            <Link href="/" className="flex items-center text-gray-900">
+              <StopLossLogo height={32} />
+            </Link>
           </div>
           <nav className="flex items-center space-x-4 text-sm">
             {user ? (
               <>
                 <Link
-                  href="/dashboard"
+                  href="/chat"
                   className="bg-black text-white px-4 py-2 text-xs font-semibold uppercase tracking-wider hover:bg-gray-800 transition-colors"
                 >
-                  Dashboard &rarr;
+                  Terminal &rarr;
                 </Link>
                 <button
                   onClick={() => logout()}
@@ -85,7 +85,7 @@ export default function EntryPage() {
 
           <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
             <Link
-              href={user ? "/dashboard" : "/login"}
+              href={user ? "/chat" : "/login"}
               className="w-full sm:w-auto bg-black text-white px-8 py-3.5 text-xs font-semibold uppercase tracking-wider border border-black hover:bg-gray-800 transition-colors shadow-none rounded-none"
             >
               {user ? "Access Terminal" : "Log In"}

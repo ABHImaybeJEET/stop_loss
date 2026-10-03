@@ -4,6 +4,9 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
+import StopLossLogo from "@/components/StopLossLogo";
+
+import { hasCompletedOnboarding } from "@/lib/userProfile";
 
 export default function LoginPage() {
   const { user, loading, signInWithEmail, signUpWithEmail, signInWithGoogle } = useAuth();
@@ -16,10 +19,14 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState<boolean>(false);
 
-  // Redirect to homepage if user is already authenticated
+  // Redirect if user is already authenticated
   useEffect(() => {
     if (!loading && user) {
-      router.push("/");
+      if (!hasCompletedOnboarding(user.uid || user.email)) {
+        router.push("/onboarding");
+      } else {
+        router.push("/dashboard");
+      }
     }
   }, [user, loading, router]);
 
@@ -52,10 +59,15 @@ export default function LoginPage() {
     try {
       if (isSignUp) {
         await signUpWithEmail(email, password);
+        router.push("/onboarding");
       } else {
         await signInWithEmail(email, password);
+        if (!hasCompletedOnboarding(email)) {
+          router.push("/onboarding");
+        } else {
+          router.push("/dashboard");
+        }
       }
-      router.push("/");
     } catch (err: any) {
       console.error("Auth error:", err);
       let msg = err?.message || "Authentication failed. Please check your credentials.";
@@ -77,7 +89,7 @@ export default function LoginPage() {
     setSubmitting(true);
     try {
       await signInWithGoogle();
-      router.push("/");
+      router.push("/onboarding");
     } catch (err: any) {
       console.error("Google Auth error:", err);
       let msg = err?.message || "Google sign-in failed. Please try again.";
@@ -102,9 +114,8 @@ export default function LoginPage() {
     <div className="min-h-screen bg-gray-50 flex flex-col justify-between font-sans">
       {/* Top Header */}
       <header className="w-full bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
-        <Link href="/" className="flex items-center space-x-2 text-sm font-semibold text-gray-900">
-          <span className="w-2.5 h-2.5 bg-black inline-block"></span>
-          <span className="uppercase tracking-tight">StopLoss</span>
+        <Link href="/" className="flex items-center text-gray-900">
+          <StopLossLogo height={30} />
         </Link>
         <Link href="/" className="text-xs font-mono text-gray-500 hover:text-gray-900">
           &larr; BACK TO HOME

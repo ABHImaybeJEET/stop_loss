@@ -21,6 +21,8 @@ import {
   Globe2,
   TrendingDown,
   Layers,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 if (typeof window !== "undefined") {
@@ -170,7 +172,7 @@ function NewsSectionBlock({
   return (
     <div ref={blockRef} className="mb-24 last:mb-0">
       {/* Sub-section Header */}
-      <div ref={headerRef} className="mb-8 border-b border-[#EAEAEA] pb-5 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div ref={headerRef} className="mb-8 border-b border-[#EAEAEA] pb-5 flex flex-row items-end justify-between gap-4">
         <div>
           <div className="inline-flex items-center space-x-2 bg-[#F7F6F3] border border-[#EAEAEA] px-3 py-1 rounded-full text-xs font-mono text-[#111111] font-semibold mb-3">
             {badgeIcon}
@@ -183,6 +185,27 @@ function NewsSectionBlock({
             {sectionSubtitle}
           </p>
         </div>
+
+        {showTickers && (
+          <div className="flex items-center space-x-1.5 shrink-0 mb-1">
+            <button
+              onClick={() => tickerRef.current?.scrollBy({ left: -260, behavior: "smooth" })}
+              className="w-7 h-7 rounded border border-[#EAEAEA] bg-white text-[#111111] hover:border-black hover:bg-black hover:text-white transition-colors flex items-center justify-center shadow-xs cursor-pointer"
+              aria-label="Scroll Left"
+              title="Scroll Left"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => tickerRef.current?.scrollBy({ left: 260, behavior: "smooth" })}
+              className="w-7 h-7 rounded border border-[#EAEAEA] bg-white text-[#111111] hover:border-black hover:bg-black hover:text-white transition-colors flex items-center justify-center shadow-xs cursor-pointer"
+              aria-label="Scroll Right"
+              title="Scroll Right"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Single Row Horizontally Scrollable Stock Ticker Banner */}
@@ -190,7 +213,7 @@ function NewsSectionBlock({
         <div className="relative mb-8">
           <div
             ref={tickerRef}
-            className="flex items-stretch space-x-3.5 overflow-x-auto pb-4 pt-1 no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden snap-x select-none border-b border-[#F7F6F3]"
+            className="flex items-stretch space-x-3.5 overflow-x-auto pb-4 pt-1 no-scrollbar scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden snap-x select-none border-b border-[#F7F6F3]"
           >
             {validArticles.map((stock) => (
               <a
@@ -338,18 +361,28 @@ export default function NewsSection() {
   const mainSectionRef = useRef<HTMLElement>(null);
   const mainHeaderRef = useRef<HTMLDivElement>(null);
 
+  const [isApiLoading, setIsApiLoading] = useState<boolean>(true);
+  const [isUsingFallback, setIsUsingFallback] = useState<boolean>(false);
+
   useEffect(() => {
     async function loadNews() {
+      setIsApiLoading(true);
       try {
         const res = await fetch("/api/news");
         if (res.ok) {
           const json = await res.json();
           if (json.topStories && json.topStories.length > 0) {
             setData(json);
+            setIsUsingFallback(false);
           }
+        } else {
+          setIsUsingFallback(true);
         }
       } catch (err) {
-        console.warn("Using default dataset fallback:", err);
+        console.warn("Using verified dataset fallback:", err);
+        setIsUsingFallback(true);
+      } finally {
+        setIsApiLoading(false);
       }
     }
 
@@ -434,17 +467,37 @@ export default function NewsSection() {
     >
       <div className="max-w-6xl mx-auto">
         {/* Main Title Section */}
-        <div ref={mainHeaderRef} className="mb-14 border-b border-[#EAEAEA] pb-6">
-          <div className="inline-flex items-center space-x-2 bg-[#111111] text-white px-3 py-1 rounded text-xs font-mono uppercase tracking-widest font-semibold mb-3">
-            <Layers className="w-3.5 h-3.5" />
-            <span>Financial Intelligence Feed</span>
+        <div ref={mainHeaderRef} className="mb-14 border-b border-[#EAEAEA] pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <div className="inline-flex items-center space-x-2 bg-[#111111] text-white px-3 py-1 rounded text-xs font-mono uppercase tracking-widest font-semibold mb-3">
+              <Layers className="w-3.5 h-3.5" />
+              <span>Financial Intelligence Feed</span>
+            </div>
+            <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-[#111111]">
+              Market Intelligence
+            </h2>
+            <p className="text-xs md:text-sm text-[#787774] mt-1.5 max-w-2xl leading-relaxed">
+              Real-time verified feeds tracking macro economic shocks, energy disruptions, and Indian equity prices.
+            </p>
           </div>
-          <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-[#111111]">
-            Market Intelligence
-          </h2>
-          <p className="text-xs md:text-sm text-[#787774] mt-1.5 max-w-2xl leading-relaxed">
-            Real-time verified feeds tracking macro economic shocks, energy disruptions, and Indian equity prices.
-          </p>
+
+          <div className="flex items-center space-x-2 font-mono text-xs">
+            {isApiLoading ? (
+              <span className="inline-flex items-center space-x-1.5 bg-gray-100 border border-gray-200 text-gray-600 px-2.5 py-1 rounded">
+                <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+                <span>SYNCING FEED...</span>
+              </span>
+            ) : isUsingFallback ? (
+              <span className="inline-flex items-center space-x-1.5 bg-amber-50 border border-amber-200 text-amber-800 px-2.5 py-1 rounded">
+                <span>VERIFIED OFFLINE DATASET</span>
+              </span>
+            ) : (
+              <span className="inline-flex items-center space-x-1.5 bg-emerald-50 border border-emerald-200 text-emerald-800 px-2.5 py-1 rounded">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>LIVE STREAM ACTIVE</span>
+              </span>
+            )}
+          </div>
         </div>
 
         {/* Vertical Section 1: Top Stories */}
