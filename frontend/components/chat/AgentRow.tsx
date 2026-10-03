@@ -10,6 +10,7 @@ import {
   Sigma,
   Workflow,
   X,
+  History,
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/components/ui/primitives";
@@ -21,6 +22,7 @@ const ICONS: Record<string, LucideIcon> = {
   market: CandlestickChart,
   news: Newspaper,
   impact: Globe,
+  analogs: History,
   quant: Sigma,
   hedging: Shield,
   audit: ShieldCheck,

@@ -23,6 +23,7 @@ from stop_loss.analytics.macro import MacroClient
 from stop_loss.analytics.news import NewsClient
 from stop_loss.analytics.weather import WeatherClient
 from stop_loss.analytics.yahoo import YahooFinanceClient
+from stop_loss.retrieval.search import HistoricalRetriever
 from stop_loss.settings import TerminalSettings
 
 
@@ -50,6 +51,7 @@ class AnalysisService:
             macro=macro or MacroClient(settings, yahoo_client),
             weather=weather or WeatherClient(settings),
             hazards=hazards or HazardClient(settings),
+            retriever=self._build_retriever(settings),
             llm=llm,
             agent_models=models,
             evidence_log=EvidenceLog(settings.evidence_path),
@@ -138,3 +140,24 @@ class AnalysisService:
         if self.kit.hazards is not None:
             await self.kit.hazards.aclose()
         await self._stack.aclose()
+
+    def _build_retriever(self, settings: TerminalSettings) -> HistoricalRetriever | None:
+        try:
+            from fin_terminal.config import secret_value
+            from fin_terminal.vectorstore.pinecone import PineconeVectorAdapter
+            from fin_terminal.vectorstore.factory import create_vectorstore
+            from fin_terminal.embeddings.factory import create_embeddings
+            
+            if not secret_value(settings.pinecone_api_key):
+                return None
+                
+            adapter = create_vectorstore(settings)
+            if not isinstance(adapter, PineconeVectorAdapter):
+                return None
+                
+            embedder = create_embeddings(settings)
+            return HistoricalRetriever(embedder, adapter, settings.pinecone_namespace)
+        except Exception as exc:
+            import logging
+            logging.getLogger("stop_loss.agents").warning("Failed to init HistoricalRetriever: %s", exc)
+            return None

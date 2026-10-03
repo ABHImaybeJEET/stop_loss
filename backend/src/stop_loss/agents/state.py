@@ -11,6 +11,7 @@ PER_RUN_KEYS = (
     "news",
     "macro",
     "weather",
+    "analogs",
     "quant",
     "narrative",
     "result",
@@ -41,6 +42,7 @@ class AnalysisState(TypedDict, total=False):
     news: AgentOutput | None
     macro: AgentOutput | None
     weather: AgentOutput | None
+    analogs: AgentOutput | None
     quant: AgentOutput | None
     narrative: dict[str, Any] | None
     result: dict[str, Any] | None

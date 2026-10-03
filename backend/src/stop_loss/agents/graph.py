@@ -8,7 +8,7 @@ from langgraph.graph.state import CompiledStateGraph
 from stop_loss.agents.nodes import Toolkit, build_nodes
 from stop_loss.agents.state import AnalysisState
 
-FAN_OUT = ("market", "news", "impact")
+FAN_OUT = ("market", "news", "impact", "analogs")
 
 
 def build_analysis_graph(

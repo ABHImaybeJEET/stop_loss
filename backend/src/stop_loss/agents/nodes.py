@@ -67,6 +67,7 @@ from stop_loss.settings import TerminalSettings
 from stop_loss.universe import get_universe
 from stop_loss.analytics.exposure import exposure_points
 from stop_loss.analytics.hazards import near
+from stop_loss.retrieval.search import HistoricalRetriever
 
 logger = logging.getLogger("stop_loss.agents")
 NAME_SUFFIX = re.compile(
@@ -88,6 +89,7 @@ class Toolkit:
     evidence_log: EvidenceLog
     agent_models: dict[AgentId, BaseChatModel | None] = field(default_factory=dict)
     hazards: HazardClient | None = None
+    retriever: HistoricalRetriever | None = None
 
     def model_for(self, agent: AgentId) -> BaseChatModel | None:
         return self.agent_models.get(agent) if self.agent_models else self.llm
@@ -362,6 +364,57 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
             rep.error("Failed to fetch weather/hazards")
 
         return {"macro": macro_out, "weather": weather_out}
+
+    async def analogs(state: AnalysisState) -> dict[str, Any]:
+        rep = AgentReporter("analogs")
+        asset_ref = AssetRef.model_validate(state["asset"])
+        sym = asset_ref.symbol
+        
+        if not kit.retriever:
+            rep.error("Retrieval backend not configured")
+            return {"analogs": {"status": "unavailable", "error": "not_configured"}}
+            
+        try:
+            rep.start("Searching historical analogs")
+            from stop_loss.analytics.analogs import measure_forward_returns
+            
+            news_out = _ok(state.get("news"))
+            news_items = [NewsItem.model_validate(n) for n in (news_out or [])]
+            
+            query_terms = [asset_ref.name]
+            themes = set()
+            for n in news_items:
+                themes.update(n.themes)
+            if themes:
+                query_terms.extend(themes)
+                
+            query = " ".join(query_terms)
+            
+            hits = await kit.retriever.search(query, top_k=5)
+            nse_dir = kit.settings.data_path / "processed" / "nse_historical"
+            
+            results = []
+            for hit in hits:
+                date_str = str(hit.metadata.get("published_at", ""))
+                fwd = measure_forward_returns(sym, date_str, nse_dir) if date_str else {"forward_5d": None, "forward_20d": None}
+                results.append({
+                    "id": hit.id,
+                    "title": hit.metadata.get("title") or str(hit.metadata.get("text", ""))[:100],
+                    "published_at": date_str,
+                    "score": hit.score,
+                    "themes": hit.metadata.get("theme_tags", []),
+                    "forward_5d": fwd.get("forward_5d"),
+                    "forward_20d": fwd.get("forward_20d")
+                })
+            
+            rep.done(f"Found {len(results)} historical analogs")
+            kit.log(state, "analogs", "search_done", hits=len(results))
+            return {"analogs": {"status": "ok", "data": results}}
+            
+        except Exception as exc:
+            rep.error("Analog search failed")
+            kit.log(state, "analogs", "search_error", error=short_error(exc))
+            return {"analogs": {"status": "unavailable", "error": short_error(exc)}}
 
     async def quant(state: AnalysisState) -> dict[str, Any]:
         rep = AgentReporter("quant")
@@ -659,6 +712,7 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
         "market": market,
         "news": news,
         "impact": impact,
+        "analogs": analogs,
         "quant": quant,
         "hedging": hedging,
         "audit": audit,

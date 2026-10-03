@@ -30,6 +30,7 @@ const AGENT_NAMES: Record<string, string> = {
   market: "Market Data",
   news: "News Sentiment",
   impact: "Weather & Macro Impact",
+  analogs: "Historical Analogs",
   quant: "Quant Risk",
 };
 
