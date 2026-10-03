@@ -1,0 +1,48 @@
+[project]
+name = "stop-loss"
+version = "0.1.0"
+description = "StopLoss Intelligence - AI financial intelligence terminal combining environmental, macroeconomic, and market risk analysis"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    { name = "StopLoss Intelligence Team" }
+]
+dependencies = [
+    "pydantic>=2.6.0",
+    "pydantic-settings>=2.2.0",
+]
+
+[project.scripts]
+stop-loss = "stop_loss.__main__:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+    "ruff>=0.4.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "UP",  # pyupgrade
+]
+ignore = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
