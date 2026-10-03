@@ -3,7 +3,7 @@
 from pathlib import Path
 from typing import Literal
 
-from pydantic import Field, SecretStr
+from pydantic import AliasChoices, Field, SecretStr
 
 from stop_loss.config import Settings as LegacySettings
 
@@ -16,7 +16,10 @@ class Settings(LegacySettings):
     langsmith_tracing: bool = True
     langsmith_workspace_id: str | None = None
     langsmith_endpoint: str = "https://api.smith.langchain.com"
-    alpha_vantage_api_key: SecretStr | None = None
+    alpha_vantage_api_key: SecretStr | None = Field(
+        default=None,
+        validation_alias=AliasChoices("alpha_vantage_api_key", "alphavantage_api_key"),
+    )
     fred_api_key: SecretStr | None = None
     polygon_api_key: SecretStr | None = None
     openai_api_key: SecretStr | None = None
@@ -41,5 +44,9 @@ class Settings(LegacySettings):
     processing_concurrency: int = Field(default=8, ge=1, le=64)
 
 
-def secret_value(value: SecretStr | None) -> str | None:
-    return value.get_secret_value() if value and value.get_secret_value() else None
+def secret_value(value: SecretStr | str | None) -> str | None:
+    if value is None:
+        return None
+    if isinstance(value, SecretStr):
+        return value.get_secret_value() if value.get_secret_value() else None
+    return str(value) if str(value) else None

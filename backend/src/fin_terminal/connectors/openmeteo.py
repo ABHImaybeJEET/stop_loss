@@ -1,0 +1,103 @@
+"""Open-Meteo async connector for weather patterns and extreme telemetry."""
+
+import logging
+from datetime import UTC, datetime
+
+import httpx
+from pydantic import JsonValue
+
+from fin_terminal.connectors.base import AsyncConnector
+from fin_terminal.schemas import Document, StreamStatus, WeatherEvent
+
+logger = logging.getLogger("fin_terminal")
+
+
+class OpenMeteoWeatherConnector(AsyncConnector):
+    """Fetches real-time atmospheric conditions via Open-Meteo API."""
+
+    def __init__(
+        self,
+        latitude: float = 27.8006,
+        longitude: float = -97.3964,
+        location_name: str = "Corpus Christi, Texas",
+        *,
+        client: httpx.AsyncClient | None = None,
+        timeout: float = 15.0,
+    ) -> None:
+        self.latitude = latitude
+        self.longitude = longitude
+        self.location_name = location_name
+        self._client = client
+        self.timeout = timeout
+
+    @property
+    def source(self) -> str:
+        return "weather"
+
+    async def _get_client(self) -> httpx.AsyncClient:
+        if self._client is not None:
+            return self._client
+        return httpx.AsyncClient(timeout=self.timeout)
+
+    async def fetch(self) -> list[JsonValue]:
+        url = (
+            f"https://api.open-meteo.com/v1/forecast?"
+            f"latitude={self.latitude}&longitude={self.longitude}"
+            f"&current=temperature_2m,wind_speed_10m,precipitation"
+        )
+        client = await self._get_client()
+        should_close = self._client is None
+        try:
+            response = await client.get(url)
+            response.raise_for_status()
+            data = response.json()
+            return [data]
+        finally:
+            if should_close:
+                await client.aclose()
+
+    async def normalize(self, raw: list[JsonValue]) -> list[Document]:
+        records: list[Document] = []
+        for item in raw:
+            if not isinstance(item, dict):
+                continue
+            current = item.get("current", {})
+            current_units = item.get("current_units", {})
+            time_str = current.get("time")
+
+            observed_at: datetime | None = None
+            if time_str:
+                try:
+                    observed_at = datetime.fromisoformat(f"{time_str}:00+00:00")
+                except ValueError:
+                    observed_at = None
+
+            metrics = ["wind_speed_10m", "temperature_2m", "precipitation"]
+            for metric in metrics:
+                val = current.get(metric)
+                value: float | None = float(val) if val is not None else None
+                unit = current_units.get(metric, "")
+
+                record = WeatherEvent(
+                    kind="weather",
+                    source="weather",
+                    provider="open_meteo",
+                    location=self.location_name,
+                    metric=metric,
+                    value=value,
+                    unit=unit,
+                    observed_at=observed_at,
+                    source_url="https://open-meteo.com",
+                    text=f"Weather at {self.location_name}: {metric}={value} {unit} at {time_str}",
+                    fetched_at=datetime.now(UTC),
+                    ingest_run_id="init",
+                )
+                records.append(record)
+        return records
+
+    async def health(self) -> StreamStatus:
+        return StreamStatus(
+            source=self.source,
+            status="ok",
+            message=f"Open-Meteo weather active for {self.location_name}",
+        )

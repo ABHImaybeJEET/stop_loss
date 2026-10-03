@@ -1,0 +1,2260 @@
+{
+  "items": "50",
+  "sentiment_score_definition": "x <= -0.35: Bearish; -0.35 < x <= -0.15: Somewhat-Bearish; -0.15 < x < 0.15: Neutral; 0.15 <= x < 0.35: Somewhat_Bullish; x >= 0.35: Bullish",
+  "relevance_score_definition": "0 < x <= 1, with a higher score indicating higher relevance.",
+  "feed": [
+    {
+      "title": "Wells Fargo & Company Initiates Coverage on Charles Schwab (NYSE:SCHW)",
+      "url": "https://www.marketbeat.com/instant-alerts/analyst-wells-fargo-company-initiates-coverage-on-charles-schwab-nyse-schw-2026-10-03/",
+      "time_published": "20261003T101154",
+      "authors": [
+        "MarketBeat"
+      ],
+      "summary": "Wells Fargo & Company has initiated coverage on Charles Schwab (NYSE:SCHW) with an \"equal weight\" rating and a $105.00 price target, suggesting an 8.51% upside. This comes amidst broadly positive analyst sentiment, with a consensus \"Moderate Buy\" rating, although some firms like Piper Sandler have adjusted their price targets. Charles Schwab recently exceeded quarterly earnings expectations, reporting $1.62 EPS against an anticipated $1.56, and revenues of $7.07 billion.",
+      "banner_image": "https://www.marketbeat.com/logos/the-charles-schwab-co-logo-1200x675.png?v=20231214125414",
+      "source": "MarketBeat",
+      "category_within_source": "General",
+      "source_domain": "MarketBeat",
+      "topics": [
+        {
+          "topic": "earnings",
+          "relevance_score": "0.914915"
+        },
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.802377"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.816950"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.601971"
+        }
+      ],
+      "overall_sentiment_score": 0.19429,
+      "overall_sentiment_label": "Somewhat-Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "SCHW",
+          "relevance_score": "0.965294",
+          "ticker_sentiment_score": "0.291633",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        },
+        {
+          "ticker": "WFC",
+          "relevance_score": "0.647799",
+          "ticker_sentiment_score": "0.145476",
+          "ticker_sentiment_label": "Neutral"
+        }
+      ]
+    },
+    {
+      "title": "3 Stocks for Higher Bond Yields Through SEI Investments and Fixed Income Fees",
+      "url": "https://simplywall.st/stocks/us/diversified-financials/nasdaq-seic/sei-investments/news/3-stocks-for-higher-bond-yields-through-sei-investments-and/amp",
+      "time_published": "20261003T082554",
+      "authors": [
+        "Simply Wall St"
+      ],
+      "summary": "With long-term Treasury yields rising and Washington grappling with federal debt, investors are re-evaluating their strategies, creating opportunities in fixed-income-focused asset managers and ETF sponsors. This article highlights three companies\u2014SEI Investments, Acadian Asset Management, and Jackson Financial\u2014that are well-positioned to benefit from this shift. These firms offer diverse approaches to fixed income, from fee-based asset management and quantitative strategies to retail annuities, each warranting a closer look for investors navigating the current economic landscape.",
+      "banner_image": null,
+      "source": "Simply Wall Street",
+      "category_within_source": "General",
+      "source_domain": "Simply Wall Street",
+      "topics": [
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.908494"
+        },
+        {
+          "topic": "earnings",
+          "relevance_score": "0.831585"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.730566"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.627843"
+        }
+      ],
+      "overall_sentiment_score": 0.32808,
+      "overall_sentiment_label": "Somewhat-Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "SEIC",
+          "relevance_score": "0.943807",
+          "ticker_sentiment_score": "0.305344",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        }
+      ]
+    },
+    {
+      "title": "RXO gains 9% amid freight recovery momentum (RXO:NYSE)",
+      "url": "https://seekingalpha.com/news/4649980-rxo-gains-9-amid-freight-recovery-momentum",
+      "time_published": "20261003T075502",
+      "authors": [
+        "SA News",
+        "SA News Editor"
+      ],
+      "summary": "RXO (RXO) saw its stock climb over 9% on Friday, adding to a previous 4% gain, driven by improving freight market momentum. The asset-light truck brokerage and transportation platform's stock is now trading above its 50-day and 200-day simple moving averages. Despite this recent surge, RXO's forward non-GAAP P/E ratio is elevated at 165.26, and its current price is still 22% below its 52-week high.",
+      "banner_image": "https://static.seekingalpha.com/cdn/s3/uploads/getty_images/523155194/image_523155194.jpg?io=getty-c-w630",
+      "source": "Seeking Alpha",
+      "category_within_source": "General",
+      "source_domain": "Seeking Alpha",
+      "topics": [
+        {
+          "topic": "earnings",
+          "relevance_score": "0.815496"
+        },
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.908058"
+        },
+        {
+          "topic": "energy_transportation",
+          "relevance_score": "0.915426"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.645730"
+        }
+      ],
+      "overall_sentiment_score": 0.431769,
+      "overall_sentiment_label": "Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "RXO",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "0.404551",
+          "ticker_sentiment_label": "Bullish"
+        }
+      ]
+    },
+    {
+      "title": "Press Release: StoneX Group Inc. Acquires Integra Trading S.A.S., Establishing a Colombian Coffee Origination and Processing Platform",
+      "url": "https://www.moomoo.com/news/post/1000554735/press-release-stonex-group-inc-acquires-integra-trading-sa-s",
+      "time_published": "20261003T075346",
+      "authors": [],
+      "summary": "StoneX Group Inc. has acquired Integra Trading S.A.S., a move that establishes a significant coffee origination and processing platform in Colombia. This acquisition is expected to enhance StoneX's global coffee business by securing a consistent supply of high-quality Colombian coffee and strengthening its presence in a key coffee-producing region. The integration of Integra Trading will likely boost StoneX's ability to offer a broader range of coffee solutions to its clients worldwide.",
+      "banner_image": null,
+      "source": "Moomoo",
+      "category_within_source": "General",
+      "source_domain": "Moomoo",
+      "topics": [
+        {
+          "topic": "mergers_and_acquisitions",
+          "relevance_score": "1.000000"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.802899"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.642576"
+        }
+      ],
+      "overall_sentiment_score": 0.407923,
+      "overall_sentiment_label": "Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "SNEX",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "0.404708",
+          "ticker_sentiment_label": "Bullish"
+        }
+      ]
+    },
+    {
+      "title": "CX Institutional Buys 2,045 Shares of Deere & Company $DE",
+      "url": "https://www.marketbeat.com/instant-alerts/filing-cx-institutional-buys-2045-shares-of-deere-company-de-2026-10-03/",
+      "time_published": "20261003T075034",
+      "authors": [
+        "MarketBeat"
+      ],
+      "summary": "CX Institutional significantly increased its stake in Deere & Company by 69.3% in the third quarter, purchasing 2,045 additional shares, bringing its total holdings to 4,996 shares valued at $3.36 million. Deere & Company currently holds a \"Moderate Buy\" consensus rating from analysts with an average price target of $686.10, despite some concerns about ongoing weakness in large agricultural equipment demand and a relatively high P/E ratio. The company recently surpassed quarterly earnings expectations with $5.10 EPS and $12.61 billion in revenue, supported by stronger performance in construction and compact equipment.",
+      "banner_image": "https://www.marketbeat.com/logos/deere--company-logo-1200x675.jpg?v3",
+      "source": "MarketBeat",
+      "category_within_source": "General",
+      "source_domain": "MarketBeat",
+      "topics": [
+        {
+          "topic": "earnings",
+          "relevance_score": "0.908525"
+        },
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.827966"
+        },
+        {
+          "topic": "manufacturing",
+          "relevance_score": "0.714119"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.639826"
+        }
+      ],
+      "overall_sentiment_score": 0.268933,
+      "overall_sentiment_label": "Somewhat-Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "DE",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "0.252020",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        }
+      ]
+    },
+    {
+      "title": "Merck & Co., Inc. $MRK Stake Trimmed by CX Institutional",
+      "url": "https://www.marketbeat.com/instant-alerts/filing-merck-co-inc-mrk-stake-trimmed-by-cx-institutional-2026-10-03/",
+      "time_published": "20261003T075009",
+      "authors": [
+        "MarketBeat"
+      ],
+      "summary": "CX Institutional significantly reduced its stake in Merck & Co., Inc. by 62.7% in the third quarter, selling 59,787 shares. Despite this, institutional investors still collectively own a substantial 76.07% of Merck's stock. The company reported strong quarterly revenues exceeding estimates and declared a quarterly dividend of $0.85 per share, maintaining a \"Moderate Buy\" consensus rating from analysts with a target price of $145.76.",
+      "banner_image": "https://www.marketbeat.com/logos/merck--co-inc-logo-1200x675.gif",
+      "source": "MarketBeat",
+      "category_within_source": "General",
+      "source_domain": "MarketBeat",
+      "topics": [
+        {
+          "topic": "earnings",
+          "relevance_score": "0.946249"
+        },
+        {
+          "topic": "life_sciences",
+          "relevance_score": "0.937281"
+        },
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.807891"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.727247"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.644285"
+        }
+      ],
+      "overall_sentiment_score": 0.257084,
+      "overall_sentiment_label": "Somewhat-Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "MRK",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "0.273006",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        }
+      ]
+    },
+    {
+      "title": "Digital Realty Trust, Inc. $DLR Shares Acquired by CX Institutional",
+      "url": "https://www.marketbeat.com/instant-alerts/filing-digital-realty-trust-inc-dlr-shares-acquired-by-cx-institutional-2026-10-03/",
+      "time_published": "20261003T074920",
+      "authors": [
+        "MarketBeat"
+      ],
+      "summary": "CX Institutional significantly increased its stake in Digital Realty Trust (NYSE:DLR) by 1,103.9% in the third quarter, acquiring 30,302 additional shares to hold a total of 33,047 shares valued at $5.8 million. Institutional investors now collectively own 99.71% of the company. Digital Realty reported strong revenue growth but missed EPS estimates, while analysts maintain a \"Moderate Buy\" rating with a consensus price target of $219.69.",
+      "banner_image": "https://www.marketbeat.com/logos/digital-realty-trust-inc-logo-1200x675.png?v=20250218112354",
+      "source": "MarketBeat",
+      "category_within_source": "General",
+      "source_domain": "MarketBeat",
+      "topics": [
+        {
+          "topic": "earnings",
+          "relevance_score": "0.927520"
+        },
+        {
+          "topic": "real_estate",
+          "relevance_score": "0.833947"
+        },
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.748018"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.633895"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.622641"
+        }
+      ],
+      "overall_sentiment_score": 0.066957,
+      "overall_sentiment_label": "Neutral",
+      "ticker_sentiment": [
+        {
+          "ticker": "DLR",
+          "relevance_score": "0.961013",
+          "ticker_sentiment_score": "0.085440",
+          "ticker_sentiment_label": "Neutral"
+        }
+      ]
+    },
+    {
+      "title": "SVB Wealth LLC Cuts Position in JPMorgan Chase & Co. $JPM",
+      "url": "https://www.marketbeat.com/instant-alerts/filing-svb-wealth-llc-cuts-position-in-jpmorgan-chase-co-jpm-2026-10-03/",
+      "time_published": "20261003T072246",
+      "authors": [
+        "MarketBeat"
+      ],
+      "summary": "SVB Wealth LLC reduced its stake in JPMorgan Chase & Co. by 12.3% during the second quarter, selling 11,629 shares and retaining 82,982 shares valued at $27.2 million. Despite this, institutional investors collectively own 71.55% of JPM stock, and Wall Street maintains a \"Moderate Buy\" consensus with an average price target of $363.29. JPMorgan recently reported strong quarterly earnings, exceeding estimates with $6.14 per share, and increased its quarterly dividend to $1.65 per share.",
+      "banner_image": "https://www.marketbeat.com/logos/jpmorgan-chase--co-logo-1200x675.png?v=20221020142040",
+      "source": "MarketBeat",
+      "category_within_source": "General",
+      "source_domain": "MarketBeat",
+      "topics": [
+        {
+          "topic": "earnings",
+          "relevance_score": "0.920985"
+        },
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.928644"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.819882"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.644838"
+        }
+      ],
+      "overall_sentiment_score": -0.047808,
+      "overall_sentiment_label": "Neutral",
+      "ticker_sentiment": [
+        {
+          "ticker": "JPM",
+          "relevance_score": "0.977872",
+          "ticker_sentiment_score": "0.277674",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        },
+        {
+          "ticker": "BAC",
+          "relevance_score": "0.560565",
+          "ticker_sentiment_score": "-0.191148",
+          "ticker_sentiment_label": "Somewhat-Bearish"
+        },
+        {
+          "ticker": "MS",
+          "relevance_score": "0.520245",
+          "ticker_sentiment_score": "-0.063258",
+          "ticker_sentiment_label": "Neutral"
+        },
+        {
+          "ticker": "C",
+          "relevance_score": "0.541876",
+          "ticker_sentiment_score": "-0.125766",
+          "ticker_sentiment_label": "Neutral"
+        }
+      ]
+    },
+    {
+      "title": "Canada Know-Risk Market Outlook | International Headlines Set The Tone Today",
+      "url": "https://www.stonex.com/en/insights/canada-know-risk-market-outlook-international-headlines-set-the-tone-today/",
+      "time_published": "20261003T065346",
+      "authors": [
+        "Craig Turner"
+      ],
+      "summary": "International headlines are significantly impacting grain markets, with crude oil prices rising and China making large purchases of U.S. soybeans. Upcoming WASDE reports and recent Russian grain export estimate cuts are expected to further influence market dynamics, particularly for soybeans and wheat. This could lead to continued bullish trends in agricultural commodities.",
+      "banner_image": "https://micms.stonex.com//sites/default/files/inline-images/image-20260910112812-1.png",
+      "source": "StoneX",
+      "category_within_source": "General",
+      "source_domain": "StoneX",
+      "topics": [
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.901606"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.815152"
+        }
+      ],
+      "overall_sentiment_score": 0.255282,
+      "overall_sentiment_label": "Somewhat-Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "SNEX",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "0.243957",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        },
+        {
+          "ticker": "ADM",
+          "relevance_score": "0.732668",
+          "ticker_sentiment_score": "0.307004",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        },
+        {
+          "ticker": "BG",
+          "relevance_score": "0.740685",
+          "ticker_sentiment_score": "0.320887",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        },
+        {
+          "ticker": "CVX",
+          "relevance_score": "0.606120",
+          "ticker_sentiment_score": "0.209749",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        },
+        {
+          "ticker": "XOM",
+          "relevance_score": "0.613658",
+          "ticker_sentiment_score": "0.234079",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        }
+      ]
+    },
+    {
+      "title": "Valley National Bancorp (NASDAQ:VLY) Stock Has Consensus Target Price of $16.19 According to Brokerages",
+      "url": "https://www.marketbeat.com/instant-alerts/consensus-valley-national-bancorp-nasdaq-vly-stock-has-consensus-target-price-of-1619-according-to-brokerages-2026-10-03/",
+      "time_published": "20261003T062914",
+      "authors": [
+        "MarketBeat"
+      ],
+      "summary": "Brokerages have given Valley National Bancorp (NASDAQ:VLY) a \"Moderate Buy\" rating with an average 12-month price target of $16.19, which is above its current trading price of $12.82. Institutional investors hold about 61% of VLY shares, and the company recently reported a 13.3% year-over-year revenue increase. Valley National Bancorp also declared a quarterly dividend of $0.11 per share, resulting in a 3.4% annualized yield.",
+      "banner_image": "https://www.marketbeat.com/logos/valley-national-bancorp-logo-1200x675.jpg?v=20221111152406",
+      "source": "MarketBeat",
+      "category_within_source": "General",
+      "source_domain": "MarketBeat",
+      "topics": [
+        {
+          "topic": "earnings",
+          "relevance_score": "0.930412"
+        },
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.829744"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.818713"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.611121"
+        }
+      ],
+      "overall_sentiment_score": 0.175201,
+      "overall_sentiment_label": "Somewhat-Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "VLYPN",
+          "relevance_score": "0.320217",
+          "ticker_sentiment_score": "0.009650",
+          "ticker_sentiment_label": "Neutral"
+        },
+        {
+          "ticker": "BAC",
+          "relevance_score": "0.577019",
+          "ticker_sentiment_score": "0.221923",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        },
+        {
+          "ticker": "BK",
+          "relevance_score": "0.582160",
+          "ticker_sentiment_score": "0.213404",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        }
+      ]
+    },
+    {
+      "title": "Phillips 66 Stock: Earnings Conditions Look To Be Structural, Rather Than Cyclical (PSX)",
+      "url": "https://seekingalpha.com/article/4951727-phillips-66-earnings-conditions-look-to-be-structural-rather-than-cyclical",
+      "time_published": "20261003T062631",
+      "authors": [
+        "Andres Veurink"
+      ],
+      "summary": "Phillips 66 (PSX) is rated a Buy, with its strong earnings driven by a structural global refining capacity gap. The company is projected to have significant after-tax earnings over the next four years, primarily from its refining segment. PSX is also on track to reduce debt ahead of schedule, allowing for substantial capital returns through buybacks and dividends, making its current valuation compelling despite recent share price appreciation.",
+      "banner_image": "https://static.seekingalpha.com/cdn/s3/uploads/getty_images/484373938/image_484373938.jpg?io=getty-c-w630",
+      "source": "Seeking Alpha",
+      "category_within_source": "General",
+      "source_domain": "Seeking Alpha",
+      "topics": [
+        {
+          "topic": "earnings",
+          "relevance_score": "0.948951"
+        },
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.840060"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.624001"
+        },
+        {
+          "topic": "energy_transportation",
+          "relevance_score": "0.946939"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.725710"
+        }
+      ],
+      "overall_sentiment_score": 0.473425,
+      "overall_sentiment_label": "Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "PSX",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "0.479851",
+          "ticker_sentiment_label": "Bullish"
+        }
+      ]
+    },
+    {
+      "title": "JPMorgan Chase & Co. (NYSE:JPM) Stock Sale Disclosed by Sen. Sheldon Whitehouse",
+      "url": "https://www.marketbeat.com/instant-alerts/congress-jpmorgan-chase-co-nyse-jpm-stock-sale-disclosed-by-sen-sheldon-whitehouse-2026-10-03/",
+      "time_published": "20261003T061008",
+      "authors": [
+        "MarketBeat"
+      ],
+      "summary": "Senator Sheldon Whitehouse disclosed the sale of $15,001\u2013$50,000 worth of JPMorgan Chase & Co. stock on September 4, 2026, alongside sales of several other company stocks. This news follows JPMorgan's strong quarterly performance, exceeding EPS estimates and increasing its quarterly dividend. Analysts currently rate JPM as a \"Moderate Buy\" with an average price target of $363.29.",
+      "banner_image": "https://www.marketbeat.com/logos/jpmorgan-chase--co-logo-1200x675.png?v=20221020142040",
+      "source": "MarketBeat",
+      "category_within_source": "General",
+      "source_domain": "MarketBeat",
+      "topics": [
+        {
+          "topic": "earnings",
+          "relevance_score": "0.937185"
+        },
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.812041"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.731676"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.606478"
+        }
+      ],
+      "overall_sentiment_score": -0.222883,
+      "overall_sentiment_label": "Somewhat-Bearish",
+      "ticker_sentiment": [
+        {
+          "ticker": "JPM",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "0.146435",
+          "ticker_sentiment_label": "Neutral"
+        },
+        {
+          "ticker": "ADI",
+          "relevance_score": "0.607967",
+          "ticker_sentiment_score": "-0.310430",
+          "ticker_sentiment_label": "Somewhat-Bearish"
+        },
+        {
+          "ticker": "V",
+          "relevance_score": "0.615205",
+          "ticker_sentiment_score": "-0.305314",
+          "ticker_sentiment_label": "Somewhat-Bearish"
+        },
+        {
+          "ticker": "NVDA",
+          "relevance_score": "0.622567",
+          "ticker_sentiment_score": "-0.335808",
+          "ticker_sentiment_label": "Somewhat-Bearish"
+        },
+        {
+          "ticker": "LRCX",
+          "relevance_score": "0.647388",
+          "ticker_sentiment_score": "-0.303131",
+          "ticker_sentiment_label": "Somewhat-Bearish"
+        }
+      ]
+    },
+    {
+      "title": "Home Depot (NYSE:HD) Stock Purchase Reported by Rep. David Taylor",
+      "url": "https://www.marketbeat.com/instant-alerts/congress-home-depot-nyse-hd-stock-purchase-reported-by-rep-david-taylor-2026-10-03/",
+      "time_published": "20261003T060940",
+      "authors": [
+        "MarketBeat"
+      ],
+      "summary": "Rep. David Taylor (R-Ohio) recently purchased between $1,001 and $15,000 worth of Home Depot (NYSE:HD) stock on September 22, 2026, within a trust-linked 401(k) account. This transaction was part of several trades, including buying Amgen shares and selling Marathon Petroleum stock on the same day. Home Depot's latest quarterly earnings exceeded expectations, reporting $4.92 EPS against a $4.73 consensus, and analysts currently rate the stock with a \"Moderate Buy\" consensus and an average price target of $375.18.",
+      "banner_image": "https://www.marketbeat.com/logos/home-depot-logo-1200x675.gif",
+      "source": "MarketBeat",
+      "category_within_source": "General",
+      "source_domain": "MarketBeat",
+      "topics": [
+        {
+          "topic": "earnings",
+          "relevance_score": "0.903353"
+        },
+        {
+          "topic": "retail_wholesale",
+          "relevance_score": "0.842186"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.730587"
+        },
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.735176"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.647091"
+        }
+      ],
+      "overall_sentiment_score": 0.06661,
+      "overall_sentiment_label": "Neutral",
+      "ticker_sentiment": [
+        {
+          "ticker": "HD",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "0.044660",
+          "ticker_sentiment_label": "Neutral"
+        },
+        {
+          "ticker": "MPC",
+          "relevance_score": "0.737291",
+          "ticker_sentiment_score": "-0.217730",
+          "ticker_sentiment_label": "Somewhat-Bearish"
+        },
+        {
+          "ticker": "AMGN",
+          "relevance_score": "0.702600",
+          "ticker_sentiment_score": "0.107233",
+          "ticker_sentiment_label": "Neutral"
+        },
+        {
+          "ticker": "PG",
+          "relevance_score": "0.605741",
+          "ticker_sentiment_score": "0.217915",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        }
+      ]
+    },
+    {
+      "title": "SLB, Formentera Working to Activate Drilling Rigs in Venezuela, Executives Say",
+      "url": "https://energynow.com/2026/08/slb-formentera-working-to-activate-drilling-rigs-in-venezuela-executives-say/",
+      "time_published": "20261003T054226",
+      "authors": [
+        "EnergyNow Media"
+      ],
+      "summary": "Oil service provider SLB and private equity firm Formentera Partners are actively working to reactivate or import drilling rigs into Venezuela to boost its crude production capacity. Despite current obstacles like importing equipment and negotiating with the Venezuelan government, SLB anticipates reactivating up to 15 rigs within a year, with a few expected to be operational by year-end, while Formentera is in discussions with international service providers for additional rigs. This effort comes as Venezuela seeks to expand its oil production, though challenges related to power supply, supply chains, and contract protection remain.",
+      "banner_image": "https://energynow.com/wp-content/uploads/SLB-Headquaters-1200x810-1-1024x691.jpg",
+      "source": "EnergyNow.com",
+      "category_within_source": "General",
+      "source_domain": "EnergyNow.com",
+      "topics": [
+        {
+          "topic": "energy_transportation",
+          "relevance_score": "0.948299"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.729186"
+        }
+      ],
+      "overall_sentiment_score": 0.064385,
+      "overall_sentiment_label": "Neutral",
+      "ticker_sentiment": [
+        {
+          "ticker": "SLB",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "0.403514",
+          "ticker_sentiment_label": "Bullish"
+        },
+        {
+          "ticker": "COP",
+          "relevance_score": "0.639175",
+          "ticker_sentiment_score": "-0.335377",
+          "ticker_sentiment_label": "Somewhat-Bearish"
+        },
+        {
+          "ticker": "XOM",
+          "relevance_score": "0.613895",
+          "ticker_sentiment_score": "-0.308402",
+          "ticker_sentiment_label": "Somewhat-Bearish"
+        },
+        {
+          "ticker": "BKR",
+          "relevance_score": "0.627548",
+          "ticker_sentiment_score": "0.200656",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        },
+        {
+          "ticker": "APA",
+          "relevance_score": "0.615862",
+          "ticker_sentiment_score": "0.305429",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        }
+      ]
+    },
+    {
+      "title": "Nasdaq Gains Over 1% as Lumentum Holdings (LITE) Surges 15.27% Amid Payroll Data",
+      "url": "https://www.gurufocus.com/news/9108040/nasdaq-gains-over-1-as-lumentum-holdings-lite-surges-1527-amid-payroll-data",
+      "time_published": "20261003T053206",
+      "authors": [
+        "GuruFocus News"
+      ],
+      "summary": "The Nasdaq Composite Index gained over 1% on October 2, 2026, driven by positive payroll data, with Lumentum Holdings Inc (LITE) surging 15.27% to become the top performer. Despite its high Price-to-Sales ratio of 31.3x and being unprofitable, LITE's strong financial stability and growth prospects, particularly in optical and photonic products for data infrastructure and AI, are attracting investor interest. However, a GF Value of $177.89 suggests it is significantly overvalued at its current price of $1,085.42, and mixed institutional investor sentiment, coupled with insider selling, indicates caution is warranted.",
+      "banner_image": "https://static.gurufocus.com/cdn-cgi/image/width=600,quality=100/logos/0C0000AYVI.png?20",
+      "source": "GuruFocus",
+      "category_within_source": "General",
+      "source_domain": "GuruFocus",
+      "topics": [
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.927725"
+        },
+        {
+          "topic": "technology",
+          "relevance_score": "0.834688"
+        },
+        {
+          "topic": "earnings",
+          "relevance_score": "0.712177"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.623169"
+        }
+      ],
+      "overall_sentiment_score": 0.043683,
+      "overall_sentiment_label": "Neutral",
+      "ticker_sentiment": [
+        {
+          "ticker": "LITE",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "0.037752",
+          "ticker_sentiment_label": "Neutral"
+        }
+      ]
+    },
+    {
+      "title": "Housing Costs Keep Rising: Lennar Points to Data Center Labor Demand While KB Home Flags Fuel, Tariff and Inflation Pressures",
+      "url": "https://finance.yahoo.com/real-estate/articles/housing-costs-keep-rising-lennar-033005071.html",
+      "time_published": "20261003T035848",
+      "authors": [
+        "Tanya Rawat"
+      ],
+      "summary": "Lennar and KB Home reported rising cost pressures in their latest earnings calls, attributing them to various factors. Lennar highlighted labor shortages driven by data center demand, immigration crackdowns, and tariffs, alongside competition from a resurgent resale market. KB Home cited increasing fuel, general inflation, and tariff pressures, although it noted fewer issues with labor availability.",
+      "banner_image": "https://s.yimg.com/lo/mysterio/api/f5a6cd19cf37d45e1623bf11803ee4b8fccb2832972893f321538b66040c299a/lightyear_networkapi/resizefit_w960%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fbenzinga_79%2F92997c9fbb164da91ed30ecd7b769a6a.jpg",
+      "source": "Yahoo Finance",
+      "category_within_source": "General",
+      "source_domain": "Yahoo Finance",
+      "topics": [
+        {
+          "topic": "earnings",
+          "relevance_score": "0.942552"
+        },
+        {
+          "topic": "real_estate",
+          "relevance_score": "0.932671"
+        },
+        {
+          "topic": "economy_monetary",
+          "relevance_score": "0.847697"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.724135"
+        }
+      ],
+      "overall_sentiment_score": 0.00976,
+      "overall_sentiment_label": "Neutral",
+      "ticker_sentiment": [
+        {
+          "ticker": "KBH",
+          "relevance_score": "0.326386",
+          "ticker_sentiment_score": "0.026263",
+          "ticker_sentiment_label": "Neutral"
+        }
+      ]
+    },
+    {
+      "title": "Granite Real Estate Investment Trust (GRT-UN.TO) Stock Price, News, Quote & History",
+      "url": "https://ca.finance.yahoo.com/quote/GRT-UN.TO/",
+      "time_published": "20261003T032741",
+      "authors": [],
+      "summary": "Granite Real Estate Investment Trust (GRT-UN.TO) closed at $83.59, down 0.48% on October 2, 2026. The Canadian REIT specializes in industrial and logistics properties in North America and Europe, managing 145 investment properties. Key financial metrics include a P/E ratio of 13.82 and a forward dividend yield of 4.23%.",
+      "banner_image": null,
+      "source": "Yahoo! Finance Canada",
+      "category_within_source": "General",
+      "source_domain": "Yahoo! Finance Canada",
+      "topics": [
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.920496"
+        },
+        {
+          "topic": "real_estate",
+          "relevance_score": "0.906898"
+        },
+        {
+          "topic": "earnings",
+          "relevance_score": "0.821070"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.748520"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.610949"
+        }
+      ],
+      "overall_sentiment_score": 0.013643,
+      "overall_sentiment_label": "Neutral",
+      "ticker_sentiment": [
+        {
+          "ticker": "GRP-U",
+          "relevance_score": "0.316644",
+          "ticker_sentiment_score": "0.017903",
+          "ticker_sentiment_label": "Neutral"
+        }
+      ]
+    },
+    {
+      "title": "Archer-Daniels-Midland Company (ADM) Stock Forecasts",
+      "url": "https://ca.finance.yahoo.com/research/reports/ARGUS_3575_AnalystReport_1790964184000",
+      "time_published": "20261003T031342",
+      "authors": [],
+      "summary": "This article provides stock forecast information for Archer-Daniels-Midland Company (ADM), highlighting an analyst report from Argus dated October 2, 2026. Argus suggests looking for a more favorable entry point for ADM stock, which is currently priced at $80.45. The company, founded in 1902, is involved in purchasing, transporting, storing, processing, and merchandising agricultural commodities globally.",
+      "banner_image": "https://s.yimg.com/uc/fin/img/20/04/cdae35e.png",
+      "source": "Yahoo! Finance Canada",
+      "category_within_source": "General",
+      "source_domain": "Yahoo! Finance Canada",
+      "topics": [
+        {
+          "topic": "earnings",
+          "relevance_score": "0.904394"
+        },
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.839997"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.743045"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.632658"
+        }
+      ],
+      "overall_sentiment_score": 0.011995,
+      "overall_sentiment_label": "Neutral",
+      "ticker_sentiment": [
+        {
+          "ticker": "ADM",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "0.012109",
+          "ticker_sentiment_label": "Neutral"
+        }
+      ]
+    },
+    {
+      "title": "Form 4 Summit Midstream Corp For: 2 October By Investing.com",
+      "url": "https://ng.investing.com/news/stock-market-news/form-4-summit-midstream-corp-for-2-october-93CH-2720640",
+      "time_published": "20261003T030225",
+      "authors": [
+        "Investing.com"
+      ],
+      "summary": "This article announces the filing of Form 4 for Summit Midstream Corp for October 2nd. It is a brief news item from Investing.com, providing basic information about the regulatory filing. The content focuses on financial market updates and related news from various global indices and commodities.",
+      "banner_image": "https://content-media.investing.com/news/moved_LYNXMPEM4519D_1200_L.jpg",
+      "source": "Investing.com Nigeria",
+      "category_within_source": "General",
+      "source_domain": "Investing.com Nigeria",
+      "topics": [
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.923887"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.639118"
+        },
+        {
+          "topic": "energy_transportation",
+          "relevance_score": "0.603792"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.603903"
+        }
+      ],
+      "overall_sentiment_score": 0.0198,
+      "overall_sentiment_label": "Neutral",
+      "ticker_sentiment": [
+        {
+          "ticker": "SMC",
+          "relevance_score": "0.300009",
+          "ticker_sentiment_score": "0.045220",
+          "ticker_sentiment_label": "Neutral"
+        }
+      ]
+    },
+    {
+      "title": "Form 4 Public Storage For: 2 October By Investing.com",
+      "url": "https://ca.investing.com/news/stock-market-news/form-4-public-storage-for-2-october-93CH-4864684",
+      "time_published": "20261003T021238",
+      "authors": [
+        "Investing.com"
+      ],
+      "summary": "This article from Investing.com is a brief report on a Form 4 filing for Public Storage dated October 2nd. The content includes minimal details about the filing itself, primarily serving as a placeholder or announcement within the Investing.com platform. It also provides an overview of various financial market data and popular news articles from the platform.",
+      "banner_image": "https://content-media.investing.com/news/moved_LYNXMPEM3S10Z_1200_L.jpg",
+      "source": "Investing.com Canada",
+      "category_within_source": "General",
+      "source_domain": "Investing.com Canada",
+      "topics": [
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.803558"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.622319"
+        }
+      ],
+      "overall_sentiment_score": 0.006439,
+      "overall_sentiment_label": "Neutral",
+      "ticker_sentiment": [
+        {
+          "ticker": "PSA",
+          "relevance_score": "0.333417",
+          "ticker_sentiment_score": "0.007340",
+          "ticker_sentiment_label": "Neutral"
+        }
+      ]
+    },
+    {
+      "title": "You could get a payment from Equifax's $100M settlement",
+      "url": "https://sg.finance.yahoo.com/news/could-payment-equifaxs-100m-settlement-234257730.html",
+      "time_published": "20261003T011701",
+      "authors": [
+        "Mike Snider"
+      ],
+      "summary": "Equifax customers may be eligible for a payment from a proposed $100 million settlement of a class-action lawsuit. The lawsuit stems from a 2022 error where the credit bureau reported incorrect credit scores for about 4 million Americans, potentially affecting loan applications and interest rates. Eligible individuals can file a claim by December 28, 2026, with estimated payments ranging from $95 to $280.",
+      "banner_image": "https://s.yimg.com/lo/mysterio/api/97b40e259f75d7ad49e475e06fb3189ff551ba6a7cc47490e73b3cd4d5443048/lightyear_networkapi/resizefill_h48%3Bquality_100%3Bformat_webp/https%3A%2F%2Fs.yimg.com%2Fos%2Fcreatr-uploaded-images%2F2020-11%2F092f7540-26ea-11eb-bdb4-b7283677d9f5",
+      "source": "Yahoo Finance Singapore",
+      "category_within_source": "General",
+      "source_domain": "Yahoo Finance Singapore",
+      "topics": [
+        {
+          "topic": "finance",
+          "relevance_score": "1.000000"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.702394"
+        }
+      ],
+      "overall_sentiment_score": -0.604851,
+      "overall_sentiment_label": "Bearish",
+      "ticker_sentiment": [
+        {
+          "ticker": "EFX",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "-0.627922",
+          "ticker_sentiment_label": "Bearish"
+        }
+      ]
+    },
+    {
+      "title": "Mara Holdings CEO Fred Thiel sells $308,606 in Mara shares",
+      "url": "https://www.investing.com/news/insider-trading-news/mara-holdings-ceo-fred-thiel-sells-308606-in-mara-shares-93CH-4930589",
+      "time_published": "20261003T002817",
+      "authors": [
+        "Investing.com"
+      ],
+      "summary": "Mara Holdings CEO Fred Thiel sold 27,505 shares of MARA common stock for $308,606 on October 1, 2026, as part of a Rule 10b5-1 trading plan. Additionally, 63,101 shares were withheld on September 30, 2026, to cover tax liabilities from restricted stock unit vesting, valued at $714,934. Following these transactions, Mr. Thiel directly beneficially owns 4,217,586 shares.",
+      "banner_image": "https://content-media.investing.com/news/CryptoBitcoindigital_800x533_L_1641975060.jpg",
+      "source": "Investing.com",
+      "category_within_source": "General",
+      "source_domain": "Investing.com",
+      "topics": [
+        {
+          "topic": "earnings",
+          "relevance_score": "0.814319"
+        },
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.946365"
+        },
+        {
+          "topic": "blockchain",
+          "relevance_score": "0.938447"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.644366"
+        }
+      ],
+      "overall_sentiment_score": -0.099719,
+      "overall_sentiment_label": "Neutral",
+      "ticker_sentiment": [
+        {
+          "ticker": "MARA",
+          "relevance_score": "0.956290",
+          "ticker_sentiment_score": "-0.279892",
+          "ticker_sentiment_label": "Somewhat-Bearish"
+        },
+        {
+          "ticker": "JPM",
+          "relevance_score": "0.630718",
+          "ticker_sentiment_score": "0.128815",
+          "ticker_sentiment_label": "Neutral"
+        },
+        {
+          "ticker": "COIN",
+          "relevance_score": "0.589208",
+          "ticker_sentiment_score": "-0.117280",
+          "ticker_sentiment_label": "Neutral"
+        }
+      ]
+    },
+    {
+      "title": "US Eyes $4B Loan for Vistra Nuclear Upgrades",
+      "url": "https://www.briefs.co/news/trump-administration-eyes-roughly-4-billion-loan-for-vistra/",
+      "time_published": "20261003T001244",
+      "authors": [
+        "Andre Savage"
+      ],
+      "summary": "The Trump administration is reportedly preparing a $4 billion loan package for Vistra Corp. to upgrade three of its nuclear plants, two in Ohio and one in Pennsylvania. This initiative aims to boost US nuclear capacity in response to rising electricity demand from data centers and the administration's goal to quadruple nuclear capacity by 2050. The formal announcement could come as early as Monday during Energy Secretary Chris Wright's visit to the Perry nuclear complex.",
+      "banner_image": "https://www.briefs.co/wp-content/uploads/2026/10/trump-administration-eyes-roughly-4-billion-loan-for-vistra-.png",
+      "source": "Briefs Finance",
+      "category_within_source": "General",
+      "source_domain": "Briefs Finance",
+      "topics": [
+        {
+          "topic": "energy_transportation",
+          "relevance_score": "1.000000"
+        },
+        {
+          "topic": "economy_fiscal",
+          "relevance_score": "0.925868"
+        },
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.801882"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.731801"
+        }
+      ],
+      "overall_sentiment_score": 0.363245,
+      "overall_sentiment_label": "Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "VST",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "0.404050",
+          "ticker_sentiment_label": "Bullish"
+        },
+        {
+          "ticker": "FE",
+          "relevance_score": "0.602997",
+          "ticker_sentiment_score": "0.348168",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        }
+      ]
+    },
+    {
+      "title": "FedEx Corp. Financials | FDX",
+      "url": "https://www.barrons.com/market-data/stocks/fdx/financials?mod=quotes&amp%3Bmod=article_inline",
+      "time_published": "20261002T235033",
+      "authors": [],
+      "summary": "This article provides comprehensive financial data for FedEx Corp. (FDX), including key stock metrics, analyst ratings, and detailed income statements from 2022 to 2026. It highlights the company's segments, revenue trends, and earnings per share, offering investors a detailed look into its financial performance and projections.",
+      "banner_image": null,
+      "source": "Barron's",
+      "category_within_source": "General",
+      "source_domain": "Barron's",
+      "topics": [
+        {
+          "topic": "earnings",
+          "relevance_score": "0.933250"
+        },
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.910654"
+        },
+        {
+          "topic": "energy_transportation",
+          "relevance_score": "0.841766"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.726097"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.647551"
+        }
+      ],
+      "overall_sentiment_score": 0.121084,
+      "overall_sentiment_label": "Neutral",
+      "ticker_sentiment": [
+        {
+          "ticker": "FDX",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "0.112848",
+          "ticker_sentiment_label": "Neutral"
+        },
+        {
+          "ticker": "UPS",
+          "relevance_score": "0.624939",
+          "ticker_sentiment_score": "0.146659",
+          "ticker_sentiment_label": "Neutral"
+        },
+        {
+          "ticker": "JPM",
+          "relevance_score": "0.614951",
+          "ticker_sentiment_score": "0.130081",
+          "ticker_sentiment_label": "Neutral"
+        },
+        {
+          "ticker": "MS",
+          "relevance_score": "0.635841",
+          "ticker_sentiment_score": "0.133019",
+          "ticker_sentiment_label": "Neutral"
+        },
+        {
+          "ticker": "FDS",
+          "relevance_score": "0.613031",
+          "ticker_sentiment_score": "0.144301",
+          "ticker_sentiment_label": "Neutral"
+        }
+      ]
+    },
+    {
+      "title": "Residents who complained about chemical smell near Sherwin-Williams plant get answers",
+      "url": "https://www.cbsnews.com/pittsburgh/video/residents-who-complained-about-chemical-smell-near-sherwin-williams-plant-get-answers/",
+      "time_published": "20261002T233925",
+      "authors": [],
+      "summary": "Residents near the Sherwin-Williams manufacturing plant in Rochester, Beaver County, have finally received answers regarding the chemical smell they've been reporting for several months. The article, published by CBS Pittsburgh, indicates this resolution comes after a prolonged period of community complaints.",
+      "banner_image": "https://assets3.cbsnewsstatic.com/hub/i/r/2026/10/02/edb689d9-f6bb-49a4-970a-44af5d3846f5/thumbnail/640x360/73697df4439f4ae4aaab1e97c7afd029/e16cd8ed359f7dfe8059905b43bf943a.jpg",
+      "source": "CBS News",
+      "category_within_source": "General",
+      "source_domain": "CBS News",
+      "topics": [
+        {
+          "topic": "manufacturing",
+          "relevance_score": "0.919664"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.620702"
+        }
+      ],
+      "overall_sentiment_score": -0.437934,
+      "overall_sentiment_label": "Bearish",
+      "ticker_sentiment": [
+        {
+          "ticker": "SHW",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "-0.443472",
+          "ticker_sentiment_label": "Bearish"
+        }
+      ]
+    },
+    {
+      "title": "What RenaissanceRe Holdings Stock's Strong Q2 Results Mean For Shareholders",
+      "url": "https://simplywall.st/stocks/us/insurance/nyse-rnr/renaissancere-holdings/news/what-renaissancere-holdings-stocks-strong-q2-results-mean-fo/amp",
+      "time_published": "20261002T233018",
+      "authors": [
+        "Simply Wall St"
+      ],
+      "summary": "RenaissanceRe Holdings reported strong Q2 2026 results, driven by solid underwriting, increased fee and investment income, and 6% growth in tangible book value per share. The company also repurchased US$350 million in shares and highlighted deeper AI integration and upcoming leadership changes. These factors signal a focus on risk management, efficiency, and long-term positioning, reinforcing its investment narrative as a disciplined reinsurer returning capital to shareholders.",
+      "banner_image": null,
+      "source": "Simply Wall Street",
+      "category_within_source": "General",
+      "source_domain": "Simply Wall Street",
+      "topics": [
+        {
+          "topic": "earnings",
+          "relevance_score": "0.913457"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.813188"
+        },
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.710365"
+        },
+        {
+          "topic": "technology",
+          "relevance_score": "0.642112"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.634907"
+        }
+      ],
+      "overall_sentiment_score": 0.324222,
+      "overall_sentiment_label": "Somewhat-Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "RNR",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "0.338764",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        }
+      ]
+    },
+    {
+      "title": "Treasury Yields Push to Multi-Decade Highs, and History Says They May Climb Further",
+      "url": "https://www.bny.com/investments/us/en/individual/articles/markets-and-economy/treasury-yields-push-to-multi-decade-highs--and-history-says-the.html",
+      "time_published": "20261002T232947",
+      "authors": [],
+      "summary": "U.S. Treasury yields have reached multi-decade highs, primarily driven by real rates and stronger growth expectations following the Federal Reserve's September hike. Historical data suggests that long-term yields often continue to rise after initial Fed tightening, especially during periods of elevated inflation. While equity markets have shown resilience, rate-sensitive sectors are beginning to experience pressure from these higher rates.",
+      "banner_image": "https://www.bny.com/content/dam/im/web/assets/asset_upload_file608_112562.jpg",
+      "source": "BNY",
+      "category_within_source": "General",
+      "source_domain": "BNY",
+      "topics": [
+        {
+          "topic": "economy_monetary",
+          "relevance_score": "0.940003"
+        },
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.812508"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.748078"
+        }
+      ],
+      "overall_sentiment_score": 0.081715,
+      "overall_sentiment_label": "Neutral",
+      "ticker_sentiment": [
+        {
+          "ticker": "BCPL",
+          "relevance_score": "0.346779",
+          "ticker_sentiment_score": "0.038128",
+          "ticker_sentiment_label": "Neutral"
+        },
+        {
+          "ticker": "BK",
+          "relevance_score": "0.733514",
+          "ticker_sentiment_score": "0.116888",
+          "ticker_sentiment_label": "Neutral"
+        }
+      ]
+    },
+    {
+      "title": "Target cuts prices on nearly 2,000 home and apparel items as holiday shoppers feel the pinch",
+      "url": "https://finance.yahoo.com/economy/articles/target-cuts-prices-nearly-2-233900384.html",
+      "time_published": "20261002T231319",
+      "authors": [
+        "Leigh Cook"
+      ],
+      "summary": "Target is reducing prices on nearly 2,000 home and apparel items to attract cost-conscious holiday shoppers. This follows earlier price cuts on 3,000 products, bringing the total to 10,000 items over the past year. The move comes as consumer sentiment has dipped due to higher fuel costs and trade disputes, making affordability a key factor for shoppers.",
+      "banner_image": "https://s.yimg.com/lo/mysterio/api/27c1e7763f612bf9383c0f7eecb556c23e7dce8aada7e3f722ba282e374987a9/lightyear_networkapi/resizefill_h48%3Bquality_100%3Bformat_webp/https%3A%2F%2Fs.yimg.com%2Fos%2Fcreatr-uploaded-images%2F2023-10%2Fdd75cd20-66db-11ee-bf7d-1bf8634a406b",
+      "source": "Yahoo Finance",
+      "category_within_source": "General",
+      "source_domain": "Yahoo Finance",
+      "topics": [
+        {
+          "topic": "retail_wholesale",
+          "relevance_score": "0.938674"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.800520"
+        },
+        {
+          "topic": "earnings",
+          "relevance_score": "0.700229"
+        }
+      ],
+      "overall_sentiment_score": -0.225435,
+      "overall_sentiment_label": "Somewhat-Bearish",
+      "ticker_sentiment": [
+        {
+          "ticker": "TGT",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "-0.226162",
+          "ticker_sentiment_label": "Somewhat-Bearish"
+        }
+      ]
+    },
+    {
+      "title": "CX Institutional Cuts Holdings in American Express Company $AXP",
+      "url": "https://www.marketbeat.com/instant-alerts/filing-cx-institutional-cuts-holdings-in-american-express-company-axp-2026-10-02/",
+      "time_published": "20261002T225031",
+      "authors": [
+        "MarketBeat"
+      ],
+      "summary": "CX Institutional significantly reduced its stake in American Express Company ($AXP) by 36.8% in the third quarter, selling 14,637 shares but still retaining 25,173 shares valued at approximately $8.07 million. Despite this, institutional investors collectively own 84.33% of AXP. Analyst sentiment for AXP is mixed, with a consensus \"Hold\" rating and an average price target of $366.96, while the company reported strong Q3 earnings, beating EPS estimates and seeing a 10% year-over-year revenue increase.",
+      "banner_image": "https://www.marketbeat.com/logos/american-express-1200x675.jpg",
+      "source": "MarketBeat",
+      "category_within_source": "General",
+      "source_domain": "MarketBeat",
+      "topics": [
+        {
+          "topic": "earnings",
+          "relevance_score": "0.949188"
+        },
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.825022"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.713440"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.618822"
+        }
+      ],
+      "overall_sentiment_score": 0.08379,
+      "overall_sentiment_label": "Neutral",
+      "ticker_sentiment": [
+        {
+          "ticker": "AXP",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "0.074100",
+          "ticker_sentiment_label": "Neutral"
+        },
+        {
+          "ticker": "NFLX",
+          "relevance_score": "0.648493",
+          "ticker_sentiment_score": "-0.125659",
+          "ticker_sentiment_label": "Neutral"
+        },
+        {
+          "ticker": "MCD",
+          "relevance_score": "0.616143",
+          "ticker_sentiment_score": "0.336492",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        }
+      ]
+    },
+    {
+      "title": "Sidoti cuts Haverty Furniture Companies stock estimate to USD 0.47",
+      "url": "https://www.ad-hoc-news.de/boerse/news/nebenwerte/sidoti-cuts-haverty-furniture-companies-stock-estimate-to-usd-0-47/70218464",
+      "time_published": "20261002T224500",
+      "authors": [
+        "Rafael M\u00fcller"
+      ],
+      "summary": "Sidoti has revised down its third-quarter earnings-per-share estimate for Haverty Furniture Companies to USD 0.47 from USD 0.50, despite the company exceeding revenue and EPS consensus in the second quarter of 2026. The furniture retailer reported strong second-quarter results with revenue of USD 194.94 million and EPS of USD 0.25, surpassing analyst expectations. Haverty's stock remained unchanged in after-hours trading at EUR 24.30.",
+      "banner_image": "https://www.ad-hoc-news.de/images/banner_trading-woche.webp",
+      "source": "AD HOC NEWS",
+      "category_within_source": "General",
+      "source_domain": "AD HOC NEWS",
+      "topics": [
+        {
+          "topic": "earnings",
+          "relevance_score": "0.904840"
+        },
+        {
+          "topic": "retail_wholesale",
+          "relevance_score": "0.839280"
+        },
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.702629"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.601595"
+        }
+      ],
+      "overall_sentiment_score": -0.242133,
+      "overall_sentiment_label": "Somewhat-Bearish",
+      "ticker_sentiment": [
+        {
+          "ticker": "HVT",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "-0.231463",
+          "ticker_sentiment_label": "Somewhat-Bearish"
+        }
+      ]
+    },
+    {
+      "title": "PG&E imposters reported throughout Fresno County",
+      "url": "https://kmph.com/news/local/pge-imposters-reported-throughout-fresno-county",
+      "time_published": "20261002T223039",
+      "authors": [
+        "James Mora"
+      ],
+      "summary": "PG&E is warning residents of Fresno County about imposters claiming to be employees who are trying to gain access to customer financial information. These scammers offer to help customers save money by reviewing their bills, which can lead to unauthorized changes and financial theft. PG&E advises customers to ask for identification, call 800-743-5000 to verify employees, and call 911 if they feel threatened or if an imposter tries to enter their home.",
+      "banner_image": "https://kmph.com/resources/media2/16x9/4032/1174/0x378/80/5ddba1c7-bb77-4ae4-8878-30716f61e622-IMG_1636.jpg",
+      "source": "KMPH Fox 26",
+      "category_within_source": "General",
+      "source_domain": "KMPH Fox 26",
+      "topics": [
+        {
+          "topic": "finance",
+          "relevance_score": "0.841657"
+        },
+        {
+          "topic": "energy_transportation",
+          "relevance_score": "0.708114"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.636084"
+        }
+      ],
+      "overall_sentiment_score": -0.192967,
+      "overall_sentiment_label": "Somewhat-Bearish",
+      "ticker_sentiment": [
+        {
+          "ticker": "PCG-P-A",
+          "relevance_score": "0.330935",
+          "ticker_sentiment_score": "0.044729",
+          "ticker_sentiment_label": "Neutral"
+        },
+        {
+          "ticker": "PCG",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "-0.394501",
+          "ticker_sentiment_label": "Bearish"
+        }
+      ]
+    },
+    {
+      "title": "Wynn Al Marjan Island Project Remains on Track for 2027 Opening",
+      "url": "https://www.igamingtoday.com/wynn-al-marjan-island-project-remains-on-track-for-2027-opening/",
+      "time_published": "20261002T222805",
+      "authors": [
+        "Carla Calderon"
+      ],
+      "summary": "Wynn Resorts is still targeting a September 2027 opening for its US$5.7 billion Wynn Al Marjan Island casino resort in Ras Al Khaimah, UAE, according to JP Morgan Securities. Despite recent regional tensions, the company remains confident in the project's prospects and potential for exclusivity. Additionally, Wynn Resorts is planning an expansion at its Macau property, The Enclave at Wynn Palace, to boost market share.",
+      "banner_image": "https://www.igamingtoday.com/wp-content/uploads/2026/10/Wynn-Al-Marjan-Island-Project-Remains-on-Track-for-2027-Opening.jpg",
+      "source": "iGamingToday.com",
+      "category_within_source": "General",
+      "source_domain": "iGamingToday.com",
+      "topics": [
+        {
+          "topic": "earnings",
+          "relevance_score": "0.946605"
+        },
+        {
+          "topic": "real_estate",
+          "relevance_score": "0.843670"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.626528"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.618295"
+        }
+      ],
+      "overall_sentiment_score": 0.347331,
+      "overall_sentiment_label": "Somewhat-Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "WYNN",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "0.397244",
+          "ticker_sentiment_label": "Bullish"
+        },
+        {
+          "ticker": "JPM",
+          "relevance_score": "0.627065",
+          "ticker_sentiment_score": "0.253054",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        }
+      ]
+    },
+    {
+      "title": "Impinj, Power Integrations, Kulicke and Soffa, Microchip Technology, and Monolithic Power Systems Shares Are Soaring, What You Need To Know",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/impinj-power-integrations-kulicke-soffa-222203436.html",
+      "time_published": "20261002T222253",
+      "authors": [
+        "Radek Strnad"
+      ],
+      "summary": "Shares of Impinj, Power Integrations, Kulicke and Soffa, Microchip Technology, and Monolithic Power Systems jumped after weaker-than-expected U.S. employment data cooled Treasury yields, easing interest rate pressure. Nonfarm payrolls increased by 29,000 in September, below projections, and the unemployment rate rose to 4.2%. This softer hiring environment is seen as beneficial for high-multiple growth equities by lowering borrowing costs, although it risks dampening demand in cyclical chip channels.",
+      "banner_image": "https://s.yimg.com/lo/mysterio/api/3f3489f7d9a5bd96fb4b2973fb3d6ed4f1d609bab6f686fc0e5fd678d137849e/lightyear_networkapi/resizefill_h48%3Bquality_100%3Bformat_webp/https%3A%2F%2Fs.yimg.com%2Fos%2Fcreatr-uploaded-images%2F2023-10%2F7a17aaa0-71fd-11ee-bbf2-06d0c1f3a7ba",
+      "source": "Yahoo Finance",
+      "category_within_source": "General",
+      "source_domain": "Yahoo Finance",
+      "topics": [
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.940219"
+        },
+        {
+          "topic": "technology",
+          "relevance_score": "0.837643"
+        },
+        {
+          "topic": "economy_monetary",
+          "relevance_score": "0.713306"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.609289"
+        }
+      ],
+      "overall_sentiment_score": 0.344011,
+      "overall_sentiment_label": "Somewhat-Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "MCHP",
+          "relevance_score": "0.979938",
+          "ticker_sentiment_score": "0.323414",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        },
+        {
+          "ticker": "MPWR",
+          "relevance_score": "0.835321",
+          "ticker_sentiment_score": "0.328342",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        }
+      ]
+    },
+    {
+      "title": "H&R Block (NYSE:HRB) Stock: Insider Mark Darling Sells 2,700 Shares",
+      "url": "https://www.marketbeat.com/instant-alerts/insider-hr-block-nyse-hrb-stock-insider-mark-darling-sells-2700-shares-2026-10-02/",
+      "time_published": "20261002T215624",
+      "authors": [
+        "MarketBeat"
+      ],
+      "summary": "H&R Block insider Mark Darling sold 2,700 shares of the company's stock for approximately $109,863, reducing his direct ownership by over 11%. The company recently exceeded earnings and revenue estimates, reporting $2.38 EPS and $1.14 billion in revenue, and subsequently increased its quarterly dividend to $0.46 per share. Analysts currently hold a consensus \"Hold\" rating for HRB with an average price target of $46.67.",
+      "banner_image": "https://www.marketbeat.com/logos/hr-block-inc-logo-1200x675.png?v=20240424110042",
+      "source": "MarketBeat",
+      "category_within_source": "General",
+      "source_domain": "MarketBeat",
+      "topics": [
+        {
+          "topic": "earnings",
+          "relevance_score": "0.927143"
+        },
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.840869"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.725500"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.614714"
+        }
+      ],
+      "overall_sentiment_score": 0.21115,
+      "overall_sentiment_label": "Somewhat-Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "HRB",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "0.216347",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        }
+      ]
+    },
+    {
+      "title": "Disney cuts 300 workers, offers executives early retirement",
+      "url": "https://www.latimes.com/entertainment-arts/business/story/2026-10-02/disney-cuts-300-workers-offers-executives-early-retirement",
+      "time_published": "20261002T212500",
+      "authors": [
+        "Meg James"
+      ],
+      "summary": "Walt Disney Co. recently laid off nearly 300 workers, primarily in human resources and technology, as part of an industry-wide consolidation and a \"One Disney\" restructuring effort led by CEO Josh D\u2019Amaro. The company is also offering early retirement packages to older executives and plans further cuts, particularly in the television division, to adapt to changing consumption patterns and improve efficiency. This move reflects a broader trend of workforce reductions across Hollywood studios as the streaming market matures and cost-cutting becomes a priority.",
+      "banner_image": "https://ca-times.brightspotcdn.com/dims4/default/fea0c54/2147483647/strip/true/crop/4019x2788+0+0/resize/1200x832!/quality/75/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F74%2F4d%2F5cd15b72484fa0b6d632356784ef%2F1494136-me-iconic-places-07-mjc.jpg",
+      "source": "Los Angeles Times",
+      "category_within_source": "General",
+      "source_domain": "Los Angeles Times",
+      "topics": [
+        {
+          "topic": "mergers_and_acquisitions",
+          "relevance_score": "0.812109"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.616633"
+        }
+      ],
+      "overall_sentiment_score": -0.396921,
+      "overall_sentiment_label": "Bearish",
+      "ticker_sentiment": [
+        {
+          "ticker": "DIS",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "-0.320310",
+          "ticker_sentiment_label": "Somewhat-Bearish"
+        },
+        {
+          "ticker": "WBD",
+          "relevance_score": "0.740697",
+          "ticker_sentiment_score": "-0.405368",
+          "ticker_sentiment_label": "Bearish"
+        }
+      ]
+    },
+    {
+      "title": "Allison Transmission redeems $100m of 2027 senior notes",
+      "url": "https://www.investing.com/news/company-news/allison-transmission-redeems-100m-of-2027-senior-notes-93CH-4930367",
+      "time_published": "20261002T212327",
+      "authors": [
+        "Investing.com"
+      ],
+      "summary": "Allison Transmission Holdings Inc. (NYSE:ALSN) announced it completed a partial redemption of $100 million in aggregate principal amount of its 4.750% Senior Notes due 2027. The redemption was made at 100.00% of the principal amount plus accrued interest, as per an optional redemption provision. Following this transaction, $300 million of these notes remain outstanding.",
+      "banner_image": "https://content-media.investing.com/news/LYNXMPEM2I1CG_1200_L.jpg",
+      "source": "Investing.com",
+      "category_within_source": "General",
+      "source_domain": "Investing.com",
+      "topics": [
+        {
+          "topic": "finance",
+          "relevance_score": "0.923378"
+        },
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.840690"
+        },
+        {
+          "topic": "earnings",
+          "relevance_score": "0.700475"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.643394"
+        }
+      ],
+      "overall_sentiment_score": 0.329263,
+      "overall_sentiment_label": "Somewhat-Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "ALSN",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "0.346187",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        }
+      ]
+    },
+    {
+      "title": "CFG Stock Price Prediction 2026-2027 | Citizens Financial Group Forecast",
+      "url": "https://247wallst.com/companies/cfg/price-prediction?tpid=1673084&tv=link&tc=in_content",
+      "time_published": "20261002T212000",
+      "authors": [],
+      "summary": "This article provides a detailed stock price prediction for Citizens Financial Group (CFG) for 2026-2027, including 12-month and 5-year forecasts. 24/7 Wall St. rates CFG as a \"BUY\" with a 12-month target of $75.96, indicating a 19.1% upside. The analysis incorporates analyst consensus, earnings growth, and sector momentum to project potential returns and address frequently asked questions regarding the stock's future performance.",
+      "banner_image": "https://img.logo.dev/ticker/CFG?token=pk_NW1GT8JtRB6RBIU7VgRAqw&size=88&format=png",
+      "source": "24/7 Wall St.",
+      "category_within_source": "General",
+      "source_domain": "24/7 Wall St.",
+      "topics": [
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.903072"
+        },
+        {
+          "topic": "earnings",
+          "relevance_score": "0.841535"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.738207"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.629312"
+        }
+      ],
+      "overall_sentiment_score": 0.529643,
+      "overall_sentiment_label": "Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "CFG",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "0.519385",
+          "ticker_sentiment_label": "Bullish"
+        }
+      ]
+    },
+    {
+      "title": "Trump touts American manufacturing at Peterbilt factory",
+      "url": "https://www.ttnews.com/articles/trump-peterbilt-rally-2026",
+      "time_published": "20261002T211502",
+      "authors": [
+        "Keiron Greenhalgh"
+      ],
+      "summary": "President Donald Trump visited Peterbilt's manufacturing plant in Denton, Texas, to promote his administration's policies as beneficial for truck manufacturers and employees, ahead of the November midterm elections. He touted the growth of American manufacturing jobs and highlighted proposed EPA revisions to nitrogen oxides emissions regulations, claiming they would reduce costs and improve trucks. Trump also rallied support for Senate nominee Ken Paxton, framing environmental and trade policies as wins for the trucking industry.",
+      "banner_image": "https://www.ttnews.com/sites/default/files/styles/article_full_width_webp/public/2026-10/Trump-Peterbilt-1200.jpg.webp",
+      "source": "Transport Topics",
+      "category_within_source": "General",
+      "source_domain": "Transport Topics",
+      "topics": [
+        {
+          "topic": "manufacturing",
+          "relevance_score": "0.942678"
+        },
+        {
+          "topic": "energy_transportation",
+          "relevance_score": "0.807184"
+        },
+        {
+          "topic": "economy_fiscal",
+          "relevance_score": "0.841448"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.634443"
+        }
+      ],
+      "overall_sentiment_score": 0.418914,
+      "overall_sentiment_label": "Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "PCAR",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "0.407434",
+          "ticker_sentiment_label": "Bullish"
+        }
+      ]
+    },
+    {
+      "title": "ON Semiconductor (ON) Shares Rise 5.8% Amid Weak September Jobs Report",
+      "url": "https://www.gurufocus.com/news/9108041/on-semiconductor-on-shares-rise-58-amid-weak-september-jobs-report",
+      "time_published": "20261002T211113",
+      "authors": [
+        "GuruFocus.com"
+      ],
+      "summary": "ON Semiconductor (ON) saw its stock price increase by 5.8% after a weaker-than-expected September U.S. jobs report sparked optimism for technology stocks. Despite this rise and a strong GF Score\u2122 of 85/100, the stock is considered significantly overvalued by GuruFocus's GF Value\u2122 metric. Insider activity shows net selling, contrasting with guru accumulation, suggesting investors should carefully assess the risk-reward balance given the premium valuation.",
+      "banner_image": "https://static.gurufocus.com/cdn-cgi/image/width=600,quality=100/logos/0C00000BZP.png?20",
+      "source": "GuruFocus",
+      "category_within_source": "General",
+      "source_domain": "GuruFocus",
+      "topics": [
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.937468"
+        },
+        {
+          "topic": "technology",
+          "relevance_score": "0.820306"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.748450"
+        },
+        {
+          "topic": "economy_monetary",
+          "relevance_score": "0.641963"
+        },
+        {
+          "topic": "manufacturing",
+          "relevance_score": "0.618945"
+        }
+      ],
+      "overall_sentiment_score": 0.012515,
+      "overall_sentiment_label": "Neutral",
+      "ticker_sentiment": [
+        {
+          "ticker": "ON",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "0.118568",
+          "ticker_sentiment_label": "Neutral"
+        },
+        {
+          "ticker": "STX",
+          "relevance_score": "0.613103",
+          "ticker_sentiment_score": "-0.102247",
+          "ticker_sentiment_label": "Neutral"
+        }
+      ]
+    },
+    {
+      "title": "47 Peoples State Bank employees in Wausau to lose jobs in merger",
+      "url": "https://www.wausaudailyherald.com/story/money/2026/10/02/47-peoples-state-bank-employees-in-wausau-to-lose-jobs-in-merger/92062204007/",
+      "time_published": "20261002T210409",
+      "authors": [
+        "Jamie Rokus",
+        "Caitlin Shuda"
+      ],
+      "summary": "Forty-seven employees across three Peoples State Bank branches in Wausau will be laid off due to a merger with Bank First Corp. The layoffs, announced in an Oct. 1 notice, are scheduled to occur between December 4 and December 18, 2026, as the banks consolidate duplicative roles. The merger has received regulatory and shareholder approval and is set to finalize on December 4, 2026, after which Peoples State Bank locations will reopen as Bank First.",
+      "banner_image": "https://www.gannett-cdn.com/authoring/authoring-images/2024/07/10/USAT/74349809007-20240523-jc-121-unemployment-benefits-thumb-16-x-9.jpg?crop=1919,1079,x0,y0",
+      "source": "Wausau Daily Herald",
+      "category_within_source": "General",
+      "source_domain": "Wausau Daily Herald",
+      "topics": [
+        {
+          "topic": "mergers_and_acquisitions",
+          "relevance_score": "1.000000"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.922314"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.645374"
+        }
+      ],
+      "overall_sentiment_score": -0.39206,
+      "overall_sentiment_label": "Bearish",
+      "ticker_sentiment": [
+        {
+          "ticker": "BFC",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "-0.415301",
+          "ticker_sentiment_label": "Bearish"
+        }
+      ]
+    },
+    {
+      "title": "The Case for Gold as an 'All-Weather' Investment",
+      "url": "https://etfdb.com/gold-silver-investing-content-hub/case-gold-all-weather-investment/",
+      "time_published": "20261002T210030",
+      "authors": [
+        "Nick Wodeshick"
+      ],
+      "summary": "Gold, traditionally seen as a safe haven, is increasingly recognized as an \"all-weather strategy\" due to its diversification benefits and historical outperformance against the S&P 500 since 2000. John Hathaway of Sprott suggests now is an opportune time for investors to consider gold equities, citing strong operating leverage and potential M&A in the mining sector, regardless of gold's price movements. Investors can gain exposure through ETFs like the Sprott Gold Miners ETF (SGDM) and the Sprott Junior Gold Miners ETF (SGDJ).",
+      "banner_image": "https://etfdb.com/media/W1siZiIsIjIwMjUvMDkvMDUvODVyMDA1am0zY19HU0NNX1Nwcm90dF9tYXN0aGVhZF9vdmVybGF5XzE2MDB4MTIxXzJ4LnBuZyJdXQ/GSCM_Sprott_masthead_overlay_1600x121%402x.png",
+      "source": "ETF Database",
+      "category_within_source": "General",
+      "source_domain": "ETF Database",
+      "topics": [
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.917909"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.814024"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.730694"
+        }
+      ],
+      "overall_sentiment_score": 0.007285,
+      "overall_sentiment_label": "Neutral",
+      "ticker_sentiment": [
+        {
+          "ticker": "SII",
+          "relevance_score": "0.307650",
+          "ticker_sentiment_score": "0.047090",
+          "ticker_sentiment_label": "Neutral"
+        }
+      ]
+    },
+    {
+      "title": "What Dementia Care Really Costs and How to Prepare",
+      "url": "https://www.pnfp.com/learning-center/personal-finance/retirement/what-dementia-care-really-costs-and-how-to-prepare/",
+      "time_published": "20261002T205736",
+      "authors": [],
+      "summary": "Dementia care is a significant financial burden due to its long duration and increasing care needs as the disease progresses. Costs can range from hundreds of thousands to over a million dollars, with national median monthly expenses for different care types presented. Families typically cover these costs through out-of-pocket payments, long-term care insurance, or Medicaid as a last resort, emphasizing the importance of early financial planning.",
+      "banner_image": "https://www.pnfp.com/media/jcbk5qxw/lc_3.jpg?rxy=0.5078909612625538,0.3443326080827776&width=750&height=450",
+      "source": "Pinnacle Financial Partners",
+      "category_within_source": "General",
+      "source_domain": "Pinnacle Financial Partners",
+      "topics": [
+        {
+          "topic": "finance",
+          "relevance_score": "0.917415"
+        },
+        {
+          "topic": "life_sciences",
+          "relevance_score": "0.716014"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.635048"
+        }
+      ],
+      "overall_sentiment_score": 0.099683,
+      "overall_sentiment_label": "Neutral",
+      "ticker_sentiment": [
+        {
+          "ticker": "PNFP-P-B",
+          "relevance_score": "0.325327",
+          "ticker_sentiment_score": "0.018517",
+          "ticker_sentiment_label": "Neutral"
+        },
+        {
+          "ticker": "UNH",
+          "relevance_score": "0.630744",
+          "ticker_sentiment_score": "0.133291",
+          "ticker_sentiment_label": "Neutral"
+        },
+        {
+          "ticker": "CVS",
+          "relevance_score": "0.574634",
+          "ticker_sentiment_score": "0.080174",
+          "ticker_sentiment_label": "Neutral"
+        }
+      ]
+    },
+    {
+      "title": "Stellantis STLA Slides As Downgrades, Battery Shortages Hit Outlook",
+      "url": "https://stockstotrade.com/news/stellantis-nv-stla-news-2026_10_02-2/",
+      "time_published": "20261002T205415",
+      "authors": [
+        "TIM BOHEN"
+      ],
+      "summary": "Stellantis (STLA) stock has fallen by 6.4% due to concerns over weak EV demand, pricing pressure, and production halts caused by battery shortages at its French plants. The company has also faced downgrades from Morgan Stanley and Berenberg, who cited a weak product pipeline, soft cash generation, and refinancing risks. An insider's plan to sell shares further adds to the negative outlook.",
+      "banner_image": "https://content.stockstotrade.com/wp-content/uploads/2026/10/stellantis-stla-slides-as-downgrades-battery-shortages-hit-outlook.jpg",
+      "source": "StocksToTrade",
+      "category_within_source": "General",
+      "source_domain": "StocksToTrade",
+      "topics": [
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.922863"
+        },
+        {
+          "topic": "earnings",
+          "relevance_score": "0.830834"
+        },
+        {
+          "topic": "manufacturing",
+          "relevance_score": "0.740875"
+        },
+        {
+          "topic": "energy_transportation",
+          "relevance_score": "0.645774"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.630978"
+        }
+      ],
+      "overall_sentiment_score": -0.58797,
+      "overall_sentiment_label": "Bearish",
+      "ticker_sentiment": [
+        {
+          "ticker": "STLA",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "-0.741279",
+          "ticker_sentiment_label": "Bearish"
+        },
+        {
+          "ticker": "F",
+          "relevance_score": "0.603622",
+          "ticker_sentiment_score": "-0.537269",
+          "ticker_sentiment_label": "Bearish"
+        },
+        {
+          "ticker": "GM",
+          "relevance_score": "0.604996",
+          "ticker_sentiment_score": "-0.543647",
+          "ticker_sentiment_label": "Bearish"
+        }
+      ]
+    },
+    {
+      "title": "Seagate Technology drops 10% amid storage-sector pressure (STX:NASDAQ)",
+      "url": "https://seekingalpha.com/news/4649982-seagate-technology-drops-10-amid-storage-sector-pressure",
+      "time_published": "20261002T205024",
+      "authors": [
+        "SA News",
+        "SA News Editor"
+      ],
+      "summary": "Shares of Seagate Technology Holdings (STX) dropped over 10% on Friday, closing at $848.99, a decline of $96.58. This downturn is attributed to broader storage-sector pressures, even as the wider tech market saw gains, with no specific company-centric news cited as the immediate cause. Analyst opinions on STX are mixed, with some noting strong demand and innovation while others caution about valuation and potential peak in data-center spending.",
+      "banner_image": "https://static.seekingalpha.com/cdn/s3/uploads/getty_images/1193973112/image_1193973112.jpg?io=getty-c-w630",
+      "source": "Seeking Alpha",
+      "category_within_source": "General",
+      "source_domain": "Seeking Alpha",
+      "topics": [
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.902568"
+        },
+        {
+          "topic": "technology",
+          "relevance_score": "0.807182"
+        },
+        {
+          "topic": "earnings",
+          "relevance_score": "0.700551"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.639817"
+        }
+      ],
+      "overall_sentiment_score": -0.506512,
+      "overall_sentiment_label": "Bearish",
+      "ticker_sentiment": [
+        {
+          "ticker": "STX",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "-0.642067",
+          "ticker_sentiment_label": "Bearish"
+        },
+        {
+          "ticker": "WDC",
+          "relevance_score": "0.627135",
+          "ticker_sentiment_score": "-0.439781",
+          "ticker_sentiment_label": "Bearish"
+        }
+      ]
+    },
+    {
+      "title": "iPower Inc. FY 2026: Revenue $19.96M, EPS $(345.16) \u2014 10-K Summary",
+      "url": "https://www.tradingview.com/news/tradingview:07db2f48795ed:0-ipower-inc-fy-2026-revenue-19-96m-eps-345-16-10-k-summary/",
+      "time_published": "20261002T203004",
+      "authors": [],
+      "summary": "iPower Inc. reported a significant decline in fiscal 2026 revenue to $19.96 million from $63.22 million in 2025, resulting in a worsened net loss and diluted EPS. The company attributed this downturn to lower Amazon orders and supply disruptions, prompting a strategic shift towards AI infrastructure financing and operational restructuring. This included selling subsidiaries, divesting sales functions, and reorganizing supplier relationships.",
+      "banner_image": null,
+      "source": "TradingView",
+      "category_within_source": "General",
+      "source_domain": "TradingView",
+      "topics": [
+        {
+          "topic": "earnings",
+          "relevance_score": "0.937474"
+        },
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.618851"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.630218"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.617266"
+        }
+      ],
+      "overall_sentiment_score": -0.630035,
+      "overall_sentiment_label": "Bearish",
+      "ticker_sentiment": [
+        {
+          "ticker": "IPW",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "-0.843685",
+          "ticker_sentiment_label": "Bearish"
+        },
+        {
+          "ticker": "AMZN",
+          "relevance_score": "0.617103",
+          "ticker_sentiment_score": "-0.417286",
+          "ticker_sentiment_label": "Bearish"
+        }
+      ]
+    },
+    {
+      "title": "Find out if your business is eligible for a payment from the $82.5 million Tyson direct beef purchaser antitrust settlement!",
+      "url": "https://www.claimdepot.com/settlements/beef-direct-purchaser-settlement",
+      "time_published": "20261002T202951",
+      "authors": [
+        "William C. Gendron"
+      ],
+      "summary": "Tyson Foods Inc. and Tyson Fresh Meats Inc. have agreed to an $82.5 million settlement in an antitrust class action alleging they conspired with other beef producers to inflate prices. Individuals and entities who directly purchased specific fresh or frozen beef products from Tyson, Cargill, JBS, or National Beef between January 1, 2015, and February 29, 2020, may be eligible for a pro rata payment. The deadline to file a claim is November 30, 2026, and proof of purchase is required.",
+      "banner_image": "https://cdn.prod.website-files.com/642f23e5f54b794300ac12a6/6ac0144a6b7d40191f7c72e8_6FXIQBz1cBHUp3cQ7fOZoZJUzT4eOVpU-p8HRuZiVXM.webp",
+      "source": "Claim Depot",
+      "category_within_source": "General",
+      "source_domain": "Claim Depot",
+      "topics": [
+        {
+          "topic": "finance",
+          "relevance_score": "0.824578"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.634073"
+        }
+      ],
+      "overall_sentiment_score": -0.266876,
+      "overall_sentiment_label": "Somewhat-Bearish",
+      "ticker_sentiment": [
+        {
+          "ticker": "TSN",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "-0.279278",
+          "ticker_sentiment_label": "Somewhat-Bearish"
+        }
+      ]
+    },
+    {
+      "title": "With 5.10 million shares plus cash, ESCO Technologies (ESE) completes its Megger purchase.",
+      "url": "https://www.stocktitan.net/sec-filings/ESE/8-k-esco-technologies-inc-reports-material-event-4ebd6125a292.html",
+      "time_published": "20261002T202948",
+      "authors": [],
+      "summary": "ESCO Technologies Inc. (ESE) has completed its acquisition of Megger Group Limited for approximately $2.3 billion, paid with $922 million in cash and 5.10 million common shares. The acquisition was financed through a new credit agreement of approximately $1.0 billion, which also refinanced existing indebtedness and covered transaction costs. As part of the deal, ESCO expanded its board and appointed Jeremy P. Abson as an independent director, while the seller retains certain rights and restrictions related to the consideration shares.",
+      "banner_image": null,
+      "source": "Stock Titan",
+      "category_within_source": "General",
+      "source_domain": "Stock Titan",
+      "topics": [
+        {
+          "topic": "mergers_and_acquisitions",
+          "relevance_score": "1.000000"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.837165"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.635664"
+        }
+      ],
+      "overall_sentiment_score": 0.034472,
+      "overall_sentiment_label": "Neutral",
+      "ticker_sentiment": [
+        {
+          "ticker": "ESE",
+          "relevance_score": "0.349053",
+          "ticker_sentiment_score": "0.042993",
+          "ticker_sentiment_label": "Neutral"
+        }
+      ]
+    },
+    {
+      "title": "Warrants for 19.9% of post-deal stock are part of Elmet Group (ELMT)'s defense investment.",
+      "url": "https://www.stocktitan.net/sec-filings/ELMT/8-k-elmet-group-co-reports-material-event-2b7408ae2248.html",
+      "time_published": "20261002T202726",
+      "authors": [],
+      "summary": "Elmet Group (ELMT) detailed a $450 million Department of War investment, including $200 million at closing and subsequent tranches, along with warrants for 19.9% of post-deal common stock. The investment aims to upgrade U.S. facilities, establish a new European manufacturing base, and secure the tungsten supply chain through strategic partnerships and a DLA contract. The company projects significant revenue growth by 2031 and highlights its role as a critical supplier for U.S. defense, especially given increasing restrictions on materials from China, Russia, Iran, and North Korea.",
+      "banner_image": null,
+      "source": "Stock Titan",
+      "category_within_source": "General",
+      "source_domain": "Stock Titan",
+      "topics": [
+        {
+          "topic": "manufacturing",
+          "relevance_score": "1.000000"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.815534"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.619837"
+        }
+      ],
+      "overall_sentiment_score": 0.370541,
+      "overall_sentiment_label": "Bullish",
+      "ticker_sentiment": [
+        {
+          "ticker": "ELMT",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "0.485113",
+          "ticker_sentiment_label": "Bullish"
+        },
+        {
+          "ticker": "LMT",
+          "relevance_score": "0.604943",
+          "ticker_sentiment_score": "0.332379",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        },
+        {
+          "ticker": "RTX",
+          "relevance_score": "0.570079",
+          "ticker_sentiment_score": "0.278104",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        }
+      ]
+    },
+    {
+      "title": "IPower : Annual Report for Fiscal Year Ending June 30, 2026 (Form 10-K)",
+      "url": "https://www.marketscreener.com/news/ipower-annual-report-for-fiscal-year-ending-june-30-2026-form-10-k-ce785ddbd880f623",
+      "time_published": "20261002T202604",
+      "authors": [],
+      "summary": "iPower Inc. has released its annual report for the fiscal year ended June 30, 2026, detailing a significant decrease in revenues and an increase in net loss compared to the previous year. The company implemented several reverse stock splits and secured convertible note financing while also shifting its strategic focus towards AI infrastructure and managing a limited digital asset treasury. The report highlights the financial results, liquidity, capital resources, and critical accounting policies for the period.",
+      "banner_image": "https://cdn.zonebourse.com/static/hes/IPOWER-INC_.svg?_=NXlMWVoxUzNiUmVJZXhZSzZyemovWk1hR3JhWUd0c3JxdHhFb3AyMDFMMVNCY3E1TGhSOVNqcHU0Ti9MTUVRVXBFNkNobUJGdk9CSjh3SGtqaFhjdGp2NW5VL2FmcW54Z1RvWnhrUlZEYlJlRmJ1dUljQUhDb0RYbTNxTUk1NGhvQzBYVHFkMGJlNHIzQ3FtaTFTRUtYM3BBUWJqZTBleDlWVHRkL2tMRHVIdEl5YW5ZN1poeXUybno5QzBlV1BTaWZDSTNJb2pRMk5INFRndnFpcWI4TUhqckF6cmwxTzhiTDBZY3gySzlXZm5pd2J6ZU9NWE01N2J4djcva2VSczNwcG0reG9EWDFqREFYMEtMR1dsS0R0bWhFcDJuaUJidnNEYVRTZEkyZHRKbnJhN0ErSGxxK1NpL25kNVRYMmp4MnVvaFl0L0g1SmVFRVY0dEpSZUZTeGdOQkl2TTNnN2NITDRwRjFESTNzT3ZwME5YUE9UcTVSdVAwVkg1TUJQNkNVTjh3Wjk1RmFFc0xxVk52OW5IS2Z1S29samJUTDRDMXc1dzU4OGNtNjBIREhMcXNBWGhrbHpGaG44ZklYbUVHU2tHVFh1WTIyMnJDNERwTUhmd1A2WERPQncyS2RLOVRCVEF6cW0vWk5ic0swVXFrdWNJNGxUa0EzV2NKRWpnZ0MwNlRNQlJXaGQyeVgwdlR2ZFdRPT0",
+      "source": "www.marketscreener.com",
+      "category_within_source": "General",
+      "source_domain": "www.marketscreener.com",
+      "topics": [
+        {
+          "topic": "earnings",
+          "relevance_score": "0.938011"
+        },
+        {
+          "topic": "finance",
+          "relevance_score": "0.733942"
+        },
+        {
+          "topic": "technology",
+          "relevance_score": "0.640203"
+        },
+        {
+          "topic": "blockchain",
+          "relevance_score": "0.609590"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.614730"
+        }
+      ],
+      "overall_sentiment_score": -0.240137,
+      "overall_sentiment_label": "Somewhat-Bearish",
+      "ticker_sentiment": [
+        {
+          "ticker": "IPW",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "-0.390552",
+          "ticker_sentiment_label": "Bearish"
+        },
+        {
+          "ticker": "JPM",
+          "relevance_score": "0.561776",
+          "ticker_sentiment_score": "-0.117365",
+          "ticker_sentiment_label": "Neutral"
+        }
+      ]
+    },
+    {
+      "title": "How Bloomin' Brands Stock Lost 24.8% Last Month",
+      "url": "https://www.theglobeandmail.com/investing/markets/markets-news/motley/4935085/how-bloomin-brands-stock-lost-24-8-last-month/",
+      "time_published": "20261002T202548",
+      "authors": [
+        "Motley Fool"
+      ],
+      "summary": "Bloomin' Brands (NASDAQ:BLMN), the parent company of Outback Steakhouse, saw its stock price drop by 24.8% in September 2026 due to macroeconomic concerns affecting the casual dining sector. The decline occurred in three distinct stages, influenced by commodities inflation, rising labor costs, increased oil prices, and high Treasury yields. Despite a recent upgrade to Neutral from Underweight by JPMorgan, the company's significant debt load and reliance on consumer spending present challenges for a sustained turnaround, with the upcoming third-quarter report being a critical checkpoint for investors.",
+      "banner_image": "https://barchart-news-media-prod.aws.barchart.com/FC/8ed269ac0fbd4abd391bae8528cb9310/%3Furl%3Dhttps%253a%252f%252fcdn.content.foolcdn.com%252fimages%252f1umn9qeh%252fproduction%252fd1e27ea961b2a3503e01ef540f0924c2fdbe32b0-2121x1414.jpg%253fw%253d2121%2526h%253d1414%2526q%253d75%2526auto%253dformat%26amp%3Bw%3D700",
+      "source": "The Globe and Mail",
+      "category_within_source": "General",
+      "source_domain": "The Globe and Mail",
+      "topics": [
+        {
+          "topic": "financial_markets",
+          "relevance_score": "0.937748"
+        },
+        {
+          "topic": "economy_macro",
+          "relevance_score": "0.835971"
+        },
+        {
+          "topic": "earnings",
+          "relevance_score": "0.726766"
+        },
+        {
+          "topic": "retail_wholesale",
+          "relevance_score": "0.617629"
+        }
+      ],
+      "overall_sentiment_score": -0.133458,
+      "overall_sentiment_label": "Neutral",
+      "ticker_sentiment": [
+        {
+          "ticker": "BLMN",
+          "relevance_score": "1.000000",
+          "ticker_sentiment_score": "-0.394841",
+          "ticker_sentiment_label": "Bearish"
+        },
+        {
+          "ticker": "JPM",
+          "relevance_score": "0.626351",
+          "ticker_sentiment_score": "0.185778",
+          "ticker_sentiment_label": "Somewhat-Bullish"
+        }
+      ]
+    }
+  ]
+}

@@ -183,12 +183,57 @@ def test_parallel_barrier_evidence_and_checkpoint_reload(settings: Settings):
     asyncio.run(exercise())
     entries = [json.loads(line) for line in settings.evidence_path.read_text().splitlines()]
     completed = [e["stage"] for e in entries if e["event"] == "completed"]
-    assert len(completed) == 13  # plan + six fetches + six processing nodes
-    assert completed.count("normalize") == 1
-    assert all(completed.index(f"fetch_{s}") < completed.index("normalize") for s in SOURCES)
+    # plan + six fetches + six process streams + write_evidence + report
+    assert len(completed) == 15
+    assert all(completed.index(f"fetch_{s}") < completed.index(f"process_{s}") for s in SOURCES)
+    assert all(completed.index(f"process_{s}") < completed.index("write_evidence") for s in SOURCES)
     assert all(e["ingest_run_id"] == "barrier-run" for e in entries)
     with sqlite3.connect(settings.checkpoint_path) as connection:
         assert connection.execute("PRAGMA journal_mode").fetchone()[0] == "wal"
+
+
+def test_slow_source_does_not_block_fast_sources(settings: Settings, document: Document):
+    """Verify that a slow source does not hold back fast sources from completing processing."""
+
+    async def exercise():
+        events = []
+
+        class SlowConnector(StubConnector):
+            async def fetch(self):
+                await asyncio.sleep(0.3)
+                events.append("slow_fetch_done")
+                return []
+
+        class FastConnector(StubConnector):
+            async def fetch(self):
+                events.append(f"{self.source}_fetch_done")
+                return [document.model_copy(update={"source": self.source}).model_dump(mode="json")]
+
+            async def normalize(self, raw):
+                events.append(f"{self.source}_normalize_done")
+                return [document.model_copy(update={"source": self.source})]
+
+        connectors = {s: FastConnector(s) for s in SOURCES}
+        connectors["macro"] = SlowConnector("macro")
+
+        pipeline = IngestionPipeline(
+            settings, connectors, embedder=FixtureEmbedder(), vectorstore=FixtureVectors()
+        )
+        try:
+            async with AsyncSqliteSaver.from_conn_string(str(settings.checkpoint_path)) as saver:
+                result = await pipeline.build_graph(saver).ainvoke(
+                    {"ingest_run_id": "unblocked-test"},
+                    config=run_config("unblocked-test", uuid4(), list(SOURCES)),
+                )
+            assert result["statuses"]["macro"]["status"] == "ok"
+            assert result["statuses"]["prices"]["status"] == "ok"
+            # Fast sources normalized and processed BEFORE slow fetch finished
+            assert "prices_normalize_done" in events
+            assert events.index("prices_normalize_done") < events.index("slow_fetch_done")
+        finally:
+            await pipeline.close()
+
+    asyncio.run(exercise())
 
 
 def test_sync_sqlite_saver_supported(settings: Settings):
