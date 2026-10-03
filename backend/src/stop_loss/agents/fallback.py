@@ -130,6 +130,7 @@ def rules_narrative(
 
     suggestions = _rules_suggestions(ref, plan, quant, risk, news, weather)
     return NarrativeDraft(
+        executive_answer="Info not known. (Language model disabled; answering deterministically.)",
         snapshot_summary=snapshot,
         sources_summary=sources,
         historical_summary=historical,

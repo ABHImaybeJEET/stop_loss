@@ -501,6 +501,7 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
         else:
             draft = NarrativeDraft.model_validate(narrative["draft"])
             texts = [
+                draft.executive_answer,
                 draft.snapshot_summary,
                 draft.sources_summary,
                 draft.historical_summary,
@@ -531,6 +532,7 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
                 partial=bool(failed),
                 failed_agents=failed,
                 asset=AssetRef.model_validate(state["asset"]),
+                executive_answer=draft.executive_answer,
                 snapshot=snapshot_section(data["market"], data["profile"], draft.snapshot_summary),
                 sources=sources_section(data["news"], draft.sources_summary),
                 historical=historical_section(data["quant"], draft.historical_summary),
@@ -556,6 +558,7 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
             event = {"type": "final", "result": result.model_dump(mode="json")}
             memory = "\n".join(
                 [
+                    draft.executive_answer,
                     draft.snapshot_summary,
                     draft.historical_summary,
                     *(f"- {s.action}: {s.rationale}" for s in draft.suggestions),

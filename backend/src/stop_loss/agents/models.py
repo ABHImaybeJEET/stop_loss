@@ -157,6 +157,7 @@ class AnalysisResult(Wire):
     failed_agents: list[str] = Field(default_factory=list)
     langsmith_run_id: str | None = None
     asset: AssetRef
+    executive_answer: str | None = None
     snapshot: Snapshot
     sources: Sources
     historical: Historical
