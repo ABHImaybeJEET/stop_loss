@@ -1,0 +1,235 @@
+"""FastAPI service for the terminal. Intended to sit behind the Next.js route handlers,
+which verify the Firebase session and forward the user id (X-User-Id)."""
+
+import asyncio
+import hmac
+import json
+import logging
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
+from typing import Annotated, Any
+
+from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request
+from fastapi.responses import JSONResponse, StreamingResponse
+
+from fin_terminal.config import secret_value
+from fin_terminal.connectors.errors import ConnectorError
+from fin_terminal.resilience import CircuitOpenError, RateLimitedError
+from fin_terminal.schemas import EvidenceLogEntry
+from stop_loss.agents.models import ChatRequest
+from stop_loss.agents.service import AnalysisService
+from stop_loss.analytics.http import Cached
+from stop_loss.analytics.yahoo import VALID_INTERVALS, VALID_RANGES, SymbolNotFoundError
+from stop_loss.api.feedback import FeedbackIn, FeedbackOut, FeedbackStore
+from stop_loss.api.newsfeed import build_feed
+from stop_loss.api.runs import Run, RunRegistry, ThreadBusyError
+from stop_loss.settings import TerminalSettings, get_terminal_settings
+
+logger = logging.getLogger("stop_loss.api")
+SYMBOL_PATTERN = r"^[A-Za-z0-9.\-^=]{1,32}$"
+SSE_HEADERS = {"Cache-Control": "no-cache, no-transform", "X-Accel-Buffering": "no"}
+
+
+def create_app(
+    settings: TerminalSettings | None = None, service: AnalysisService | None = None
+) -> FastAPI:
+    settings = settings or get_terminal_settings()
+    service = service or AnalysisService(settings)
+    registry = RunRegistry(service, settings)
+    feedback = FeedbackStore(settings.feedback_db_path)
+    feed_cache = Cached(300)
+    token = secret_value(settings.api_internal_token)
+
+    @asynccontextmanager
+    async def lifespan(_: FastAPI) -> AsyncIterator[None]:
+        await service.start()
+        yield
+        await registry.aclose()
+        await service.aclose()
+        feedback.close()
+
+    app = FastAPI(title="StopLoss Terminal API", version="0.2.0", lifespan=lifespan)
+
+    async def internal(x_internal_token: Annotated[str | None, Header()] = None) -> None:
+        if token and not hmac.compare_digest(x_internal_token or "", token):
+            raise HTTPException(status_code=401, detail="invalid_internal_token")
+
+    async def user(
+        x_user_id: Annotated[str, Header(min_length=1, max_length=128)],
+        _: None = Depends(internal),
+    ) -> str:
+        return x_user_id
+
+    @app.exception_handler(SymbolNotFoundError)
+    async def not_found(_: Request, exc: SymbolNotFoundError) -> JSONResponse:
+        return JSONResponse(
+            status_code=404, content={"detail": "symbol_not_found", "symbol": exc.symbol}
+        )
+
+    @app.exception_handler(RateLimitedError)
+    @app.exception_handler(CircuitOpenError)
+    async def throttled(_: Request, exc: Exception) -> JSONResponse:
+        return JSONResponse(
+            status_code=503,
+            content={"detail": "provider_unavailable"},
+            headers={"Retry-After": "15"},
+        )
+
+    @app.exception_handler(ConnectorError)
+    async def upstream(_: Request, exc: ConnectorError) -> JSONResponse:
+        return JSONResponse(status_code=502, content={"detail": exc.code})
+
+    @app.get("/health", dependencies=[Depends(internal)])
+    async def health() -> dict[str, Any]:
+        return {
+            "status": "ok",
+            "llm_enabled": service.llm_enabled,
+            "model": settings.openai_chat_model if service.llm_enabled else None,
+        }
+
+    @app.get("/assets/search", dependencies=[Depends(internal)])
+    async def search(q: Annotated[str, Query(min_length=1, max_length=64)]) -> dict[str, Any]:
+        matches, _ = await service.kit.yahoo.search(q.strip(), quotes=10, news=0)
+        return {"results": [m.model_dump() for m in matches]}
+
+    @app.get("/market/chart", dependencies=[Depends(internal)])
+    async def chart(
+        symbol: Annotated[str, Query(pattern=SYMBOL_PATTERN)],
+        range: Annotated[str, Query()] = "1d",  # noqa: A002 - public API name
+        interval: Annotated[str, Query()] = "5m",
+    ) -> dict[str, Any]:
+        if range not in VALID_RANGES or interval not in VALID_INTERVALS:
+            raise HTTPException(status_code=422, detail="invalid_range_or_interval")
+        series = await service.kit.yahoo.chart(symbol, range, interval)
+        return series.model_dump(mode="json")
+
+    @app.get("/market/quote", dependencies=[Depends(internal)])
+    async def quote(symbol: Annotated[str, Query(pattern=SYMBOL_PATTERN)]) -> dict[str, Any]:
+        series = await service.kit.yahoo.quote(symbol)
+        last = series.bars[-1] if series.bars else None
+        return {
+            "symbol": series.symbol,
+            "price": series.price,
+            "change_pct": series.change_pct,
+            "previous_close": series.previous_close,
+            "currency": series.currency,
+            "market_state": series.market_state,
+            "market_time": series.market_time.isoformat() if series.market_time else None,
+            "last_bar": last.model_dump(mode="json") if last else None,
+            "fetched_at": series.fetched_at.isoformat(),
+        }
+
+    @app.get("/news/feed", dependencies=[Depends(internal)])
+    async def news_feed() -> dict[str, Any]:
+        if (hit := feed_cache.get("feed")) is not None:
+            return hit
+        feed = await build_feed(service.kit.yahoo, service.kit.news, settings.feed_indian_tickers)
+        feed_cache.put("feed", feed)
+        return feed
+
+    def sse(run: Run, after: int) -> StreamingResponse:
+        async def body() -> AsyncIterator[str]:
+            yield f": run {run.run_id}\n\n"
+            async for event in registry.subscribe(run, after):
+                if event is None:
+                    yield ": ping\n\n"
+                    continue
+                payload = json.dumps(event, ensure_ascii=False, separators=(",", ":"))
+                yield f"id: {event['seq']}\ndata: {payload}\n\n"
+
+        return StreamingResponse(body(), media_type="text/event-stream", headers=SSE_HEADERS)
+
+    @app.post("/chat")
+    async def chat(request: ChatRequest, user_id: Annotated[str, Depends(user)]):
+        try:
+            run = registry.start(request, user_id)
+        except ThreadBusyError as busy:
+            raise HTTPException(
+                status_code=409, detail={"code": "thread_busy", "run_id": busy.run.run_id}
+            ) from None
+        return sse(run, -1)
+
+    def owned(run_id: str, user_id: str) -> Run:
+        run = registry.get(run_id, user_id)
+        if run is None:
+            raise HTTPException(status_code=404, detail="run_not_found")
+        return run
+
+    @app.get("/chat/runs/{run_id}/events")
+    async def resume(
+        run_id: str,
+        user_id: Annotated[str, Depends(user)],
+        after: Annotated[int, Query(ge=-1)] = -1,
+    ):
+        return sse(owned(run_id, user_id), after)
+
+    @app.post("/chat/runs/{run_id}/cancel")
+    async def cancel(run_id: str, user_id: Annotated[str, Depends(user)]) -> dict[str, str]:
+        await registry.cancel(owned(run_id, user_id))
+        return {"status": "cancelled"}
+
+    @app.get("/chat/threads/{thread_id}/active-run")
+    async def active_run(
+        thread_id: str, user_id: Annotated[str, Depends(user)]
+    ) -> dict[str, str | None]:
+        run = registry.active_for_thread(user_id, thread_id)
+        return {
+            "run_id": run.run_id if run else None,
+            "message_id": run.message_id if run else None,
+        }
+
+    @app.post("/feedback")
+    async def submit_feedback(
+        item: FeedbackIn, user_id: Annotated[str, Depends(user)]
+    ) -> FeedbackOut:
+        saved = await asyncio.to_thread(feedback.upsert, user_id, item)
+        _log_feedback(
+            service,
+            item.thread_id,
+            item.message_id,
+            "feedback_saved",
+            {"rating": item.rating, "tags": list(item.tags)},
+        )
+        return saved
+
+    @app.get("/feedback/{message_id}")
+    async def get_feedback(message_id: str, user_id: Annotated[str, Depends(user)]) -> FeedbackOut:
+        found = await asyncio.to_thread(feedback.get, user_id, message_id)
+        if found is None:
+            raise HTTPException(status_code=404, detail="feedback_not_found")
+        return found
+
+    @app.delete("/feedback/{message_id}")
+    async def delete_feedback(message_id: str, user_id: Annotated[str, Depends(user)]):
+        removed = await asyncio.to_thread(feedback.delete, user_id, message_id)
+        if removed:
+            _log_feedback(service, None, message_id, "feedback_removed", {})
+        return {"removed": removed}
+
+    return app
+
+
+def _log_feedback(
+    service: AnalysisService,
+    thread_id: str | None,
+    message_id: str,
+    event: str,
+    details: dict[str, Any],
+) -> None:
+    try:
+        service.kit.evidence_log.append(
+            EvidenceLogEntry(
+                ingest_run_id=message_id,
+                stage="feedback",
+                event=event,
+                details={"thread_id": thread_id, **details},
+            )
+        )
+    except OSError as exc:
+        logger.warning("evidence log append failed: %s", exc)
+
+
+def main() -> None:
+    import uvicorn
+
+    uvicorn.run("stop_loss.api.app:create_app", factory=True, host="127.0.0.1", port=8000)

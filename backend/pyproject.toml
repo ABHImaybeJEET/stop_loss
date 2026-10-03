@@ -34,6 +34,7 @@ historical = ["yfinance>=0.2,<2", "pandas>=2,<4"]
 [project.scripts]
 stop-loss = "stop_loss.__main__:main"
 fin-terminal-ingest = "fin_terminal.ingest:main"
+stop-loss-api = "stop_loss.api.app:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/stop_loss", "src/fin_terminal"]
