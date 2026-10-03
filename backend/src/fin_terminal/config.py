@@ -3,9 +3,10 @@
 from pathlib import Path
 from typing import Literal
 
-from pydantic import AliasChoices, BaseModel, Field, SecretStr
+from pydantic import AliasChoices, BaseModel, Field, SecretStr, field_validator
 
 from stop_loss.config import Settings as LegacySettings
+from stop_loss.symbols import nse_symbol
 
 
 class ConnectorPolicy(BaseModel):
@@ -17,6 +18,23 @@ class ConnectorPolicy(BaseModel):
 
 
 class Settings(LegacySettings):
+    market_tickers: list[str] | str = Field(
+        default_factory=lambda: ["RELIANCE.NS", "TCS.NS", "HDFCBANK.NS", "INFY.NS"]
+    )
+    yahoo_rate_per_second: float = Field(default=2, gt=0)
+    quote_cache_seconds: float = Field(default=5, gt=0)
+    history_cache_seconds: float = Field(default=300, gt=0)
+    profile_cache_seconds: float = Field(default=1800, gt=0)
+    news_cache_seconds: float = Field(default=300, gt=0)
+    sentiment_cache_seconds: float = Field(default=1800, gt=0)
+    news_gdelt_enabled: bool = True
+
+    @field_validator("market_tickers", mode="after")
+    @classmethod
+    def only_nse_tickers(cls, value: list[str] | str) -> list[str]:
+        values = value.split(",") if isinstance(value, str) else value
+        return list(dict.fromkeys(nse_symbol(v) for v in values if v.strip()))
+
     checkpoint_path: Path = Path("data/checkpoints.sqlite")
     evidence_path: Path = Path("data/evidence.jsonl")
     database_path: Path = Path("data/fin_terminal.sqlite")

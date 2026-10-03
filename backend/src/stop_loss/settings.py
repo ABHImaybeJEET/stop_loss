@@ -2,13 +2,25 @@
 
 from functools import lru_cache
 from pathlib import Path
+from typing import Literal
 
-from pydantic import Field, SecretStr
+from pydantic import Field, SecretStr, field_validator
 
 from fin_terminal.config import Settings
+from stop_loss.symbols import nse_symbol
 
 
 class TerminalSettings(Settings):
+    llm_provider: Literal["groq", "openai"] = "groq"
+    groq_chat_model: str = "openai/gpt-oss-20b"
+    groq_coordinator_api_key: SecretStr | None = None
+    groq_market_api_key: SecretStr | None = None
+    groq_news_api_key: SecretStr | None = None
+    groq_macro_api_key: SecretStr | None = None
+    groq_weather_api_key: SecretStr | None = None
+    groq_quant_api_key: SecretStr | None = None
+    groq_hedging_api_key: SecretStr | None = None
+    groq_audit_api_key: SecretStr | None = None
     openai_chat_model: str = "gpt-4.1-mini"
     llm_timeout_seconds: float = Field(default=60, gt=0)
     api_internal_token: SecretStr | None = None
@@ -28,7 +40,7 @@ class TerminalSettings(Settings):
     sentiment_cache_seconds: float = Field(default=1800, gt=0)
     macro_cache_seconds: float = Field(default=21600, gt=0)
     weather_cache_seconds: float = Field(default=1800, gt=0)
-    yahoo_rate_per_second: float = Field(default=6, gt=0)
+    yahoo_rate_per_second: float = Field(default=2, gt=0)
     terminal_macro_series: list[str] = Field(
         default_factory=lambda: ["DCOILWTICO", "CPIAUCSL", "FEDFUNDS", "T10Y2Y", "DGS10"]
     )
@@ -46,6 +58,11 @@ class TerminalSettings(Settings):
             "HINDUNILVR.NS",
         ]
     )
+
+    @field_validator("feed_indian_tickers")
+    @classmethod
+    def only_nse_feed(cls, values: list[str]) -> list[str]:
+        return list(dict.fromkeys(nse_symbol(value) for value in values))
 
 
 @lru_cache

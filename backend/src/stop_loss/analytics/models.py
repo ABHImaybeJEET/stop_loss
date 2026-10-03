@@ -84,6 +84,7 @@ class NewsItem(Frozen):
     title: str
     url: str
     published_at: AwareDatetime | None = None
+    observed_at: AwareDatetime | None = None
     summary: str | None = None
     image_url: str | None = None
     related_tickers: list[str] = Field(default_factory=list)

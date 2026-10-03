@@ -2,9 +2,10 @@
 
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from stop_loss.analytics.models import MarketState, Sentiment
+from stop_loss.symbols import nse_symbol
 
 AgentStatus = Literal["queued", "running", "done", "error"]
 AgentId = Literal["coordinator", "market", "news", "macro", "weather", "quant", "hedging", "audit"]
@@ -27,9 +28,14 @@ class Wire(BaseModel):
 
 
 class AssetRef(Wire):
-    symbol: str = Field(min_length=1, max_length=32, pattern=r"^[A-Za-z0-9.\-^=]+$")
+    symbol: str = Field(min_length=1, max_length=32)
     name: str = Field(min_length=1, max_length=200)
     exchange: str | None = Field(default=None, max_length=80)
+
+    @field_validator("symbol")
+    @classmethod
+    def validate_nse(cls, value: str) -> str:
+        return nse_symbol(value)
 
 
 class HistoryTurn(Wire):

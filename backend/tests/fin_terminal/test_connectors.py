@@ -6,13 +6,15 @@ from pathlib import Path
 import pytest
 
 from fin_terminal.config import Settings
-from fin_terminal.connectors import (
+from fin_terminal.connectors import create_connectors
+from fin_terminal.connectors.alphavantage import (
     AlphaVantageMarketConnector,
     AlphaVantageNewsConnector,
-    FredMacroConnector,
-    OpenMeteoWeatherConnector,
-    create_connectors,
 )
+from fin_terminal.connectors.fred import FredMacroConnector
+from fin_terminal.connectors.news import LiveNewsConnector
+from fin_terminal.connectors.openmeteo import OpenMeteoWeatherConnector
+from fin_terminal.connectors.yfinance import YFinanceMarketConnector
 from fin_terminal.schemas import MacroIndicator, NewsArticle, PricePoint, WeatherEvent
 
 FIXTURES = Path(__file__).parents[1] / "fixtures"
@@ -132,17 +134,17 @@ def test_create_connectors_factory(settings: Settings):
     assert len(stubs) == 6
     assert all(c.__class__.__name__ == "StubConnector" for c in stubs.values())
 
-    # Live mode with mock keys
+    # Live mode with mock keys — yfinance is keyless, news uses LiveNewsConnector
     settings_with_keys = settings.model_copy(
         update={
-            "alpha_vantage_api_key": "mock_av_key",
             "fred_api_key": "mock_fred_key",
         }
     )
     live_connectors = create_connectors(settings_with_keys, live=True)
-    assert isinstance(live_connectors["prices"], AlphaVantageMarketConnector)
+    assert isinstance(live_connectors["prices"], YFinanceMarketConnector)
     assert isinstance(live_connectors["macro"], FredMacroConnector)
     assert isinstance(live_connectors["weather"], OpenMeteoWeatherConnector)
-    assert isinstance(live_connectors["news_tariff"], AlphaVantageNewsConnector)
-    assert isinstance(live_connectors["news_banktax"], AlphaVantageNewsConnector)
-    assert isinstance(live_connectors["news_war"], AlphaVantageNewsConnector)
+    assert isinstance(live_connectors["news_tariff"], LiveNewsConnector)
+    assert isinstance(live_connectors["news_banktax"], LiveNewsConnector)
+    assert isinstance(live_connectors["news_war"], LiveNewsConnector)
+

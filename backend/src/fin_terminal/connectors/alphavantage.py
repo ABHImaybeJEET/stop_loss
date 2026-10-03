@@ -80,8 +80,9 @@ class AlphaVantageMarketConnector(HTTPConnector):
                     currency=None,
                     observed_at=observed,
                     source_url=f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}",
-                    text=(f"Alpha Vantage quote {symbol}: price={price}; "
-                          f"volume={volume}; date={day}"),
+                    text=(
+                        f"Alpha Vantage quote {symbol}: price={price}; volume={volume}; date={day}"
+                    ),
                     fetched_at=utcnow(),
                     ingest_run_id="pending",
                 )

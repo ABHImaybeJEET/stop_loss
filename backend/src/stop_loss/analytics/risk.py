@@ -188,8 +188,6 @@ def benchmark_for(symbol: str, quote_type: str | None) -> str | None:
     upper = symbol.upper()
     if (quote_type or "").upper() in {"CRYPTOCURRENCY", "INDEX", "CURRENCY", "FUTURE"}:
         return None
-    if upper.endswith(".NS") or upper.endswith(".BO"):
+    if upper.endswith(".NS"):
         return "^NSEI"
-    if "." not in upper:
-        return "^GSPC"
     return None

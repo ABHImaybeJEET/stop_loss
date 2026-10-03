@@ -82,7 +82,7 @@ def test_market_endpoints(client) -> None:
     bad = client.get("/market/chart", params={"symbol": "RELIANCE.NS", "range": "7y"})
     assert bad.status_code == 422
     missing = client.get(
-        "/market/chart", params={"symbol": "NOTAREALTICKERXYZ", "range": "5y", "interval": "1d"}
+        "/market/chart", params={"symbol": "NOTAREALTICKERXYZ.NS", "range": "5y", "interval": "1d"}
     )
     assert missing.status_code == 404 and missing.json()["detail"] == "symbol_not_found"
     results = client.get("/assets/search", params={"q": "reliance"}).json()["results"]

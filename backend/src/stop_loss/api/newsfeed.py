@@ -25,14 +25,7 @@ def _article(item: NewsItem) -> dict[str, Any]:
 
 
 async def _headlines(yahoo: YahooFinanceClient, news: NewsClient, query: str) -> list[NewsItem]:
-    results = await asyncio.gather(
-        yahoo.search(query, quotes=0, news=8), news.google_news(query), return_exceptions=True
-    )
-    items: list[NewsItem] = []
-    if not isinstance(results[0], BaseException):
-        items.extend(results[0][1])
-    if not isinstance(results[1], BaseException):
-        items.extend(results[1])
+    items, _ = await news.collect(query, yahoo=yahoo)
     return items
 
 
@@ -40,7 +33,7 @@ async def build_feed(
     yahoo: YahooFinanceClient, news: NewsClient, indian_tickers: list[str]
 ) -> dict[str, list[dict[str, Any]]]:
     top, commodities, *quotes = await asyncio.gather(
-        _headlines(yahoo, news, "stock market"),
+        _headlines(yahoo, news, "India NSE stock market"),
         _headlines(yahoo, news, "crude oil gold commodities"),
         *(yahoo.chart(symbol, "5d", "1d") for symbol in indian_tickers),
         return_exceptions=True,

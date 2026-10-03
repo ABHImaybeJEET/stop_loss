@@ -1,4 +1,4 @@
-"""OpenAI-backed reasoning steps. Each returns None when no model is configured or it fails,
+"""Per-agent Groq reasoning. Each returns None when no model is configured or it fails,
 so callers fall back to deterministic logic rather than inventing content."""
 
 import json
@@ -11,26 +11,52 @@ from pydantic import BaseModel, Field
 
 from fin_terminal.config import secret_value
 from fin_terminal.grounding import GROUNDING_PROMPT
-from stop_loss.agents.models import EvidenceItem
+from stop_loss.agents.models import AGENTS, AgentId, EvidenceItem
 from stop_loss.analytics.models import NewsItem, Sentiment
 from stop_loss.settings import TerminalSettings
 
 logger = logging.getLogger("stop_loss.agents")
 
 
-def build_chat_model(settings: TerminalSettings) -> BaseChatModel | None:
-    api_key = secret_value(settings.openai_api_key)
+def build_chat_model(
+    settings: TerminalSettings, agent: AgentId = "coordinator"
+) -> BaseChatModel | None:
+    key = (
+        getattr(settings, f"groq_{agent}_api_key")
+        if settings.llm_provider == "groq"
+        else settings.openai_api_key
+    )
+    api_key = secret_value(key)
     if not api_key:
         return None
+    if settings.llm_provider == "groq":
+        from stop_loss.agents.groq import GroqChatModel
+
+        return GroqChatModel(
+            api_key=api_key,
+            model=settings.groq_chat_model,
+            timeout_seconds=settings.llm_timeout_seconds,
+            name=f"groq-{agent}",
+        )
     from langchain_openai import ChatOpenAI
 
     return ChatOpenAI(
-        model=settings.openai_chat_model,
+        model=settings.groq_chat_model
+        if settings.llm_provider == "groq"
+        else settings.openai_chat_model,
+        base_url="https://api.groq.com/openai/v1" if settings.llm_provider == "groq" else None,
         api_key=api_key,
         temperature=0.2,
         timeout=settings.llm_timeout_seconds,
         max_retries=2,
+        use_responses_api=False,
+        name=f"{settings.llm_provider}-{agent}",
     )
+
+
+def build_agent_models(settings: TerminalSettings) -> dict[AgentId, BaseChatModel | None]:
+    # Missing or exhausted keys never fall through to another agent's credentials.
+    return {agent: build_chat_model(settings, agent) for agent, _, _ in AGENTS}
 
 
 class QueryPlan(BaseModel):

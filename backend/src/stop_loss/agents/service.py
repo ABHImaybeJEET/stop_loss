@@ -13,7 +13,7 @@ from langgraph.checkpoint.sqlite.aio import AsyncSqliteSaver
 from fin_terminal.config import secret_value
 from fin_terminal.evidence import EvidenceLog
 from stop_loss.agents.graph import build_analysis_graph
-from stop_loss.agents.llm import build_chat_model
+from stop_loss.agents.llm import build_agent_models
 from stop_loss.agents.models import AGENTS, ChatRequest
 from stop_loss.agents.nodes import Toolkit
 from stop_loss.agents.reporting import now_iso
@@ -39,13 +39,15 @@ class AnalysisService:
         checkpointer: BaseCheckpointSaver | None = None,
     ) -> None:
         self.settings = settings
+        models = build_agent_models(settings) if use_llm and llm is None else {}
         self.kit = Toolkit(
             settings=settings,
             yahoo=yahoo or YahooFinanceClient(settings),
             news=news or NewsClient(settings),
             macro=macro or MacroClient(settings),
             weather=weather or WeatherClient(settings),
-            llm=llm if llm is not None else (build_chat_model(settings) if use_llm else None),
+            llm=llm,
+            agent_models=models,
             evidence_log=EvidenceLog(settings.evidence_path),
         )
         self._checkpointer = checkpointer
@@ -54,7 +56,7 @@ class AnalysisService:
 
     @property
     def llm_enabled(self) -> bool:
-        return self.kit.llm is not None
+        return self.kit.llm is not None or any(self.kit.agent_models.values())
 
     async def start(self) -> None:
         if self._checkpointer is None:

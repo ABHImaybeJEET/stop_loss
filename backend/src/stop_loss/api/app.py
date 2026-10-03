@@ -24,9 +24,10 @@ from stop_loss.api.feedback import FeedbackIn, FeedbackOut, FeedbackStore
 from stop_loss.api.newsfeed import build_feed
 from stop_loss.api.runs import Run, RunRegistry, ThreadBusyError
 from stop_loss.settings import TerminalSettings, get_terminal_settings
+from stop_loss.symbols import is_nse_symbol, nse_symbol
 
 logger = logging.getLogger("stop_loss.api")
-SYMBOL_PATTERN = r"^[A-Za-z0-9.\-^=]{1,32}$"
+SYMBOL_PATTERN = r"^[A-Za-z0-9.&_\-^]{1,32}$"
 SSE_HEADERS = {"Cache-Control": "no-cache, no-transform", "X-Accel-Buffering": "no"}
 
 
@@ -84,13 +85,19 @@ def create_app(
         return {
             "status": "ok",
             "llm_enabled": service.llm_enabled,
-            "model": settings.openai_chat_model if service.llm_enabled else None,
+            "model": (
+                settings.groq_chat_model
+                if settings.llm_provider == "groq"
+                else settings.openai_chat_model
+            )
+            if service.llm_enabled
+            else None,
         }
 
     @app.get("/assets/search", dependencies=[Depends(internal)])
     async def search(q: Annotated[str, Query(min_length=1, max_length=64)]) -> dict[str, Any]:
         matches, _ = await service.kit.yahoo.search(q.strip(), quotes=10, news=0)
-        return {"results": [m.model_dump() for m in matches]}
+        return {"results": [m.model_dump() for m in matches if is_nse_symbol(m.symbol)]}
 
     @app.get("/market/chart", dependencies=[Depends(internal)])
     async def chart(
@@ -100,11 +107,19 @@ def create_app(
     ) -> dict[str, Any]:
         if range not in VALID_RANGES or interval not in VALID_INTERVALS:
             raise HTTPException(status_code=422, detail="invalid_range_or_interval")
+        try:
+            symbol = nse_symbol(symbol)
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail=str(exc)) from None
         series = await service.kit.yahoo.chart(symbol, range, interval)
         return series.model_dump(mode="json")
 
     @app.get("/market/quote", dependencies=[Depends(internal)])
     async def quote(symbol: Annotated[str, Query(pattern=SYMBOL_PATTERN)]) -> dict[str, Any]:
+        try:
+            symbol = nse_symbol(symbol)
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail=str(exc)) from None
         series = await service.kit.yahoo.quote(symbol)
         last = series.bars[-1] if series.bars else None
         return {

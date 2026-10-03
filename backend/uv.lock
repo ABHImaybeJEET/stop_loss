@@ -3016,6 +3016,7 @@ dependencies = [
     { name = "python-dotenv" },
     { name = "tenacity" },
     { name = "uvicorn" },
+    { name = "yfinance" },
 ]
 
 [package.optional-dependencies]
@@ -3079,6 +3080,7 @@ requires-dist = [
     { name = "uvicorn", specifier = ">=0.30,<1" },
     { name = "websockets", marker = "extra == 'streams'", specifier = ">=14,<17" },
     { name = "xlrd", marker = "extra == 'parsers'", specifier = ">=2,<3" },
+    { name = "yfinance", specifier = ">=0.2.66,<2" },
     { name = "yfinance", marker = "extra == 'historical'", specifier = ">=0.2,<2" },
 ]
 provides-extras = ["local-embeddings", "openai-embeddings", "community", "parsers", "streams", "historical"]

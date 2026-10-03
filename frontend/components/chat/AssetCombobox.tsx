@@ -96,7 +96,7 @@ export default function AssetCombobox({ value, onChange, disabled, onSelected }:
         <input
           ref={inputRef}
           role="combobox"
-          aria-label="Search for an asset by ticker or name"
+          aria-label="Search for an NSE stock by ticker or name"
           aria-expanded={expanded}
           aria-controls={listId}
           aria-autocomplete="list"
@@ -110,7 +110,7 @@ export default function AssetCombobox({ value, onChange, disabled, onSelected }:
           onFocus={() => setOpen(true)}
           onBlur={() => setTimeout(() => setOpen(false), 120)}
           onKeyDown={onKeyDown}
-          placeholder="Asset: ticker or name"
+          placeholder="NSE stock: ticker or name"
           className="num h-full w-full min-w-0 bg-transparent text-xs text-ink placeholder:font-sans placeholder:text-muted-soft focus:outline-none"
           data-testid="asset-search"
         />
