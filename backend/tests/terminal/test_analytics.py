@@ -130,7 +130,7 @@ def test_metrics_refuse_thin_history() -> None:
 
 def test_benchmark_selection() -> None:
     assert benchmark_for("RELIANCE.NS", "EQUITY") == "^NSEI"
-    assert benchmark_for("AAPL", "EQUITY") == "^GSPC"
+    assert benchmark_for("AAPL", "EQUITY") is None
     assert benchmark_for("BTC-USD", "CRYPTOCURRENCY") is None
 
 
@@ -232,13 +232,18 @@ def test_scores_are_bounded_and_drop_missing_inputs() -> None:
 
 @pytest.mark.asyncio
 async def test_yahoo_client_falls_back_to_last_session_when_closed(settings) -> None:
+    # Simulate an empty 1d chart (e.g. weekend) and a valid fallback 5d chart.
     intraday = load_json("yahoo_chart_reliance_1d_5m.json")
+    intraday["chart"]["result"][0]["timestamp"] = []
+    intraday["chart"]["result"][0]["indicators"] = {"quote": [{}]}
     week = load_json("yahoo_chart_reliance_5y_1d.json")
 
-    def handler(request: httpx.Request) -> httpx.Response:
-        return httpx.Response(200, json=intraday if request.url.params["range"] == "1d" else week)
+    client = YahooFinanceClient(settings)
+    
+    def mock_payload(symbol: str, range_: str, interval: str) -> dict:
+        return intraday if range_ == "1d" else week
 
-    client = YahooFinanceClient(settings, httpx.AsyncClient(transport=httpx.MockTransport(handler)))
+    client._history_payload = mock_payload
     series = await client.chart("RELIANCE.NS", "1d", "5m")
     assert series.bars and series.range == "1d"
     assert len({b.t.date() for b in series.bars}) == 1

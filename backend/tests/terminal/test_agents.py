@@ -81,12 +81,43 @@ class FixtureMacro:
         views = [summarize_series("DCOILWTICO", [rec])]
         return MacroSnapshot(indicators=views, flags=macro_flags(views))
 
+class FixtureYahoo:
+    async def chart(self, symbol: str, range_: str, interval: str):
+        from stop_loss.analytics.yahoo_parsers import parse_chart
+        name = {
+            "RELIANCE.NS": "yahoo_chart_reliance_5y_1d.json",
+            "%5ENSEI": "yahoo_chart_nsei_5y_1d.json",
+            "^NSEI": "yahoo_chart_nsei_5y_1d.json",
+        }.get(symbol, "yahoo_chart_unknown.json")
+        payload = load_json(name)
+        return parse_chart(payload, symbol, range_, interval)
+
+    async def quote(self, symbol: str):
+        # We can just return the same 1d chart fixture for quotes
+        return await self.chart(symbol, "1d", "1m")
+
+    async def profile(self, symbol: str):
+        from stop_loss.analytics.yahoo_parsers import parse_quote_summary, SymbolNotFoundError
+        if "RELIANCE" in symbol:
+            return parse_quote_summary(load_json("yahoo_quote_summary_reliance.json"), symbol)
+        raise SymbolNotFoundError(symbol)
+
+    async def search(self, query: str, quotes: int = 8, news: int = 0):
+        from stop_loss.analytics.yahoo_parsers import parse_search
+        payload = load_json("yahoo_search_reliance.json")
+        matches, articles = parse_search({"quotes": payload.get("quotes", []), "news": []})
+        from stop_loss.symbols import is_nse_symbol
+        return ([m for m in matches if is_nse_symbol(m.symbol)][:quotes], articles)
+
+    async def aclose(self):
+        pass
+
 
 def make_service(settings, *, fail_news: bool = False, fail_macro: bool = False):
     client = httpx.AsyncClient(transport=provider_transport(fail_news=fail_news))
     return AnalysisService(
         settings,
-        yahoo=YahooFinanceClient(settings, client),
+        yahoo=FixtureYahoo(),
         news=NewsClient(settings, client),
         macro=FixtureMacro(fail_macro),
         weather=WeatherClient(settings, client),
@@ -136,7 +167,7 @@ async def test_full_analysis_streams_agents_sections_and_grounded_result(setting
 @pytest.mark.asyncio
 async def test_unknown_symbol_reports_unrecoverable_error(settings) -> None:
     service = make_service(settings)
-    asset = {"symbol": "NOTAREALTICKERXYZ", "name": "Nothing", "exchange": None}
+    asset = {"symbol": "NOTAREALTICKERXYZ.NS", "name": "Nothing", "exchange": None}
     events = await run(service, "analyze", asset)
     assert not [e for e in events if e["type"] == "final"]
     error = events[-1]

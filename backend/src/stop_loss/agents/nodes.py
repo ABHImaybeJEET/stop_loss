@@ -4,7 +4,7 @@ an append-only evidence-log entry; a failed agent never aborts the run."""
 import asyncio
 import logging
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from typing import Any
 
@@ -26,6 +26,7 @@ from stop_loss.agents.llm import (
 )
 from stop_loss.agents.models import (
     DATA_AGENTS,
+    AgentId,
     AnalysisResult,
     AssetRef,
     Audit,
@@ -59,7 +60,6 @@ from stop_loss.analytics.scoring import (
     assess_trust,
     sentiment_counts,
 )
-from stop_loss.analytics.themes import tag_themes
 from stop_loss.analytics.weather import WeatherClient
 from stop_loss.analytics.yahoo import SymbolNotFoundError, YahooFinanceClient
 from stop_loss.settings import TerminalSettings
@@ -82,6 +82,10 @@ class Toolkit:
     weather: WeatherClient
     llm: BaseChatModel | None
     evidence_log: EvidenceLog
+    agent_models: dict[AgentId, BaseChatModel | None] = field(default_factory=dict)
+
+    def model_for(self, agent: AgentId) -> BaseChatModel | None:
+        return self.agent_models.get(agent) if self.agent_models else self.llm
 
     def log(self, state: AnalysisState, agent: str, event: str, **details: Any) -> None:
         try:
@@ -141,9 +145,9 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
         first_look = asset["symbol"] not in (state.get("analyzed_symbols") or [])
         history = history_lines(state.get("messages", [])[:-1])
         plan = heuristic_plan(prompt)
-        if kit.llm is not None:
+        if kit.model_for("coordinator") is not None:
             rep.progress("Classifying intent, horizon and position")
-            plan = await plan_query(kit.llm, prompt, asset, history) or plan
+            plan = await plan_query(kit.model_for("coordinator"), prompt, asset, history) or plan
         if first_look or switched:
             plan = plan.model_copy(update={"mode": "analysis"})
         data = plan.model_dump() | {"asset_switched": switched}
@@ -211,36 +215,19 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
         asset = state["asset"]
         symbol, company = asset["symbol"], clean_company_name(asset["name"])
         rep.start(f"Collecting headlines for {company}")
-        region = "IN" if symbol.upper().endswith((".NS", ".BO")) else "US"
-        jobs = [
-            kit.yahoo.search(symbol, quotes=0, news=10),
-            kit.news.google_news(f'"{company}"', region=region),
-        ]
-        use_av = us_listed(symbol) and kit.news.alpha_key is not None
-        if use_av:
-            jobs.append(kit.news.alpha_vantage_ticker_news(symbol))
-        results = await asyncio.gather(*jobs, return_exceptions=True)
-        failures = [short_error(r) for r in results if isinstance(r, BaseException)]
-        if len(failures) == len(results):
-            rep.error(f"All news sources failed ({', '.join(failures)})")
-            kit.log(state, "news", "error", errors=failures)
-            return {"news": {"status": "unavailable", "error": ",".join(failures)}}
-        base = symbol.split(".")[0].upper()
-        collected: list[NewsItem] = []
-        if use_av and not isinstance(results[2], BaseException):
-            collected.extend(results[2])
-        if not isinstance(results[0], BaseException):
-            for item in results[0][1]:
-                related = {t.upper().split(".")[0] for t in item.related_tickers}
-                if base in related or company.lower() in item.title.lower():
-                    collected.append(item.model_copy(update={"themes": tag_themes(item.title)}))
-        if not isinstance(results[1], BaseException):
-            collected.extend(results[1])
+        try:
+            collected, failures = await kit.news.collect(
+                f'"{company}"', yahoo=kit.yahoo, symbol=symbol
+            )
+        except Exception as exc:
+            rep.error("Live news sources are unavailable")
+            kit.log(state, "news", "error", error=short_error(exc))
+            return {"news": {"status": "unavailable", "error": short_error(exc)}}
         items = _dedupe(collected)[:MAX_HEADLINES]
         unscored = [i for i in items if i.sentiment is None]
-        if unscored and kit.llm is not None:
+        if unscored and kit.model_for("news") is not None:
             rep.progress(f"Classifying sentiment of {len(unscored)} headlines")
-            labels = await classify_headlines(kit.llm, company, unscored) or {}
+            labels = await classify_headlines(kit.model_for("news"), company, unscored) or {}
             items = [
                 i.model_copy(update={"sentiment": labels[i.id], "sentiment_source": "llm"})
                 if i.id in labels and i.sentiment is None
@@ -415,7 +402,7 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
         if mode == "reply":
             rep.progress("Drafting a grounded follow-up answer")
             draft = await write_reply(
-                kit.llm,
+                kit.model_for("hedging"),
                 prompt=state["user_prompt"],
                 asset=state["asset"],
                 history=history,
@@ -428,7 +415,7 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
                 f"Writing analysis and hedge actions from {len(catalog.items)} evidence items"
             )
             draft = await write_narrative(
-                kit.llm,
+                kit.model_for("hedging"),
                 prompt=state["user_prompt"],
                 asset=state["asset"],
                 plan=plan,

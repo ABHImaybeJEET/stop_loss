@@ -1,17 +1,16 @@
 """Factory to instantiate live or stub connectors based on settings."""
 
 from fin_terminal.config import Settings, secret_value
-from fin_terminal.connectors.alphavantage import (
-    AlphaVantageMarketConnector,
-    AlphaVantageNewsConnector,
-)
 from fin_terminal.connectors.base import AsyncConnector
 from fin_terminal.connectors.fred import FredMacroConnector
 from fin_terminal.connectors.http import HTTPConnector
+from fin_terminal.connectors.news import LiveNewsConnector
 from fin_terminal.connectors.openmeteo import OpenMeteoWeatherConnector
 from fin_terminal.connectors.stub import StubConnector
 from fin_terminal.connectors.unavailable import UnavailableConnector
+from fin_terminal.connectors.yfinance import YFinanceMarketConnector
 from fin_terminal.resilience import TokenBucket
+from stop_loss.analytics.news import NewsClient
 
 SOURCES = ("prices", "macro", "weather", "news_tariff", "news_banktax", "news_war")
 
@@ -23,21 +22,11 @@ def create_connectors(settings: Settings, *, live: bool = False) -> dict[str, As
     Otherwise, safe StubConnectors are used for offline and test execution.
     """
     connectors: dict[str, AsyncConnector] = {}
-    av_key = secret_value(settings.alpha_vantage_api_key)
     fred_key = secret_value(settings.fred_api_key)
 
-    # 1. Market prices
-    if live and av_key:
-        tickers = (
-            [settings.market_tickers]
-            if isinstance(settings.market_tickers, str)
-            else list(settings.market_tickers)
-        )
-        connectors["prices"] = AlphaVantageMarketConnector(
-            api_key=av_key,
-            tickers=tickers,
-            timeout=settings.http_timeout_seconds,
-        )
+    # yfinance is keyless. Preserve explicit offline stubs for smoke/tests.
+    if live:
+        connectors["prices"] = YFinanceMarketConnector(settings)
     else:
         connectors["prices"] = StubConnector(
             "prices",
@@ -76,13 +65,14 @@ def create_connectors(settings: Settings, *, live: bool = False) -> dict[str, As
             settings.stub_failure_mode if settings.stub_fail_source == "weather" else None,
         )
 
-    # 4, 5, 6. News themes (Tariff, Bank Tax, War Crisis)
+    # Share news caches and provider rate limits across all three theme queries.
+    news_client = NewsClient(settings) if live else None
     for news_source in ("news_tariff", "news_banktax", "news_war"):
-        if live and av_key:
-            connectors[news_source] = AlphaVantageNewsConnector(
-                source=news_source,
-                api_key=av_key,
-                timeout=settings.http_timeout_seconds,
+        if news_client is not None:
+            connectors[news_source] = LiveNewsConnector(
+                news_source,
+                news_client,
+                owns_client=news_source == "news_tariff",
             )
         else:
             connectors[news_source] = StubConnector(

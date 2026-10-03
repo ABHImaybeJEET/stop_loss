@@ -34,7 +34,8 @@ Every ingested record MUST be tagged with zero or more of these first-class macr
 | **Agent Tooling** | LangChain (`langchain-core`, `langchain-community`, text splitters, embeddings wrappers) |
 | **Observability** | LangSmith tracing on every graph run (`LANGSMITH_TRACING`, `LANGSMITH_API_KEY`, `LANGSMITH_PROJECT`) |
 | **Vector DB** | Behind `VectorStoreAdapter` interface; supporting Weaviate (local Docker) AND Pinecone (`VECTOR_BACKEND`) |
-| **Market Data** | Alpha Vantage (primary market provider in repo); Polygon.io optional behind feature flag |
+| **Market Data** | yfinance for all stock data; NSE securities (`.NS`) and explicit NSE benchmark indices only (user override) |
+| **Agent LLMs** | Groq with eight separate per-agent environment credentials; never commit keys |
 | **Embeddings** | Local `sentence-transformers` (e.g. `BAAI/bge-small-en-v1.5`) default for <1s latency; OpenAI embeddings via env switch |
 | **Persistence** | SQLite with WAL mode for local relational storage; Vector DB for dense semantic search |
 
@@ -43,10 +44,10 @@ Every ingested record MUST be tagged with zero or more of these first-class macr
 ## 4. Non-Negotiable Ingestion Requirements
 
 1. **Multi-Modal Data Streams**:
-   - News intelligence (GDELT, RSS, Alpha Vantage News).
+   - News intelligence (Google News RSS, GDELT, Yahoo news via yfinance).
    - Macro indicators (FRED: Oil WTI, CPI, Fed Funds, yield curves).
    - Weather telemetry (Open-Meteo marine & atmospheric forecasts).
-   - Market price series (Alpha Vantage / Yahoo Finance / optional Polygon).
+   - Market price series (yfinance, NSE only).
 
 2. **Latency Invariant**:
    - Per-item process + embed + index must complete in **under 1.0 second** in streaming mode.
