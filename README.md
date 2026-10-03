@@ -1,5 +1,9 @@
 # StopLoss Intelligence
 
+The `fin_terminal` ingestion scaffold is ready for offline use. Run `make test`
+and `make smoke` to exercise the graph, including a forced source failure.
+See [ingestion setup and operation](docs/ingestion.md) for CLI and tracing details.
+
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/)
 [![Checked with Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![uv](https://img.shields.io/badge/managed%20by-uv-blueviolet)](https://github.com/astral-sh/uv)
@@ -187,3 +191,10 @@ To ensure smooth collaboration among multiple developers:
 2. **Contract Preservation**: Do not alter `NormalizedRecord` or `IngestionRun` fields without updating `docs/data-contract.md` and notifying the team.
 3. **Pre-PR Verification**: Run `make check` (or the equivalent `uv run` commands) before opening a pull request.
 4. **Independent Failure Isolation**: In Checkpoint 1, ensure providers fail independently without halting the entire ingestion cycle.
+## LangGraph ingestion scaffold
+
+The new `fin_terminal` package is available alongside the existing `stop_loss`
+package. Run `make test` and `make smoke` from the repository root. Smoke runs
+the six empty source stubs and verifies that a forced weather failure still
+produces a complete report. See [ingestion setup and operation](docs/ingestion.md)
+and [repository inspection decisions](docs/DECISIONS.md#adr-009-repository-inventory-and-compatibility-2026-10-03).

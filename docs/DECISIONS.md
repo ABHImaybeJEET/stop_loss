@@ -35,7 +35,7 @@ This document records key design choices, resolutions to ambiguous requirements,
 ---
 
 ## ADR 005: Token-Bucket Rate Limiter with Jitter
-- **Context**: External financial APIs (e.g. Alpha Vantage, FRED) impose strict rate limits (e.g. 5 calls/min, 25 calls/day on free tiers).
+- **Context**: External financial APIs (e.g. Alpha Vantage, FRED) impose plan-specific rate limits. Verify the account's current quota when implementing each connector.
 - **Decision**: Combine a client-side in-memory token bucket rate limiter with `tenacity` retry decorators implementing exponential backoff and randomized jitter.
 - **Consequences**: Prevents HTTP 429 penalties while gracefully recovering from temporary rate limit spikes.
 
@@ -53,7 +53,7 @@ This document records key design choices, resolutions to ambiguous requirements,
 
 ## ADR 007: Local Sentence-Transformers Default Embeddings
 - **Context**: Sub-second per-item latency SLA cannot rely on external network calls to embedding APIs for high-volume news streaming.
-- **Decision**: Default to a lightweight local embedding model (`BAAI/bge-small-en-v1.5`, 384 dimensions) running on CPU. Provide an environment switch (`EMBEDDINGS_BACKEND=openai`) for high-fidelity offline batch processing.
+- **Decision**: Default to a lightweight local embedding model (`BAAI/bge-small-en-v1.5`, 384 dimensions) running on CPU. Provide an environment switch (`EMBEDDING_BACKEND=openai`) for OpenAI embeddings.
 - **Consequences**: Eliminates per-item external latency and API cost during streaming ingestion.
 
 ---
@@ -62,3 +62,31 @@ This document records key design choices, resolutions to ambiguous requirements,
 - **Context**: Alpha Vantage is designated as the primary market provider in the contract; Polygon is optional.
 - **Decision**: Implement `AlphaVantageProvider` for equity quotes, time series, and market news sentiment. Provide `PolygonProvider` as an optional plugin controlled by `ENABLE_POLYGON=false`.
 - **Consequences**: Maximizes availability and free-tier compatibility while preserving extensibility for enterprise polygon feeds.
+
+---
+
+## ADR 009: Repository Inventory and Compatibility (2026-10-03)
+- **Observed**: The repository already contains a uv/Hatch Python project under `backend`, the `stop_loss` package, Pydantic configuration/domain models and errors, synchronous `DataProvider` and repository interfaces, a sequential ingestion runner, provider skeletons, a CLI, 22 unit tests, documentation, a Makefile, and `.env.example`. SQLite methods and source implementations remain `NotImplementedError` stubs. Frontend, agent, analytics, API, and retrieval directories are placeholders.
+- **Alpha Vantage inspection**: Searches of tracked code and docs found `ALPHA_VANTAGE_API_KEY`, provider-name examples in tests/models, and ADR 008. There is no implemented Alpha Vantage client, HTTP integration, or recorded provider fixture in this checkout. `ingestion/providers/market.py` contains a Yahoo Finance stub. ADR 008 describes an intended implementation, not an existing one. No integration was removed or replaced.
+- **Decision**: Preserve the `stop_loss` package and CLI. Add `backend/src/fin_terminal` alongside it and package both using Hatch. Extend existing settings to preserve provider environment keys. Real Alpha Vantage integration remains a future `AsyncConnector` implementation; if supplied separately, wrap that client instead of rewriting it. Do not treat an externally connected Alpha Vantage app as repository source code.
+- **Consequences**: Existing tests/API imports continue to work. Legacy orchestration stays available for compatibility; all new pipeline orchestration uses LangGraph. New schemas use uppercase theme values without changing the legacy lowercase enum contract.
+
+## ADR 010: Empty Sources and Explicit Failure Injection
+- **Decision**: All six fetch branches return empty lists by default. A successful stub is `ok` with an explicit stub health message. Inject failure by source and mode through env/CLI. Do not invent market observations to populate smoke output. Normalization/indexing are exercised with clearly labelled offline test fixtures and injected test adapters.
+- **Consequences**: End-to-end smoke needs neither data-provider credentials nor vector services/model downloads. Live source fixtures must be recorded and sanitized during connector implementation.
+
+## ADR 011: SQLite Graph Execution, Dedupe, and Audit Boundary
+- **Decision**: Use a typed LangGraph state with reducer-based fan-out merges and a list-valued join edge. Support `SqliteSaver`/`graph.invoke` and `AsyncSqliteSaver`/`graph.ainvoke`; the CLI uses the async form because connectors are async. Each cycle gets its own thread/run identity. Keep checkpoint state JSON-compatible. Use SQLite WAL for checkpoints and canonical records, plus an append-only JSONL evidence log.
+- **Decision**: Dedupe against committed content hashes, but commit only after successful vector upsert. Derive vector IDs from the same hash, making retries safe after a partial write. Vector stores contain projections referencing canonical SQLite records. Support one local ingestion writer; a distributed transaction or concurrent-process coordination is outside this skeleton.
+- **Consequences**: Source errors degrade individual streams; cancellation remains effective. Local persistence/evidence failures are fatal and visible because continuing would break auditability. The CLI does not automatically resume an old cycle; checkpoints remain inspectable by ingest ID.
+
+## ADR 012: Honest Latency and Observability Validation
+- **Decision**: Measure fetch and processing separately, include normalization and queueing in processing time, and apply the remaining subsecond deadline to embed/index work. Record overruns as degraded; never claim the real-provider latency invariant has been benchmarked using empty stubs. Keep model packages optional/lazy. TTL cache is a reusable connector primitive, not a fabricated-data fallback.
+- **Decision**: Every invocation receives a trace name, source/theme tags and ingest ID metadata. Enable tracing through configured LangSmith environment values. Smoke flushes traces and reads back completed root runs when enabled; missing key/disabled tracing produces an explicit skip. Unit tests are offline with mock trace verification.
+- **Consequences**: Smoke establishes graph execution and failure isolation. Production throughput, real cloud adapters, model warm-up, and remote trace delivery require separate live integration validation. See [ingestion operations](ingestion.md) for commands, limitations, and API references.
+
+## ADR 013: Bounded Processing and Direct LangGraph Execution
+- **Context**: Sequential normalization and indexing let one slow operation consume the deadline for otherwise healthy records. Unbounded parallel embedding would instead risk excessive CPU and memory use.
+- **Decision**: Keep the existing LangGraph `StateGraph` and SQLite checkpoint topology. Normalize the six sources concurrently inside the normalization node. Embed/index using a bounded worker pool (`PROCESSING_CONCURRENCY=8`, range 1–64), preserving result order and accounting for queue delay. Expired records never start vector writes. Task groups cancel sibling workers on fatal failures; per-record operational failures remain isolated and retryable.
+- **Decision**: Serialize first model initialization and Weaviate collection initialization to prevent races introduced by concurrent records. Default tracing to enabled when a key exists, support `LANGSMITH_WORKSPACE_ID`, and attach source metadata to fetch spans and execution mode to root traces. Store credentials only in ignored local environment files.
+- **Validation boundary**: Concurrency, deadline isolation, dedupe, and setup races are covered by offline tests. Empty-stub smoke verifies graph execution and remote trace delivery when credentials/network are available. No live provider or real-model throughput SLA is claimed. The normalization join still means a slow source can delay the subsequent processing stages; large batches need workload-specific tuning and model warm-up before production rollout.

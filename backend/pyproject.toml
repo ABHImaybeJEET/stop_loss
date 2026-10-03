@@ -13,11 +13,23 @@ dependencies = [
     "httpx>=0.27.0",
     "tenacity>=8.3.0",
     "python-dotenv>=1.0.0",
-    "langchain-core>=0.2.0",
+    "langchain-core>=1.0,<2",
+    "langgraph>=1.0,<2",
+    "langgraph-checkpoint-sqlite>=3.0,<4",
+    "langsmith>=0.4,<1",
 ]
+
+[project.optional-dependencies]
+local-embeddings = ["langchain-huggingface>=1,<2", "sentence-transformers>=5,<6"]
+openai-embeddings = ["langchain-openai>=1,<2"]
+community = ["langchain-community>=0.4,<1", "langchain-text-splitters>=1,<2"]
 
 [project.scripts]
 stop-loss = "stop_loss.__main__:main"
+fin-terminal-ingest = "fin_terminal.ingest:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/stop_loss", "src/fin_terminal"]
 
 [build-system]
 requires = ["hatchling"]
