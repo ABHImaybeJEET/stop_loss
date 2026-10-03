@@ -8,19 +8,18 @@ from stop_loss.analytics.models import MarketState, Sentiment
 from stop_loss.symbols import nse_symbol
 
 AgentStatus = Literal["queued", "running", "done", "error"]
-AgentId = Literal["coordinator", "market", "news", "macro", "weather", "quant", "hedging", "audit"]
+AgentId = Literal["coordinator", "market", "news", "impact", "quant", "hedging", "audit"]
 
 AGENTS: list[tuple[AgentId, str, str]] = [
     ("coordinator", "Query Coordinator", "Parses the request and plans the run"),
     ("market", "Market Data Agent", "Live quote, profile and price history"),
     ("news", "News Sentiment Agent", "Headlines, sentiment and theme tags"),
-    ("macro", "Macro Analysis Agent", "Rates, inflation, oil and the yield curve"),
-    ("weather", "Weather Impact Agent", "Facility weather extremes"),
+    ("impact", "Weather & Macro Impact", "Rates, extremes and hazards"),
     ("quant", "Quantitative Risk Agent", "Volatility, VaR, drawdown, beta, scores"),
     ("hedging", "Hedging Strategy Agent", "Evidence-grounded narrative and actions"),
     ("audit", "Evidence & Audit Agent", "Verifies figures and scores trust"),
 ]
-DATA_AGENTS: tuple[AgentId, ...] = ("market", "news", "macro", "weather", "quant")
+DATA_AGENTS: tuple[AgentId, ...] = ("market", "news", "impact", "quant")
 
 
 class Wire(BaseModel):

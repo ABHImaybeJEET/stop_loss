@@ -64,6 +64,9 @@ from stop_loss.analytics.scoring import (
 from stop_loss.analytics.weather import WeatherClient
 from stop_loss.analytics.yahoo import SymbolNotFoundError, YahooFinanceClient
 from stop_loss.settings import TerminalSettings
+from stop_loss.universe import get_universe
+from stop_loss.analytics.exposure import exposure_points
+from stop_loss.analytics.hazards import near
 
 logger = logging.getLogger("stop_loss.agents")
 NAME_SUFFIX = re.compile(
@@ -273,70 +276,92 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
             }
         }
 
-    async def macro(state: AnalysisState) -> dict[str, Any]:
-        rep = AgentReporter("macro")
-        rep.start("Pulling FRED: WTI, CPI, Fed funds, 10Y and the 2s10s curve")
+    async def impact(state: AnalysisState) -> dict[str, Any]:
+        rep = AgentReporter("impact")
+        symbol = state["asset"]["symbol"]
+        rep.start("Fetching macro snapshot and hazard alerts")
+        
         try:
             snapshot = await kit.macro.snapshot()
+            flags = ", ".join(f.replace("_", " ") for f in snapshot.flags) or "no flags"
+            rep.progress(f"Macro: {len(snapshot.indicators)} indicators · {flags}")
+            kit.log(state, "impact", "macro_done", series=[i.series_id for i in snapshot.indicators])
+            macro_out = {"status": "ok", "data": snapshot.model_dump(mode="json")}
         except Exception as exc:  # noqa: BLE001
-            rep.error(f"Macro data unavailable ({short_error(exc)})")
-            kit.log(state, "macro", "error", error=short_error(exc))
-            return {"macro": {"status": "unavailable", "error": short_error(exc)}}
-        flags = ", ".join(f.replace("_", " ") for f in snapshot.flags) or "no flags"
-        rep.done(f"{len(snapshot.indicators)} indicators · {flags}")
-        kit.log(state, "macro", "done", series=[i.series_id for i in snapshot.indicators])
-        return {"macro": {"status": "ok", "data": snapshot.model_dump(mode="json")}}
-
-    async def weather(state: AnalysisState) -> dict[str, Any]:
-        rep = AgentReporter("weather")
-        symbol = state["asset"]["symbol"]
-        rep.start("Locating facilities exposed to weather")
+            kit.log(state, "impact", "macro_error", error=short_error(exc))
+            macro_out = {"status": "unavailable", "error": short_error(exc)}
+            
         try:
-            profile: AssetProfile | None = await kit.yahoo.profile(symbol)
-        except Exception:  # noqa: BLE001 - no profile simply means no known facility
-            profile = None
-        targets: list[tuple[float, float, str, str]] = []
-        if profile and profile.city:
-            rep.progress(f"Geocoding headquarters: {profile.city}")
+            rep.progress("Locating facilities exposed to weather and hazards")
+            company = get_universe().get(symbol)
+            if company:
+                points = await exposure_points(company, kit.weather)
+            else:
+                points = []
+                
+            if not points:
+                rep.done("Macro fetched. No facility location known for weather/hazards.")
+                kit.log(state, "impact", "weather_not_applicable")
+                weather_out = {"status": "not_applicable", "data": []}
+                return {"macro": macro_out, "weather": weather_out}
+                
+            places = [(p.label, p.latitude, p.longitude) for p in points]
+            
+            rep.progress("Scanning GDACS/USGS for live hazards")
             try:
-                place = await kit.weather.geocode(profile.city)
-            except Exception:  # noqa: BLE001
-                place = None
-            if place:
-                targets.append((*place, "Company headquarters"))
-        if profile and (profile.sector or "").lower() == "energy":
-            s = kit.settings
-            targets.append(
-                (
-                    s.weather_latitude,
-                    s.weather_longitude,
-                    s.weather_location_name,
-                    "Gulf Coast refining hub (energy exposure)",
-                )
+                alerts = await kit.hazards.alerts() if kit.hazards else []
+                local_alerts = near(alerts, places)
+            except Exception as exc:
+                local_alerts = []
+                kit.log(state, "impact", "hazards_error", error=short_error(exc))
+
+            rep.progress(f"Fetching 7-day forecast for {len(points)} location(s)")
+            results = await asyncio.gather(
+                *(
+                    kit.weather.outlook(p.latitude, p.longitude, location=p.label, reason=p.reason)
+                    for p in points
+                ),
+                return_exceptions=True,
             )
-        if not targets:
-            rep.done("Not applicable: no facility location known for this asset")
-            kit.log(state, "weather", "not_applicable")
-            return {"weather": {"status": "not_applicable", "data": []}}
-        rep.progress(f"Fetching 7-day forecast for {len(targets)} location(s)")
-        results = await asyncio.gather(
-            *(
-                kit.weather.outlook(lat, lon, location=label, reason=reason)
-                for lat, lon, label, reason in targets
-            ),
-            return_exceptions=True,
-        )
-        outlooks = [r for r in results if not isinstance(r, BaseException)]
-        if not outlooks:
-            rep.error("Weather forecast unavailable")
-            kit.log(state, "weather", "error")
-            return {"weather": {"status": "unavailable", "error": "forecast_unavailable"}}
-        extremes = sum(len(o.extremes) for o in outlooks)
-        rep.done(f"{len(outlooks)} location(s) · {extremes} extreme(s) in the 7-day forecast")
-        kit.log(
-            state, "weather", "done", locations=[o.location for o in outlooks], extremes=extremes
-        )
-        return {"weather": {"status": "ok", "data": [o.model_dump(mode="json") for o in outlooks]}}
+            outlooks = [r for r in results if not isinstance(r, BaseException)]
+            
+            for alert in local_alerts:
+                if not alert.nearby:
+                    continue
+                nearest_label = alert.nearby[0]["place"]
+                for outlook in outlooks:
+                    if outlook.location == nearest_label:
+                        from stop_loss.analytics.models import WeatherExtreme
+                        from stop_loss.agents.reporting import now_iso
+                        outlook.extremes.append(
+                            WeatherExtreme(
+                                date=alert.started_at or now_iso(),
+                                metric="hazard",
+                                value=alert.magnitude or 1.0,
+                                threshold=0.0,
+                                unit="alert",
+                                description=f"{alert.name} ({alert.source.upper()})",
+                            )
+                        )
+                        break
+
+            if not outlooks:
+                rep.error("Weather forecast unavailable")
+                kit.log(state, "impact", "weather_error")
+                weather_out = {"status": "unavailable", "error": "forecast_unavailable"}
+            else:
+                extremes = sum(len(o.extremes) for o in outlooks)
+                rep.done(f"Macro done · {len(outlooks)} location(s) · {extremes} extreme(s) / hazard(s)")
+                kit.log(
+                    state, "impact", "weather_done", locations=[o.location for o in outlooks], extremes=extremes
+                )
+                weather_out = {"status": "ok", "data": [o.model_dump(mode="json") for o in outlooks]}
+        except Exception as exc:
+            kit.log(state, "impact", "weather_error", error=short_error(exc))
+            weather_out = {"status": "unavailable", "error": short_error(exc)}
+            rep.error("Failed to fetch weather/hazards")
+
+        return {"macro": macro_out, "weather": weather_out}
 
     async def quant(state: AnalysisState) -> dict[str, Any]:
         rep = AgentReporter("quant")
@@ -633,8 +658,7 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
         "coordinator": coordinator,
         "market": market,
         "news": news,
-        "macro": macro,
-        "weather": weather,
+        "impact": impact,
         "quant": quant,
         "hedging": hedging,
         "audit": audit,

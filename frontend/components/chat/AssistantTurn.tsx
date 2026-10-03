@@ -29,8 +29,7 @@ interface Props {
 const AGENT_NAMES: Record<string, string> = {
   market: "Market Data",
   news: "News Sentiment",
-  macro: "Macro",
-  weather: "Weather",
+  impact: "Weather & Macro Impact",
   quant: "Quant Risk",
 };
 

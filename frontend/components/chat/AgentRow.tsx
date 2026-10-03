@@ -2,7 +2,7 @@ import React from "react";
 import {
   CandlestickChart,
   Check,
-  CloudLightning,
+  Globe,
   Landmark,
   Newspaper,
   Shield,
@@ -20,8 +20,7 @@ const ICONS: Record<string, LucideIcon> = {
   coordinator: Workflow,
   market: CandlestickChart,
   news: Newspaper,
-  macro: Landmark,
-  weather: CloudLightning,
+  impact: Globe,
   quant: Sigma,
   hedging: Shield,
   audit: ShieldCheck,
