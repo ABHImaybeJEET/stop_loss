@@ -1,0 +1,78 @@
+{
+ "chart": {
+  "result": [
+   {
+    "meta": {
+     "currency": "INR",
+     "symbol": "RELIANCE.NS",
+     "exchangeName": "NSI",
+     "fullExchangeName": "NSE",
+     "instrumentType": "EQUITY",
+     "firstTradeDate": 820467900,
+     "regularMarketTime": 1790847900,
+     "hasPrePostMarketData": false,
+     "gmtoffset": 19800,
+     "timezone": "IST",
+     "exchangeTimezoneName": "Asia/Kolkata",
+     "regularMarketPrice": 1167.7,
+     "regularMarketChangePercent": -1.626,
+     "fulldayPrice": 1167.7,
+     "fulldayChange": -19.3,
+     "fulldayChangePercent": -1.626,
+     "fiftyTwoWeekHigh": 1611.8,
+     "fiftyTwoWeekLow": 1160.8,
+     "regularMarketDayHigh": 1183.9,
+     "regularMarketDayLow": 1160.8,
+     "regularMarketVolume": 16667234,
+     "longName": "Reliance Industries Limited",
+     "shortName": "RELIANCE INDUSTRIES LTD",
+     "chartPreviousClose": 1187.0,
+     "previousClose": 1187.0,
+     "scale": 3,
+     "priceHint": 2,
+     "currentTradingPeriod": {
+      "pre": {
+       "timezone": "IST",
+       "start": 1790912700,
+       "end": 1790912700,
+       "gmtoffset": 19800
+      },
+      "regular": {
+       "timezone": "IST",
+       "start": 1790912700,
+       "end": 1790935200,
+       "gmtoffset": 19800
+      },
+      "post": {
+       "timezone": "IST",
+       "start": 1790935200,
+       "end": 1790935200,
+       "gmtoffset": 19800
+      }
+     },
+     "dataGranularity": "5m",
+     "range": "1d",
+     "validRanges": [
+      "1d",
+      "5d",
+      "1mo",
+      "3mo",
+      "6mo",
+      "1y",
+      "2y",
+      "5y",
+      "10y",
+      "ytd",
+      "max"
+     ]
+    },
+    "indicators": {
+     "quote": [
+      {}
+     ]
+    }
+   }
+  ],
+  "error": null
+ }
+}

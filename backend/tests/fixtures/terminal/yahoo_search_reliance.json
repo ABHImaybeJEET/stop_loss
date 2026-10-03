@@ -1,0 +1,366 @@
+{
+ "explains": [],
+ "count": 15,
+ "quotes": [
+  {
+   "exchange": "NSI",
+   "shortname": "RELIANCE INDUSTRIES LTD",
+   "quoteType": "EQUITY",
+   "symbol": "RELIANCE.NS",
+   "index": "quotes",
+   "score": 21972.0,
+   "typeDisp": "Equity",
+   "longname": "Reliance Industries Limited",
+   "exchDisp": "NSE",
+   "sector": "Energy",
+   "industry": "Oil & Gas Refining & Marketing",
+   "dispSecIndFlag": true,
+   "isYahooFinance": true
+  },
+  {
+   "exchange": "NYQ",
+   "shortname": "Reliance, Inc.",
+   "quoteType": "EQUITY",
+   "symbol": "RS",
+   "index": "quotes",
+   "score": 20665.0,
+   "typeDisp": "Equity",
+   "longname": "Reliance, Inc.",
+   "exchDisp": "NYSE",
+   "sector": "Basic Materials",
+   "industry": "Steel",
+   "isYahooFinance": true,
+   "prevName": "Reliance Steel & Aluminum Co.",
+   "nameChangeDate": "2026-10-03"
+  },
+  {
+   "exchange": "NCM",
+   "shortname": "Reliance Global Group, Inc.",
+   "quoteType": "EQUITY",
+   "symbol": "EZRA",
+   "index": "quotes",
+   "score": 20594.0,
+   "typeDisp": "Equity",
+   "longname": "Reliance Global Group, Inc.",
+   "exchDisp": "NASDAQ",
+   "sector": "Financial Services",
+   "industry": "Insurance Brokers",
+   "isYahooFinance": true
+  },
+  {
+   "exchange": "IOB",
+   "shortname": "RELIANCE INDUSTRIES LIMITED GDR",
+   "quoteType": "EQUITY",
+   "symbol": "RIGD.IL",
+   "index": "quotes",
+   "score": 20172.0,
+   "typeDisp": "Equity",
+   "longname": "Reliance Industries Limited",
+   "exchDisp": "International Orderbook - London",
+   "sector": "Energy",
+   "industry": "Oil & Gas Refining & Marketing",
+   "isYahooFinance": true
+  },
+  {
+   "exchange": "NSI",
+   "shortname": "RELIANCE POWER LTD.",
+   "quoteType": "EQUITY",
+   "symbol": "RPOWER.NS",
+   "index": "quotes",
+   "score": 20086.0,
+   "typeDisp": "Equity",
+   "longname": "Reliance Power Limited",
+   "exchDisp": "NSE",
+   "sector": "Utilities",
+   "industry": "Utilities\u2014Independent Power Producers",
+   "isYahooFinance": true
+  },
+  {
+   "exchange": "BSE",
+   "shortname": "RELIANCE INDUSTRIES LTD.",
+   "quoteType": "EQUITY",
+   "symbol": "RELIANCE.BO",
+   "index": "quotes",
+   "score": 20083.0,
+   "typeDisp": "Equity",
+   "longname": "Reliance Industries Limited",
+   "exchDisp": "Bombay",
+   "sector": "Energy",
+   "industry": "Oil & Gas Refining & Marketing",
+   "isYahooFinance": true
+  },
+  {
+   "exchange": "NSI",
+   "shortname": "RELIANCE INFRASTRUCTU LTD",
+   "quoteType": "EQUITY",
+   "symbol": "RELINFRA.NS",
+   "index": "quotes",
+   "score": 20055.0,
+   "typeDisp": "Equity",
+   "longname": "Reliance Infrastructure Limited",
+   "exchDisp": "NSE",
+   "sector": "Utilities",
+   "industry": "Utilities\u2014Independent Power Producers",
+   "isYahooFinance": true
+  }
+ ],
+ "news": [
+  {
+   "uuid": "cb39cb27-fddf-30f9-9f77-53253a12fe56",
+   "title": "Will Reliance (RS) Beat Estimates Again in Its Next Earnings Report?",
+   "publisher": "Zacks",
+   "link": "https://finance.yahoo.com/markets/stocks/articles/reliance-rs-beat-estimates-again-151004494.html",
+   "providerPublishTime": 1790953804,
+   "type": "STORY",
+   "thumbnail": {
+    "resolutions": [
+     {
+      "url": "https://media.zenfs.com/en/zacks.com/46ebfcbff417ac1bbde85ad33fa0d4be.jpg",
+      "width": 900,
+      "height": 594,
+      "tag": "original"
+     },
+     {
+      "url": "https://s.yimg.com/lo/mysterio/api/92907F0E93FF4CDA447CF05D6CC885AA6C3A74F62ECA7689E87A7DA6AC74CEB5/subgraphmysterio/resizefill_w140_h140/https:%2F%2Fmedia.zenfs.com%2Fen%2Fzacks.com%2F46ebfcbff417ac1bbde85ad33fa0d4be.jpg",
+      "width": 140,
+      "height": 140,
+      "tag": "140x140"
+     }
+    ]
+   },
+   "relatedTickers": [
+    "RS"
+   ]
+  },
+  {
+   "uuid": "9e941306-d456-37d9-a920-1090ab3708b2",
+   "title": "Sherwin-Williams Expands Manufacturing Capacity at Statesville",
+   "publisher": "Zacks",
+   "link": "https://finance.yahoo.com/markets/stocks/articles/sherwin-williams-expands-manufacturing-capacity-123200354.html",
+   "providerPublishTime": 1790857920,
+   "type": "STORY",
+   "thumbnail": {
+    "resolutions": [
+     {
+      "url": "https://media.zenfs.com/en/zacks.com/a5a8cdde6bf1e4969070b20973bd12fc.jpg",
+      "width": 635,
+      "height": 400,
+      "tag": "original"
+     },
+     {
+      "url": "https://s.yimg.com/lo/mysterio/api/486EDA4020F0708DC476E64498E8F2939CAB10DFF1FB31B81B34963A2B37C887/subgraphmysterio/resizefill_w140_h140/https:%2F%2Fmedia.zenfs.com%2Fen%2Fzacks.com%2Fa5a8cdde6bf1e4969070b20973bd12fc.jpg",
+      "width": 140,
+      "height": 140,
+      "tag": "140x140"
+     }
+    ]
+   },
+   "relatedTickers": [
+    "SHW",
+    "RS",
+    "KRO",
+    "AVNT"
+   ]
+  },
+  {
+   "uuid": "3be5f67c-5ba6-3e02-9e00-07bcd5441fd5",
+   "title": "Reliance Global Group Completes Sale of Altruis Benefit Consulting for $8 Million in Cash Plus Up to $1 Million Earnout",
+   "publisher": "GlobeNewswire",
+   "link": "https://finance.yahoo.com/technology/ai/articles/reliance-global-group-completes-sale-121800837.html",
+   "providerPublishTime": 1790857080,
+   "type": "STORY",
+   "thumbnail": {
+    "resolutions": [
+     {
+      "url": "https://media.zenfs.com/en/globenewswire.com/6c13821e147f71a6e1933e0ff4afa974.jpg",
+      "width": 737,
+      "height": 258,
+      "tag": "original"
+     },
+     {
+      "url": "https://s.yimg.com/lo/mysterio/api/F960D24EE7686E4974281423D73E740C9F241D5D15B4E84080F2C492E321A5DA/subgraphmysterio/resizefill_w140_h140/https:%2F%2Fmedia.zenfs.com%2Fen%2Fglobenewswire.com%2F6c13821e147f71a6e1933e0ff4afa974.jpg",
+      "width": 140,
+      "height": 140,
+      "tag": "140x140"
+     }
+    ]
+   },
+   "relatedTickers": [
+    "EZRA"
+   ]
+  },
+  {
+   "uuid": "f054bf9c-b4c7-35b5-baa5-8ebcf420a243",
+   "title": "NGVT Stock Rallies 31% in a Year: What's Driving the Upside?",
+   "publisher": "Zacks",
+   "link": "https://finance.yahoo.com/markets/stocks/articles/ngvt-stock-rallies-31-whats-125300835.html",
+   "providerPublishTime": 1790772780,
+   "type": "STORY",
+   "thumbnail": {
+    "resolutions": [
+     {
+      "url": "https://media.zenfs.com/en/zacks.com/236d157ebb08cbf8ff3dbacf7ce7623b.jpg",
+      "width": 635,
+      "height": 400,
+      "tag": "original"
+     },
+     {
+      "url": "https://s.yimg.com/lo/mysterio/api/0745653A6F90680A4AA642D8BA7901D0FFF174E16F4BDF8CEFB61A46F95CBB83/subgraphmysterio/resizefill_w140_h140/https:%2F%2Fmedia.zenfs.com%2Fen%2Fzacks.com%2F236d157ebb08cbf8ff3dbacf7ce7623b.jpg",
+      "width": 140,
+      "height": 140,
+      "tag": "140x140"
+     }
+    ]
+   },
+   "relatedTickers": [
+    "NGVT",
+    "AVNT",
+    "KRO",
+    "RS"
+   ]
+  },
+  {
+   "uuid": "4f6706b3-c421-3920-a390-83f641882888",
+   "title": "Westlake to Close Cologne PVC Plant Amid Weak European Market",
+   "publisher": "Zacks",
+   "link": "https://finance.yahoo.com/markets/stocks/articles/westlake-close-cologne-pvc-plant-125000616.html",
+   "providerPublishTime": 1790772600,
+   "type": "STORY",
+   "thumbnail": {
+    "resolutions": [
+     {
+      "url": "https://media.zenfs.com/en/zacks.com/236d157ebb08cbf8ff3dbacf7ce7623b.jpg",
+      "width": 635,
+      "height": 400,
+      "tag": "original"
+     },
+     {
+      "url": "https://s.yimg.com/lo/mysterio/api/0745653A6F90680A4AA642D8BA7901D0FFF174E16F4BDF8CEFB61A46F95CBB83/subgraphmysterio/resizefill_w140_h140/https:%2F%2Fmedia.zenfs.com%2Fen%2Fzacks.com%2F236d157ebb08cbf8ff3dbacf7ce7623b.jpg",
+      "width": 140,
+      "height": 140,
+      "tag": "140x140"
+     }
+    ]
+   },
+   "relatedTickers": [
+    "WLK",
+    "KRO",
+    "RS",
+    "AVNT"
+   ]
+  },
+  {
+   "uuid": "ab8ce108-fd2e-354b-9324-c4532e87e2c4",
+   "title": "Apple Pay finally launches in India after years on the sidelines",
+   "publisher": "TechCrunch",
+   "link": "https://finance.yahoo.com/technology/articles/apple-pay-set-launch-india-184500796.html",
+   "providerPublishTime": 1790741280,
+   "type": "STORY",
+   "thumbnail": {
+    "resolutions": [
+     {
+      "url": "https://media.zenfs.com/en/techcrunch_finance_785/9d1fc4a7bcdab6f43d4b1eefdabe2f4a.jpg",
+      "width": 1702,
+      "height": 956,
+      "tag": "original"
+     },
+     {
+      "url": "https://s.yimg.com/lo/mysterio/api/8C9A567E012F9B7AB4D335BCD551CD04D25ACE46425D6072DAC5FA7C2C1913F5/subgraphmysterio/resizefill_w140_h140/https:%2F%2Fmedia.zenfs.com%2Fen%2Ftechcrunch_finance_785%2F9d1fc4a7bcdab6f43d4b1eefdabe2f4a.jpg",
+      "width": 140,
+      "height": 140,
+      "tag": "140x140"
+     }
+    ]
+   },
+   "relatedTickers": [
+    "AXISBANK.BO",
+    "AAPL",
+    "V",
+    "MA",
+    "PAYTM.NS",
+    "PINELABS.NS",
+    "WLN.PA",
+    "RS",
+    "ETERNAL.NS"
+   ]
+  },
+  {
+   "uuid": "9d7db429-0d7d-340d-8fe8-043a7600173a",
+   "title": "FMC Submits Rimisoxafen Regulatory Filing for Approval in Brazil",
+   "publisher": "Zacks",
+   "link": "https://finance.yahoo.com/healthcare/articles/fmc-submits-rimisoxafen-regulatory-filing-132200762.html",
+   "providerPublishTime": 1790688120,
+   "type": "STORY",
+   "thumbnail": {
+    "resolutions": [
+     {
+      "url": "https://media.zenfs.com/en/zacks.com/51d64c44d0d8a029c58d2e82f3c8c312.jpg",
+      "width": 635,
+      "height": 400,
+      "tag": "original"
+     },
+     {
+      "url": "https://s.yimg.com/lo/mysterio/api/B74B15B645B7E386903B59295A1E197EAC4B4DC589A669C56548CAAE8B07A72B/subgraphmysterio/resizefill_w140_h140/https:%2F%2Fmedia.zenfs.com%2Fen%2Fzacks.com%2F51d64c44d0d8a029c58d2e82f3c8c312.jpg",
+      "width": 140,
+      "height": 140,
+      "tag": "140x140"
+     }
+    ]
+   },
+   "relatedTickers": [
+    "FMC",
+    "ZC=F",
+    "AVNT",
+    "KRO",
+    "RS"
+   ]
+  },
+  {
+   "uuid": "821ae93b-b17b-3dc3-8dcf-4d824e3fdd04",
+   "title": "Westlake Royal Expands Distribution Partnership With BlueLinx",
+   "publisher": "Zacks",
+   "link": "https://finance.yahoo.com/markets/stocks/articles/westlake-royal-expands-distribution-partnership-142800260.html",
+   "providerPublishTime": 1790605680,
+   "type": "STORY",
+   "thumbnail": {
+    "resolutions": [
+     {
+      "url": "https://media.zenfs.com/en/zacks.com/236d157ebb08cbf8ff3dbacf7ce7623b.jpg",
+      "width": 635,
+      "height": 400,
+      "tag": "original"
+     },
+     {
+      "url": "https://s.yimg.com/lo/mysterio/api/0745653A6F90680A4AA642D8BA7901D0FFF174E16F4BDF8CEFB61A46F95CBB83/subgraphmysterio/resizefill_w140_h140/https:%2F%2Fmedia.zenfs.com%2Fen%2Fzacks.com%2F236d157ebb08cbf8ff3dbacf7ce7623b.jpg",
+      "width": 140,
+      "height": 140,
+      "tag": "140x140"
+     }
+    ]
+   },
+   "relatedTickers": [
+    "WLK",
+    "LBR=F",
+    "KRO",
+    "AVNT",
+    "RS"
+   ]
+  }
+ ],
+ "nav": [],
+ "lists": [],
+ "researchReports": [],
+ "screenerFieldResults": [],
+ "totalTime": 506,
+ "timeTakenForQuotes": 435,
+ "timeTakenForNews": 600,
+ "timeTakenForAlgowatchlist": 400,
+ "timeTakenForPredefinedScreener": 400,
+ "timeTakenForCrunchbase": 0,
+ "timeTakenForNav": 400,
+ "timeTakenForResearchReports": 0,
+ "timeTakenForQuestions": 0,
+ "timeTakenForScreenerField": 0,
+ "timeTakenForCulturalAssets": 0,
+ "timeTakenForSearchLists": 0
+}
