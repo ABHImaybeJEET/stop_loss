@@ -21,39 +21,12 @@ from stop_loss.analytics.yahoo_parsers import (
     last_session,
     parse_chart,
     parse_quote_summary,
-    parse_search,
     text,
 )
 from stop_loss.symbols import is_nse_symbol, nse_symbol
+from stop_loss.universe import get_universe
 
 T = TypeVar("T")
-
-
-_LOCAL_TICKERS_CACHE = []
-
-def _get_local_tickers() -> list[AssetMatch]:
-    global _LOCAL_TICKERS_CACHE
-    if _LOCAL_TICKERS_CACHE:
-        return _LOCAL_TICKERS_CACHE
-    
-    from pathlib import Path
-    root_dir = Path(__file__).resolve().parents[4]
-    data_dir = root_dir / "data" / "raw" / "nse_historical_data"
-    
-    matches = []
-    if data_dir.exists():
-        for file in data_dir.glob("*.csv"):
-            symbol = file.name[:-4]
-            name = symbol[:-3] if symbol.endswith(".NS") else symbol
-            matches.append(AssetMatch(
-                symbol=symbol,
-                name=name,
-                exchange="NSE",
-                quote_type="EQUITY",
-                sector=None
-            ))
-    _LOCAL_TICKERS_CACHE = matches
-    return _LOCAL_TICKERS_CACHE
 
 
 def parse_yfinance_news(rows: list[dict[str, Any]]) -> list[NewsItem]:
@@ -200,9 +173,12 @@ class YahooFinanceClient:
                 raise ConnectorError("yfinance_symbol_mismatch")
             return parse_chart(payload, symbol, period, interval)
 
-        series = await fetch(range_)
-        if range_ == "1d" and not series.bars:
-            series = last_session(await fetch("5d"))
+        # A 1-day request returns no rows on weekends/holidays and yfinance (raise_errors=True)
+        # reports that as "possibly delisted", which also trips the circuit breaker. Always
+        # fetch 5 days and keep the latest session: one call, and correct when closed.
+        series = await fetch("5d" if range_ == "1d" else range_)
+        if range_ == "1d":
+            series = last_session(series)
         cache.put(key, series)
         return series
 
@@ -242,21 +218,17 @@ class YahooFinanceClient:
         if (hit := self._search.get(key)) is not None:
             return hit
 
-        query_lower = query.lower()
-        all_tickers = _get_local_tickers()
-        
-        matches = []
-        for m in all_tickers:
-            if query_lower in m.symbol.lower() or query_lower in m.name.lower():
-                matches.append(m)
-                
-        # Sort so that exact prefix matches come first for better UX
-        matches.sort(key=lambda m: (
-            not m.name.lower().startswith(query_lower), 
-            not m.symbol.lower().startswith(query_lower), 
-            m.symbol
-        ))
-        
+        # Asset search runs over the local NSE universe (instant, no Yahoo quota).
+        matches = [
+            AssetMatch(
+                symbol=c.symbol,
+                name=c.name,
+                exchange="NSE",
+                quote_type="EQUITY",
+                sector=c.sector,
+            )
+            for c in get_universe().search(query, limit=quotes)
+        ]
         result = (matches[:quotes], [])
         self._search.put(key, result)
         return result
