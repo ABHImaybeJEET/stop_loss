@@ -21,12 +21,17 @@ from fin_terminal.observability import (
 
 
 async def run(
-    settings: Settings, *, stream: bool = False, smoke: bool = False, max_cycles: int | None = None
+    settings: Settings,
+    *,
+    stream: bool = False,
+    smoke: bool = False,
+    max_cycles: int | None = None,
+    live: bool = False,
 ) -> list[IngestionState]:
     settings.checkpoint_path.parent.mkdir(parents=True, exist_ok=True)
     client = tracing_client(settings)
     results: list[IngestionState] = []
-    pipeline = IngestionPipeline(settings)
+    pipeline = IngestionPipeline(settings, live=live)
     try:
         async with AsyncSqliteSaver.from_conn_string(str(settings.checkpoint_path)) as saver:
             await saver.setup()  # sets WAL journal mode
@@ -94,6 +99,11 @@ def main() -> None:
     mode.add_argument("--once", action="store_true")
     mode.add_argument("--stream", action="store_true")
     parser.add_argument("--smoke", action="store_true", help="isolated baseline + failure smoke")
+    parser.add_argument(
+        "--live",
+        action="store_true",
+        help="use real external API connectors (Alpha Vantage, FRED, Open-Meteo)",
+    )
     parser.add_argument("--fail-source", choices=SOURCES)
     parser.add_argument("--failure-mode", choices=("failed", "degraded", "rate_limited"))
     parser.add_argument("--max-cycles", type=int, help="stop streaming after N cycles")
@@ -118,6 +128,7 @@ def main() -> None:
                 settings,
                 stream=args.stream,
                 max_cycles=args.max_cycles,
+                live=args.live,
             )
         )
     except KeyboardInterrupt:

@@ -14,8 +14,7 @@ from langgraph.graph.state import CompiledStateGraph
 from pydantic import JsonValue
 
 from fin_terminal.config import Settings
-from fin_terminal.connectors.base import AsyncConnector
-from fin_terminal.connectors.stub import StubConnector
+from fin_terminal.connectors import AsyncConnector, create_connectors
 from fin_terminal.embeddings import LazyEmbeddings
 from fin_terminal.evidence import EvidenceLog, EvidenceLogEntry
 from fin_terminal.observability import LatencyTimer, render_report
@@ -101,20 +100,13 @@ class IngestionPipeline:
         *,
         embedder: Embedder | None = None,
         vectorstore: VectorStoreAdapter | None = None,
+        live: bool = False,
     ) -> None:
         self.settings = settings
         if settings.stub_fail_source and settings.stub_fail_source not in SOURCES:
             raise ValueError(f"STUB_FAIL_SOURCE must be one of {SOURCES}")
         self.connectors = (
-            dict(connectors)
-            if connectors is not None
-            else {
-                source: StubConnector(
-                    source,
-                    settings.stub_failure_mode if settings.stub_fail_source == source else None,
-                )
-                for source in SOURCES
-            }
+            dict(connectors) if connectors is not None else create_connectors(settings, live=live)
         )
         if set(self.connectors) != set(SOURCES):
             raise ValueError(f"connectors must supply exactly {SOURCES}")

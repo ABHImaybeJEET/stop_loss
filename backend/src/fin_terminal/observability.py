@@ -6,7 +6,7 @@ from uuid import UUID
 from langchain_core.runnables import RunnableConfig
 from langsmith import Client, traceable
 from pydantic import JsonValue
-from tenacity import retry, stop_after_attempt, wait_fixed
+from tenacity import retry, stop_after_attempt, wait_exponential
 
 from fin_terminal.config import Settings, secret_value
 from fin_terminal.schemas import StreamStatus, Theme
@@ -94,7 +94,11 @@ def confirm_trace(client: Client, trace_id: UUID) -> None:
     """Smoke succeeds only when the completed root trace is readable remotely."""
     client.flush(timeout=10)
 
-    @retry(stop=stop_after_attempt(4), wait=wait_fixed(0.5), reraise=True)
+    @retry(
+        stop=stop_after_attempt(6),
+        wait=wait_exponential(multiplier=0.5, min=0.5, max=3.0),
+        reraise=True,
+    )
     def verify() -> None:
         run = client.read_run(trace_id)
         if run.end_time is None:
