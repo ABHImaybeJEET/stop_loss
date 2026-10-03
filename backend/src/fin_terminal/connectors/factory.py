@@ -7,8 +7,11 @@ from fin_terminal.connectors.alphavantage import (
 )
 from fin_terminal.connectors.base import AsyncConnector
 from fin_terminal.connectors.fred import FredMacroConnector
+from fin_terminal.connectors.http import HTTPConnector
 from fin_terminal.connectors.openmeteo import OpenMeteoWeatherConnector
 from fin_terminal.connectors.stub import StubConnector
+from fin_terminal.connectors.unavailable import UnavailableConnector
+from fin_terminal.resilience import TokenBucket
 
 SOURCES = ("prices", "macro", "weather", "news_tariff", "news_banktax", "news_war")
 
@@ -87,4 +90,47 @@ def create_connectors(settings: Settings, *, live: bool = False) -> dict[str, As
                 settings.stub_failure_mode if settings.stub_fail_source == news_source else None,
             )
 
+    if live:
+        buckets: dict[str, TokenBucket] = {}
+        for source, connector in connectors.items():
+            if isinstance(connector, StubConnector):
+                connectors[source] = UnavailableConnector(source)
+            elif isinstance(connector, HTTPConnector):
+                policy = settings.connector_policy(connector.provider)
+                bucket = buckets.setdefault(
+                    connector.provider, TokenBucket(policy.rate_per_second, policy.burst)
+                )
+                connector.setup_http(settings, bucket)
     return connectors
+
+
+class ConnectorRegistry:
+    """Explicit ownership of connector resources and safe health reporting."""
+
+    def __init__(self, connectors: dict[str, AsyncConnector]) -> None:
+        self.connectors = connectors
+
+    async def health(self) -> dict[str, dict]:
+        import asyncio
+
+        from fin_terminal.schemas import StreamStatus
+
+        async def check(name: str, connector: AsyncConnector) -> tuple[str, dict]:
+            try:
+                async with asyncio.timeout(5):
+                    status = await connector.health_check()
+            except Exception as exc:
+                status = StreamStatus(source=name, status="failed", message=type(exc).__name__)
+            return name, status.model_dump(mode="json")
+
+        return dict(await asyncio.gather(*(check(n, c) for n, c in self.connectors.items())))
+
+    async def close(self) -> None:
+        import asyncio
+
+        results = await asyncio.gather(
+            *(c.close() for c in self.connectors.values()), return_exceptions=True
+        )
+        errors = [r for r in results if isinstance(r, Exception)]
+        if errors:
+            raise ExceptionGroup("connector shutdown failed", errors)

@@ -48,6 +48,7 @@ htmlcov/
 *.db-wal
 *.db-shm
 **/data/evidence.jsonl
+**/data/dead_letters.jsonl
 
 # Data directories (preserve .gitkeep)
 data/raw/*

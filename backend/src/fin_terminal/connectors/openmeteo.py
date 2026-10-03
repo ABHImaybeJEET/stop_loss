@@ -6,14 +6,17 @@ from datetime import UTC, datetime
 import httpx
 from pydantic import JsonValue
 
-from fin_terminal.connectors.base import AsyncConnector
-from fin_terminal.schemas import Document, StreamStatus, WeatherEvent
+from fin_terminal.connectors.errors import ConnectorError
+from fin_terminal.connectors.http import HTTPConnector
+from fin_terminal.schemas import Document, WeatherEvent
 
 logger = logging.getLogger("fin_terminal")
 
 
-class OpenMeteoWeatherConnector(AsyncConnector):
+class OpenMeteoWeatherConnector(HTTPConnector):
     """Fetches real-time atmospheric conditions via Open-Meteo API."""
+
+    provider = "open_meteo"
 
     def __init__(
         self,
@@ -34,27 +37,19 @@ class OpenMeteoWeatherConnector(AsyncConnector):
     def source(self) -> str:
         return "weather"
 
-    async def _get_client(self) -> httpx.AsyncClient:
-        if self._client is not None:
-            return self._client
-        return httpx.AsyncClient(timeout=self.timeout)
-
     async def fetch(self) -> list[JsonValue]:
-        url = (
-            f"https://api.open-meteo.com/v1/forecast?"
-            f"latitude={self.latitude}&longitude={self.longitude}"
-            f"&current=temperature_2m,wind_speed_10m,precipitation"
+        data = await self.request_json(
+            "https://api.open-meteo.com/v1/forecast",
+            {
+                "latitude": self.latitude,
+                "longitude": self.longitude,
+                "timezone": "UTC",
+                "current": "temperature_2m,wind_speed_10m,precipitation",
+            },
         )
-        client = await self._get_client()
-        should_close = self._client is None
-        try:
-            response = await client.get(url)
-            response.raise_for_status()
-            data = response.json()
-            return [data]
-        finally:
-            if should_close:
-                await client.aclose()
+        if not isinstance(data.get("current"), dict):
+            raise ConnectorError("unavailable_weather")
+        return [data]
 
     async def normalize(self, raw: list[JsonValue]) -> list[Document]:
         records: list[Document] = []
@@ -68,7 +63,8 @@ class OpenMeteoWeatherConnector(AsyncConnector):
             observed_at: datetime | None = None
             if time_str:
                 try:
-                    observed_at = datetime.fromisoformat(f"{time_str}:00+00:00")
+                    parsed = datetime.fromisoformat(str(time_str))
+                    observed_at = parsed if parsed.tzinfo else parsed.replace(tzinfo=UTC)
                 except ValueError:
                     observed_at = None
 
@@ -76,7 +72,7 @@ class OpenMeteoWeatherConnector(AsyncConnector):
             for metric in metrics:
                 val = current.get(metric)
                 value: float | None = float(val) if val is not None else None
-                unit = current_units.get(metric, "")
+                unit = current_units.get(metric)
 
                 record = WeatherEvent(
                     kind="weather",
@@ -87,17 +83,13 @@ class OpenMeteoWeatherConnector(AsyncConnector):
                     value=value,
                     unit=unit,
                     observed_at=observed_at,
-                    source_url="https://open-meteo.com",
+                    source_url=(
+                        f"https://api.open-meteo.com/v1/forecast?latitude={self.latitude}"
+                        f"&longitude={self.longitude}&timezone=UTC"
+                    ),
                     text=f"Weather at {self.location_name}: {metric}={value} {unit} at {time_str}",
                     fetched_at=datetime.now(UTC),
                     ingest_run_id="init",
                 )
                 records.append(record)
         return records
-
-    async def health(self) -> StreamStatus:
-        return StreamStatus(
-            source=self.source,
-            status="ok",
-            message=f"Open-Meteo weather active for {self.location_name}",
-        )

@@ -54,7 +54,7 @@ async def test_alphavantage_market_connector_normalization(quote_fixture: dict):
     assert record.provider == "alpha_vantage"
     assert record.symbol == "XOM"
     assert record.price is not None and record.price > 0
-    assert record.currency == "USD"
+    assert record.currency is None  # GLOBAL_QUOTE does not supply currency.
     assert record.observed_at is not None
 
 

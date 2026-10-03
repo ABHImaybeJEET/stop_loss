@@ -4,6 +4,7 @@ import asyncio
 import logging
 import time
 from collections.abc import Awaitable, Callable, Mapping
+from concurrent.futures import ThreadPoolExecutor
 from typing import Annotated, Protocol, TypedDict, TypeVar
 
 import httpx
@@ -15,8 +16,11 @@ from pydantic import JsonValue
 
 from fin_terminal.config import Settings
 from fin_terminal.connectors import AsyncConnector, create_connectors
+from fin_terminal.connectors.factory import ConnectorRegistry
 from fin_terminal.embeddings import LazyEmbeddings
 from fin_terminal.evidence import EvidenceLog, EvidenceLogEntry
+from fin_terminal.grounding import LastGoodCache
+from fin_terminal.ingestion.quality import DeadLetters, clean_record
 from fin_terminal.observability import LatencyTimer, render_report
 from fin_terminal.resilience import CircuitOpenError, RateLimitedError, SourceGuards
 from fin_terminal.schemas import RECORD_ADAPTER, StreamStatus, Theme, utcnow
@@ -103,6 +107,7 @@ class IngestionPipeline:
         live: bool = False,
     ) -> None:
         self.settings = settings
+        self.mode = "live" if live else "stub"
         if settings.stub_fail_source and settings.stub_fail_source not in SOURCES:
             raise ValueError(f"STUB_FAIL_SOURCE must be one of {SOURCES}")
         self.connectors = (
@@ -111,6 +116,10 @@ class IngestionPipeline:
         if set(self.connectors) != set(SOURCES):
             raise ValueError(f"connectors must supply exactly {SOURCES}")
         self.evidence = EvidenceLog(settings.evidence_path)
+        self._audit_pool = ThreadPoolExecutor(max_workers=1, thread_name_prefix="ingestion-audit")
+        self.dead_letters = DeadLetters(EvidenceLog(settings.dead_letter_path))
+        self.cache = LastGoodCache(settings.ingestion_batch_size)
+        self.registry = ConnectorRegistry(self.connectors)
         self.store = DocumentStore(settings.database_path)
         self.guards = SourceGuards(settings)
         self.embedder = embedder or LazyEmbeddings(settings)
@@ -121,7 +130,12 @@ class IngestionPipeline:
             if self.vectorstore is not None:
                 await self.vectorstore.close()
         finally:
-            self.store.close()
+            try:
+                await self.registry.close()
+            finally:
+                await self.store.aclose()
+                self.dead_letters.close()
+                self._audit_pool.shutdown(wait=False)
 
     async def audit(
         self,
@@ -132,7 +146,8 @@ class IngestionPipeline:
         source: str | None = None,
         details: JSONDict | None = None,
     ) -> None:
-        await asyncio.to_thread(
+        await asyncio.get_running_loop().run_in_executor(
+            self._audit_pool,
             self.evidence.append,
             EvidenceLogEntry(
                 ingest_run_id=state["ingest_run_id"],
@@ -188,10 +203,18 @@ class IngestionPipeline:
             items: list[JsonValue] = []
             status = StreamStatus(source=source)
             try:
-                items = await self.guards.for_source(connector.source).call(connector.fetch)
+                if getattr(connector, "manages_requests", False):
+                    policy = self.settings.connector_policy(getattr(connector, "provider", source))
+                    async with asyncio.timeout(
+                        policy.timeout_seconds * policy.retries
+                        + self.settings.retry_max_wait_seconds
+                    ):
+                        items = await connector.fetch()
+                else:
+                    items = await self.guards.for_source(connector.source).call(connector.fetch)
                 status = status.model_copy(update={"records_fetched": len(items)})
                 async with asyncio.timeout(self.settings.http_timeout_seconds):
-                    health = await connector.health()
+                    health = await connector.health_check()
                 status = status.model_copy(
                     update={
                         "status": health.status,
@@ -253,32 +276,51 @@ class IngestionPipeline:
                 }
 
             normalized: list[JSONDict] = []
-            try:
-                async with asyncio.timeout(self.settings.http_timeout_seconds):
-                    records = await self.connectors[source].normalize(items)
-                for record in records:
-                    payload = record.model_dump(mode="json")
-                    payload.update(
-                        {
-                            "source": source,
-                            "ingest_run_id": state["ingest_run_id"],
-                            "langsmith_run_id": state.get("langsmith_run_id"),
-                            "fetched_at": batch["fetched_at"],
-                            "fetch_latency_ms": batch["fetch_latency_ms"],
-                            "content_hash": "",
-                        }
+            rejected = 0
+            for item in items:
+                try:
+                    async with asyncio.timeout(self.settings.http_timeout_seconds):
+                        records = await self.connectors[source].normalize([item])
+                    for record in records:
+                        payload = record.model_dump(mode="json")
+                        payload.update(
+                            {
+                                "source": source,
+                                "ingest_run_id": state["ingest_run_id"],
+                                "langsmith_run_id": state.get("langsmith_run_id"),
+                                "fetched_at": batch["fetched_at"],
+                                "fetch_latency_ms": batch["fetch_latency_ms"],
+                                "content_hash": "",
+                            }
+                        )
+                        normalized.append(
+                            clean_record(RECORD_ADAPTER.validate_python(payload)).model_dump(
+                                mode="json"
+                            )
+                        )
+                except Exception as exc:
+                    rejected += 1
+                    await self.dead_letters.reject(
+                        source, state["ingest_run_id"], "normalize", item, type(exc).__name__
                     )
-                    normalized.append(
-                        RECORD_ADAPTER.validate_python(payload).model_dump(mode="json")
-                    )
-                status = status.model_copy(update={"records_normalized": len(normalized)})
-            except Exception as exc:
-                normalized = []
-                status = status.model_copy(
-                    update={
-                        "status": "degraded",
-                        "message": f"normalize: {type(exc).__name__}",
-                    }
+            status = status.model_copy(
+                update={
+                    "records_normalized": len(normalized),
+                    "records_rejected": rejected,
+                    "status": "degraded" if rejected else status.status,
+                }
+            )
+            for stage in ("parse", "validate", "clean", "normalize"):
+                await self.audit(
+                    state,
+                    stage,
+                    "batch_quality",
+                    source=source,
+                    details={
+                        "rows_in": len(items),
+                        "rows_out": len(normalized),
+                        "rows_rejected": rejected,
+                    },
                 )
 
             # Dedupe & Tag
@@ -291,7 +333,7 @@ class IngestionPipeline:
                 if record.source in SOURCE_THEMES:
                     tags.add(SOURCE_THEMES[record.source])
                 record = record.model_copy(update={"theme_tags": sorted(tags)})
-                if record.content_hash in seen or self.store.contains(record.content_hash):
+                if record.content_hash in seen or await self.store.acontains(record.content_hash):
                     duplicates += 1
                     continue
                 seen.add(record.content_hash)
@@ -333,13 +375,16 @@ class IngestionPipeline:
                 )
                 if not error:
                     try:
-                        self.store.insert(record)
-                        indexed += 1
+                        if await self.store.ainsert(record):
+                            indexed += 1
                     except Exception as exc:
                         error = f"persist: {type(exc).__name__}"
                         record = record.model_copy(update={"data_quality": "degraded"})
                 if error:
                     status = status.model_copy(update={"status": "degraded", "message": error})
+                    await self.dead_letters.reject(
+                        source, state["ingest_run_id"], "store", payload, error
+                    )
                 await self.audit(
                     state,
                     f"process_{source}",
@@ -363,6 +408,25 @@ class IngestionPipeline:
 
             processed_docs = await bounded_map(
                 embed_item, to_embed, self.settings.processing_concurrency
+            )
+
+            good = [
+                RECORD_ADAPTER.validate_python(p)
+                for p in processed_docs
+                if p["data_quality"] != "degraded"
+            ]
+            if good:
+                self.cache.update(source, good)
+            elif normalized and duplicates:
+                self.cache.update(source, [RECORD_ADAPTER.validate_python(p) for p in normalized])
+            if status.status != "ok":
+                self.cache.fail(source, status.message or status.status)
+            snapshot = self.cache.read(source, self.settings.freshness_seconds)
+            status = status.model_copy(
+                update={
+                    "availability": snapshot.status,
+                    "last_successful_update": snapshot.last_successful_update,
+                }
             )
 
             return {
@@ -428,7 +492,7 @@ class IngestionPipeline:
         duplicates = 0
         for payload in state["documents"]:
             record = RECORD_ADAPTER.validate_python(payload)
-            if record.content_hash in seen or self.store.contains(record.content_hash):
+            if record.content_hash in seen or await self.store.acontains(record.content_hash):
                 duplicates += 1
                 continue
             seen.add(record.content_hash)
@@ -483,8 +547,8 @@ class IngestionPipeline:
             )
             if not error:
                 try:
-                    self.store.insert(record)
-                    indexed += 1
+                    if await self.store.ainsert(record):
+                        indexed += 1
                 except Exception as exc:
                     error = f"persist: {type(exc).__name__}"
                     record = record.model_copy(update={"data_quality": "degraded"})
@@ -535,7 +599,10 @@ class IngestionPipeline:
     async def report(self, state: IngestionState) -> IngestionState:
         return {
             "report": render_report(
-                state["statuses"], state.get("indexed", 0), state.get("duplicates", 0)
+                state["statuses"],
+                state.get("indexed", 0),
+                state.get("duplicates", 0),
+                mode=self.mode,
             )
         }
 
@@ -589,4 +656,16 @@ class IngestionPipeline:
         builder.add_edge(stream_nodes, "write_evidence")
         builder.add_edge("write_evidence", "report")
         builder.add_edge("report", END)
+        return builder.compile(checkpointer=checkpointer)
+
+    def build_stage_graph(
+        self, source: str, stage: str, checkpointer: BaseCheckpointSaver
+    ) -> CompiledStateGraph:
+        """Independent checkpointed graph invocations for queued stream batches."""
+        builder = StateGraph(IngestionState)
+        action = self.fetch_node(source) if stage == "fetch" else self.process_source_node(source)
+        name = f"{stage}_{source}"
+        builder.add_node(name, self.node(name, action, source))
+        builder.add_edge(START, name)
+        builder.add_edge(name, END)
         return builder.compile(checkpointer=checkpointer)
