@@ -68,6 +68,21 @@ class DocumentStore:
             )
             return cursor.rowcount
 
+    def hashes_for_source(self, source: str, ingest_run_id: str) -> list[str]:
+        rows = self.connection.execute(
+            "SELECT content_hash FROM documents WHERE json_extract(document_json, '$.source') = ?"
+            " AND json_extract(document_json, '$.ingest_run_id') = ?",
+            (source, ingest_run_id),
+        ).fetchall()
+        return [row[0] for row in rows]
+
+    def delete_hashes(self, content_hashes: list[str]) -> int:
+        with self._lock, self.connection:
+            cursor = self.connection.executemany(
+                "DELETE FROM documents WHERE content_hash = ?", [(h,) for h in content_hashes]
+            )
+            return cursor.rowcount
+
     async def acontains(self, content_hash: str) -> bool:
         return await asyncio.get_running_loop().run_in_executor(
             self._executor, self.contains, content_hash

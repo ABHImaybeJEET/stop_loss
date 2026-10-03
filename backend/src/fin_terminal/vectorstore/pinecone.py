@@ -102,6 +102,13 @@ class PineconeVectorAdapter(VectorStoreAdapter):
         if response.status_code != 404:  # 404: namespace already empty
             response.raise_for_status()
 
+    async def delete_ids(self, ids: list[str], namespace: str) -> None:
+        for start in range(0, len(ids), 1000):  # API limit: 1000 ids per call
+            response = await self.client.post(
+                "/vectors/delete", json={"ids": ids[start : start + 1000], "namespace": namespace}
+            )
+            response.raise_for_status()
+
     async def stats(self) -> dict[str, Any]:
         response = await self.client.post("/describe_index_stats", json={})
         response.raise_for_status()

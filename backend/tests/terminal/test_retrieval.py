@@ -53,8 +53,25 @@ def test_company_cyclone_and_earthquake_readers() -> None:
     assert "South Indian basin" in ilsa.embed_text and "2 track points" in ilsa.embed_text
     unnamed = storms["Unnamed storm (2020)"]
     assert unnamed.metadata["max_wind_kt"] is None and "Peak sustained" not in unnamed.embed_text
+    # Blank basin in the cleaned file = pandas-parsed "NA" (North Atlantic): restored + audited.
+    harvey = storms["Harvey (2017)"]
+    assert harvey.metadata["basin"] == "NA" and harvey.metadata["region"] == "Gulf of Mexico"
+    assert harvey.metadata["intensity_category"] == 4
+    assert harvey.document.transformations == ["basin_na_restored_from_pandas_nan"]
+    assert "Category 4-equivalent major hurricane-strength" in harvey.embed_text
     quakes = list(datasets.earthquakes(ROOT))
     assert len(quakes) == 1 and quakes[0].metadata["magnitude"] == 6.0
+
+
+def test_cyclone_region_and_intensity_labels() -> None:
+    assert datasets.cyclone_region("NI", 19.0, 86.0) == "Bay of Bengal"
+    assert datasets.cyclone_region("NI", 15.0, 65.0) == "Arabian Sea"
+    assert datasets.cyclone_region("WP", 15.0, 115.0) == "South China Sea"
+    assert datasets.cyclone_region("NA", 14.0, -70.0) == "Caribbean Sea"
+    assert datasets.cyclone_region("NA", None, -90.0) is None
+    assert datasets.cyclone_intensity(None) == ("intensity not reported", None)
+    assert datasets.cyclone_intensity(50)[1] == 0
+    assert datasets.cyclone_intensity(83)[1] == 2 and datasets.cyclone_intensity(137)[1] == 5
 
 
 def test_metadata_drops_nulls_and_adds_filterable_dates() -> None:
@@ -71,6 +88,9 @@ def test_metadata_drops_nulls_and_adds_filterable_dates() -> None:
 
 def test_build_filter() -> None:
     assert build_filter() is None
+    assert build_filter(regions=["Gulf of Mexico"], min_category=4) == {
+        "$and": [{"region": {"$in": ["Gulf of Mexico"]}}, {"intensity_category": {"$gte": 4}}]
+    }
     assert build_filter(doc_types=["news"]) == {"doc_type": {"$in": ["news"]}}
     combined = build_filter(doc_types=["cyclone"], year_from=2010, tickers=["XOM"])
     assert combined == {

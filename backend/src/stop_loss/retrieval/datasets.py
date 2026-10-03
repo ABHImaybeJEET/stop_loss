@@ -36,6 +36,61 @@ FINANCE_TERMS = re.compile(
     re.I,
 )
 RUN_ID = "backfill"
+# Dataset name -> Document.source (used to purge/re-index a single dataset).
+SOURCE_IDS = {
+    "stock_news": "hist_stock_news",
+    "india_news": "hist_india_news",
+    "companies": "hist_company_profiles",
+    "cyclones": "hist_cyclones",
+    "earthquakes": "hist_earthquakes",
+}
+
+
+def cyclone_region(basin: str, lat: float | None, lon: float | None) -> str | None:
+    """Coarse, deterministic sea/region label from basin + position (searchable words)."""
+    if lat is None or lon is None:
+        return None
+    if basin == "NA":
+        if 18 <= lat <= 31 and -98 <= lon <= -80:
+            return "Gulf of Mexico"
+        if 9 <= lat < 22 and -88 <= lon <= -60:
+            return "Caribbean Sea"
+        return "Atlantic Ocean, US East Coast" if lat >= 25 and lon > -82 else "Atlantic Ocean"
+    if basin == "NI":
+        return "Arabian Sea" if lon < 78 else "Bay of Bengal"
+    if basin == "WP":
+        if 0 <= lat <= 25 and 105 <= lon <= 121:
+            return "South China Sea"
+        return (
+            "Western Pacific, near the Philippines, Japan and China"
+            if lon < 150
+            else ("Western Pacific")
+        )
+    if basin == "EP":
+        return "Eastern Pacific, off Mexico" if lon < -100 else "Central and Eastern Pacific"
+    if basin == "SI":
+        if lon < 90:
+            return "South-West Indian Ocean, near Madagascar and Mozambique"
+        return "South-East Indian Ocean, off Australia"
+    if basin == "SP":
+        return "South Pacific, near Australia and Fiji"
+    return None
+
+
+def cyclone_intensity(wind_kt: float | None) -> tuple[str, int | None]:
+    """Saffir-Simpson-equivalent class from peak wind (kt). Agencies differ in averaging
+    period (1-min vs 10-min), so this is an equivalent label, not an official category."""
+    if wind_kt is None:
+        return "intensity not reported", None
+    if wind_kt < 34:
+        return "tropical depression", 0
+    if wind_kt < 64:
+        return "tropical storm", 0
+    for floor, cat in ((137, 5), (113, 4), (96, 3), (83, 2), (64, 1)):
+        if wind_kt >= floor:
+            label = "major hurricane-strength" if cat >= 3 else "hurricane-strength"
+            return f"Category {cat}-equivalent {label} cyclone", cat
+    return "tropical storm", 0
 
 
 @dataclass
@@ -189,10 +244,28 @@ def companies(root: Path) -> Iterator[Record]:
         )
 
 
+def raw_cyclone_basins(root: Path) -> dict[str, str]:
+    """SID -> BASIN from the raw IBTrACS file.
+
+    The pandas-based preprocessing read the North Atlantic code "NA" as missing, blanking
+    the basin for every Atlantic storm in the cleaned file. The csv module keeps the literal.
+    """
+    raw = root.parent / "raw" / "calamity_historical_data" / "noaa_cyclones_since_2000.csv"
+    if not raw.exists():
+        return {}
+    basins: dict[str, str] = {}
+    for _, row in _rows(raw):
+        sid, basin = (row.get("SID") or "").strip(), (row.get("BASIN") or "").strip()
+        if sid and basin and sid not in basins:
+            basins[sid] = basin
+    return basins
+
+
 def cyclones(root: Path) -> Iterator[Record]:
     """One document per storm (SID), aggregated from NOAA IBTrACS track points."""
     path = root / "calamities" / "cyclones_cleaned.csv"
     storms: dict[str, dict[str, Any]] = {}
+    raw_basins: dict[str, str] | None = None
     for line, row in _rows(path):
         sid = (row.get("SID") or "").strip()
         when = _dt(row.get("ISO_TIME"))
@@ -224,12 +297,32 @@ def cyclones(root: Path) -> Iterator[Record]:
             storm["peak"] = (wind, lat, lon, when)
         if pres is not None and (storm["min_pres"] is None or pres < storm["min_pres"]):
             storm["min_pres"] = pres
+    if any(not s["basin"] for s in storms.values()):
+        raw_basins = raw_cyclone_basins(root)
+        for sid, s in storms.items():
+            if not s["basin"] and sid in (raw_basins or {}):
+                s["basin"] = raw_basins[sid]
+                s["basin_restored"] = "basin_restored_from_raw_ibtracs"
+            elif not s["basin"]:
+                # pandas' default NA strings include "NA" but no other IBTrACS basin code
+                # (IBTrACS itself writes "MM" for missing), so a blank basin was "NA".
+                # Verified: 469/470 such storms start inside the North Atlantic box.
+                s["basin"] = "NA"
+                s["basin_restored"] = "basin_na_restored_from_pandas_nan"
     for sid, s in storms.items():
         named = s["name"] and s["name"].upper() not in {"UNNAMED", "NOT_NAMED", "NONAME"}
         name = s["name"].title() if named else "Unnamed storm"
         basin = BASINS.get(s["basin"], s["basin"] or "unknown basin")
+        peak_lat, peak_lon = (s["peak"][1], s["peak"][2]) if s["peak"] else (None, None)
+        first_lat, first_lon = _num(s["first"][0]), _num(s["first"][1])
+        region = cyclone_region(s["basin"], peak_lat, peak_lon) or cyclone_region(
+            s["basin"], first_lat, first_lon
+        )
+        intensity, category = cyclone_intensity(s["peak"][0] if s["peak"] else None)
         parts = [
-            f"Tropical cyclone {name} ({basin} basin, {s['season']} season) "
+            f"Tropical cyclone {name}: {intensity}"
+            + (f" in the {region}" if region else "")
+            + f" ({basin} basin, {s['season']} season), "
             f"from {s['start']:%Y-%m-%d} to {s['end']:%Y-%m-%d}."
         ]
         if s["peak"]:
@@ -250,6 +343,7 @@ def cyclones(root: Path) -> Iterator[Record]:
             fetched_at=utcnow(),
             ingest_run_id=RUN_ID,
             theme_tags=tag_themes("cyclone storm"),
+            transformations=[s["basin_restored"]] if s.get("basin_restored") else [],
         )
         yield Record(
             doc,
@@ -259,6 +353,8 @@ def cyclones(root: Path) -> Iterator[Record]:
                 "dataset": "noaa_ibtracs",
                 "title": f"{name} ({s['season']})",
                 "basin": s["basin"] or None,
+                "region": region,
+                "intensity_category": category,
                 "max_wind_kt": s["peak"][0] if s["peak"] else None,
                 "min_pressure_hpa": s["min_pres"],
                 "end_ts": int(s["end"].timestamp()),

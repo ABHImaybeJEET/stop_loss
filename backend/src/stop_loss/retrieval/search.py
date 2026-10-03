@@ -25,7 +25,10 @@ def build_filter(
     year_to: int | None = None,
     tickers: list[str] | None = None,
     themes: list[str] | None = None,
+    regions: list[str] | None = None,
+    min_category: int | None = None,
 ) -> dict[str, Any] | None:
+    """Structured narrowing first (dense ranking alone conflates templated event texts)."""
     clauses: list[dict[str, Any]] = []
     if doc_types:
         clauses.append({"doc_type": {"$in": doc_types}})
@@ -37,6 +40,10 @@ def build_filter(
         clauses.append({"tickers": {"$in": tickers}})
     if themes:
         clauses.append({"theme_tags": {"$in": themes}})
+    if regions:
+        clauses.append({"region": {"$in": regions}})
+    if min_category is not None:
+        clauses.append({"intensity_category": {"$gte": min_category}})
     if not clauses:
         return None
     return clauses[0] if len(clauses) == 1 else {"$and": clauses}

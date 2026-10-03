@@ -43,7 +43,7 @@ uv run --extra local-embeddings stop-loss-vectors init      # create/verify the 
 uv run --extra local-embeddings stop-loss-vectors count     # records per dataset (no upload)
 uv run --extra local-embeddings stop-loss-vectors backfill  # resumable; --source X, --limit N
 uv run --extra local-embeddings stop-loss-vectors stats
-uv run --extra local-embeddings stop-loss-vectors search "cyclone near Odisha refineries" --type cyclone
+uv run --extra local-embeddings stop-loss-vectors search "major hurricane near Gulf refineries" --type cyclone --region "Gulf of Mexico" --min-category 4
 ```
 
 This needs `PINECONE_API_KEY` in the root `.env`. The model is `BAAI/bge-base-en-v1.5` (768-d), which runs locally on the GPU and downloads on first use. See ADR T11–T12.

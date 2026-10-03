@@ -6,6 +6,7 @@ count   --source S        how many records a backfill would index (no embedding/
 backfill --source S       embed on the local GPU and upsert (resumable; --reset to restart)
 search  "text"            semantic search over the history namespace
 purge   --yes             delete the history namespace + backfill bookkeeping (re-index)
+        --source S        ...or only one dataset's vectors (by stored ids)
 """
 
 import argparse
@@ -106,6 +107,22 @@ async def cmd_backfill(
         progress.close()
 
 
+async def cmd_purge_source(settings: TerminalSettings, source: str) -> None:
+    store = DocumentStore(settings.database_path)
+    ids = store.hashes_for_source(datasets.SOURCE_IDS[source], datasets.RUN_ID)
+    adapter = adapter_for(settings)
+    try:
+        await adapter.delete_ids(ids, settings.pinecone_history_namespace)
+    finally:
+        await adapter.close()
+    store.delete_hashes(ids)
+    store.close()
+    progress = Progress(settings.backfill_progress_path)
+    progress.reset(source)
+    progress.close()
+    print(f"purged {len(ids):,} '{source}' vectors and their backfill bookkeeping")
+
+
 async def cmd_purge(settings: TerminalSettings) -> None:
     adapter = adapter_for(settings)
     try:
@@ -137,6 +154,8 @@ async def cmd_search(settings: TerminalSettings, args: argparse.Namespace) -> No
             doc_types=args.type or None,
             year_from=args.year_from,
             year_to=args.year_to,
+            regions=args.region or None,
+            min_category=args.min_category,
         )
     finally:
         await adapter.close()
@@ -165,12 +184,15 @@ def main() -> int:
             p.add_argument("--reset", action="store_true", help="ignore saved progress")
     purge = sub.add_parser("purge")
     purge.add_argument("--yes", action="store_true", help="confirm deletion")
+    purge.add_argument("--source", choices=datasets.SOURCES, help="only this dataset")
     s = sub.add_parser("search")
     s.add_argument("query")
     s.add_argument("--top-k", type=int, default=8)
     s.add_argument("--type", action="append", choices=DOC_TYPES)
     s.add_argument("--year-from", type=int)
     s.add_argument("--year-to", type=int)
+    s.add_argument("--region", action="append", help='e.g. "Gulf of Mexico", "Bay of Bengal"')
+    s.add_argument("--min-category", type=int, help="cyclones: Saffir-Simpson equivalent")
     args = parser.parse_args()
     logging.basicConfig(level=logging.WARNING)
     settings = pinecone_settings()
@@ -193,7 +215,10 @@ def main() -> int:
         if not args.yes:
             print("Refusing to purge without --yes")
             return 1
-        asyncio.run(cmd_purge(settings))
+        if args.source:
+            asyncio.run(cmd_purge_source(settings, args.source))
+        else:
+            asyncio.run(cmd_purge(settings))
     elif args.command == "search":
         asyncio.run(cmd_search(settings, args))
     return 0
