@@ -246,3 +246,14 @@ async def test_yahoo_client_falls_back_to_last_session_when_closed(settings) -> 
     series = await client.chart("RELIANCE.NS", "1d", "5m")
     assert series.bars and series.range == "1d"
     assert len({b.t.date() for b in series.bars}) == 1
+
+
+def test_cross_asset_correlations() -> None:
+    rel = reliance()
+    nif = nifty()
+    metrics = compute_quant_metrics(rel, nif, cross_benchmarks=[("NIFTY 50", "^NSEI", nif)])
+    assert len(metrics.correlations) == 1
+    assert metrics.correlations[0].asset_name == "NIFTY 50"
+    assert metrics.correlations[0].symbol == "^NSEI"
+    assert metrics.correlations[0].correlation is not None
+    assert -1.0 <= metrics.correlations[0].correlation <= 1.0

@@ -87,7 +87,7 @@ class SuggestionDraft(BaseModel):
 
 
 class NarrativeDraft(BaseModel):
-    executive_answer: str
+    executive_answer: str = ""
     snapshot_summary: str
     sources_summary: str
     historical_summary: str
@@ -101,10 +101,11 @@ class ReplyDraft(BaseModel):
 
 RULES = """
 Rules:
-- Use ONLY figures that appear in EVIDENCE. Cite evidence ids in square brackets, e.g. [E3].
+- Use ONLY figures that appear in EVIDENCE.
+- Citation format: Always cite evidence individually as [E1], [E2]. NEVER combine as [E1, E2] or [E1, 10] or E1.
 - Copy figures as shown in each item's `display` (rounding to fewer decimals is fine).
-- Never compute new figures (no projected prices, no invented percentages or targets).
-- If the user asks for something not covered by EVIDENCE, say that data is unavailable.
+- Never compute or invent new figures (no projected prices, no invented percentages or targets).
+- If the user asks for something not covered by EVIDENCE, explicitly state: "Info not known from verified sources."
 - Do not promise returns. Recommendations are informational, not investment advice.
 """
 

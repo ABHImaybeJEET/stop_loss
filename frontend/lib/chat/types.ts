@@ -117,6 +117,14 @@ export interface Risk {
   sentimentDistribution?: Record<SentimentLabel, number>;
   macro: { label: string; value?: number; unit?: string; date?: string; change?: number }[];
   weather: { location: string; date: string; description: string; value: number; unit: string }[];
+  correlations?: CrossAssetCorrelation[];
+}
+
+export interface CrossAssetCorrelation {
+  asset: string;
+  symbol: string;
+  correlation: number | null;
+  observations?: number;
 }
 
 export interface EvidenceItem {

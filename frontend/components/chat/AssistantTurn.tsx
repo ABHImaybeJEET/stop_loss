@@ -5,7 +5,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { AlertTriangle, RotateCw } from "lucide-react";
 import AssetLiveChart from "@/components/chat/AssetLiveChart";
-import { EvidenceRef, evidenceMap } from "@/components/chat/EvidenceText";
+import EvidenceText, { EvidenceRef, evidenceMap, normalizeCitations } from "@/components/chat/EvidenceText";
 import FeedbackBar from "@/components/chat/FeedbackBar";
 import OrchestrationPanel from "@/components/chat/OrchestrationPanel";
 import RiskTrustPanel from "@/components/chat/RiskTrustPanel";
@@ -71,7 +71,7 @@ function StatusBanner({ message, canRetry, onRetry, onResume }: Omit<Props, "thr
 
 function TextReplyBody({ message }: { message: TextMessage }) {
   const evidence = useMemo(() => evidenceMap(message.reply.evidence), [message.reply.evidence]);
-  const markdown = message.reply.content.replace(/\[(E\d+)\]/g, "[$1](#evidence-$1)");
+  const markdown = normalizeCitations(message.reply.content).replace(/\[(E\d+)\]/g, "[$1](#evidence-$1)");
   return (
     <div className="border border-line bg-white px-4 py-3" data-testid="text-reply">
       <div className="prose-terminal text-sm leading-relaxed text-ink-soft">
@@ -163,9 +163,17 @@ export default function AssistantTurn({ message, threadId, canRetry, onRetry, on
       {showSections && (
         <div className="space-y-3" data-testid="result-sections">
           {(result?.executiveAnswer || (partial as any)?.executiveAnswer) && (
-            <div className="border border-line bg-canvas p-3">
-              <h3 className="mb-2 font-mono text-xs font-semibold text-ink uppercase tracking-wider">Executive Answer</h3>
-              <p className="text-sm text-ink-light whitespace-pre-wrap">{result?.executiveAnswer || (partial as any)?.executiveAnswer}</p>
+            <div className="border border-line bg-canvas p-3.5">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-ink" aria-hidden="true" />
+                <h3 className="font-mono text-2xs font-bold uppercase tracking-widest text-ink">Executive Answer</h3>
+              </div>
+              <div className="text-sm leading-relaxed text-ink font-normal">
+                <EvidenceText
+                  text={result?.executiveAnswer || (partial as any)?.executiveAnswer || ""}
+                  evidence={evidence}
+                />
+              </div>
             </div>
           )}
           <SnapshotSection asset={message.asset} snapshot={result?.snapshot ?? partial.snapshot} evidence={evidence} pending={streaming} />

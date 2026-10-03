@@ -166,6 +166,17 @@ const riskSchema = z
       )
       .catch([])
       .default([]),
+    correlations: z
+      .array(
+        z.object({
+          asset: z.string(),
+          symbol: z.string(),
+          correlation: nullableNum,
+          observations: z.number().optional(),
+        }),
+      )
+      .catch([])
+      .default([]),
   })
   .transform(
     (r): Risk => ({
@@ -181,6 +192,7 @@ const riskSchema = z
       sentimentDistribution: r.sentiment_distribution,
       macro: r.macro,
       weather: r.weather,
+      correlations: r.correlations,
     }),
   );
 

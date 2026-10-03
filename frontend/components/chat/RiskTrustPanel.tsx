@@ -183,6 +183,59 @@ export default function RiskTrustPanel({
         </div>
       )}
 
+      {risk.correlations && risk.correlations.length > 0 && (
+        <div className="mt-3 border border-line p-2.5">
+          <div className="flex flex-wrap items-center justify-between gap-1">
+            <p className="font-mono text-2xs font-bold uppercase tracking-widest text-ink">
+              Cross-Asset Correlations (1Y Daily Returns)
+            </p>
+            <span className="font-mono text-2xs text-muted">Brent · USD/INR · NIFTY · VIX</span>
+          </div>
+          <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
+            {risk.correlations.map((c) => {
+              const val = c.correlation;
+              const isPositive = val !== null && val > 0.05;
+              const isNegative = val !== null && val < -0.05;
+              const colorClass = isPositive
+                ? "text-emerald-700 bg-emerald-50 border-emerald-200"
+                : isNegative
+                  ? "text-rose-700 bg-rose-50 border-rose-200"
+                  : "text-ink-soft bg-subtle border-line";
+              return (
+                <div key={c.symbol} className="border border-line bg-canvas p-2">
+                  <div className="flex items-center justify-between text-2xs">
+                    <span className="font-semibold text-ink">{c.asset}</span>
+                    <span className="font-mono text-muted">{c.symbol}</span>
+                  </div>
+                  <div className="mt-1 flex items-baseline justify-between">
+                    <span
+                      className={`inline-block px-1.5 py-0.5 font-mono text-xs font-bold border ${colorClass}`}
+                    >
+                      {val !== null ? `${val >= 0 ? "+" : ""}${val.toFixed(2)}` : "N/A"}
+                    </span>
+                    {c.observations ? (
+                      <span className="font-mono text-[10px] text-muted">{c.observations}d</span>
+                    ) : null}
+                  </div>
+                  <div className="mt-2 relative h-1.5 w-full bg-line overflow-hidden">
+                    <div className="absolute left-1/2 top-0 bottom-0 w-px bg-muted z-10" />
+                    {val !== null && (
+                      <div
+                        className={`h-full ${val >= 0 ? "bg-emerald-600" : "bg-rose-600"}`}
+                        style={{
+                          width: `${Math.min(Math.abs(val) * 50, 50)}%`,
+                          marginLeft: val >= 0 ? "50%" : `${50 - Math.min(Math.abs(val) * 50, 50)}%`,
+                        }}
+                      />
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {evidence.length > 0 && (
         <details className="mt-3 border border-line" data-testid="audit-trail">
           <summary className="cursor-pointer px-2.5 py-2 font-mono text-2xs font-bold uppercase tracking-widest text-ink hover:bg-canvas">

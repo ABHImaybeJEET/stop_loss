@@ -26,7 +26,7 @@ SCALE = {
     "cr": 1e7,
     "lakh": 1e5,
 }
-EVIDENCE_REF = re.compile(r"\[E\d+\]")
+EVIDENCE_REF = re.compile(r"\[E?\d+(?:[\s,]+E?\d+)*\]|\bE\d+\b", re.I)
 
 
 def _matches(value: float, candidates: list[float]) -> bool:
