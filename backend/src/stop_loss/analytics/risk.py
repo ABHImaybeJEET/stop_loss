@@ -13,6 +13,7 @@ import numpy as np
 from stop_loss.analytics.models import (
     Bar,
     ChartSeries,
+    CrossAssetCorrelation,
     QuantMetrics,
     SeasonalityPoint,
     SeriesPoint,
@@ -90,6 +91,25 @@ def beta(
     return float(np.cov(y, x, ddof=1)[0, 1] / var)
 
 
+def correlation(
+    asset: tuple[list[datetime], list[float]], other: tuple[list[datetime], list[float]]
+) -> tuple[float | None, int]:
+    """Pearson correlation of daily returns, aligned on calendar dates both series traded."""
+    a_ret = _returns_by_date(*asset)
+    o_ret = _returns_by_date(*other)
+    common = sorted(set(a_ret) & set(o_ret))
+    if len(common) < 30:
+        return None, len(common)
+    x = np.asarray([o_ret[d] for d in common])
+    y = np.asarray([a_ret[d] for d in common])
+    std_x = float(np.std(x, ddof=1))
+    std_y = float(np.std(y, ddof=1))
+    if std_x == 0.0 or std_y == 0.0 or np.isnan(std_x) or np.isnan(std_y):
+        return None, len(common)
+    res = float(np.corrcoef(y, x)[0, 1])
+    return (None if np.isnan(res) else res), len(common)
+
+
 def _returns_by_date(dates: list[datetime], closes: list[float]) -> dict[date, float]:
     return {dates[i].date(): closes[i] / closes[i - 1] - 1 for i in range(1, len(closes))}
 
@@ -131,7 +151,11 @@ def trend_label(price: float | None, sma50: float | None, sma200: float | None) 
     return "sideways"
 
 
-def compute_quant_metrics(daily: ChartSeries, benchmark: ChartSeries | None = None) -> QuantMetrics:
+def compute_quant_metrics(
+    daily: ChartSeries,
+    benchmark: ChartSeries | None = None,
+    cross_benchmarks: list[tuple[str, str, ChartSeries | None]] | None = None,
+) -> QuantMetrics:
     """`daily` should be a multi-year 1d series (5y gives drawdown and seasonality depth)."""
     dates, closes = closes_of(daily.bars)
     crypto = (daily.instrument_type or "").upper() == "CRYPTOCURRENCY"
@@ -148,10 +172,22 @@ def compute_quant_metrics(daily: ChartSeries, benchmark: ChartSeries | None = No
     sma50, sma200 = sma(closes, 50), sma(closes, 200)
     last = closes[-1] if closes else None
     bench_beta = None
+    cutoff = len(dates) - periods
+    recent_asset = (dates[max(cutoff, 0) :], closes[max(cutoff, 0) :])
     if benchmark is not None:
         b_dates, b_closes = closes_of(benchmark.bars)
-        cutoff = len(dates) - periods
-        bench_beta = beta((dates[max(cutoff, 0) :], closes[max(cutoff, 0) :]), (b_dates, b_closes))
+        bench_beta = beta(recent_asset, (b_dates, b_closes))
+    correlations: list[CrossAssetCorrelation] = []
+    if cross_benchmarks:
+        for name, sym, cb_series in cross_benchmarks:
+            if cb_series is not None and cb_series.bars:
+                cb_dates, cb_closes = closes_of(cb_series.bars)
+                corr, obs = correlation(recent_asset, (cb_dates, cb_closes))
+                correlations.append(
+                    CrossAssetCorrelation(
+                        asset_name=name, symbol=sym, correlation=corr, observations=obs
+                    )
+                )
     year_dates = dates[-(periods + 1) :]
     return QuantMetrics(
         as_of=dates[-1] if dates else None,
@@ -181,6 +217,7 @@ def compute_quant_metrics(daily: ChartSeries, benchmark: ChartSeries | None = No
         worst_day=min(one_year) if one_year else None,
         seasonality=monthly_seasonality(dates, closes),
         drawdown_series=sampled_drawdown_series(year_dates, year_closes),
+        correlations=correlations,
     )
 
 

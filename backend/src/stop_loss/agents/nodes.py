@@ -125,6 +125,15 @@ def clean_company_name(name: str) -> str:
     return name
 
 
+def normalize_citations(text: str) -> str:
+    """Normalizes compound citation brackets like [E1, E2], [E1, 10], [E1,2,3] into [E1] [E2] [E3]."""
+    def _expand(match: re.Match) -> str:
+        parts = re.findall(r"E?(\d+)", match.group(1), re.I)
+        return " ".join(f"[E{p}]" for p in parts)
+
+    return re.sub(r"\[(E\d+(?:[\s,]+E?\d+)*)\]", _expand, text, flags=re.I)
+
+
 def us_listed(symbol: str) -> bool:
     return bool(re.fullmatch(r"[A-Z]{1,5}", symbol))
 
@@ -341,6 +350,12 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
             kit.log(state, "quant", "skipped")
             return {"quant": {"status": "unavailable", "error": "no_price_history"}}
         symbol = state["asset"]["symbol"]
+        CROSS_ASSETS = [
+            ("Brent Crude", "BZ=F"),
+            ("USD/INR", "INR=X"),
+            ("NIFTY 50", "^NSEI"),
+            ("India VIX", "^INDIAVIX"),
+        ]
         try:
             daily = await kit.yahoo.chart(symbol, "5y", "1d")
             bench = None
@@ -349,12 +364,22 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
                     bench = await kit.yahoo.chart(bench_symbol, "5y", "1d")
                 except Exception:  # noqa: BLE001 - beta simply drops out
                     bench = None
-            metrics = compute_quant_metrics(daily, bench)
+
+            cross_targets = [(name, sym) for name, sym in CROSS_ASSETS if sym != symbol]
+            cross_results = await asyncio.gather(
+                *(kit.yahoo.chart(sym, "1y", "1d") for _, sym in cross_targets),
+                return_exceptions=True,
+            )
+            cross_benchmarks = [
+                (name, sym, res if not isinstance(res, BaseException) else None)
+                for (name, sym), res in zip(cross_targets, cross_results, strict=True)
+            ]
+            metrics = compute_quant_metrics(daily, bench, cross_benchmarks=cross_benchmarks)
         except Exception as exc:  # noqa: BLE001
             rep.error(f"Risk computation failed ({short_error(exc)})")
             kit.log(state, "quant", "error", error=short_error(exc))
             return {"quant": {"status": "unavailable", "error": short_error(exc)}}
-        rep.progress("Scoring risk from volatility, tails, sentiment and events")
+        rep.progress("Scoring risk and cross-asset correlations (Brent, USD/INR, NIFTY, VIX)")
         risk = assess_risk(metrics, news_items, macro_snap, outlooks)
         if (state.get("plan") or {}).get("mode") == "analysis":
             rep.section("historical", historical_section(metrics).model_dump(mode="json"))
@@ -366,7 +391,8 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
             )
         var = f" · VaR95 {metrics.var_95_1d:.2%}" if metrics.var_95_1d is not None else ""
         score = f"risk {risk.score:.0f} ({risk.band})" if risk.score is not None else "risk n/a"
-        rep.done(f"{score}{var} · {metrics.observations} observations")
+        corr_info = f" · {len([c for c in metrics.correlations if c.correlation is not None])} corrs"
+        rep.done(f"{score}{var}{corr_info} · {metrics.observations} obs")
         kit.log(state, "quant", "done", risk_score=risk.score, observations=metrics.observations)
         return {
             "quant": {
@@ -438,6 +464,23 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
                     news=data["news"],
                     weather=data["weather"],
                 )
+        if isinstance(draft, NarrativeDraft):
+            draft = draft.model_copy(
+                update={
+                    "executive_answer": normalize_citations(draft.executive_answer),
+                    "snapshot_summary": normalize_citations(draft.snapshot_summary),
+                    "sources_summary": normalize_citations(draft.sources_summary),
+                    "historical_summary": normalize_citations(draft.historical_summary),
+                    "suggestions": [
+                        s.model_copy(update={"rationale": normalize_citations(s.rationale)})
+                        for s in draft.suggestions
+                    ],
+                }
+            )
+        elif isinstance(draft, ReplyDraft):
+            draft = draft.model_copy(
+                update={"markdown": normalize_citations(draft.markdown)}
+            )
         how = "language model" if source == "llm" else "deterministic rules (no LLM configured)"
         detail = (
             f"{len(draft.suggestions)} suggestions"

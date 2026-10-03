@@ -205,6 +205,15 @@ def build_catalog(
                 f"{quant.beta_1y:.2f}",
                 **kw,
             )
+        for c in quant.correlations:
+            if c.correlation is not None:
+                cat.add(
+                    "quant",
+                    f"1Y correlation vs {c.asset_name} ({c.symbol})",
+                    round(c.correlation, 2),
+                    f"{c.correlation:+.2f}",
+                    **kw,
+                )
         cur = market.currency if market else None
         for label, value in (("50-day average", quant.sma_50), ("200-day average", quant.sma_200)):
             if value is not None:

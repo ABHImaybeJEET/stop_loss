@@ -1,6 +1,6 @@
 """Wire models for the analysis run: requests, stream events, and the final result."""
 
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
@@ -140,6 +140,7 @@ class Risk(Wire):
     sentiment_distribution: dict[str, int] | None = None
     macro: list[dict[str, str | float | None]] = Field(default_factory=list)
     weather: list[dict[str, str | float]] = Field(default_factory=list)
+    correlations: list[dict[str, Any]] = Field(default_factory=list)
 
 
 class Audit(Wire):

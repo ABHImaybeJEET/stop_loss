@@ -138,6 +138,14 @@ class QuantMetrics(Frozen):
     worst_day: float | None = None
     seasonality: list[SeasonalityPoint] = Field(default_factory=list)
     drawdown_series: list[SeriesPoint] = Field(default_factory=list)
+    correlations: list["CrossAssetCorrelation"] = Field(default_factory=list)
+
+
+class CrossAssetCorrelation(Frozen):
+    asset_name: str
+    symbol: str
+    correlation: float | None = None
+    observations: int = 0
 
 
 class MacroIndicatorView(Frozen):

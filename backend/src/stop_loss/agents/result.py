@@ -104,6 +104,16 @@ def historical_section(quant: QuantMetrics | None, summary: str | None = None) -
         )
     if quant.trend:
         metrics.append(Metric(key="trend", label="Trend", value=quant.trend, kind="text"))
+    for c in quant.correlations:
+        if c.correlation is not None:
+            metrics.append(
+                Metric(
+                    key=f"corr_{c.symbol}",
+                    label=f"Corr vs {c.asset_name}",
+                    value=round(c.correlation, 2),
+                    kind="number",
+                )
+            )
     return Historical(
         summary=summary,
         metrics=metrics,
@@ -170,5 +180,14 @@ def risk_section(
             }
             for w in weather
             for e in w.extremes
+        ],
+        correlations=[
+            {
+                "asset": c.asset_name,
+                "symbol": c.symbol,
+                "correlation": round(c.correlation, 2) if c.correlation is not None else None,
+                "observations": c.observations,
+            }
+            for c in (quant.correlations if quant else [])
         ],
     )
