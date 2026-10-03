@@ -167,3 +167,15 @@ This document records key design choices, resolutions to ambiguous requirements,
 - **Backfill**: streaming CSV readers (no pandas) → dedupe by content_hash → GPU batch embedding → 8 concurrent upserts of 100 vectors with retry/backoff → mark stored → per-source line checkpoint (`data/backfill_progress.sqlite`). Vector components are rounded to 5 decimals on upload (fp16 precision), which halves the JSON payload. `stop-loss-vectors purge --yes` resets everything for a re-index.
 - **Cyclone documents (update)**: each storm text carries a deterministic region label (e.g. Gulf of Mexico, Bay of Bengal, South China Sea, from basin + peak position) and a Saffir-Simpson-*equivalent* intensity class from peak WMO wind. It's labelled "equivalent" because agencies use 1-min vs 10-min averaging. Both are also metadata (`region`, `intensity_category`) for structured filters. Dense ranking alone conflates near-identical templated event texts, so analog search should filter first and then rank.
 - **Data defect found**: `scripts/preprocess_data.py` (and the raw download) read IBTrACS with pandas defaults, which turn the North Atlantic basin code `"NA"` into NaN. All 470 Atlantic storms (the Gulf hurricanes) had a blank basin. The reader restores `NA` for blank basins: no other IBTrACS code collides with pandas' NA list, and 469/470 such storms start inside the North Atlantic box. The fix is recorded in each document's `transformations`. Recommended upstream fix: `read_csv(..., keep_default_na=False, na_values=[""])`.
+
+## ADR T13: India Data Thresholds
+- **Context**: The problem statement requires tracking localized extreme weather and macro impacts, but the default US-centric thresholds do not apply to the NSE universe.
+- **Decision**: Adopt India Meteorological Department (IMD) guidelines for weather hazards: Heavy rainfall is >= 64.5 mm/day, heatwave conditions are Tmax >= 40 C, and cold wave conditions are Tmin <= 15 C (varies slightly by region, but simplified for the agent). For macro benchmarking, NIFTY 50 and India VIX are used instead of S&P 500 and VIX.
+
+## ADR T14: Portfolio Dashboard
+- **Context**: The user needs a portfolio-level view of risk and hedge recommendations based on their specific holdings, rather than a single stock query.
+- **Decision**: The multi-agent workflow iterates over each holding in the user's uploaded portfolio. The Interactive Intelligence Terminal (Next.js) aggregates these per-holding results into a unified dashboard, displaying the live execution graph, risk exposure breakdown, and explicit hedge ratios for the overall portfolio.
+
+## ADR T15: Alpha Vantage / Polygon vs yfinance for NSE
+- **Context**: The deliverables list Alpha Vantage and Polygon as financial APIs. However, their free tiers do not cover Indian equities (NSE) which is the target market for this terminal.
+- **Decision**: We use yfinance as the primary live market data connector for NSE stocks to guarantee coverage, while maintaining the architecture capable of plugging into Alpha Vantage/Polygon for US equities if required.

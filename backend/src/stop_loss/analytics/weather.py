@@ -117,11 +117,16 @@ class WeatherClient:
         self.http = GuardedHTTP(settings, rate_per_second=4, burst=4, client=client)
         self._cache = Cached(settings.weather_cache_seconds)
 
-    async def geocode(self, place: str) -> tuple[float, float, str] | None:
-        key = f"geo|{place.lower()}"
+    async def geocode(
+        self, place: str, country_code: str | None = None
+    ) -> tuple[float, float, str] | None:
+        key = f"geo|{place.lower()}|{country_code or ''}"
         if (hit := self._cache.get(key)) is not None:
             return hit
-        payload = await self.http.get_json(GEOCODE, {"name": place, "count": 1})
+        params: dict[str, str | int] = {"name": place, "count": 1}
+        if country_code:
+            params["countryCode"] = country_code  # avoids e.g. Hyderabad, Pakistan
+        payload = await self.http.get_json(GEOCODE, params)
         result = parse_geocode(payload)
         if result is not None:
             self._cache.put(key, result)

@@ -87,6 +87,7 @@ class SuggestionDraft(BaseModel):
 
 
 class NarrativeDraft(BaseModel):
+    executive_answer: str
     snapshot_summary: str
     sources_summary: str
     historical_summary: str
@@ -197,6 +198,7 @@ async def write_narrative(
                     "You are the Hedging Strategy Agent of StopLoss, a multi-agent financial "
                     "intelligence terminal. Write a concise, sectioned analysis.\n"
                     f"{GROUNDING_PROMPT}\n{RULES}\n"
+                    "executive_answer: 2-4 sentences directly answering the user's exact question based strictly on evidence. If no verifiable sources mention the information, explicitly state 'Info not known. Answer with care'.\n"
                     "snapshot_summary: 2-3 sentences on what the asset is and where it "
                     "trades now.\n"
                     "sources_summary: 2-3 sentences on what live news/macro/weather say.\n"

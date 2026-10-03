@@ -13,6 +13,8 @@ interface Props {
   disabled?: boolean;
   /** Called after a selection so the parent can move focus to the prompt. */
   onSelected?: () => void;
+  /** Where the results list opens: "up" above a bottom composer, "down" in dialogs. */
+  placement?: "up" | "down";
 }
 
 function useDebounced<T>(value: T, ms: number): T {
@@ -25,7 +27,7 @@ function useDebounced<T>(value: T, ms: number): T {
 }
 
 /** Searchable ARIA combobox (WAI-ARIA 1.2 pattern) backed by the live asset search API. */
-export default function AssetCombobox({ value, onChange, disabled, onSelected }: Props) {
+export default function AssetCombobox({ value, onChange, disabled, onSelected, placement = "up" }: Props) {
   const listId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState("");
@@ -120,7 +122,10 @@ export default function AssetCombobox({ value, onChange, disabled, onSelected }:
           id={listId}
           role="listbox"
           aria-label="Matching assets"
-          className="absolute bottom-full left-0 z-40 mb-1 max-h-72 w-[min(22rem,calc(100vw-2rem))] overflow-y-auto border border-ink bg-white shadow-lg"
+          className={cn(
+            "absolute left-0 z-40 max-h-72 w-[min(22rem,calc(100vw-2rem))] overflow-y-auto border border-ink bg-white shadow-lg",
+            placement === "up" ? "bottom-full mb-1" : "top-full mt-1",
+          )}
         >
           {isLoading && results.length === 0 && <li className="px-3 py-2 font-mono text-2xs text-muted">Searching…</li>}
           {error && <li className="px-3 py-2 font-mono text-2xs text-loss">Asset search unavailable. Check the backend.</li>}

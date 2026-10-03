@@ -22,6 +22,7 @@ from stop_loss.analytics.http import Cached
 from stop_loss.analytics.yahoo import VALID_INTERVALS, VALID_RANGES, SymbolNotFoundError
 from stop_loss.api.feedback import FeedbackIn, FeedbackOut, FeedbackStore
 from stop_loss.api.newsfeed import build_feed
+from stop_loss.api.portfolio import PortfolioData, parse_holdings, parse_symbols
 from stop_loss.api.runs import Run, RunRegistry, ThreadBusyError
 from stop_loss.settings import TerminalSettings, get_terminal_settings
 from stop_loss.symbols import is_nse_symbol, nse_symbol
@@ -133,6 +134,27 @@ def create_app(
             "last_bar": last.model_dump(mode="json") if last else None,
             "fetched_at": series.fetched_at.isoformat(),
         }
+
+    portfolio = PortfolioData(service)
+
+    @app.get("/portfolio/quotes", dependencies=[Depends(internal)])
+    async def portfolio_quotes(symbols: Annotated[str, Query(max_length=600)]) -> dict[str, Any]:
+        return await portfolio.quotes(parse_symbols(symbols))
+
+    @app.get("/portfolio/news", dependencies=[Depends(internal)])
+    async def portfolio_news(symbols: Annotated[str, Query(max_length=600)]) -> dict[str, Any]:
+        return await portfolio.news(parse_symbols(symbols))
+
+    @app.get("/portfolio/weather", dependencies=[Depends(internal)])
+    async def portfolio_weather(symbols: Annotated[str, Query(max_length=600)]) -> dict[str, Any]:
+        return await portfolio.weather(parse_symbols(symbols))
+
+    @app.get("/portfolio/performance", dependencies=[Depends(internal)])
+    async def portfolio_performance(
+        holdings: Annotated[str, Query(max_length=900)],
+        range: str = "6mo",  # noqa: A002
+    ) -> dict[str, Any]:
+        return await portfolio.performance(parse_holdings(holdings), range)
 
     @app.get("/news/feed", dependencies=[Depends(internal)])
     async def news_feed() -> dict[str, Any]:

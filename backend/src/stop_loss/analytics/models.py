@@ -149,7 +149,9 @@ class MacroIndicatorView(Frozen):
     previous: float | None = None
     previous_date: str | None = None
     change: float | None = None
+    change_pct: float | None = None
     yoy_pct: float | None = None
+    source: str = "FRED"
     source_url: str
 
 

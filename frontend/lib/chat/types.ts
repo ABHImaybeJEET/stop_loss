@@ -146,6 +146,7 @@ export interface AnalysisResult {
   failedAgents: string[];
   langsmithRunId?: string;
   asset: AssetRef;
+  executiveAnswer?: string;
   snapshot: Snapshot;
   sources: Sources;
   historical: Historical;

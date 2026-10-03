@@ -90,7 +90,7 @@ def process_calamities():
     cyc_path = "calamity_historical_data/noaa_cyclones_since_2000.csv"
     if os.path.exists(cyc_path):
         print("Processing cyclones...")
-        df = pd.read_csv(cyc_path, low_memory=False)
+        df = pd.read_csv(cyc_path, low_memory=False, keep_default_na=False)
         df['ISO_TIME'] = pd.to_datetime(df['ISO_TIME'], errors='coerce', utc=True)
         df = df.dropna(subset=['ISO_TIME'])
         

@@ -1,0 +1,15 @@
+STATUS OF DELIVERABLES AND PRIORITY TASKS:
+
+1. preprocess_data.py NA bug: Fixed (keep_default_na=False).
+2. ADRs (T13, T14): Added to docs/DECISIONS.md.
+3. Alpha Vantage/NSE disclaimer: Added as ADR T15 in docs/DECISIONS.md.
+4. Merge Weather & Macro Agents: Pending
+5. Historical Analogs Agent: Pending
+6. Cross-asset correlations in Quant Agent: Pending
+7. Price-impact estimate: Pending
+8. Hedging per holding: Pending
+9. Portfolio-scoped chat: Pending
+10. Live agent graph view: Pending
+11. Continuous streaming ingestion & latency report: Pending
+12. Evaluation script: Pending
+13. Hazard alerts on dashboard: Pending

@@ -1,7 +1,6 @@
 import json
 from datetime import UTC, datetime, timedelta
 
-import httpx
 import pytest
 from terminal_fixtures import FIXTURES, load_json, load_text
 
@@ -196,7 +195,7 @@ def test_macro_summary_skips_missing_values() -> None:
 
     view = summarize_series("T10Y2Y", [rec(30, None), rec(29, -0.1), rec(28, 0.2)])
     assert view.latest == -0.1 and view.previous == 0.2
-    assert macro_flags([view]) == ["yield_curve_inverted"]
+    assert macro_flags([view]) == ["us_yield_curve_inverted"]
 
 
 def test_scores_are_bounded_and_drop_missing_inputs() -> None:
@@ -239,7 +238,7 @@ async def test_yahoo_client_falls_back_to_last_session_when_closed(settings) -> 
     week = load_json("yahoo_chart_reliance_5y_1d.json")
 
     client = YahooFinanceClient(settings)
-    
+
     def mock_payload(symbol: str, range_: str, interval: str) -> dict:
         return intraday if range_ == "1d" else week
 

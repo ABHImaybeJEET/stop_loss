@@ -41,8 +41,11 @@ class TerminalSettings(Settings):
     macro_cache_seconds: float = Field(default=21600, gt=0)
     weather_cache_seconds: float = Field(default=1800, gt=0)
     yahoo_rate_per_second: float = Field(default=2, gt=0)
-    terminal_macro_series: list[str] = Field(
-        default_factory=lambda: ["DCOILWTICO", "CPIAUCSL", "FEDFUNDS", "T10Y2Y", "DGS10"]
+    # FRED: India CPI (monthly, published with a lag) and the US 10Y as the global rate.
+    terminal_macro_series: list[str] = Field(default_factory=lambda: ["INDCPIALLMINMEI", "DGS10"])
+    # yfinance market series for India: USD/INR, Brent crude, India VIX, NIFTY Bank.
+    terminal_market_macro: list[str] = Field(
+        default_factory=lambda: ["INR=X", "BZ=F", "^INDIAVIX", "^NSEBANK"]
     )
     feed_indian_tickers: list[str] = Field(
         default_factory=lambda: [

@@ -162,6 +162,12 @@ export default function AssistantTurn({ message, threadId, canRetry, onRetry, on
 
       {showSections && (
         <div className="space-y-3" data-testid="result-sections">
+          {(result?.executiveAnswer || (partial as any)?.executiveAnswer) && (
+            <div className="border border-line bg-canvas p-3">
+              <h3 className="mb-2 font-mono text-xs font-semibold text-ink uppercase tracking-wider">Executive Answer</h3>
+              <p className="text-sm text-ink-light whitespace-pre-wrap">{result?.executiveAnswer || (partial as any)?.executiveAnswer}</p>
+            </div>
+          )}
           <SnapshotSection asset={message.asset} snapshot={result?.snapshot ?? partial.snapshot} evidence={evidence} pending={streaming} />
           <SourcesSection
             sources={result?.sources ?? partial.sources}

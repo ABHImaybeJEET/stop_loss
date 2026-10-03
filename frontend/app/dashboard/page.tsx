@@ -1,208 +1,141 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { Briefcase } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { usePortfolio } from "@/context/PortfolioContext";
 import StopLossLogo from "@/components/StopLossLogo";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import AssetLiveChart from "@/components/chat/AssetLiveChart";
+import HoldingsTable, { PortfolioSummary } from "@/components/portfolio/HoldingsTable";
+import PerformanceChart from "@/components/portfolio/PerformanceChart";
+import { PortfolioButton } from "@/components/portfolio/PortfolioDialog";
+import PortfolioNews from "@/components/portfolio/PortfolioNews";
+import WeatherPanel from "@/components/portfolio/WeatherPanel";
+import { combine, usePortfolioData } from "@/components/portfolio/usePortfolioData";
+import { Button } from "@/components/ui/primitives";
+import { relativeTime } from "@/lib/format";
 import { fetchUserProfile, UserProfile } from "@/lib/userProfile";
 
 function DashboardContent() {
   const { user, logout } = useAuth();
   const router = useRouter();
   const [profile, setProfile] = useState<UserProfile | null>(null);
+  const { holdings, loading, syncError, openEditor } = usePortfolio();
+  const [range, setRange] = useState("6mo");
+  const [selected, setSelected] = useState<string | null>(null);
+  const { quotes, news, weather, performance } = usePortfolioData(holdings, range);
+  const { rows, totals } = useMemo(() => combine(holdings, quotes.data), [holdings, quotes.data]);
 
-  // Load Profile from Firestore / Local Storage Cache
   useEffect(() => {
-    if (user) {
-      fetchUserProfile(user.uid || user.email).then((p) => setProfile(p));
-    }
+    if (user) fetchUserProfile(user.uid || user.email).then(setProfile);
   }, [user]);
 
+  // Default the chart to the largest position once prices arrive.
+  useEffect(() => {
+    if (selected && holdings.some((h) => h.symbol === selected)) return;
+    const largest = [...rows].sort((a, b) => (b.value ?? 0) - (a.value ?? 0))[0];
+    setSelected(largest?.symbol ?? holdings[0]?.symbol ?? null);
+  }, [rows, holdings, selected]);
+
   const displayName = profile?.fullName || user?.displayName || user?.email?.split("@")[0] || "Analyst";
+  const selectedHolding = holdings.find((h) => h.symbol === selected);
+  const marketState = quotes.data?.find((q) => q.marketState)?.marketState;
+  const asOf = quotes.data?.find((q) => q.marketTime)?.marketTime;
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 font-sans flex flex-col justify-between">
-      {/* Top Navigation */}
-      <header className="w-full border-b border-gray-200 bg-white px-6 py-4 flex justify-between items-center">
-        <Link href="/" className="flex items-center text-gray-900">
+    <div className="flex min-h-screen flex-col bg-white font-sans text-ink">
+      <header className="flex w-full flex-wrap items-center justify-between gap-3 border-b border-line bg-white px-4 py-3 sm:px-6">
+        <Link href="/" className="flex items-center text-ink" aria-label="StopLoss home">
           <StopLossLogo height={30} />
         </Link>
-        <div className="flex items-center space-x-4">
-          <Link
-            href="/chat"
-            className="bg-black text-white px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider hover:bg-gray-800 transition-colors rounded-none"
-          >
-            TERMINAL
+        <nav className="flex flex-wrap items-center gap-2 sm:gap-3">
+          <Link href="/chat" className="bg-ink px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-white hover:bg-ink-soft">
+            Terminal
           </Link>
-          <Link
-            href="/onboarding"
-            className="text-xs font-semibold uppercase tracking-wider text-gray-600 hover:text-black transition-colors px-2 py-1"
-          >
-            EDIT PROFILE
+          <PortfolioButton />
+          <Link href="/onboarding" className="px-2 py-1 text-xs font-semibold uppercase tracking-wider text-muted hover:text-ink">
+            Edit profile
           </Link>
           <button
+            type="button"
             onClick={async () => {
               await logout();
               router.push("/login");
             }}
-            className="bg-white text-gray-900 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider border border-gray-300 hover:border-black transition-colors rounded-none"
+            className="border border-line-strong px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider hover:border-ink"
           >
-            SIGN OUT
+            Sign out
           </button>
-        </div>
+        </nav>
       </header>
 
-      {/* Main Dashboard Body */}
-      <main className="flex-1 max-w-6xl w-full mx-auto p-6 md:p-10 space-y-8">
-        
-        {/* Welcome & Profile Summary Section */}
-        <div className="border border-gray-200 bg-[#FAFAFA] p-6 md:p-8">
-          <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 pb-6 border-b border-gray-200">
-            {/* Identity */}
-            <div className="flex items-start space-x-4">
-              <div className="w-14 h-14 bg-black text-white flex items-center justify-center text-xl font-mono font-bold uppercase flex-shrink-0">
-                {displayName.charAt(0)}
-              </div>
-              <div>
-                <div className="flex items-center space-x-2">
-                  <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">
-                    {displayName}
-                  </h1>
-                </div>
-                <p className="text-xs text-gray-600 font-mono mt-1">
-                  {profile?.role || "Quant Risk Analyst"} &middot;{" "}
-                  <span className="text-gray-900 font-semibold">{profile?.organization || "Independent Firm"}</span>
-                </p>
-                <p className="text-xs text-gray-400 font-mono mt-0.5">
-                  {user?.email} &middot; {profile?.location || "Global Desk"}
-                </p>
-              </div>
-            </div>
-
-            {/* Actions */}
-            <div className="flex items-center space-x-3 flex-shrink-0">
-              <Link
-                href="/onboarding"
-                className="border border-gray-300 bg-white text-gray-800 px-4 py-2 text-xs font-mono uppercase tracking-wider hover:border-black transition-colors"
-              >
-                Edit Onboarding
-              </Link>
-              <Link
-                href="/chat"
-                className="bg-black text-white px-5 py-2 text-xs font-mono uppercase tracking-wider hover:bg-gray-800 transition-colors flex items-center space-x-2"
-              >
-                <span>Launch Chat</span>
-                <span>&rarr;</span>
-              </Link>
-            </div>
+      <main className="mx-auto w-full max-w-6xl flex-1 space-y-5 p-4 sm:p-6 md:p-8">
+        <div className="flex flex-wrap items-end justify-between gap-3 border-b border-line pb-4">
+          <div>
+            <h1 className="text-2xl font-extrabold tracking-tight">{displayName}</h1>
+            <p className="mt-0.5 font-mono text-xs text-muted">
+              {[profile?.role, profile?.organization, profile?.location].filter(Boolean).join(" · ") || user?.email}
+            </p>
           </div>
-
-          {/* Profile Details Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">
-            {/* Professional Role */}
-            <div>
-              <span className="text-[10px] font-mono font-semibold uppercase tracking-widest text-gray-400 block mb-2">
-                Analyst Role &amp; Desk
-              </span>
-              <div className="space-y-1 font-mono text-xs">
-                <p className="text-gray-700">
-                  Role: <span className="font-bold text-gray-900">{profile?.role || "Analyst"}</span>
-                </p>
-                <p className="text-gray-700">
-                  Organization: <span className="font-bold text-gray-900">{profile?.organization || "Independent"}</span>
-                </p>
-              </div>
-            </div>
-
-            {/* Geographic Coverage */}
-            <div>
-              <span className="text-[10px] font-mono font-semibold uppercase tracking-widest text-gray-400 block mb-2">
-                Geographic Coverage
-              </span>
-              <div className="space-y-1 font-mono text-xs">
-                <p className="text-gray-700">
-                  Primary Region: <span className="font-bold text-gray-900">{profile?.location || "Global"}</span>
-                </p>
-              </div>
-            </div>
-
-            {/* System Status */}
-            <div>
-              <span className="text-[10px] font-mono font-semibold uppercase tracking-widest text-gray-400 block mb-2">
-                Terminal Sync Status
-              </span>
-              <div className="space-y-1 font-mono text-xs">
-                <p className="text-gray-700 flex items-center space-x-2">
-                  <span className="w-2 h-2 rounded-full bg-green-500 inline-block animate-pulse"></span>
-                  <span>Agent Graph: <strong className="text-gray-900">READY</strong></span>
-                </p>
-                <p className="text-gray-700">
-                  Last Updated: <span className="text-gray-500">{profile?.updatedAt ? new Date(profile.updatedAt).toLocaleDateString() : "Today"}</span>
-                </p>
-              </div>
-            </div>
-          </div>
+          {holdings.length > 0 && (
+            <p className="font-mono text-2xs text-muted">
+              NSE {marketState ? `market ${marketState}` : ""}
+              {asOf && ` · last trade ${relativeTime(asOf)}`}
+              {marketState === "open" && " · auto-refreshing"}
+            </p>
+          )}
         </div>
 
-        {/* Intelligence Feeds Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Card 1: Quant Risk */}
-          <div className="border border-gray-200 bg-white p-6">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-gray-400">AGENT // 01</span>
-              <span className="text-[10px] font-mono bg-gray-100 text-gray-700 px-2 py-0.5 uppercase">VAR MODEL</span>
-            </div>
-            <h3 className="text-lg font-bold text-gray-900 mb-1">Quant Risk Engine</h3>
-            <p className="text-xs text-gray-500 font-mono mb-4">
-              Value-at-Risk calculations, stress test scenario drawdowns, and portfolio sensitivity matrices.
-            </p>
-            <div className="border-t border-gray-100 pt-3 flex justify-between items-center text-xs font-mono">
-              <span className="text-gray-400">STATUS</span>
-              <span className="text-black font-semibold uppercase">95% Confidence Active</span>
-            </div>
-          </div>
+        {syncError && <p className="border border-line bg-canvas px-3 py-2 font-mono text-2xs text-muted">{syncError}</p>}
 
-          {/* Card 2: Weather & Macro */}
-          <div className="border border-gray-200 bg-white p-6">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-gray-400">AGENT // 02</span>
-              <span className="text-[10px] font-mono bg-gray-100 text-gray-700 px-2 py-0.5 uppercase">TELEMETRY</span>
-            </div>
-            <h3 className="text-lg font-bold text-gray-900 mb-1">Weather &amp; Macro Impact</h3>
-            <p className="text-xs text-gray-500 font-mono mb-4">
-              Gulf Coast refinery storm tracking, freeze telemetry, and energy infrastructure disruption shocks.
+        {loading && holdings.length === 0 ? (
+          <div className="h-40 animate-pulse bg-subtle" aria-hidden="true" />
+        ) : holdings.length === 0 ? (
+          <section className="flex flex-col items-center justify-center border border-dashed border-line-strong px-6 py-16 text-center" data-testid="portfolio-empty">
+            <Briefcase className="mb-3 h-8 w-8 text-muted" aria-hidden="true" />
+            <h2 className="text-base font-bold">Add your portfolio</h2>
+            <p className="mt-1 max-w-md font-mono text-xs text-muted">
+              Tell us which NSE stocks you own and how many shares. Your dashboard then shows live prices, P&amp;L,
+              weather at company locations and real-time news, and the agents analyze your holdings.
             </p>
-            <div className="border-t border-gray-100 pt-3 flex justify-between items-center text-xs font-mono">
-              <span className="text-gray-400">FEEDS</span>
-              <span className="text-black font-semibold uppercase">Open-Meteo &amp; FRED</span>
+            <Button variant="primary" className="mt-5" onClick={openEditor}>
+              Add holdings
+            </Button>
+          </section>
+        ) : (
+          <>
+            <PortfolioSummary totals={totals} holdings={holdings.length} loading={!quotes.data && !quotes.error} />
+            {quotes.error && !quotes.data && (
+              <p className="font-mono text-2xs text-loss">Live prices are unavailable right now. Retrying automatically.</p>
+            )}
+            <HoldingsTable rows={rows} selected={selected} onSelect={setSelected} loading={!quotes.data} />
+            <div className="grid gap-5 lg:grid-cols-2">
+              <PerformanceChart data={performance.data} range={range} onRange={setRange} error={performance.error} />
+              {selectedHolding ? (
+                <AssetLiveChart
+                  key={selectedHolding.symbol}
+                  asset={{ symbol: selectedHolding.symbol, name: selectedHolding.name, exchange: "NSE" }}
+                />
+              ) : (
+                <div className="h-56 animate-pulse bg-subtle" aria-hidden="true" />
+              )}
             </div>
-          </div>
-
-          {/* Card 3: Sentiment & Hedging */}
-          <div className="border border-gray-200 bg-white p-6">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-gray-400">AGENT // 03</span>
-              <span className="text-[10px] font-mono bg-gray-100 text-gray-700 px-2 py-0.5 uppercase">HEDGING</span>
+            <div className="grid gap-5 lg:grid-cols-2">
+              <WeatherPanel data={weather.data} error={weather.error} />
+              <PortfolioNews items={news.data} error={news.error} symbols={holdings.map((h) => h.symbol)} />
             </div>
-            <h3 className="text-lg font-bold text-gray-900 mb-1">Sentiment &amp; Hedging</h3>
-            <p className="text-xs text-gray-500 font-mono mb-4">
-              GDELT news extraction, trade tariff tone modeling, and evidence-backed collar &amp; futures strategies.
-            </p>
-            <div className="border-t border-gray-100 pt-3 flex justify-between items-center text-xs font-mono">
-              <span className="text-gray-400">STRATEGY</span>
-              <span className="text-black font-semibold uppercase">Index Puts &amp; Collars</span>
+            <div className="flex flex-wrap items-center justify-between gap-3 border border-line bg-canvas px-4 py-3">
+              <p className="text-xs text-ink-soft">Ask the agents how news, weather or macro events affect these holdings.</p>
+              <Link href="/chat" className="bg-ink px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white hover:bg-ink-soft">
+                Open terminal →
+              </Link>
             </div>
-          </div>
-        </div>
-
+          </>
+        )}
       </main>
-
-      {/* Footer */}
-      <footer className="w-full border-t border-gray-200 py-4 text-center text-xs text-gray-500 font-mono">
-        Built by SairajTripathy-0077 — StopLoss Intelligence Terminal
-      </footer>
     </div>
   );
 }

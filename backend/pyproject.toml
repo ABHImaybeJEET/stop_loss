@@ -43,6 +43,7 @@ stop-loss = "stop_loss.__main__:main"
 fin-terminal-ingest = "fin_terminal.ingest:main"
 stop-loss-api = "stop_loss.api.app:main"
 stop-loss-vectors = "stop_loss.retrieval.cli:main"
+stop-loss-universe = "stop_loss.universe:enrich_main"
 
 [[tool.uv.index]]
 name = "pytorch-cu124"
