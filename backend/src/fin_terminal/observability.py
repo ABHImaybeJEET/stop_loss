@@ -52,11 +52,14 @@ def tracing_client(settings: Settings) -> Client | None:
     return Client(
         api_key=secret_value(settings.langsmith_api_key),
         api_url=settings.langsmith_endpoint,
+        workspace_id=settings.langsmith_workspace_id or None,
         timeout_ms=5000,
     )
 
 
-def run_config(ingest_run_id: str, trace_id: UUID, sources: list[str]) -> RunnableConfig:
+def run_config(
+    ingest_run_id: str, trace_id: UUID, sources: list[str], *, stream: bool = False
+) -> RunnableConfig:
     return {
         "run_name": "fin-terminal-ingestion",
         "run_id": trace_id,
@@ -65,7 +68,11 @@ def run_config(ingest_run_id: str, trace_id: UUID, sources: list[str]) -> Runnab
             *[f"source:{s}" for s in sources],
             *[f"theme:{theme.value}" for theme in Theme],
         ],
-        "metadata": {"ingest_run_id": ingest_run_id, "mode": "stub"},
+        "metadata": {
+            "ingest_run_id": ingest_run_id,
+            "mode": "stub",
+            "execution_mode": "stream" if stream else "once",
+        },
         "configurable": {"thread_id": ingest_run_id},
     }
 

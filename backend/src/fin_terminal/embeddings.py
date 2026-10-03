@@ -1,6 +1,6 @@
 """Load real embedding wrappers lazily; empty stub runs download nothing."""
 
-from functools import cached_property
+from threading import Lock
 
 from langchain_core.embeddings import Embeddings
 
@@ -10,9 +10,19 @@ from fin_terminal.config import Settings, secret_value
 class LazyEmbeddings:
     def __init__(self, settings: Settings) -> None:
         self.settings = settings
+        self._model: Embeddings | None = None
+        self._model_lock = Lock()
 
-    @cached_property
+    @property
     def model(self) -> Embeddings:
+        # Timed-out callers can leave a model-loading thread running. Serialize
+        # initialization so later records reuse it instead of loading more copies.
+        with self._model_lock:
+            if self._model is None:
+                self._model = self._load_model()
+            return self._model
+
+    def _load_model(self) -> Embeddings:
         if self.settings.embedding_backend == "openai":
             from langchain_openai import OpenAIEmbeddings
 

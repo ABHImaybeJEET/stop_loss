@@ -108,3 +108,29 @@ def test_factory_and_missing_pinecone_settings(settings: Settings):
                 }
             )
         )
+
+
+def test_concurrent_weaviate_writes_create_collection_once(document: Document):
+    creations = 0
+
+    async def transport(request):
+        nonlocal creations
+        if request.url.path.startswith("/v1/schema/"):
+            await asyncio.sleep(0.02)
+            return httpx.Response(404)
+        if request.url.path == "/v1/schema":
+            creations += 1
+        return httpx.Response(200, json={})
+
+    async def exercise():
+        client = httpx.AsyncClient(
+            base_url="https://example.invalid", transport=httpx.MockTransport(transport)
+        )
+        adapter = WeaviateVectorAdapter(client, "FinancialDocument")
+        try:
+            await asyncio.gather(*(adapter.upsert(document, [0.1, 0.2]) for _ in range(8)))
+            assert creations == 1
+        finally:
+            await adapter.close()
+
+    asyncio.run(exercise())

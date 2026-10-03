@@ -44,7 +44,7 @@ async def run(
                             "ingest_run_id": run_id,
                             "langsmith_run_id": str(trace_id) if client else None,
                         },
-                        config=run_config(run_id, trace_id, list(SOURCES)),
+                        config=run_config(run_id, trace_id, list(SOURCES), stream=stream),
                     )
                 print(result["report"], flush=True)
                 cycles += 1

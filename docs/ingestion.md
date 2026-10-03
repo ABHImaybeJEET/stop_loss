@@ -36,7 +36,8 @@ flowchart LR
 ```
 
 The six fetch nodes run concurrently. A single join waits for all six before
-normalization. Each source gets `ok`, `degraded`, `failed`, or `rate_limited`, with
+normalization, which also runs the sources concurrently. Each source gets
+`ok`, `degraded`, `failed`, or `rate_limited`, with
 fetch/normalization counts and timing. Expected provider errors and unexpected
 exceptions are isolated inside fetch nodes. Cancellation propagates so shutdown
 works. Failed normalization, embedding, or vector writes degrade the affected
@@ -96,12 +97,31 @@ does not establish a production throughput or subsecond latency benchmark.
 Local model warm-up, storage latency, and batch scheduling must be measured with
 real connectors; synchronous work inside third-party code cannot be preempted.
 
+Embedding/indexing uses at most `PROCESSING_CONCURRENCY` workers (default 8,
+maximum 64), rather than creating a task for every record. Results retain input
+order. Queue time counts toward the deadline; an expired queued record is marked
+degraded without starting a vector write. One slow embedding does not hold up
+the other active workers. Model loading and Weaviate schema creation each have
+a lock so concurrent first records cannot initialize multiple copies. Tune
+concurrency against the actual model, CPU and vector service; a larger value
+does not necessarily improve CPU embedding throughput. The source-normalization
+join is still a shared barrier, so this is not yet an independent continuous
+stream per source.
+
 ## Tracing and smoke
 
 Set `LANGSMITH_TRACING=true`, `LANGSMITH_API_KEY`, and `LANGSMITH_PROJECT` to enable
 tracing. Each invocation has a root run name, all planned source/theme tags,
 an ingest ID in metadata, and a unique trace ID propagated to records/evidence.
 Graph nodes are traced by LangGraph; the report helper uses `@traceable`.
+The runtime calls the LangGraph library directly; no hosted LangGraph service or
+LLM key is required. Fetch spans include their specific source in metadata.
+Root metadata distinguishes `once` and `stream` execution. Set optional
+`LANGSMITH_WORKSPACE_ID` when the key has access to multiple workspaces, and set
+`LANGSMITH_ENDPOINT` for the account's region. Tracing defaults to enabled when
+a key is supplied; an explicit `LANGSMITH_TRACING=false` disables it. Configuration
+follows the [official LangGraph tracing guide](https://docs.langchain.com/langsmith/trace-with-langgraph).
+Keep the real key in the ignored root `.env`; `.env.example` contains no secret.
 When no key is set (or tracing is disabled), a clear message explains why no
 remote trace is emitted. Tests disable remote tracing and use mocks.
 

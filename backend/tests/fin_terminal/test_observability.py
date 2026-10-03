@@ -8,6 +8,28 @@ from fin_terminal.observability import confirm_trace, run_config, tracing_client
 from fin_terminal.schemas import Theme
 
 
+def test_workspace_and_endpoint_are_forwarded(settings: Settings, monkeypatch):
+    from pydantic import SecretStr
+
+    client = Mock()
+    monkeypatch.setattr("fin_terminal.observability.Client", client)
+    configured = settings.model_copy(
+        update={
+            "langsmith_tracing": True,
+            "langsmith_api_key": SecretStr("offline-test-key"),
+            "langsmith_workspace_id": "test-workspace",
+            "langsmith_endpoint": "https://eu.api.smith.langchain.com",
+        }
+    )
+    assert tracing_client(configured) is client.return_value
+    assert client.call_args.kwargs["workspace_id"] == "test-workspace"
+    assert client.call_args.kwargs["api_url"] == configured.langsmith_endpoint
+    assert (
+        run_config("stream-run", uuid4(), list(SOURCES), stream=True)["metadata"]["execution_mode"]
+        == "stream"
+    )
+
+
 def test_run_config_has_correlation_tags_and_identity():
     trace_id = uuid4()
     config = run_config("ingest-123", trace_id, list(SOURCES))

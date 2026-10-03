@@ -5,7 +5,7 @@ from collections.abc import Awaitable, Callable, Mapping
 from typing import Annotated, Protocol, TypedDict, TypeVar
 
 import httpx
-from langchain_core.runnables import RunnableLambda
+from langchain_core.runnables import Runnable, RunnableLambda
 from langgraph.checkpoint.base import BaseCheckpointSaver
 from langgraph.graph import END, START, StateGraph
 from langgraph.graph.state import CompiledStateGraph
@@ -36,6 +36,24 @@ SOURCE_THEMES = {
 }
 JSONDict = dict[str, JsonValue]
 T = TypeVar("T")
+R = TypeVar("R")
+
+
+async def bounded_map(
+    action: Callable[[T], Awaitable[R]], items: list[T], concurrency: int
+) -> list[R]:
+    """Keep task count bounded and cancel sibling workers on fatal failures."""
+    pending = iter(enumerate(items))
+    results: dict[int, R] = {}
+
+    async def worker() -> None:
+        for index, item in pending:
+            results[index] = await action(item)
+
+    async with asyncio.TaskGroup() as group:
+        for _ in range(min(concurrency, len(items))):
+            group.create_task(worker())
+    return [results[index] for index in range(len(items))]
 
 
 def merge_maps(left: dict[str, T], right: dict[str, T]) -> dict[str, T]:
@@ -127,7 +145,9 @@ class IngestionPipeline:
             ),
         )
 
-    def node(self, name: str, action: Node, source: str | None = None) -> RunnableLambda:
+    def node(
+        self, name: str, action: Node, source: str | None = None
+    ) -> Runnable[IngestionState, IngestionState]:
         async def execute(state: IngestionState) -> IngestionState:
             await self.audit(state, name, "started", source=source)
             timer = LatencyTimer()
@@ -147,7 +167,13 @@ class IngestionPipeline:
             # SqliteSaver supports synchronous invoke; async runtimes use afunc.
             return asyncio.run(execute(state))
 
-        return RunnableLambda(execute_sync, afunc=execute, name=name)
+        runnable = RunnableLambda(execute_sync, afunc=execute, name=name)
+        if source is not None:
+            tags = [f"source:{source}"]
+            if source in SOURCE_THEMES:
+                tags.append(f"theme:{SOURCE_THEMES[source].value}")
+            return runnable.with_config(tags=tags, metadata={"source": source})
+        return runnable
 
     async def plan_sources(self, state: IngestionState) -> IngestionState:
         return {"sources": list(SOURCES)}
@@ -211,16 +237,17 @@ class IngestionPipeline:
         documents: list[JSONDict] = []
         statuses: dict[str, JSONDict] = {}
         started: dict[str, float] = {}
-        for source in SOURCES:
+
+        async def normalize_source(source: str) -> list[JSONDict]:
             status = StreamStatus.model_validate(state["statuses"][source])
             batch = state["raw"][source]
             if not batch["items"]:
-                continue
+                return []
             started[source] = time.perf_counter()
+            normalized: list[JSONDict] = []
             try:
                 async with asyncio.timeout(self.settings.http_timeout_seconds):
                     records = await self.connectors[source].normalize(batch["items"])
-                normalized: list[JSONDict] = []
                 for record in records:
                     payload = record.model_dump(mode="json")
                     payload.update(
@@ -236,9 +263,9 @@ class IngestionPipeline:
                     normalized.append(
                         RECORD_ADAPTER.validate_python(payload).model_dump(mode="json")
                     )
-                documents.extend(normalized)
                 status = status.model_copy(update={"records_normalized": len(normalized)})
             except Exception as exc:
+                normalized = []
                 status = status.model_copy(
                     update={
                         "status": "degraded",
@@ -246,6 +273,10 @@ class IngestionPipeline:
                     }
                 )
             statuses[source] = status.model_dump(mode="json")
+            return normalized
+
+        for batch in await bounded_map(normalize_source, list(SOURCES), len(SOURCES)):
+            documents.extend(batch)
         return {"documents": documents, "statuses": statuses, "process_started": started}
 
     async def dedupe(self, state: IngestionState) -> IngestionState:
@@ -279,8 +310,9 @@ class IngestionPipeline:
 
         indexed = 0
         statuses: dict[str, JSONDict] = {}
-        documents: list[JSONDict] = []
-        for payload in state["documents"]:
+
+        async def process(payload: JSONDict) -> JSONDict:
+            nonlocal indexed
             record = RECORD_ADAPTER.validate_python(payload)
             started = state["process_started"][record.source]
             error: str | None = None
@@ -290,7 +322,9 @@ class IngestionPipeline:
                 # Includes parsing, barrier/queue delay, embedding and indexing. Enforce
                 # remaining budget rather than falsely claiming a slow item met the SLA.
                 remaining = self.settings.process_budget_ms / 1000 - (time.perf_counter() - started)
-                async with asyncio.timeout(max(0, remaining)):
+                if remaining <= 0:
+                    raise TimeoutError("processing deadline elapsed while queued")
+                async with asyncio.timeout(remaining):
                     vector = await self.embedder.embed(record.text or record.model_dump_json())
                     record = record.model_copy(
                         update={
@@ -340,7 +374,11 @@ class IngestionPipeline:
                 record.process_latency_ms,
                 error,
             )
-            documents.append(record.model_dump(mode="json"))
+            return record.model_dump(mode="json")
+
+        documents = await bounded_map(
+            process, state["documents"], self.settings.processing_concurrency
+        )
         return {"indexed": indexed, "statuses": statuses, "documents": documents}
 
     async def write_evidence(self, state: IngestionState) -> IngestionState:

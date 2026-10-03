@@ -13,6 +13,8 @@ class Settings(LegacySettings):
     evidence_path: Path = Path("data/evidence.jsonl")
     database_path: Path = Path("data/fin_terminal.sqlite")
     langsmith_api_key: SecretStr | None = None
+    langsmith_tracing: bool = True
+    langsmith_workspace_id: str | None = None
     langsmith_endpoint: str = "https://api.smith.langchain.com"
     alpha_vantage_api_key: SecretStr | None = None
     fred_api_key: SecretStr | None = None
@@ -36,6 +38,7 @@ class Settings(LegacySettings):
     circuit_reset_seconds: float = Field(default=60, gt=0)
     cache_ttl_seconds: float = Field(default=60, gt=0)
     process_budget_ms: float = Field(default=1000, gt=0, le=1000)
+    processing_concurrency: int = Field(default=8, ge=1, le=64)
 
 
 def secret_value(value: SecretStr | None) -> str | None:

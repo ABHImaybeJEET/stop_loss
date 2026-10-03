@@ -1,3 +1,4 @@
+import asyncio
 from uuid import NAMESPACE_URL, uuid5
 
 import httpx
@@ -13,8 +14,13 @@ class WeaviateVectorAdapter(VectorStoreAdapter):
         self.client = client
         self.collection = collection
         self._ready = False
+        self._schema_lock = asyncio.Lock()
 
     async def _ensure_collection(self) -> None:
+        async with self._schema_lock:
+            await self._create_collection_if_missing()
+
+    async def _create_collection_if_missing(self) -> None:
         if self._ready:
             return
         response = await self.client.get(f"/v1/schema/{self.collection}")

@@ -17,6 +17,91 @@ from fin_terminal.schemas import Document, Theme
 from fin_terminal.vectorstore.base import VectorStoreAdapter
 
 
+def test_processing_is_bounded_and_one_timeout_does_not_block_siblings(
+    settings: Settings, document: Document
+):
+    async def exercise():
+        settings_with_limit = settings.model_copy(update={"processing_concurrency": 2})
+        active = peak = 0
+        overlapping = asyncio.Event()
+
+        class ConcurrentEmbedder(FixtureEmbedder):
+            async def embed(self, text):
+                nonlocal active, peak
+                active += 1
+                peak = max(peak, active)
+                if active == 2:
+                    overlapping.set()
+                try:
+                    await asyncio.wait_for(overlapping.wait(), 0.5)
+                    if text == "slow fixture":
+                        await asyncio.sleep(2)
+                    return await super().embed(text)
+                finally:
+                    active -= 1
+
+        class BatchConnector(FixtureConnector):
+            async def normalize(self, raw):
+                return [
+                    document.model_copy(update={"text": text, "content_hash": ""})
+                    for text in ["slow fixture", "fast fixture 1", "fast fixture 2"]
+                ]
+
+        connectors = {s: StubConnector(s) for s in SOURCES}
+        connectors[document.source] = BatchConnector(document)
+        pipeline = IngestionPipeline(
+            settings_with_limit,
+            connectors,
+            embedder=ConcurrentEmbedder(),
+            vectorstore=FixtureVectors(),
+        )
+        try:
+            async with AsyncSqliteSaver.from_conn_string(str(settings.checkpoint_path)) as saver:
+                result = await pipeline.build_graph(saver).ainvoke(
+                    {"ingest_run_id": "concurrency"},
+                    config=run_config("concurrency", uuid4(), list(SOURCES)),
+                )
+            assert peak == 2 and active == 0
+            assert result["indexed"] == 2
+            assert result["statuses"][document.source]["status"] == "degraded"
+            assert len(result["documents"]) == 3
+            assert result["documents"][0]["data_quality"] == "degraded"
+            assert all(d["process_latency_ms"] < 1000 for d in result["documents"][1:])
+            assert not pipeline.store.contains(result["documents"][0]["content_hash"])
+        finally:
+            await pipeline.close()
+
+    asyncio.run(exercise())
+
+
+def test_expired_queued_records_never_reach_vectorstore(settings: Settings, document: Document):
+    import time
+
+    from fin_terminal.schemas import StreamStatus
+
+    async def exercise():
+        vectors = FixtureVectors()
+        pipeline = IngestionPipeline(settings, embedder=FixtureEmbedder(), vectorstore=vectors)
+        try:
+            result = await pipeline.embed_and_index(
+                {
+                    "ingest_run_id": "expired",
+                    "documents": [document.model_dump(mode="json")],
+                    "process_started": {document.source: time.perf_counter() - 2},
+                    "statuses": {
+                        document.source: StreamStatus(source=document.source).model_dump()
+                    },
+                }
+            )
+            assert result["indexed"] == 0
+            assert vectors.ids == []
+            assert result["statuses"][document.source]["status"] == "degraded"
+        finally:
+            await pipeline.close()
+
+    asyncio.run(exercise())
+
+
 class FixtureConnector(StubConnector):
     def __init__(self, document: Document, *, invalid: bool = False) -> None:
         super().__init__(document.source)
@@ -203,3 +288,37 @@ def test_bounded_stream_uses_distinct_runs(settings: Settings):
     assert len(results) == 1
     entries = [json.loads(line) for line in settings.evidence_path.read_text().splitlines()]
     assert len({entry["ingest_run_id"] for entry in entries}) == 2
+
+
+def test_sources_normalize_concurrently(settings: Settings, document: Document):
+    async def exercise():
+        arrived = set()
+        barrier = asyncio.Event()
+
+        class ParallelNormalizer(FixtureConnector):
+            async def normalize(self, raw):
+                arrived.add(self.source)
+                if len(arrived) == len(SOURCES):
+                    barrier.set()
+                await asyncio.wait_for(barrier.wait(), timeout=0.5)
+                return await super().normalize(raw)
+
+        connectors = {
+            source: ParallelNormalizer(document.model_copy(update={"source": source}))
+            for source in SOURCES
+        }
+        pipeline = IngestionPipeline(
+            settings, connectors, embedder=FixtureEmbedder(), vectorstore=FixtureVectors()
+        )
+        try:
+            async with AsyncSqliteSaver.from_conn_string(str(settings.checkpoint_path)) as saver:
+                result = await pipeline.build_graph(saver).ainvoke(
+                    {"ingest_run_id": "parallel-normalize"},
+                    config=run_config("parallel-normalize", uuid4(), list(SOURCES)),
+                )
+            assert all(s["records_normalized"] == 2 for s in result["statuses"].values())
+            assert all(s["status"] == "ok" for s in result["statuses"].values())
+        finally:
+            await pipeline.close()
+
+    asyncio.run(exercise())
