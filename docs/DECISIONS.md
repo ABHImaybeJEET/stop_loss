@@ -1,3 +1,5 @@
+
+
 # Architectural Decision Records (ADRs)
 
 This document records key design choices, resolutions to ambiguous requirements, and standing architectural decisions for StopLoss Intelligence.
@@ -89,4 +91,14 @@ This document records key design choices, resolutions to ambiguous requirements,
 - **Context**: Sequential normalization and indexing let one slow operation consume the deadline for otherwise healthy records. Unbounded parallel embedding would instead risk excessive CPU and memory use.
 - **Decision**: Keep the existing LangGraph `StateGraph` and SQLite checkpoint topology. Normalize the six sources concurrently inside the normalization node. Embed/index using a bounded worker pool (`PROCESSING_CONCURRENCY=8`, range 1–64), preserving result order and accounting for queue delay. Expired records never start vector writes. Task groups cancel sibling workers on fatal failures; per-record operational failures remain isolated and retryable.
 - **Decision**: Serialize first model initialization and Weaviate collection initialization to prevent races introduced by concurrent records. Default tracing to enabled when a key exists, support `LANGSMITH_WORKSPACE_ID`, and attach source metadata to fetch spans and execution mode to root traces. Store credentials only in ignored local environment files.
-- **Validation boundary**: Concurrency, deadline isolation, dedupe, and setup races are covered by offline tests. Empty-stub smoke verifies graph execution and remote trace delivery when credentials/network are available. No live provider or real-model throughput SLA is claimed. The normalization join still means a slow source can delay the subsequent processing stages; large batches need workload-specific tuning and model warm-up before production rollout.
+- **Validation boundary**: Concurrency, deadline isolation, dedupe, and setup races are covered by offline tests. Empty-stub smoke verifies graph execution and remote trace delivery when credentials/network are available. No live provider or real-model throughput SLA is claimed. Large batches need workload-specific tuning and model warm-up before production rollout.
+
+---
+
+## ADR 014: Unblocked Per-Stream Processing Lanes (Elimination of Join Barrier)
+- **Context**: In ADR 013, all six data sources fanned into a central `normalize` node. In LangGraph's Pregel Bulk Synchronous Parallel execution model, supersteps act as barriers: a single slow external fetch (e.g. macro indicator HTTP delay) forced all other streams to wait before beginning normalization, deduping, theme tagging, embedding, and vectorstore indexing. This risked SLA breaches on healthy, low-latency streams (such as real-time market prices or breaking news).
+- **Decision**: Restructure the ingestion graph into independent, unblocked stream processing lanes (`stream_{source}` for each of the six sources). Each stream lane immediately fetches, normalizes, dedupes, tags, embeds, and indexes its own records asynchronously without waiting for sibling streams to complete. State updates are merged across parallel lanes using LangGraph reducers (`merge_maps`, `merge_lists`, `merge_ints`).
+- **Join Boundary**: Synchronization occurs only at the final `write_evidence` and `report` nodes once all stream lanes have concluded their lifecycle.
+- **Audit & Tracing Preservation**: Within each stream lane, granular child runnables and evidence logs continue to audit individual `fetch_{source}` and `process_{source}` stages, preserving full LangSmith tracing spans, source tags, and audit completeness.
+- **Consequences**: Fast sources complete their end-to-end pipeline in milliseconds regardless of external API latencies or transient hiccups on other streams. Sub-second streaming SLAs are isolated and protected per source.
+

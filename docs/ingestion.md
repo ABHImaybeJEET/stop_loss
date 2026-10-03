@@ -30,16 +30,37 @@ Paths are relative to the working directory, so the Make targets write under
 
 ```mermaid
 flowchart LR
-    plan_sources --> fetch_prices & fetch_macro & fetch_weather & fetch_news_tariff & fetch_news_banktax & fetch_news_war
-    fetch_prices & fetch_macro & fetch_weather & fetch_news_tariff & fetch_news_banktax & fetch_news_war --> normalize
-    normalize --> dedupe --> enrich_tags --> embed_and_index --> write_evidence --> report
+    plan_sources --> stream_prices & stream_macro & stream_weather & stream_news_tariff & stream_news_banktax & stream_news_war
+    subgraph stream_prices [Prices Stream Lane]
+        fetch_prices --> process_prices
+    end
+    subgraph stream_macro [Macro Stream Lane]
+        fetch_macro --> process_macro
+    end
+    subgraph stream_weather [Weather Stream Lane]
+        fetch_weather --> process_weather
+    end
+    subgraph stream_news_tariff [Tariff News Lane]
+        fetch_tariff --> process_tariff
+    end
+    subgraph stream_news_banktax [Bank Tax News Lane]
+        fetch_banktax --> process_banktax
+    end
+    subgraph stream_news_war [War News Lane]
+        fetch_war --> process_war
+    end
+    stream_prices & stream_macro & stream_weather & stream_news_tariff & stream_news_banktax & stream_news_war --> write_evidence --> report
 ```
 
-The six fetch nodes run concurrently. A single join waits for all six before
-normalization, which also runs the sources concurrently. Each source gets
-`ok`, `degraded`, `failed`, or `rate_limited`, with
+The six stream lanes run completely unblocked in parallel. Each source fetches,
+normalizes, tags, dedupes, embeds, and indexes its records immediately without
+waiting for sibling streams. Fast sources (like real-time market prices) complete
+within milliseconds and are never stalled by slower external network calls (such as
+macro indicator fetches). A final join barrier occurs only at `write_evidence` and
+`report` after all streams finish their cycles.
+Each source gets `ok`, `degraded`, `failed`, or `rate_limited`, with
 fetch/normalization counts and timing. Expected provider errors and unexpected
-exceptions are isolated inside fetch nodes. Cancellation propagates so shutdown
+exceptions are isolated inside stream nodes. Cancellation propagates so shutdown
 works. Failed normalization, embedding, or vector writes degrade the affected
 stream and remain eligible for retry during later cycles.
 
