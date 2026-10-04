@@ -1,5 +1,6 @@
 "use client";
 
+import { displaySymbol, stripNs } from "@/lib/symbols";
 import React, { useEffect, useRef, useState } from "react";
 import { Check, Pencil, Plus, Trash2, X } from "lucide-react";
 import { cn } from "@/components/ui/primitives";
@@ -77,9 +78,9 @@ function ThreadRow({
   return (
     <li className={cn("group relative border-b border-line", active ? "border-l-2 border-l-ink bg-white" : "hover:bg-white")}>
       <button type="button" onClick={onSelect} aria-current={active ? "page" : undefined} className="w-full px-3 py-2.5 pr-16 text-left">
-        <span className="block truncate text-xs font-semibold text-ink">{thread.title}</span>
+        <span className="block truncate text-xs font-semibold text-ink">{stripNs(thread.title)}</span>
         <span className="mt-0.5 flex items-center gap-1.5 font-mono text-2xs text-muted">
-          {thread.asset && <span className="num font-semibold text-ink-soft">{thread.asset.symbol}</span>}
+          {thread.asset && <span className="num font-semibold text-ink-soft">{displaySymbol(thread.asset.symbol)}</span>}
           <span>{relativeTime(thread.updatedAt)}</span>
           <span aria-hidden="true">·</span>
           <span>{thread.messageCount} msgs</span>

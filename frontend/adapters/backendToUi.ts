@@ -5,6 +5,21 @@
  * event that fails validation is dropped or turned into an explicit error event.
  */
 import { z } from "zod";
+import type { PortfolioResult, PortfolioSectionKey } from "@/lib/chat/portfolioTypes";
+
+/** snake_case -> camelCase keys and null -> undefined, recursively (portfolio payloads).
+ *  Map keys that are tickers (e.g. "RELIANCE.NS") contain no underscores and are kept. */
+export function camelize(value: unknown): any {
+  if (value === null) return undefined;
+  if (Array.isArray(value)) return value.map((v) => (v === null ? null : camelize(v)));
+  if (typeof value !== "object") return value;
+  return Object.fromEntries(
+    Object.entries(value as Record<string, unknown>).map(([k, v]) => [
+      k.replace(/_([a-z0-9])/g, (_, c: string) => c.toUpperCase()),
+      camelize(v),
+    ]),
+  );
+}
 import type {
   AgentState,
   AnalysisResult,
@@ -394,6 +409,18 @@ export function toStreamEvent(raw: unknown): StreamEvent | null {
     }
     case "cancelled":
       return { seq, type: "cancelled", message: typeof obj.message === "string" ? obj.message : "Stopped." };
+    case "portfolio_section": {
+      const section = obj.section as PortfolioSectionKey;
+      if (!["portfolio", "sentiment", "event", "analogs", "exposure"].includes(section)) return null;
+      return { seq, type: "portfolio_section", section, data: camelize(obj.data) };
+    }
+    case "portfolio_final": {
+      const result = camelize(obj.result) as PortfolioResult;
+      if (typeof result?.bottomLine !== "string" || !result.portfolio || !Array.isArray(result.evidence)) {
+        return { seq, type: "error", message: "The portfolio result was malformed.", recoverable: true };
+      }
+      return { seq, type: "portfolio_final", result };
+    }
     default:
       return null;
   }

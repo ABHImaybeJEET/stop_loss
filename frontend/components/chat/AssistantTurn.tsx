@@ -15,7 +15,9 @@ import SourcesSection from "@/components/chat/sections/SourcesSection";
 import SuggestionsSection from "@/components/chat/sections/SuggestionsSection";
 import { Badge, Button } from "@/components/ui/primitives";
 import { relativeTime } from "@/lib/format";
-import type { AssistantMessage, FeedbackState, TextMessage } from "@/lib/chat/types";
+import type { AssistantMessage, FeedbackState, PortfolioMessage, TextMessage } from "@/lib/chat/types";
+import PortfolioAnswer from "@/components/chat/portfolio/PortfolioAnswer";
+import { displaySymbol, stripNs } from "@/lib/symbols";
 
 interface Props {
   message: AssistantMessage;
@@ -71,7 +73,7 @@ function StatusBanner({ message, canRetry, onRetry, onResume }: Omit<Props, "thr
 
 function TextReplyBody({ message }: { message: TextMessage }) {
   const evidence = useMemo(() => evidenceMap(message.reply.evidence), [message.reply.evidence]);
-  const markdown = normalizeCitations(message.reply.content).replace(/\[(E\d+)\]/g, "[$1](#evidence-$1)");
+  const markdown = normalizeCitations(stripNs(message.reply.content)).replace(/\[(E\d+)\]/g, "[$1](#evidence-$1)");
   return (
     <div className="border border-line bg-white px-4 py-3" data-testid="text-reply">
       <div className="prose-terminal text-sm leading-relaxed text-ink-soft">
@@ -115,14 +117,15 @@ function TextReplyBody({ message }: { message: TextMessage }) {
 export default function AssistantTurn({ message, threadId, canRetry, onRetry, onResume, onFeedback }: Props) {
   const streaming = message.status === "streaming";
   const isText = message.kind === "assistant-text";
+  const isPortfolio = message.kind === "assistant-portfolio";
   const result = message.kind === "assistant-analysis" ? message.result : undefined;
   const partial = message.kind === "assistant-analysis" ? message.partial : {};
   const evidence = useMemo(() => evidenceMap(result?.evidence), [result?.evidence]);
   const hasData = Boolean(result || partial.snapshot || partial.sources || partial.historical || partial.risk);
-  const showSections = !isText && (streaming || hasData);
+  const showSections = !isText && !isPortfolio && (streaming || hasData);
 
   return (
-    <article className="space-y-3" aria-label={`Analysis of ${message.asset.symbol}`} data-testid="assistant-turn" data-status={message.status}>
+    <article className="space-y-3" aria-label={`Analysis of ${displaySymbol(message.asset.symbol)}`} data-testid="assistant-turn" data-status={message.status}>
       <div className="flex items-center gap-2">
         <span className="flex h-5 w-5 items-center justify-center bg-ink font-mono text-[9px] font-bold text-white" aria-hidden="true">
           SL
@@ -159,6 +162,14 @@ export default function AssistantTurn({ message, threadId, canRetry, onRetry, on
       )}
 
       {isText && <TextReplyBody message={message as TextMessage} />}
+
+      {isPortfolio && (
+        <PortfolioAnswer
+          result={(message as PortfolioMessage).portfolio}
+          partial={(message as PortfolioMessage).portfolioPartial ?? {}}
+          pending={streaming}
+        />
+      )}
 
       {showSections && (
         <div className="space-y-3" data-testid="result-sections">

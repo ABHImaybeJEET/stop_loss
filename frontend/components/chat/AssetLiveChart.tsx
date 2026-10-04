@@ -1,5 +1,6 @@
 "use client";
 
+import { displaySymbol } from "@/lib/symbols";
 import React, { useMemo, useState } from "react";
 import useSWR from "swr";
 import { LineChart as LineChartIcon, RotateCw } from "lucide-react";
@@ -124,7 +125,7 @@ export default function AssetLiveChart({ asset }: { asset: AssetRef }) {
   const gradientId = `fill-${asset.symbol.replace(/[^A-Za-z0-9]/g, "")}`;
   const summary =
     last !== undefined
-      ? `${asset.symbol} ${range} chart: last ${formatPrice(last, series?.currency)}, ${formatPct(change)} versus ${
+      ? `${displaySymbol(asset.symbol)} ${range} chart: last ${formatPrice(last, series?.currency)}, ${formatPct(change)} versus ${
           INTRADAY.includes(range) ? "previous close" : "start of range"
         }, ${points.length} data points.`
       : "";

@@ -10,6 +10,7 @@ import {
   openChatStream,
   openResumeStream,
   toChatAsset,
+  type ChatBody,
 } from "@/lib/chat/api";
 import {
   applyEvent,
@@ -21,6 +22,9 @@ import {
   pendingAssistant,
 } from "@/lib/chat/reducer";
 import { readSSE } from "@/lib/chat/sse";
+import { holdingsBody, scopeAsset, type ChatScope } from "@/lib/chat/scope";
+import { PORTFOLIO_SYMBOL, displaySymbol } from "@/lib/symbols";
+import type { Holding } from "@/lib/portfolio/types";
 import type { AssetRef, AssistantMessage, ChatMessage, FeedbackState, StreamEvent } from "@/lib/chat/types";
 
 const MAX_RESUMES = 3;
@@ -33,6 +37,8 @@ interface Options {
   /** Create the thread on first send; returns its id. */
   ensureThread: (prompt: string, asset: AssetRef) => Promise<string>;
   onAuthExpired: () => void;
+  /** Current holdings, sent with portfolio-mode questions (and their retries). */
+  portfolioHoldings: () => Holding[];
   /** Screen-reader progress announcements. */
   announce: (text: string) => void;
 }
@@ -55,6 +61,18 @@ export function useChatStream(threadId: string | null, options: Options) {
   const optionsRef = useRef(options);
   optionsRef.current = options;
   messagesRef.current = messages;
+
+  /** Request body for a scope: portfolio questions carry the current holdings. */
+  const chatBody = (threadId: string, messageId: string, prompt: string, asset: AssetRef): ChatBody =>
+    asset.symbol === PORTFOLIO_SYMBOL
+      ? {
+          thread_id: threadId,
+          message_id: messageId,
+          prompt,
+          mode: "portfolio",
+          holdings: holdingsBody(optionsRef.current.portfolioHoldings()),
+        }
+      : { thread_id: threadId, message_id: messageId, prompt, mode: "ticker", asset: toChatAsset(asset) };
   // Follows the URL; send() sets it early when it creates a thread before the URL updates.
   useEffect(() => {
     threadRef.current = threadId;
@@ -154,7 +172,8 @@ export function useChatStream(threadId: string | null, options: Options) {
   );
 
   const send = useCallback(
-    async (prompt: string, asset: AssetRef) => {
+    async (prompt: string, scope: ChatScope) => {
+      const asset = scopeAsset(scope);
       const text = prompt.trim();
       if (!text || sendingRef.current || activeRef.current) return;
       sendingRef.current = true;
@@ -170,10 +189,8 @@ export function useChatStream(threadId: string | null, options: Options) {
         const assistant = pendingAssistant({ id: newId(), userMessageId: user.id, prompt: text, asset });
         additions.push(user, assistant);
         for (const m of additions) put(m, true);
-        optionsRef.current.announce(`Analysis started for ${asset.symbol}`);
-        await execute(assistant, (signal) =>
-          openChatStream({ thread_id: tid, message_id: assistant.id, prompt: text, asset: toChatAsset(asset) }, signal),
-        );
+        optionsRef.current.announce(`Analysis started for ${displaySymbol(asset.symbol)}`);
+        await execute(assistant, (signal) => openChatStream(chatBody(tid, assistant.id, text, asset), signal));
       } finally {
         sendingRef.current = false;
       }
@@ -210,7 +227,7 @@ export function useChatStream(threadId: string | null, options: Options) {
       put(assistant, true);
       await execute(assistant, (signal) =>
         openChatStream(
-          { thread_id: tid, message_id: assistant.id, prompt: failed.prompt, asset: toChatAsset(failed.asset) },
+          chatBody(tid, assistant.id, failed.prompt, failed.asset),
           signal,
         ),
       );

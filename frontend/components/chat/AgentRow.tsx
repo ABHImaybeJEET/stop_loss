@@ -1,3 +1,4 @@
+import { stripNs } from "@/lib/symbols";
 import React from "react";
 import {
   CandlestickChart,
@@ -79,8 +80,8 @@ export default function AgentRow({ agent, now }: { agent: AgentState; now: numbe
             </span>
           )}
         </div>
-        <p className={cn("truncate font-mono text-2xs", agent.status === "error" ? "text-loss" : "text-muted")} title={agent.message}>
-          {agent.message ?? agent.role ?? "Waiting"}
+        <p className={cn("truncate font-mono text-2xs", agent.status === "error" ? "text-loss" : "text-muted")} title={stripNs(agent.message)}>
+          {stripNs(agent.message) || agent.role || "Waiting"}
         </p>
       </div>
       <div className="relative flex items-center gap-2">

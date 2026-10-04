@@ -57,7 +57,9 @@ export interface ChatBody {
   thread_id: string;
   message_id: string;
   prompt: string;
-  asset: { symbol: string; name: string; exchange?: string | null };
+  mode?: "ticker" | "portfolio";
+  asset?: { symbol: string; name: string; exchange?: string | null };
+  holdings?: { symbol: string; quantity: number; avg_price?: number | null; name?: string }[];
 }
 
 export async function openChatStream(body: ChatBody, signal: AbortSignal): Promise<Response> {

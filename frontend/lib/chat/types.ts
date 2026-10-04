@@ -1,3 +1,5 @@
+import type { PortfolioPartial, PortfolioResult, PortfolioSectionKey } from "@/lib/chat/portfolioTypes";
+
 /**
  * Normalized client-side types for the analysis terminal. Raw backend payloads are
  * converted into these by `adapters/backendToUi.ts`; UI components only see these.
@@ -192,6 +194,8 @@ export type StreamEvent = { seq: number } & (
   | { type: "section"; section: "risk"; data: Risk }
   | { type: "final"; result: AnalysisResult }
   | { type: "reply"; reply: TextReply }
+  | { type: "portfolio_section"; section: PortfolioSectionKey; data: unknown }
+  | { type: "portfolio_final"; result: PortfolioResult }
   | { type: "error"; message: string; recoverable: boolean }
   | { type: "cancelled"; message: string }
 );
@@ -249,7 +253,14 @@ export interface TextMessage extends AssistantBase {
   reply: TextReply;
 }
 
-export type AssistantMessage = AnalysisMessage | TextMessage;
+/** Portfolio-mode answer about the user's holdings. */
+export interface PortfolioMessage extends AssistantBase {
+  kind: "assistant-portfolio";
+  portfolioPartial: PortfolioPartial;
+  portfolio?: PortfolioResult;
+}
+
+export type AssistantMessage = AnalysisMessage | TextMessage | PortfolioMessage;
 export type ChatMessage = UserMessage | DividerMessage | AssistantMessage;
 
 export interface ThreadMeta {

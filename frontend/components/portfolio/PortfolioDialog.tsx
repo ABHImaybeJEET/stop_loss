@@ -1,5 +1,6 @@
 "use client";
 
+import { displaySymbol } from "@/lib/symbols";
 import React, { useEffect, useRef, useState } from "react";
 import { Briefcase, Trash2, X } from "lucide-react";
 import AssetCombobox from "@/components/chat/AssetCombobox";
@@ -137,7 +138,7 @@ export default function PortfolioDialog() {
                           <span className="block max-w-[14rem] truncate text-2xs text-muted">{row.name}</span>
                         </td>
                         <td className="px-2.5 py-2">
-                          <label className="sr-only" htmlFor={`qty-${row.symbol}`}>Shares of {row.symbol}</label>
+                          <label className="sr-only" htmlFor={`qty-${row.symbol}`}>Shares of {displaySymbol(row.symbol)}</label>
                           <input
                             id={`qty-${row.symbol}`}
                             data-qty={row.symbol}
@@ -149,7 +150,7 @@ export default function PortfolioDialog() {
                           />
                         </td>
                         <td className="px-2.5 py-2">
-                          <label className="sr-only" htmlFor={`avg-${row.symbol}`}>Average buy price of {row.symbol}</label>
+                          <label className="sr-only" htmlFor={`avg-${row.symbol}`}>Average buy price of {displaySymbol(row.symbol)}</label>
                           <input
                             id={`avg-${row.symbol}`}
                             inputMode="decimal"
@@ -163,7 +164,7 @@ export default function PortfolioDialog() {
                           <button
                             type="button"
                             onClick={() => setRows((current) => current.filter((r) => r.symbol !== row.symbol))}
-                            aria-label={`Remove ${row.symbol}`}
+                            aria-label={`Remove ${displaySymbol(row.symbol)}`}
                             className="flex h-8 w-8 items-center justify-center text-muted hover:bg-loss-soft hover:text-loss"
                           >
                             <Trash2 className="h-3.5 w-3.5" aria-hidden="true" />

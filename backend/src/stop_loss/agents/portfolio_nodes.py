@@ -368,7 +368,12 @@ def build_portfolio_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one c
         except Exception as exc:  # noqa: BLE001
             macro_out = {"status": "unavailable", "error": short_error(exc)}
         alerts: list[EventAlert] = []
-        if kit.hazards is not None:
+        kind = plan.get("event_kind") or "none"
+        # Natural-hazard questions get live hazard tracking; with no named event, hazards near
+        # India are context. Market/geopolitical events (oil shock, war, tariff) get none.
+        if kit.hazards is not None and (
+            kind in EVENT_GDACS or kind in ("none", "heatwave", "monsoon")
+        ):
             rep.progress("Tracking live hazards (GDACS, USGS)")
             try:
                 wanted = EVENT_GDACS.get(plan.get("event_kind") or "")

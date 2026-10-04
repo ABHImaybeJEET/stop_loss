@@ -1,3 +1,4 @@
+import { PORTFOLIO_SYMBOL } from "@/lib/symbols";
 import type { AgentState, AnalysisMessage, AssistantMessage, ChatMessage, StreamEvent } from "@/lib/chat/types";
 
 export function newId(): string {
@@ -9,7 +10,7 @@ export function nowIso(): string {
 }
 
 export function isTerminal(event: StreamEvent): boolean {
-  return event.type === "final" || event.type === "reply" || event.type === "error" || event.type === "cancelled";
+  return event.type === "final" || event.type === "portfolio_final" || event.type === "reply" || event.type === "error" || event.type === "cancelled";
 }
 
 function upsertAgent(agents: AgentState[], update: AgentState): AgentState[] {
@@ -47,6 +48,22 @@ export function applyEvent(message: AssistantMessage, event: StreamEvent): Assis
         endedAt: nowIso(),
         error: undefined,
       };
+    case "portfolio_section": {
+      if (base.kind !== "assistant-portfolio") return base;
+      return { ...base, portfolioPartial: { ...base.portfolioPartial, [event.section]: event.data } };
+    }
+    case "portfolio_final": {
+      const { partial: _p, result: _r, ...rest } = base as AnalysisMessage;
+      return {
+        ...rest,
+        kind: "assistant-portfolio",
+        portfolioPartial: {},
+        portfolio: event.result,
+        status: "complete",
+        endedAt: nowIso(),
+        error: undefined,
+      } as AssistantMessage;
+    }
     case "reply": {
       const { partial: _p, result: _r, ...rest } = base as AnalysisMessage;
       return { ...rest, kind: "assistant-text", reply: event.reply, status: "complete", endedAt: nowIso(), error: undefined };
@@ -80,21 +97,26 @@ export function pendingAssistant(params: {
   userMessageId: string;
   prompt: string;
   asset: AnalysisMessage["asset"];
-}): AnalysisMessage {
-  return {
+}): AssistantMessage {
+  const base = {
     ...params,
-    kind: "assistant-analysis",
     createdAt: nowIso(),
-    status: "streaming",
+    status: "streaming" as const,
     agents: [],
     startedAt: nowIso(),
     lastSeq: -1,
-    partial: {},
   };
+  return params.asset.symbol === PORTFOLIO_SYMBOL
+    ? { ...base, kind: "assistant-portfolio", portfolioPartial: {} }
+    : { ...base, kind: "assistant-analysis", partial: {} };
 }
 
 export function isAssistant(message: ChatMessage): message is AssistantMessage {
-  return message.kind === "assistant-analysis" || message.kind === "assistant-text";
+  return (
+    message.kind === "assistant-analysis" ||
+    message.kind === "assistant-text" ||
+    message.kind === "assistant-portfolio"
+  );
 }
 
 export type MessagesAction =

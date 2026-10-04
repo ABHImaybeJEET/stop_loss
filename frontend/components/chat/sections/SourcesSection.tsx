@@ -1,3 +1,4 @@
+import { stripNs } from "@/lib/symbols";
 import React from "react";
 import { ExternalLink, Radio } from "lucide-react";
 import EvidenceText from "@/components/chat/EvidenceText";
@@ -44,7 +45,7 @@ export default function SourcesSection({
                     rel="noopener noreferrer"
                     className="group inline-flex items-start gap-1 text-xs font-semibold text-ink hover:underline"
                   >
-                    <span className="line-clamp-2">{item.title}</span>
+                    <span className="line-clamp-2">{stripNs(item.title)}</span>
                     <ExternalLink className="mt-0.5 h-3 w-3 shrink-0 text-muted group-hover:text-ink" aria-hidden="true" />
                     <span className="sr-only">(opens in a new tab)</span>
                   </a>
