@@ -1,6 +1,6 @@
-<<<<<<< Updated upstream
-﻿export { default } from "@/components/MarketBriefing";
-=======
+
+
+
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
