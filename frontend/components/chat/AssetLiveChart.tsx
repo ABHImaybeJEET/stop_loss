@@ -1,5 +1,7 @@
 "use client";
 
+import { usePortfolio } from "@/context/PortfolioContext";
+
 import { displaySymbol } from "@/lib/symbols";
 import React, { useMemo, useState } from "react";
 import useSWR from "swr";
@@ -89,16 +91,26 @@ function ChartTooltip({ active, payload, currency, timeZone }: TooltipProps<numb
 }
 
 export default function AssetLiveChart({ asset }: { asset: AssetRef }) {
+  const { holdings } = usePortfolio();
+  const portfolioSymbols = useMemo(() => {
+    const syms = holdings.map((h) => h.symbol);
+    if (!syms.includes(asset.symbol)) {
+      syms.unshift(asset.symbol);
+    }
+    return syms;
+  }, [holdings, asset.symbol]);
+
+  const [selectedSymbol, setSelectedSymbol] = useState(asset.symbol);
   const [range, setRange] = useState<Range>("1D");
   const [hovering, setHovering] = useState(false);
-  const chart = useSWR<ChartSeries>(["chart", asset.symbol, range], () => fetchChart(asset.symbol, range), {
+  const chart = useSWR<ChartSeries>(["chart", selectedSymbol, range], () => fetchChart(selectedSymbol, range), {
     revalidateOnFocus: false,
     keepPreviousData: true,
     refreshInterval: (latest) => (latest?.marketState === "open" && INTRADAY.includes(range) ? CHART_POLL_MS : 0),
   });
   const marketOpen = chart.data?.marketState === "open";
   // Polls only while the market is open; SWR pauses refresh while the tab is hidden.
-  const quote = useSWR(marketOpen ? ["quote", asset.symbol] : null, () => fetchQuote(asset.symbol), {
+  const quote = useSWR(marketOpen ? ["quote", selectedSymbol] : null, () => fetchQuote(selectedSymbol), {
     refreshInterval: QUOTE_POLL_MS,
     refreshWhenHidden: false,
     revalidateOnFocus: true,
@@ -122,21 +134,35 @@ export default function AssetLiveChart({ asset }: { asset: AssetRef }) {
   const color = change === undefined || change >= 0 ? GAIN : LOSS;
   const fmt = timeFormatter(range, series?.exchangeTimezone);
   const updatedAt = quote.data?.fetchedAt ?? (series ? new Date().toISOString() : undefined);
-  const gradientId = `fill-${asset.symbol.replace(/[^A-Za-z0-9]/g, "")}`;
+  const gradientId = `fill-${selectedSymbol.replace(/[^A-Za-z0-9]/g, "")}`;
   const summary =
     last !== undefined
-      ? `${displaySymbol(asset.symbol)} ${range} chart: last ${formatPrice(last, series?.currency)}, ${formatPct(change)} versus ${
+      ? `${displaySymbol(selectedSymbol)} ${range} chart: last ${formatPrice(last, series?.currency)}, ${formatPct(change)} versus ${
           INTRADAY.includes(range) ? "previous close" : "start of range"
         }, ${points.length} data points.`
       : "";
 
   return (
     <SectionCard
-      id={`chart-${asset.symbol}`}
+      id={`chart-${selectedSymbol}`}
       title="Live Chart"
       icon={<LineChartIcon className="h-3.5 w-3.5" aria-hidden="true" />}
       aside={
         <span className="flex items-center gap-2">
+          {portfolioSymbols.length > 1 && (
+            <select
+              value={selectedSymbol}
+              onChange={(e) => setSelectedSymbol(e.target.value)}
+              className="h-6 rounded border border-line bg-subtle px-1 text-2xs font-semibold text-ink outline-none focus:border-ink"
+              aria-label="Switch asset chart"
+            >
+              {portfolioSymbols.map((sym) => (
+                <option key={sym} value={sym}>
+                  {displaySymbol(sym)}
+                </option>
+              ))}
+            </select>
+          )}
           {series &&
             (marketOpen ? (
               <Badge tone="gain" aria-label="Live: market open, auto-updating">
@@ -204,7 +230,7 @@ export default function AssetLiveChart({ asset }: { asset: AssetRef }) {
         <figure aria-label={summary} className={cn(chart.isValidating && !hovering && "opacity-90")}>
           <div className="h-48 w-full sm:h-56" onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)}>
             <ResponsiveContainer width="100%" height="100%">
-              <ComposedChart data={points} syncId={`sync-${asset.symbol}`} margin={{ top: 6, right: 4, bottom: 0, left: 0 }}>
+              <ComposedChart data={points} syncId={`sync-${selectedSymbol}`} margin={{ top: 6, right: 4, bottom: 0, left: 0 }}>
                 <defs>
                   <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor={color} stopOpacity={0.16} />
