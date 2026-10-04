@@ -93,8 +93,10 @@ export async function fetchActiveRun(threadId: string): Promise<{ runId: string 
   });
 }
 
-export function searchAssets(q: string): Promise<AssetMatch[]> {
-  return apiJson(`/api/assets/search?q=${encodeURIComponent(q)}`, toAssetMatches);
+export async function searchAssets(q: string): Promise<AssetMatch[]> {
+  const response = await fetch(`/api/assets/search?q=${encodeURIComponent(q)}`);
+  if (!response.ok) throw new ApiError(response.status, await readDetail(response));
+  return toAssetMatches(await response.json());
 }
 
 export function fetchChart(symbol: string, range: string): Promise<ChartSeries> {

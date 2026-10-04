@@ -6,7 +6,6 @@ import { useAuth } from "@/context/AuthContext";
 import NewsSection from "@/components/NewsSection";
 import GlobalInflationMap from "@/components/GlobalInflationMap";
 import StopLossLogo from "@/components/StopLossLogo";
-
 const FaultyTerminal = dynamic(() => import("@/components/FaultyTerminal"), {
   ssr: false,
 });
@@ -123,8 +122,8 @@ export default function EntryPage() {
         <GlobalInflationMap />
 
         {/* Discreet Footer */}
-        <footer className="w-full border-t border-gray-200 bg-white py-6 text-center text-xs text-gray-600 font-mono">
-          Built by SairajTripathy-0077 — Logic-Driven Creator
+        <footer className="w-full border-t border-gray-200 bg-white py-6 text-center text-xs text-gray-600 font-mono tracking-widest uppercase">
+          MADE BY CATGPT
         </footer>
       </div>
     </div>
