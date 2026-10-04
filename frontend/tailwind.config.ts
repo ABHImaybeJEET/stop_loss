@@ -23,7 +23,8 @@ const config: Config = {
         loss: { DEFAULT: "#BE123C", soft: "#FFF1F2" },
       },
       fontFamily: {
-        sans: ["Inter", "Geist", "system-ui", "-apple-system", "sans-serif"],
+        sans: ["Avenir Next", "Avenir", "Segoe UI Variable", "Segoe UI", "sans-serif"],
+        editorial: ["Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Georgia", "serif"],
         mono: ["Geist Mono", "JetBrains Mono", "monospace"],
       },
       fontSize: {

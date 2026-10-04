@@ -73,19 +73,20 @@ function DashboardContent() {
       </header>
 
       <main className="mx-auto w-full max-w-6xl flex-1 space-y-5 p-4 sm:p-6 md:p-8">
-        <div className="flex flex-wrap items-end justify-between gap-3 border-b border-line pb-4">
+        <div className="flex flex-wrap items-end justify-between gap-3 border-b border-line pb-5">
           <div>
-            <h1 className="text-2xl font-extrabold tracking-tight">{displayName}</h1>
-            <p className="mt-0.5 font-mono text-xs text-muted">
+            <p className="mb-1 font-mono text-2xs font-semibold uppercase tracking-[0.18em] text-muted">Portfolio / NSE</p>
+            <h1 className="text-3xl font-extrabold tracking-tight">{displayName}</h1>
+            <p className="mt-1 text-xs text-muted">
               {[profile?.role, profile?.organization, profile?.location].filter(Boolean).join(" · ") || user?.email}
             </p>
           </div>
           {holdings.length > 0 && (
-            <p className="font-mono text-2xs text-muted">
-              NSE {marketState ? `market ${marketState}` : ""}
-              {asOf && ` · last trade ${relativeTime(asOf)}`}
-              {marketState === "open" && " · auto-refreshing"}
-            </p>
+            <div className="flex flex-wrap items-center gap-2 font-mono text-2xs text-muted">
+              {marketState && <span className="border border-line px-2 py-1">NSE {marketState}</span>}
+              {asOf && <span>Quote time {relativeTime(asOf)}</span>}
+              {marketState === "open" && <span className="text-gain">Live quotes refresh automatically</span>}
+            </div>
           )}
         </div>
 
@@ -111,7 +112,18 @@ function DashboardContent() {
             {quotes.error && !quotes.data && (
               <p className="font-mono text-2xs text-loss">Live prices are unavailable right now. Retrying automatically.</p>
             )}
-            <HoldingsTable rows={rows} selected={selected} onSelect={setSelected} loading={!quotes.data} />
+            <section aria-labelledby="positions-title" className="border border-line bg-white">
+              <header className="flex flex-wrap items-end justify-between gap-2 border-b border-line px-4 py-3">
+                <div>
+                  <h2 id="positions-title" className="text-sm font-bold tracking-tight">Your positions</h2>
+                  <p className="mt-0.5 text-xs text-muted">Select a stock to view its price chart.</p>
+                </div>
+                <span className="font-mono text-2xs uppercase tracking-wider text-muted">
+                  {holdings.length} NSE {holdings.length === 1 ? "stock" : "stocks"}
+                </span>
+              </header>
+              <HoldingsTable rows={rows} selected={selected} onSelect={setSelected} loading={!quotes.data} />
+            </section>
             <div className="grid gap-5 lg:grid-cols-2">
               <PerformanceChart data={performance.data} range={range} onRange={setRange} error={performance.error} />
               {selectedHolding ? (
