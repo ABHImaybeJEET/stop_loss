@@ -10,7 +10,6 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from pydantic import BaseModel, Field
 
 from fin_terminal.config import secret_value
-from fin_terminal.grounding import GROUNDING_PROMPT
 from stop_loss.agents.models import AGENTS, AgentId, EvidenceItem
 from stop_loss.analytics.models import NewsItem, Sentiment
 from stop_loss.settings import TerminalSettings
@@ -102,7 +101,7 @@ class ReplyDraft(BaseModel):
 RULES = """
 Rules:
 - Use ONLY figures that appear in EVIDENCE.
-- Citation format: Always cite evidence individually as [E1], [E2]. NEVER combine as [E1, E2] or [E1, 10] or E1.
+- Citation format: Always cite evidence individually at the END of clauses or sentences as [E1], [E2]. NEVER combine as [E1, E2] or [E1, 10] or E1. DO NOT interrupt sentence flow with citations mid-sentence.
 - Copy figures as shown in each item's `display` (rounding to fewer decimals is fine).
 - Never compute or invent new figures (no projected prices, no invented percentages or targets).
 - If the user asks for something not covered by EVIDENCE, explicitly state: "Info not known from verified sources."
@@ -199,7 +198,7 @@ async def write_narrative(
                 SystemMessage(
                     "You are the Hedging Strategy Agent of StopLoss, a multi-agent financial "
                     "intelligence terminal. Write a concise, sectioned analysis.\n"
-                    f"{GROUNDING_PROMPT}\n{RULES}\n"
+                    f"{RULES}\n"
                     "executive_answer: 2-4 sentences directly answering the user's exact question based strictly on evidence. If no verifiable sources mention the information, explicitly state 'Info not known. Answer with care'.\n"
                     "snapshot_summary: 2-3 sentences on what the asset is and where it "
                     "trades now.\n"
@@ -248,7 +247,7 @@ async def write_reply(
                     "You are the Hedging Strategy Agent of StopLoss answering a follow-up in an "
                     "ongoing analysis thread. Answer directly in concise GitHub-flavored markdown "
                     "(short paragraphs or bullets, max ~180 words).\n"
-                    f"{GROUNDING_PROMPT}\n{RULES}"
+                    f"{RULES}"
                 ),
                 HumanMessage(
                     json.dumps(

@@ -7,7 +7,7 @@ import type { HoldingRow, PortfolioTotals } from "@/components/portfolio/usePort
 
 export function PortfolioSummary({ totals, holdings, loading }: { totals: PortfolioTotals; holdings: number; loading: boolean }) {
   const tile = (label: string, body: React.ReactNode, note?: string) => (
-    <div className="bg-white px-4 py-3">
+    <div className="bg-white px-4 py-4 transition-colors hover:bg-canvas">
       <p className="font-mono text-2xs uppercase tracking-widest text-muted">{label}</p>
       <div className="mt-1">{loading ? <Skeleton className="h-6 w-28" /> : body}</div>
       {note && <p className="mt-0.5 font-mono text-2xs text-muted">{note}</p>}
@@ -17,19 +17,19 @@ export function PortfolioSummary({ totals, holdings, loading }: { totals: Portfo
     <div className="grid grid-cols-2 gap-px border border-line bg-line lg:grid-cols-4" data-testid="portfolio-summary">
       {tile(
         "Market value",
-        <p className="num text-xl font-bold text-ink">{formatPrice(totals.value, "INR", 0)}</p>,
+        <p className="num text-2xl font-bold tracking-tight text-ink">{formatPrice(totals.value, "INR", 0)}</p>,
         totals.pricedHoldings < holdings ? `${holdings - totals.pricedHoldings} holding(s) without a live price` : undefined,
       )}
       {tile(
         "Day change",
-        <p className={cn("num text-xl font-bold", signClass(totals.dayChange))}>
+        <p className={cn("num text-2xl font-bold tracking-tight", signClass(totals.dayChange))}>
           {totals.dayChange !== undefined ? `${totals.dayChange >= 0 ? "+" : "−"}${formatPrice(Math.abs(totals.dayChange), "INR", 0)}` : "—"}
           <span className="ml-2 text-xs">{formatPct(totals.dayChangePct)}</span>
         </p>,
       )}
       {tile(
         "Unrealized P&L",
-        <p className={cn("num text-xl font-bold", signClass(totals.pnl))}>
+        <p className={cn("num text-2xl font-bold tracking-tight", signClass(totals.pnl))}>
           {totals.pnl !== undefined ? `${totals.pnl >= 0 ? "+" : "−"}${formatPrice(Math.abs(totals.pnl), "INR", 0)}` : "—"}
           {totals.pnl !== undefined && totals.costBasis ? (
             <span className="ml-2 text-xs">{formatPct((totals.pnl / totals.costBasis) * 100)}</span>
@@ -39,7 +39,7 @@ export function PortfolioSummary({ totals, holdings, loading }: { totals: Portfo
           ? `Based on ${totals.costedHoldings} of ${holdings} holdings with a buy price`
           : undefined,
       )}
-      {tile("Holdings", <p className="num text-xl font-bold text-ink">{holdings}</p>, "NSE equities")}
+      {tile("Stocks held", <p className="num text-2xl font-bold tracking-tight text-ink">{holdings}</p>, "NSE equities")}
     </div>
   );
 }

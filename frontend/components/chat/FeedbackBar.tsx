@@ -6,7 +6,8 @@ import { deleteFeedback, submitFeedback } from "@/lib/chat/api";
 import { Button, cn } from "@/components/ui/primitives";
 import type { FeedbackState } from "@/lib/chat/types";
 
-const TAGS = ["Accurate", "Helpful", "Too vague", "Outdated data", "Wrong asset", "Risky advice"] as const;
+const POSITIVE_TAGS = ["Accurate", "Helpful"] as const;
+const NEGATIVE_TAGS = ["Too vague", "Outdated data", "Wrong asset", "Risky advice"] as const;
 
 interface Props {
   threadId: string | null;
@@ -27,6 +28,10 @@ export default function FeedbackBar({ threadId, messageId, feedback, onChange }:
     setRating(value);
     setEditing(true);
     setError(null);
+    setTags((prev) => {
+      const allowed = (value === "up" ? POSITIVE_TAGS : NEGATIVE_TAGS) as readonly string[];
+      return prev.filter((t) => allowed.includes(t));
+    });
   };
 
   const save = async () => {
@@ -106,11 +111,16 @@ export default function FeedbackBar({ threadId, messageId, feedback, onChange }:
             );
           })}
         </div>
+        {editing && rating && (
+          <span className="ml-1 font-mono text-2xs italic text-muted">
+            {rating === "up" ? "Positive feedback" : "Negative feedback"}
+          </span>
+        )}
       </div>
       {editing && rating && (
         <div className="mt-2 space-y-2">
           <div role="group" aria-label="Feedback tags" className="flex flex-wrap gap-1.5">
-            {TAGS.map((tag) => {
+            {(rating === "up" ? POSITIVE_TAGS : NEGATIVE_TAGS).map((tag) => {
               const on = tags.includes(tag);
               return (
                 <button

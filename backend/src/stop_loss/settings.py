@@ -47,7 +47,7 @@ class TerminalSettings(Settings):
     terminal_macro_series: list[str] = Field(default_factory=lambda: ["INDCPIALLMINMEI", "DGS10"])
     # yfinance market series for India: USD/INR, Brent crude, India VIX, NIFTY Bank.
     terminal_market_macro: list[str] = Field(
-        default_factory=lambda: ["INR=X", "BZ=F", "^INDIAVIX", "^NSEBANK"]
+        default_factory=lambda: ["INR=X", "BZ=F", "^INDIAVIX", "^NSEBANK", "CL=F", "NG=F"]
     )
     feed_indian_tickers: list[str] = Field(
         default_factory=lambda: [
@@ -73,3 +73,5 @@ class TerminalSettings(Settings):
 @lru_cache
 def get_terminal_settings() -> TerminalSettings:
     return TerminalSettings()
+# Reloaded model config
+
