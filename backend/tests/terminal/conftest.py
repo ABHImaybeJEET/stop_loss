@@ -23,6 +23,7 @@ def settings(tmp_path: Path) -> TerminalSettings:
         dead_letter_path=tmp_path / "dead_letters.jsonl",
         conversation_db_path=tmp_path / "conversations.sqlite",
         feedback_db_path=tmp_path / "feedback.sqlite",
+        runs_db_path=tmp_path / "runs.sqlite",
         langsmith_tracing=False,
         langsmith_api_key=None,
         openai_api_key=None,

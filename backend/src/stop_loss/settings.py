@@ -28,6 +28,7 @@ class TerminalSettings(Settings):
     api_internal_token: SecretStr | None = None
     conversation_db_path: Path = Path("data/conversations.sqlite")
     feedback_db_path: Path = Path("data/feedback.sqlite")
+    runs_db_path: Path = Path("data/runs.sqlite")
     # Bulk datasets (repo-level data/processed) and the backfill checkpoint file.
     datasets_dir: Path = Path("../data/processed")
     backfill_progress_path: Path = Path("data/backfill_progress.sqlite")

@@ -1,5 +1,6 @@
 """Owns provider clients, the checkpointer and the compiled graph; streams run events."""
 
+import logging
 from collections.abc import AsyncIterator
 from contextlib import AsyncExitStack
 from typing import Any
@@ -12,11 +13,13 @@ from langgraph.checkpoint.sqlite.aio import AsyncSqliteSaver
 
 from fin_terminal.config import secret_value
 from fin_terminal.evidence import EvidenceLog
+from stop_loss.agents.event_stream import GraphEventTranslator
 from stop_loss.agents.graph import build_analysis_graph
 from stop_loss.agents.llm import build_agent_models
 from stop_loss.agents.models import AGENTS, ChatRequest
 from stop_loss.agents.nodes import Toolkit
 from stop_loss.agents.reporting import now_iso
+from stop_loss.agents.run_events import RunEvent, RunStarted
 from stop_loss.agents.state import PER_RUN_KEYS
 from stop_loss.analytics.hazards import HazardClient
 from stop_loss.analytics.macro import MacroClient
@@ -25,6 +28,8 @@ from stop_loss.analytics.weather import WeatherClient
 from stop_loss.analytics.yahoo import YahooFinanceClient
 from stop_loss.retrieval.search import HistoricalRetriever
 from stop_loss.settings import TerminalSettings
+
+logger = logging.getLogger("stop_loss.agents")
 
 
 class AnalysisService:
@@ -79,11 +84,7 @@ class AnalysisService:
     ) -> AsyncIterator[dict[str, Any]]:
         if self.graph is None:
             await self.start()
-        trace_id = uuid4()
-        tracing = bool(
-            self.settings.langsmith_tracing and secret_value(self.settings.langsmith_api_key)
-        )
-        langsmith_run_id = str(trace_id) if tracing else None
+        graph, inputs, config, langsmith_run_id = self._prepare(request, user_id, run_id)
         yield {
             "type": "run_started",
             "run_id": run_id,
@@ -102,6 +103,49 @@ class AnalysisService:
                 "status": "queued",
                 "message": "Queued",
             }
+        async for chunk in graph.astream(inputs, config, stream_mode="custom"):
+            if isinstance(chunk, dict):
+                yield chunk
+
+    async def stream_events(
+        self, request: ChatRequest, *, user_id: str, run_id: str
+    ) -> AsyncIterator[RunEvent]:
+        """Same run as `stream`, observed through `astream_events` as typed node lifecycle
+        events. Always ends with exactly one `final_answer`."""
+        if self.graph is None:
+            await self.start()
+        graph, inputs, config, langsmith_run_id = self._prepare(request, user_id, run_id)
+        yield RunStarted(
+            run_id=run_id,
+            ts=now_iso(),
+            mode=request.mode,
+            thread_id=request.thread_id,
+            message_id=request.message_id,
+            label="PORTFOLIO" if request.mode == "portfolio" else request.asset.symbol,
+            langsmith_run_id=langsmith_run_id,
+            llm_enabled=self.llm_enabled,
+            nodes=[agent_id for agent_id, _, _ in AGENTS],
+        )
+        translator = GraphEventTranslator(run_id, request.mode)
+        try:
+            async for event in graph.astream_events(inputs, config, version="v2"):
+                for out in translator.translate(event):
+                    yield out
+        except Exception as exc:  # noqa: BLE001 - a raising node ends the run, not the server
+            logger.exception("run %s failed", run_id)
+            for out in translator.fail(exc):
+                yield out
+            return
+        yield translator.finish()
+
+    def _prepare(
+        self, request: ChatRequest, user_id: str, run_id: str
+    ) -> tuple[Any, dict[str, Any], dict[str, Any], str | None]:
+        trace_id = uuid4()
+        tracing = bool(
+            self.settings.langsmith_tracing and secret_value(self.settings.langsmith_api_key)
+        )
+        langsmith_run_id = str(trace_id) if tracing else None
         portfolio = request.mode == "portfolio"
         asset = None if portfolio else request.asset.model_dump()
         holdings = [h.model_dump() for h in request.holdings] if portfolio else None
@@ -135,9 +179,7 @@ class AnalysisService:
             "configurable": {"thread_id": f"{user_id}:{request.thread_id}"},
         }
         graph = self.portfolio_graph if portfolio else self.graph
-        async for chunk in graph.astream(inputs, config, stream_mode="custom"):
-            if isinstance(chunk, dict):
-                yield chunk
+        return graph, inputs, config, langsmith_run_id
 
     async def aclose(self) -> None:
         await self.kit.yahoo.aclose()
