@@ -4,7 +4,9 @@ init                      create/verify the serverless index (cosine, EMBEDDING_
 stats                     vector counts per namespace
 count   --source S        how many records a backfill would index (no embedding/upsert)
 backfill --source S       embed on the local GPU and upsert (resumable; --reset to restart)
-search  "text"            semantic search over the history namespace
+search  "text"            semantic search over the history + live namespaces
+live    [--seconds N]     continuous live ingestion into the live namespace (Ctrl+C stops)
+latency                   one probe poll per live source → docs/latency_report.md
 purge   --yes             delete the history namespace + backfill bookkeeping (re-index)
         --source S        ...or only one dataset's vectors (by stored ids)
 """
@@ -14,6 +16,7 @@ import asyncio
 import json
 import logging
 import sys
+import time
 from collections.abc import Iterator
 
 from fin_terminal.embeddings import LazyEmbeddings
@@ -23,7 +26,10 @@ from fin_terminal.vectorstore.pinecone import PineconeVectorAdapter
 from fin_terminal.vectorstore.pinecone_control import ensure_index
 from stop_loss.retrieval import datasets
 from stop_loss.retrieval.backfill import Backfill, BackfillStats, Progress
+from stop_loss.retrieval.latency import render_report
+from stop_loss.retrieval.live import LiveIngestor, RecordTiming, default_sources, live_clients
 from stop_loss.retrieval.search import HistoricalRetriever
+from stop_loss.retrieval.source_health import SourceHealthStore
 from stop_loss.settings import TerminalSettings, get_terminal_settings
 
 DOC_TYPES = ("news", "company", "cyclone", "earthquake")
@@ -145,7 +151,10 @@ async def cmd_purge(settings: TerminalSettings) -> None:
 async def cmd_search(settings: TerminalSettings, args: argparse.Namespace) -> None:
     adapter = adapter_for(settings)
     retriever = HistoricalRetriever(
-        LazyEmbeddings(settings), adapter, settings.pinecone_history_namespace
+        LazyEmbeddings(settings),
+        adapter,
+        settings.pinecone_history_namespace,
+        settings.pinecone_live_namespace,
     )
     try:
         hits = await retriever.search(
@@ -162,9 +171,105 @@ async def cmd_search(settings: TerminalSettings, args: argparse.Namespace) -> No
     for hit in hits:
         meta = hit.metadata
         print(
-            f"{hit.score:.3f}  [{meta.get('doc_type')}] {meta.get('year', '')}  "
+            f"{hit.score:.3f}  {hit.namespace:<8} [{meta.get('doc_type')}] {meta.get('year', '')}  "
             f"{(meta.get('title') or hit.text)[:110]}"
         )
+
+
+async def cmd_live(settings: TerminalSettings, seconds: float | None) -> None:
+    adapter = adapter_for(settings)
+    store = DocumentStore(settings.database_path)
+    health = SourceHealthStore(
+        settings.source_health_db_path, down_after=settings.live_down_after_failures
+    )
+    news, hazards, weather = live_clients(settings)
+    ingestor = LiveIngestor(
+        settings,
+        embedder=LazyEmbeddings(settings),
+        adapter=adapter,
+        store=store,
+        health=health,
+        sources=default_sources(settings, news, hazards, weather),
+        namespace=settings.pinecone_live_namespace,
+    )
+    try:
+        await ingestor.run(duration_seconds=seconds)
+    finally:
+        for snap in health.snapshot():
+            print(
+                f"  {snap.source:<8} {snap.status:<9} indexed={snap.records_indexed} "
+                f"last_error={snap.last_error or '-'}"
+            )
+        await asyncio.gather(news.aclose(), hazards.aclose(), weather.aclose(), adapter.close())
+        store.close()
+        health.close()
+
+
+async def cmd_latency(settings: TerminalSettings, per_source: int) -> None:
+    """Fresh writes only: a scratch namespace (emptied first and after), no dedupe, its own
+    health file so the real live loop's health is untouched."""
+    scratch = f"{settings.pinecone_live_namespace}-latency"
+    adapter = adapter_for(settings)
+    health = SourceHealthStore(
+        settings.source_health_db_path.with_name("source_health_latency.sqlite")
+    )
+    news, hazards, weather = live_clients(settings)
+    embedder = LazyEmbeddings(settings)
+    timings: list[RecordTiming] = []
+    sources = default_sources(settings, news, hazards, weather)
+    ingestor = LiveIngestor(
+        settings,
+        embedder=embedder,
+        adapter=adapter,
+        store=None,
+        health=health,
+        sources=sources,
+        namespace=scratch,
+        measure_visibility=True,
+        on_timing=timings.append,
+        limit_per_poll=per_source,
+    )
+    try:
+        await ingestor.ensure_semantic()
+        await embedder.embed_batch(["warm-up"])  # model load is not ingestion latency
+        await adapter.delete_namespace(scratch)
+        round_trip: list[float] = []
+        for _ in range(10):
+            t0 = time.perf_counter()
+            await adapter.stats()
+            round_trip.append((time.perf_counter() - t0) * 1000)
+        started = time.perf_counter()
+        results: list[int | BaseException] = []
+        for source in sources:  # one at a time: probe traffic never overlaps a measured write
+            try:
+                results.append(await ingestor.poll(source))
+            except Exception as exc:  # noqa: BLE001 - reported in the latency report
+                results.append(exc)
+        duration = time.perf_counter() - started
+        failures = {
+            s.name: f"{type(r).__name__}: {getattr(r, 'code', '') or r}"[:200]
+            for s, r in zip(sources, results, strict=True)
+            if isinstance(r, BaseException)
+        }
+        model = type(embedder.model).__name__
+        report = render_report(
+            timings,
+            embedder=f"{model} ({settings.embedding_model_name})",
+            namespace=scratch,
+            failures=failures,
+            duration_seconds=duration,
+            microbatch=settings.live_microbatch,
+            round_trip_ms=round_trip,
+        )
+        settings.latency_report_path.parent.mkdir(parents=True, exist_ok=True)
+        settings.latency_report_path.write_text(report, encoding="utf-8", newline="\n")
+        print(f"wrote {settings.latency_report_path.resolve()}")
+    finally:
+        try:
+            await adapter.delete_namespace(scratch)
+        finally:
+            await asyncio.gather(news.aclose(), hazards.aclose(), weather.aclose(), adapter.close())
+            health.close()
 
 
 def main() -> int:
@@ -193,8 +298,17 @@ def main() -> int:
     s.add_argument("--year-to", type=int)
     s.add_argument("--region", action="append", help='e.g. "Gulf of Mexico", "Bay of Bengal"')
     s.add_argument("--min-category", type=int, help="cyclones: Saffir-Simpson equivalent")
+    live = sub.add_parser("live")
+    live.add_argument("--seconds", type=float, default=None, help="stop after N seconds")
+    lat = sub.add_parser("latency")
+    lat.add_argument("--per-source", type=int, default=24, help="records measured per source")
     args = parser.parse_args()
-    logging.basicConfig(level=logging.WARNING)
+    logging.basicConfig(
+        level=logging.INFO if args.command == "live" else logging.WARNING,
+        format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+    )
+    for noisy in ("httpx", "httpcore"):
+        logging.getLogger(noisy).setLevel(logging.WARNING)
     settings = pinecone_settings()
     sources = list(datasets.SOURCES) if getattr(args, "source", "all") == "all" else [args.source]
 
@@ -221,6 +335,13 @@ def main() -> int:
             asyncio.run(cmd_purge(settings))
     elif args.command == "search":
         asyncio.run(cmd_search(settings, args))
+    elif args.command == "live":
+        try:
+            asyncio.run(cmd_live(settings, args.seconds))
+        except KeyboardInterrupt:
+            print("stopped")
+    elif args.command == "latency":
+        asyncio.run(cmd_latency(settings, args.per_source))
     return 0
 
 

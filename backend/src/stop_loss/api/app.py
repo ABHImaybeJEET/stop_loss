@@ -17,13 +17,18 @@ from fin_terminal.connectors.errors import ConnectorError
 from fin_terminal.resilience import CircuitOpenError, RateLimitedError
 from fin_terminal.schemas import EvidenceLogEntry
 from stop_loss.agents.models import ChatRequest
+from stop_loss.agents.run_events import RunRecord
 from stop_loss.agents.service import AnalysisService
 from stop_loss.analytics.http import Cached
 from stop_loss.analytics.yahoo import VALID_INTERVALS, VALID_RANGES, SymbolNotFoundError
 from stop_loss.api.feedback import FeedbackIn, FeedbackOut, FeedbackStore
+from stop_loss.api.graph_runs import GraphRunRegistry
 from stop_loss.api.newsfeed import build_feed
 from stop_loss.api.portfolio import PortfolioData, parse_holdings, parse_symbols
+from stop_loss.api.run_store import RunStore
 from stop_loss.api.runs import Run, RunRegistry, ThreadBusyError
+from stop_loss.retrieval.live import source_intervals
+from stop_loss.retrieval.source_health import SourceHealth, SourceHealthStore
 from stop_loss.settings import TerminalSettings, get_terminal_settings
 from stop_loss.symbols import is_nse_symbol, nse_symbol
 
@@ -38,7 +43,12 @@ def create_app(
     settings = settings or get_terminal_settings()
     service = service or AnalysisService(settings)
     registry = RunRegistry(service, settings)
+    run_store = RunStore(settings.runs_db_path)
+    graph_runs = GraphRunRegistry(service, settings, run_store)
     feedback = FeedbackStore(settings.feedback_db_path)
+    source_health = SourceHealthStore(
+        settings.source_health_db_path, down_after=settings.live_down_after_failures
+    )
     feed_cache = Cached(300)
     token = secret_value(settings.api_internal_token)
 
@@ -47,8 +57,11 @@ def create_app(
         await service.start()
         yield
         await registry.aclose()
+        await graph_runs.aclose()
         await service.aclose()
         feedback.close()
+        run_store.close()
+        source_health.close()
 
     app = FastAPI(title="StopLoss Terminal API", version="0.2.0", lifespan=lifespan)
 
@@ -94,6 +107,21 @@ def create_app(
             if service.llm_enabled
             else None,
         }
+
+    @app.get("/health/sources", dependencies=[Depends(internal)])
+    async def health_sources() -> dict[str, Any]:
+        """Live-ingestion source health (written by `stop-loss-vectors live`). A source the
+        loop has never run is reported down, never assumed healthy."""
+        known = {h.source: h for h in await asyncio.to_thread(source_health.snapshot)}
+        sources = [
+            known.get(name)
+            or SourceHealth(
+                source=name, status="down", last_error="never_run", interval_seconds=interval
+            )
+            for name, interval in source_intervals(settings).items()
+        ]
+        sources += [h for name, h in known.items() if name not in source_intervals(settings)]
+        return {"sources": [s.model_dump() for s in sources]}
 
     @app.get("/assets/search", dependencies=[Depends(internal)])
     async def search(
@@ -184,10 +212,10 @@ def create_app(
             feed_cache.put("feed", feed)
         return feed
 
-    def sse(run: Run, after: int) -> StreamingResponse:
+    def sse(run: Run, after: int, source: RunRegistry = registry) -> StreamingResponse:
         async def body() -> AsyncIterator[str]:
             yield f": run {run.run_id}\n\n"
-            async for event in registry.subscribe(run, after):
+            async for event in source.subscribe(run, after):
                 if event is None:
                     yield ": ping\n\n"
                     continue
@@ -196,15 +224,42 @@ def create_app(
 
         return StreamingResponse(body(), media_type="text/event-stream", headers=SSE_HEADERS)
 
+    def start_run(source: RunRegistry, request: ChatRequest, user_id: str) -> Run:
+        # Both registries drive the same checkpointed thread: one active run per thread.
+        for other in (registry, graph_runs):
+            busy = other.active_for_thread(user_id, request.thread_id)
+            if other is not source and busy is not None:
+                raise ThreadBusyError(busy)
+        return source.start(request, user_id)
+
     @app.post("/chat")
     async def chat(request: ChatRequest, user_id: Annotated[str, Depends(user)]):
         try:
-            run = registry.start(request, user_id)
+            run = start_run(registry, request, user_id)
         except ThreadBusyError as busy:
             raise HTTPException(
                 status_code=409, detail={"code": "thread_busy", "run_id": busy.run.run_id}
             ) from None
         return sse(run, -1)
+
+    @app.post("/runs")
+    async def start_graph_run(request: ChatRequest, user_id: Annotated[str, Depends(user)]):
+        """Ticker or portfolio run streamed as typed node lifecycle events (run_events.py)."""
+        try:
+            run = start_run(graph_runs, request, user_id)
+        except ThreadBusyError as busy:
+            raise HTTPException(
+                status_code=409, detail={"code": "thread_busy", "run_id": busy.run.run_id}
+            ) from None
+        return sse(run, -1, graph_runs)
+
+    @app.get("/runs/{run_id}")
+    async def replay_run(run_id: str, user_id: Annotated[str, Depends(user)]) -> RunRecord:
+        """Persisted run with every event in order (also works while the run is live)."""
+        record = await asyncio.to_thread(run_store.get, run_id, user_id)
+        if record is None:
+            raise HTTPException(status_code=404, detail="run_not_found")
+        return record
 
     def owned(run_id: str, user_id: str) -> Run:
         run = registry.get(run_id, user_id)

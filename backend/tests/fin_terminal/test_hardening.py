@@ -22,12 +22,12 @@ def test_live_missing_credentials_are_unavailable(settings):
     assert asyncio.run(connectors["macro"].health_check()).status == "failed"
 
 
-
-
 def test_grounding_rejects_unsourced_and_marks_stale_without_inventing(document):
     cache = LastGoodCache()
     assert cache.read("news", 10).status == "unavailable"
-    invalid = document.model_copy(update={"source_url": None, "raw_reference": None, "content_hash": ""})
+    invalid = document.model_copy(
+        update={"source_url": None, "raw_reference": None, "content_hash": ""}
+    )
     with pytest.raises(ValueError):
         require_provenance(invalid)
     cache.update("news", [document])
@@ -37,5 +37,3 @@ def test_grounding_rejects_unsourced_and_marks_stale_without_inventing(document)
     assert snapshot.records[0].text == document.text
     with pytest.raises(ValueError):
         ToolSnapshot(source="news", status="unavailable", records=[document])
-
-

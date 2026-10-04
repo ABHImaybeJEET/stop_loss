@@ -1,0 +1,863 @@
+{
+  "$defs": {
+    "AuditStep": {
+      "additionalProperties": false,
+      "properties": {
+        "agent": {
+          "title": "Agent",
+          "type": "string"
+        },
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string"
+        },
+        "summary": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Summary"
+        }
+      },
+      "required": [
+        "agent",
+        "name",
+        "status"
+      ],
+      "title": "AuditStep",
+      "type": "object"
+    },
+    "AuditTrail": {
+      "additionalProperties": false,
+      "properties": {
+        "checked_numbers": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Checked Numbers"
+        },
+        "failed_agents": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Failed Agents",
+          "type": "array"
+        },
+        "nodes": {
+          "items": {
+            "$ref": "#/$defs/NodeAudit"
+          },
+          "title": "Nodes",
+          "type": "array"
+        },
+        "partial": {
+          "default": false,
+          "title": "Partial",
+          "type": "boolean"
+        },
+        "steps": {
+          "items": {
+            "$ref": "#/$defs/AuditStep"
+          },
+          "title": "Steps",
+          "type": "array"
+        },
+        "trust_score": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Trust Score"
+        },
+        "unverified_numbers": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Unverified Numbers",
+          "type": "array"
+        }
+      },
+      "title": "AuditTrail",
+      "type": "object"
+    },
+    "EvidenceItem": {
+      "additionalProperties": false,
+      "properties": {
+        "agent": {
+          "enum": [
+            "coordinator",
+            "market",
+            "news",
+            "impact",
+            "analogs",
+            "quant",
+            "hedging",
+            "audit"
+          ],
+          "title": "Agent",
+          "type": "string"
+        },
+        "display": {
+          "title": "Display",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "observed_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Observed At"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "id",
+        "agent",
+        "label",
+        "value",
+        "display",
+        "source"
+      ],
+      "title": "EvidenceItem",
+      "type": "object"
+    },
+    "FinalAnswer": {
+      "additionalProperties": false,
+      "properties": {
+        "audit_trail": {
+          "$ref": "#/$defs/AuditTrail"
+        },
+        "citations": {
+          "items": {
+            "$ref": "#/$defs/EvidenceItem"
+          },
+          "title": "Citations",
+          "type": "array"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        },
+        "result_kind": {
+          "anyOf": [
+            {
+              "enum": [
+                "analysis",
+                "reply",
+                "portfolio"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Result Kind"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "seq": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Seq",
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "no_result",
+            "failed",
+            "cancelled"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Text"
+        },
+        "ts": {
+          "title": "Ts",
+          "type": "string"
+        },
+        "type": {
+          "const": "final_answer",
+          "default": "final_answer",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "run_id",
+        "ts",
+        "status"
+      ],
+      "title": "FinalAnswer",
+      "type": "object"
+    },
+    "InputsSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "asset": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Asset"
+        },
+        "holdings": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Holdings"
+        },
+        "mode": {
+          "enum": [
+            "ticker",
+            "portfolio"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "prompt_chars": {
+          "title": "Prompt Chars",
+          "type": "integer"
+        },
+        "upstream": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Upstream",
+          "type": "object"
+        }
+      },
+      "required": [
+        "mode",
+        "prompt_chars"
+      ],
+      "title": "InputsSummary",
+      "type": "object"
+    },
+    "NodeAudit": {
+      "additionalProperties": false,
+      "properties": {
+        "duration_ms": {
+          "title": "Duration Ms",
+          "type": "number"
+        },
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "node": {
+          "enum": [
+            "coordinator",
+            "market",
+            "news",
+            "impact",
+            "analogs",
+            "quant",
+            "hedging",
+            "audit"
+          ],
+          "title": "Node",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "degraded",
+            "skipped"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "node",
+        "status",
+        "duration_ms"
+      ],
+      "title": "NodeAudit",
+      "type": "object"
+    },
+    "NodeError": {
+      "additionalProperties": false,
+      "properties": {
+        "degraded": {
+          "title": "Degraded",
+          "type": "boolean"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        },
+        "node": {
+          "enum": [
+            "coordinator",
+            "market",
+            "news",
+            "impact",
+            "analogs",
+            "quant",
+            "hedging",
+            "audit"
+          ],
+          "title": "Node",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "seq": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Seq",
+          "type": "integer"
+        },
+        "ts": {
+          "title": "Ts",
+          "type": "string"
+        },
+        "type": {
+          "const": "node_error",
+          "default": "node_error",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "run_id",
+        "ts",
+        "node",
+        "degraded"
+      ],
+      "title": "NodeError",
+      "type": "object"
+    },
+    "NodeFinished": {
+      "additionalProperties": false,
+      "properties": {
+        "duration_ms": {
+          "title": "Duration Ms",
+          "type": "number"
+        },
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "node": {
+          "enum": [
+            "coordinator",
+            "market",
+            "news",
+            "impact",
+            "analogs",
+            "quant",
+            "hedging",
+            "audit"
+          ],
+          "title": "Node",
+          "type": "string"
+        },
+        "outputs_summary": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Outputs Summary",
+          "type": "object"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "seq": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Seq",
+          "type": "integer"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/SourceRef"
+          },
+          "title": "Sources",
+          "type": "array"
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "degraded",
+            "skipped"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "ts": {
+          "title": "Ts",
+          "type": "string"
+        },
+        "type": {
+          "const": "node_finished",
+          "default": "node_finished",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "run_id",
+        "ts",
+        "node",
+        "duration_ms",
+        "status"
+      ],
+      "title": "NodeFinished",
+      "type": "object"
+    },
+    "NodeStarted": {
+      "additionalProperties": false,
+      "properties": {
+        "inputs_summary": {
+          "$ref": "#/$defs/InputsSummary"
+        },
+        "node": {
+          "enum": [
+            "coordinator",
+            "market",
+            "news",
+            "impact",
+            "analogs",
+            "quant",
+            "hedging",
+            "audit"
+          ],
+          "title": "Node",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "seq": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Seq",
+          "type": "integer"
+        },
+        "ts": {
+          "title": "Ts",
+          "type": "string"
+        },
+        "type": {
+          "const": "node_started",
+          "default": "node_started",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "run_id",
+        "ts",
+        "node",
+        "inputs_summary"
+      ],
+      "title": "NodeStarted",
+      "type": "object"
+    },
+    "RunRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "events": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "final_answer": "#/$defs/FinalAnswer",
+                "node_error": "#/$defs/NodeError",
+                "node_finished": "#/$defs/NodeFinished",
+                "node_started": "#/$defs/NodeStarted",
+                "run_started": "#/$defs/RunStarted"
+              },
+              "propertyName": "type"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/RunStarted"
+              },
+              {
+                "$ref": "#/$defs/NodeStarted"
+              },
+              {
+                "$ref": "#/$defs/NodeFinished"
+              },
+              {
+                "$ref": "#/$defs/NodeError"
+              },
+              {
+                "$ref": "#/$defs/FinalAnswer"
+              }
+            ]
+          },
+          "title": "Events",
+          "type": "array"
+        },
+        "finished_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Finished At"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "message_id": {
+          "title": "Message Id",
+          "type": "string"
+        },
+        "mode": {
+          "enum": [
+            "ticker",
+            "portfolio"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "started_at": {
+          "title": "Started At",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "running",
+            "completed",
+            "no_result",
+            "failed",
+            "cancelled"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "thread_id": {
+          "title": "Thread Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "run_id",
+        "mode",
+        "thread_id",
+        "message_id",
+        "label",
+        "status",
+        "started_at"
+      ],
+      "title": "RunRecord",
+      "type": "object"
+    },
+    "RunStarted": {
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "langsmith_run_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Langsmith Run Id"
+        },
+        "llm_enabled": {
+          "title": "Llm Enabled",
+          "type": "boolean"
+        },
+        "message_id": {
+          "title": "Message Id",
+          "type": "string"
+        },
+        "mode": {
+          "enum": [
+            "ticker",
+            "portfolio"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "nodes": {
+          "items": {
+            "enum": [
+              "coordinator",
+              "market",
+              "news",
+              "impact",
+              "analogs",
+              "quant",
+              "hedging",
+              "audit"
+            ],
+            "type": "string"
+          },
+          "title": "Nodes",
+          "type": "array"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "seq": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Seq",
+          "type": "integer"
+        },
+        "thread_id": {
+          "title": "Thread Id",
+          "type": "string"
+        },
+        "ts": {
+          "title": "Ts",
+          "type": "string"
+        },
+        "type": {
+          "const": "run_started",
+          "default": "run_started",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "run_id",
+        "ts",
+        "mode",
+        "thread_id",
+        "message_id",
+        "label",
+        "llm_enabled",
+        "nodes"
+      ],
+      "title": "RunStarted",
+      "type": "object"
+    },
+    "SourceRef": {
+      "additionalProperties": false,
+      "properties": {
+        "published_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Published At"
+        },
+        "publisher": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Publisher"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Title"
+        },
+        "url": {
+          "title": "Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "url"
+      ],
+      "title": "SourceRef",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "discriminator": {
+    "mapping": {
+      "final_answer": "#/$defs/FinalAnswer",
+      "node_error": "#/$defs/NodeError",
+      "node_finished": "#/$defs/NodeFinished",
+      "node_started": "#/$defs/NodeStarted",
+      "run_started": "#/$defs/RunStarted"
+    },
+    "propertyName": "type"
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/RunStarted"
+    },
+    {
+      "$ref": "#/$defs/NodeStarted"
+    },
+    {
+      "$ref": "#/$defs/NodeFinished"
+    },
+    {
+      "$ref": "#/$defs/NodeError"
+    },
+    {
+      "$ref": "#/$defs/FinalAnswer"
+    }
+  ],
+  "title": "StopLossRunEvent"
+}

@@ -97,6 +97,7 @@ class AnalogEvent(Wire):
     date: str | None = None
     doc_type: str | None = None
     score: float
+    namespace: str | None = None  # "history" or "live" (Pinecone namespace of the match)
     returns: dict[str, dict[str, float | None]] = Field(default_factory=dict)  # percent
     brent_5d: float | None = None
     nifty_5d: float | None = None

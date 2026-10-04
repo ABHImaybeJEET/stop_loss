@@ -147,4 +147,3 @@ def test_create_connectors_factory(settings: Settings):
     assert isinstance(live_connectors["news_tariff"], LiveNewsConnector)
     assert isinstance(live_connectors["news_banktax"], LiveNewsConnector)
     assert isinstance(live_connectors["news_war"], LiveNewsConnector)
-

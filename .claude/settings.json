@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./data/**)",
+      "Read(./backend/data/**)",
+      "Read(**/*.csv)",
+      "Read(**/*.parquet)",
+      "Read(**/*.db)",
+      "Read(**/*.sqlite)",
+      "Read(**/*.jsonl)",
+      "Read(./backend/tests/fixtures/terminal/yahoo_chart_reliance_5y_1d.json)",
+      "Read(./frontend/package-lock.json)",
+      "Read(./backend/uv.lock)",
+      "Read(**/node_modules/**)",
+      "Read(**/.venv/**)",
+      "Read(**/.venv-scaffold/**)",
+      "Read(./.uv-cache/**)"
+    ]
+  }
+}
