@@ -91,7 +91,7 @@ class NseUniverse:
         }
         self._companies: dict[str, Company] = {}
         for symbol in sorted(s for s in symbols if is_nse_symbol(s)):
-            info = {**_present(cleaned_data.get(symbol) or {}), **_present(yfinance_data.get(symbol) or {})}
+            info = _present(yfinance_data.get(symbol) or {})
             self._companies[symbol] = _company(symbol, info)
 
     def __len__(self) -> int:
