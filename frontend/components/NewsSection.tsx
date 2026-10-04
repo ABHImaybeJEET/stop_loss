@@ -524,4 +524,3 @@ export default function NewsSection() {
     </section>
   );
 }
->>>>>>> Stashed changes
