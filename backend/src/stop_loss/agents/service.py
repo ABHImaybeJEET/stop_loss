@@ -59,6 +59,7 @@ class AnalysisService:
         self._checkpointer = checkpointer
         self._stack = AsyncExitStack()
         self.graph: Any = None
+        self.portfolio_graph: Any = None
 
     @property
     def llm_enabled(self) -> bool:
@@ -71,6 +72,7 @@ class AnalysisService:
                 AsyncSqliteSaver.from_conn_string(str(self.settings.conversation_db_path))
             )
         self.graph = build_analysis_graph(self.kit, self._checkpointer)
+        self.portfolio_graph = build_analysis_graph(self.kit, self._checkpointer, portfolio=True)
 
     async def stream(
         self, request: ChatRequest, *, user_id: str, run_id: str
@@ -100,12 +102,13 @@ class AnalysisService:
                 "status": "queued",
                 "message": "Queued",
             }
-        asset = request.asset.model_dump()
+        portfolio = request.mode == "portfolio"
+        asset = None if portfolio else request.asset.model_dump()
+        holdings = [h.model_dump() for h in request.holdings] if portfolio else None
+        label = "PORTFOLIO" if portfolio else asset["symbol"]
         inputs: dict[str, Any] = {
             "messages": [
-                HumanMessage(
-                    content=f"[{asset['symbol']}] {request.prompt}", id=f"{request.message_id}-u"
-                )
+                HumanMessage(content=f"[{label}] {request.prompt}", id=f"{request.message_id}-u")
             ],
             "run_id": run_id,
             "message_id": request.message_id,
@@ -114,11 +117,13 @@ class AnalysisService:
             "user_prompt": request.prompt,
             "asset": asset,
             **{key: None for key in PER_RUN_KEYS},
+            "holdings": holdings,
+            "scope_mode": request.mode,
         }
         config = {
             "run_name": "stoploss-analysis",
             "run_id": trace_id,
-            "tags": ["analysis", f"asset:{asset['symbol']}"],
+            "tags": ["analysis", f"mode:{request.mode}", f"asset:{label}"],
             "metadata": {
                 # "run_id" is reserved by LangGraph checkpoint metadata: reusing it makes a
                 # follow-up run on the same thread silently no-op.
@@ -129,7 +134,8 @@ class AnalysisService:
             # Namespaced by user so one user can never resume another user's thread memory.
             "configurable": {"thread_id": f"{user_id}:{request.thread_id}"},
         }
-        async for chunk in self.graph.astream(inputs, config, stream_mode="custom"):
+        graph = self.portfolio_graph if portfolio else self.graph
+        async for chunk in graph.astream(inputs, config, stream_mode="custom"):
             if isinstance(chunk, dict):
                 yield chunk
 
@@ -147,17 +153,20 @@ class AnalysisService:
             from fin_terminal.vectorstore.pinecone import PineconeVectorAdapter
             from fin_terminal.vectorstore.factory import create_vectorstore
             from fin_terminal.embeddings import LazyEmbeddings
-            
+
             if not secret_value(settings.pinecone_api_key):
                 return None
-                
+
             adapter = create_vectorstore(settings)
             if not isinstance(adapter, PineconeVectorAdapter):
                 return None
-                
+
             embedder = LazyEmbeddings(settings)
             return HistoricalRetriever(embedder, adapter, settings.pinecone_history_namespace)
         except Exception as exc:
             import logging
-            logging.getLogger("stop_loss.agents").warning("Failed to init HistoricalRetriever: %s", exc)
+
+            logging.getLogger("stop_loss.agents").warning(
+                "Failed to init HistoricalRetriever: %s", exc
+            )
             return None

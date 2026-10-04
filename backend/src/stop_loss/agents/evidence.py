@@ -321,9 +321,17 @@ def build_catalog(
                 observed_at=extreme.date,
                 **kw,
             )
-            
+
     if analogs:
-        asset_name = getattr(profile, "long_name", None) if profile else (getattr(market, "name", None) or getattr(market, "symbol", "the asset") if market else "the asset")
+        asset_name = (
+            getattr(profile, "long_name", None)
+            if profile
+            else (
+                getattr(market, "name", None) or getattr(market, "symbol", "the asset")
+                if market
+                else "the asset"
+            )
+        )
         for a in analogs:
             date_str = a.get("published_at") or "unknown date"
             # We must use "analogs" as the AgentId here.
@@ -351,20 +359,57 @@ def build_catalog(
                     source="NSE Historical Pricing",
                     signed=True,
                 )
-                
+
         # Price-impact estimate
         import statistics
+
         f5 = [a["forward_5d"] for a in analogs if a.get("forward_5d") is not None]
         f20 = [a["forward_20d"] for a in analogs if a.get("forward_20d") is not None]
-        
+
         if f5:
-            cat.percent("analogs", f"Historical 5d impact on {asset_name} (Median)", statistics.median(f5), source="NSE Historical Pricing", signed=True)
-            cat.percent("analogs", f"Historical 5d impact on {asset_name} (Range Min)", min(f5), source="NSE Historical Pricing", signed=True)
-            cat.percent("analogs", f"Historical 5d impact on {asset_name} (Range Max)", max(f5), source="NSE Historical Pricing", signed=True)
-            
+            cat.percent(
+                "analogs",
+                f"Historical 5d impact on {asset_name} (Median)",
+                statistics.median(f5),
+                source="NSE Historical Pricing",
+                signed=True,
+            )
+            cat.percent(
+                "analogs",
+                f"Historical 5d impact on {asset_name} (Range Min)",
+                min(f5),
+                source="NSE Historical Pricing",
+                signed=True,
+            )
+            cat.percent(
+                "analogs",
+                f"Historical 5d impact on {asset_name} (Range Max)",
+                max(f5),
+                source="NSE Historical Pricing",
+                signed=True,
+            )
+
         if f20:
-            cat.percent("analogs", f"Historical 20d impact on {asset_name} (Median)", statistics.median(f20), source="NSE Historical Pricing", signed=True)
-            cat.percent("analogs", f"Historical 20d impact on {asset_name} (Range Min)", min(f20), source="NSE Historical Pricing", signed=True)
-            cat.percent("analogs", f"Historical 20d impact on {asset_name} (Range Max)", max(f20), source="NSE Historical Pricing", signed=True)
-                
+            cat.percent(
+                "analogs",
+                f"Historical 20d impact on {asset_name} (Median)",
+                statistics.median(f20),
+                source="NSE Historical Pricing",
+                signed=True,
+            )
+            cat.percent(
+                "analogs",
+                f"Historical 20d impact on {asset_name} (Range Min)",
+                min(f20),
+                source="NSE Historical Pricing",
+                signed=True,
+            )
+            cat.percent(
+                "analogs",
+                f"Historical 20d impact on {asset_name} (Range Max)",
+                max(f20),
+                source="NSE Historical Pricing",
+                signed=True,
+            )
+
     return cat

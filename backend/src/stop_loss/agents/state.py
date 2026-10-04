@@ -15,6 +15,7 @@ PER_RUN_KEYS = (
     "quant",
     "narrative",
     "result",
+    "holdings",
 )
 
 
@@ -35,7 +36,10 @@ class AnalysisState(TypedDict, total=False):
     thread_id: str
     langsmith_run_id: str | None
     user_prompt: str
-    asset: dict[str, Any]
+    asset: dict[str, Any] | None
+    # Portfolio mode: [{symbol, quantity, avg_price, name}] for this run.
+    scope_mode: str
+    holdings: list[dict[str, Any]] | None
     # Per-run agent outputs (JSON-safe dicts so checkpoints stay serializable).
     plan: dict[str, Any] | None
     market: AgentOutput | None

@@ -132,6 +132,7 @@ def clean_company_name(name: str) -> str:
 
 def normalize_citations(text: str) -> str:
     """Normalizes compound citation brackets like [E1, E2], [E1, 10], [E1,2,3] into [E1] [E2] [E3]."""
+
     def _expand(match: re.Match) -> str:
         parts = re.findall(r"E?(\d+)", match.group(1), re.I)
         return " ".join(f"[E{p}]" for p in parts)
@@ -164,7 +165,7 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
         if kit.model_for("coordinator") is not None:
             rep.progress("Classifying intent, horizon and position")
             plan = await plan_query(kit.model_for("coordinator"), prompt, asset, history) or plan
-            
+
         # Always output a full analysis to keep the terminal panels visible.
         plan = plan.model_copy(update={"mode": "analysis"})
         data = plan.model_dump() | {"asset_switched": switched}
@@ -283,17 +284,19 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
         rep = AgentReporter("impact")
         symbol = state["asset"]["symbol"]
         rep.start("Fetching macro snapshot and hazard alerts")
-        
+
         try:
             snapshot = await kit.macro.snapshot()
             flags = ", ".join(f.replace("_", " ") for f in snapshot.flags) or "no flags"
             rep.progress(f"Macro: {len(snapshot.indicators)} indicators · {flags}")
-            kit.log(state, "impact", "macro_done", series=[i.series_id for i in snapshot.indicators])
+            kit.log(
+                state, "impact", "macro_done", series=[i.series_id for i in snapshot.indicators]
+            )
             macro_out = {"status": "ok", "data": snapshot.model_dump(mode="json")}
         except Exception as exc:  # noqa: BLE001
             kit.log(state, "impact", "macro_error", error=short_error(exc))
             macro_out = {"status": "unavailable", "error": short_error(exc)}
-            
+
         try:
             rep.progress("Locating facilities exposed to weather and hazards")
             company = get_universe().get(symbol)
@@ -301,15 +304,15 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
                 points = await exposure_points(company, kit.weather)
             else:
                 points = []
-                
+
             if not points:
                 rep.done("Macro fetched. No facility location known for weather/hazards.")
                 kit.log(state, "impact", "weather_not_applicable")
                 weather_out = {"status": "not_applicable", "data": []}
                 return {"macro": macro_out, "weather": weather_out}
-                
+
             places = [(p.label, p.latitude, p.longitude) for p in points]
-            
+
             rep.progress("Scanning GDACS/USGS for live hazards")
             try:
                 alerts = await kit.hazards.alerts() if kit.hazards else []
@@ -327,7 +330,7 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
                 return_exceptions=True,
             )
             outlooks = [r for r in results if not isinstance(r, BaseException)]
-            
+
             for alert in local_alerts:
                 if not alert.nearby:
                     continue
@@ -336,6 +339,7 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
                     if outlook.location == nearest_label:
                         from stop_loss.analytics.models import WeatherExtreme
                         from stop_loss.agents.reporting import now_iso
+
                         outlook.extremes.append(
                             WeatherExtreme(
                                 date=alert.started_at or now_iso(),
@@ -354,11 +358,20 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
                 weather_out = {"status": "unavailable", "error": "forecast_unavailable"}
             else:
                 extremes = sum(len(o.extremes) for o in outlooks)
-                rep.done(f"Macro done · {len(outlooks)} location(s) · {extremes} extreme(s) / hazard(s)")
-                kit.log(
-                    state, "impact", "weather_done", locations=[o.location for o in outlooks], extremes=extremes
+                rep.done(
+                    f"Macro done · {len(outlooks)} location(s) · {extremes} extreme(s) / hazard(s)"
                 )
-                weather_out = {"status": "ok", "data": [o.model_dump(mode="json") for o in outlooks]}
+                kit.log(
+                    state,
+                    "impact",
+                    "weather_done",
+                    locations=[o.location for o in outlooks],
+                    extremes=extremes,
+                )
+                weather_out = {
+                    "status": "ok",
+                    "data": [o.model_dump(mode="json") for o in outlooks],
+                }
         except Exception as exc:
             kit.log(state, "impact", "weather_error", error=short_error(exc))
             weather_out = {"status": "unavailable", "error": short_error(exc)}
@@ -370,18 +383,18 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
         rep = AgentReporter("analogs")
         asset_ref = AssetRef.model_validate(state["asset"])
         sym = asset_ref.symbol
-        
+
         if not kit.retriever:
             rep.error("Retrieval backend not configured")
             return {"analogs": {"status": "unavailable", "error": "not_configured"}}
-            
+
         try:
             rep.start("Searching historical analogs")
             from stop_loss.analytics.analogs import measure_forward_returns
-            
+
             news_out = _ok(state.get("news"))
             news_items = [NewsItem.model_validate(n) for n in (news_out or [])]
-            
+
             if state.get("user_prompt"):
                 query = state["user_prompt"]
             else:
@@ -392,35 +405,45 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
                 if themes:
                     query_terms.extend(themes)
                 query = " ".join(query_terms)
-                
+
             hits = await kit.retriever.search(query, top_k=5)
             nse_dir = kit.settings.datasets_dir / "nse_historical"
-            
+
             results = []
             for hit in hits:
                 pts = hit.metadata.get("published_ts")
                 if pts:
                     import datetime
-                    date_str = datetime.datetime.fromtimestamp(float(pts), datetime.UTC).strftime("%Y-%m-%d")
+
+                    date_str = datetime.datetime.fromtimestamp(float(pts), datetime.UTC).strftime(
+                        "%Y-%m-%d"
+                    )
                 else:
                     date_str = ""
-                    
-                fwd = measure_forward_returns(sym, date_str, nse_dir) if date_str else {"forward_5d": None, "forward_20d": None}
-                results.append({
-                    "id": hit.id,
-                    "title": hit.metadata.get("title") or str(hit.metadata.get("text", ""))[:100],
-                    "text": hit.metadata.get("text", ""),
-                    "published_at": date_str,
-                    "score": hit.score,
-                    "themes": hit.metadata.get("theme_tags", []),
-                    "forward_5d": fwd.get("forward_5d"),
-                    "forward_20d": fwd.get("forward_20d")
-                })
-            
+
+                fwd = (
+                    measure_forward_returns(sym, date_str, nse_dir)
+                    if date_str
+                    else {"forward_5d": None, "forward_20d": None}
+                )
+                results.append(
+                    {
+                        "id": hit.id,
+                        "title": hit.metadata.get("title")
+                        or str(hit.metadata.get("text", ""))[:100],
+                        "text": hit.metadata.get("text", ""),
+                        "published_at": date_str,
+                        "score": hit.score,
+                        "themes": hit.metadata.get("theme_tags", []),
+                        "forward_5d": fwd.get("forward_5d"),
+                        "forward_20d": fwd.get("forward_20d"),
+                    }
+                )
+
             rep.done(f"Found {len(results)} historical analogs")
             kit.log(state, "analogs", "search_done", hits=len(results))
             return {"analogs": {"status": "ok", "data": results}}
-            
+
         except Exception as exc:
             rep.error("Analog search failed")
             kit.log(state, "analogs", "search_error", error=short_error(exc))
@@ -479,7 +502,9 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
             )
         var = f" · VaR95 {metrics.var_95_1d:.2%}" if metrics.var_95_1d is not None else ""
         score = f"risk {risk.score:.0f} ({risk.band})" if risk.score is not None else "risk n/a"
-        corr_info = f" · {len([c for c in metrics.correlations if c.correlation is not None])} corrs"
+        corr_info = (
+            f" · {len([c for c in metrics.correlations if c.correlation is not None])} corrs"
+        )
         rep.done(f"{score}{var}{corr_info} · {metrics.observations} obs")
         kit.log(state, "quant", "done", risk_score=risk.score, observations=metrics.observations)
         return {
@@ -568,9 +593,7 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
                 }
             )
         elif isinstance(draft, ReplyDraft):
-            draft = draft.model_copy(
-                update={"markdown": normalize_citations(draft.markdown)}
-            )
+            draft = draft.model_copy(update={"markdown": normalize_citations(draft.markdown)})
         how = "language model" if source == "llm" else "deterministic rules (no LLM configured)"
         detail = (
             f"{len(draft.suggestions)} suggestions"
@@ -629,7 +652,7 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
                     statuses[a] = "error"
             else:
                 statuses[a] = (state.get(a) or {}).get("status")
-                
+
         ok = sum(1 for s in statuses.values() if s in ("ok", "not_applicable"))
         failed = [a for a, s in statuses.items() if s not in ("ok", "not_applicable")]
         generated_at = datetime.now(UTC).isoformat()

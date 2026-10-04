@@ -151,6 +151,42 @@ class HazardClient:
         self._cache.put("alerts", results)
         return results
 
+    async def global_events(self) -> list[HazardAlert]:
+        """Current GDACS events worldwide (a Gulf of Mexico hurricane matters to NSE
+        energy names through crude prices even though it is far from India)."""
+        if (hit := self._cache.get("global")) is not None:
+            return hit
+        payload = await self.http.get_json(
+            GDACS, {"eventlist": "TC;FL;EQ;DR;WF", "alertlevel": "Green;Orange;Red"}
+        )
+        events: list[HazardAlert] = []
+        for feature in payload.get("features") or []:
+            props = feature.get("properties") or {}
+            point = _point(feature)
+            if point is None:
+                continue
+            severity = props.get("severitydata") or {}
+            url = props.get("url") or {}
+            events.append(
+                HazardAlert(
+                    source="gdacs",
+                    event_type=GDACS_TYPES.get(str(props.get("eventtype")),
+                                               str(props.get("eventtype"))),
+                    name=str(props.get("name") or props.get("eventname") or "Unnamed event"),
+                    alert_level=props.get("alertlevel"),
+                    country=props.get("country"),
+                    latitude=point[0],
+                    longitude=point[1],
+                    started_at=props.get("fromdate"),
+                    ended_at=props.get("todate"),
+                    current=props.get("iscurrent") in (True, "true", "True"),
+                    severity=severity.get("severitytext") if isinstance(severity, dict) else None,
+                    url=url.get("report") if isinstance(url, dict) else None,
+                )
+            )
+        self._cache.put("global", events)
+        return events
+
     async def aclose(self) -> None:
         await self.http.aclose()
 

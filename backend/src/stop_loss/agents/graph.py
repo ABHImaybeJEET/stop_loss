@@ -12,9 +12,15 @@ FAN_OUT = ("market", "news", "impact", "analogs")
 
 
 def build_analysis_graph(
-    kit: Toolkit, checkpointer: BaseCheckpointSaver | None = None
+    kit: Toolkit, checkpointer: BaseCheckpointSaver | None = None, *, portfolio: bool = False
 ) -> CompiledStateGraph:
-    nodes = build_nodes(kit)
+    """Same topology for both modes; portfolio mode swaps in the holdings-aware agents."""
+    if portfolio:
+        from stop_loss.agents.portfolio_nodes import build_portfolio_nodes
+
+        nodes = build_portfolio_nodes(kit)
+    else:
+        nodes = build_nodes(kit)
     builder = StateGraph(AnalysisState)
     for name, fn in nodes.items():
         builder.add_node(name, fn)

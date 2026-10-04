@@ -63,7 +63,10 @@ def verify_figures(
     candidates = [float(e.value) for e in evidence if isinstance(e.value, (int, float))]
     # Figures inside evidence labels ("1-day 95% VaR", "200-day average") are definitional.
     labels = " ".join(e.label for e in evidence)
-    candidates += [v for _, v in extract_figures(allowed_text + " " + labels)]
+    # Figures copied verbatim from an evidence item's display (e.g. a scenario's range) are
+    # evidence too, not new numbers.
+    displays = " ".join(e.display for e in evidence)
+    candidates += [v for _, v in extract_figures(f"{allowed_text} {labels} {displays}")]
     checked, unverified = 0, []
     for text in texts:
         for raw, value in extract_figures(text):
