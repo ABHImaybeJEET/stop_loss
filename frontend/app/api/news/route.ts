@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import { fetchMarketNews } from "@/lib/news";
 
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
-export async function GET() {
+export async function GET(request: Request) {
+  console.log("Next.js API route /api/news HIT!");
   const news = await fetchMarketNews();
   return NextResponse.json(news);
 }

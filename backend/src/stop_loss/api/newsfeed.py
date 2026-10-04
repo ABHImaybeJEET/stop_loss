@@ -38,9 +38,16 @@ async def build_feed(
         *(yahoo.chart(symbol, "5d", "1d") for symbol in indian_tickers),
         return_exceptions=True,
     )
+    
+    if isinstance(top, BaseException):
+        print(f"Error fetching top stories: {type(top).__name__}: {top}")
+    if isinstance(commodities, BaseException):
+        print(f"Error fetching commodities: {type(commodities).__name__}: {commodities}")
+
     stocks: list[dict[str, Any]] = []
     for symbol, series in zip(indian_tickers, quotes, strict=True):
-        if isinstance(series, BaseException) or series.price is None:
+        if isinstance(series, BaseException):
+            print(f"Error fetching {symbol}: {type(series).__name__}: {series}")
             continue
         change = series.change_pct
         stocks.append(

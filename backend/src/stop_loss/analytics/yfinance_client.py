@@ -213,10 +213,10 @@ class YahooFinanceClient:
         return profile
 
     async def search(
-        self, query: str, *, quotes: int = 8, news: int = 0
+        self, query: str, *, quotes: int = 50, news: int = 0
     ) -> tuple[list[AssetMatch], list[NewsItem]]:
         key = f"{query.lower()}|{quotes}|{news}"
-        if (hit := self._search.get(key)) is not None:
+        if (hit := self._search.get(key)) is not None and hit[0]:
             return hit
 
         # Asset search runs over the local NSE universe (instant, no Yahoo quota).
@@ -231,7 +231,8 @@ class YahooFinanceClient:
             for c in get_universe().search(query, limit=quotes)
         ]
         result = (matches[:quotes], [])
-        self._search.put(key, result)
+        if matches:
+            self._search.put(key, result)
         return result
 
     async def ticker_news(self, symbol: str) -> list[NewsItem]:

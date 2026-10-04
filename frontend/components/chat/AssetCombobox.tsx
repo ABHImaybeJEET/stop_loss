@@ -38,7 +38,7 @@ export default function AssetCombobox({ value, onChange, disabled, onSelected, p
   const { data, error, isLoading } = useSWR(term.length >= 1 ? ["asset-search", term] : null, () => searchAssets(term), {
     keepPreviousData: true,
     revalidateOnFocus: false,
-    dedupingInterval: 30_000,
+    dedupingInterval: 500,
   });
   const results: AssetMatch[] = term ? (data ?? []) : [];
 

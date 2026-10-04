@@ -505,22 +505,27 @@ export function toQuote(raw: unknown): Quote {
 
 const searchSchema = z.object({
   results: z.array(
-    z.object({
-      symbol: z.string(),
-      name: z.string(),
-      exchange: optStr,
-      quote_type: optStr,
-      sector: optStr,
-    }),
+    z
+      .object({
+        symbol: z.string(),
+        name: optStr,
+        shortname: optStr,
+        longname: optStr,
+        exchange: optStr,
+        quote_type: optStr,
+        quoteType: optStr,
+        sector: optStr,
+      })
+      .transform((r) => ({
+        symbol: r.symbol,
+        name: r.name || r.shortname || r.longname || r.symbol,
+        exchange: r.exchange,
+        quoteType: r.quote_type || r.quoteType,
+        sector: r.sector,
+      })),
   ),
 });
 
 export function toAssetMatches(raw: unknown): AssetMatch[] {
-  return searchSchema.parse(raw).results.map((r) => ({
-    symbol: r.symbol,
-    name: r.name,
-    exchange: r.exchange,
-    quoteType: r.quote_type,
-    sector: r.sector,
-  }));
+  return searchSchema.parse(raw).results;
 }
