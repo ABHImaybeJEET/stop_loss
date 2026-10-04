@@ -1,0 +1,7396 @@
+{
+ "AARNAV.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "longName": "Aarnav Fashions Limited"
+ },
+ "ARTEMISMED.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "longName": "Artemis Medicare Services Limited"
+ },
+ "DISAQ.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "longName": "DISA India Limited"
+ },
+ "ELCIDIN.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "longName": "Elcid Investments Limited"
+ },
+ "GUJRAFFIA.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "longName": "Gujarat Raffia Industries Limited"
+ },
+ "ORTINGLOBE.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Ortin Global Limited",
+  "marketCap": 118637008.0,
+  "sector": "Healthcare"
+ },
+ "OSIAHYPER.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Department Stores",
+  "longName": "Osia Hyper Retail Limited",
+  "marketCap": 362062592.0,
+  "sector": "Consumer Cyclical"
+ },
+ "OSWALAGRO.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Oswal Agro Mills Limited",
+  "marketCap": 4414485504.0,
+  "sector": "Real Estate"
+ },
+ "OSWALGREEN.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Asset Management",
+  "longName": "Oswal Greentech Limited",
+  "marketCap": 4943576064.0,
+  "sector": "Financial Services"
+ },
+ "OSWALPUMPS.NS": {
+  "city": "Karnal",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "Oswal Pumps Limited",
+  "marketCap": 30159992832.0,
+  "sector": "Industrials"
+ },
+ "OSWALSEEDS.NS": {
+  "city": "Neemuch",
+  "country": "India",
+  "industry": "Agricultural Inputs",
+  "longName": "ShreeOswal Seeds and Chemicals Limited",
+  "marketCap": 1136057344.0,
+  "sector": "Basic Materials"
+ },
+ "PACEDIGITK.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Communication Equipment",
+  "longName": "Pace Digitek Limited",
+  "marketCap": 36047171584.0,
+  "sector": "Technology"
+ },
+ "PACIFICI.NS": {
+  "city": "Udaipur",
+  "country": "India",
+  "industry": "Building Materials",
+  "longName": "Pacific Industries Limited",
+  "marketCap": 937331520.0,
+  "sector": "Basic Materials"
+ },
+ "PAGEIND.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Apparel Manufacturing",
+  "longName": "Page Industries Limited",
+  "marketCap": 408901025792.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PAISALO.NS": {
+  "city": "Agra",
+  "country": "India",
+  "industry": "Credit Services",
+  "longName": "Paisalo Digital Limited",
+  "marketCap": 74744299520.0,
+  "sector": "Financial Services"
+ },
+ "PAKKA.NS": {
+  "city": "Ayodhya",
+  "country": "India",
+  "industry": "Paper & Paper Products",
+  "longName": "Pakka Limited",
+  "marketCap": 3467854336.0,
+  "sector": "Basic Materials"
+ },
+ "PALASHSECU.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Packaged Foods",
+  "longName": "Palash Securities Limited",
+  "marketCap": 845262144.0,
+  "sector": "Consumer Defensive"
+ },
+ "PALREDTEC.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Consumer Electronics",
+  "longName": "Palred Technologies Limited",
+  "marketCap": 509731008.0,
+  "sector": "Technology"
+ },
+ "PANACEABIO.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Biotechnology",
+  "longName": "Panacea Biotec Limited",
+  "marketCap": 21958391808.0,
+  "sector": "Healthcare"
+ },
+ "PANACHE.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Communication Equipment",
+  "longName": "Panache Digilife Limited",
+  "marketCap": 8265626624.0,
+  "sector": "Technology"
+ },
+ "PANAMAPET.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Oil & Gas Refining & Marketing",
+  "longName": "Panama Petrochem Limited",
+  "marketCap": 29505753088.0,
+  "sector": "Energy"
+ },
+ "PANCHMAHQ.NS": {
+  "city": "Vadodara",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Panchmahal Steel Limited",
+  "sector": "Basic Materials"
+ },
+ "PANORAMA.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Entertainment",
+  "longName": "Panorama Studios International Limited",
+  "marketCap": 16153208832.0,
+  "sector": "Communication Services"
+ },
+ "PANSARI.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Pansari Developers Limited",
+  "marketCap": 4536167936.0,
+  "sector": "Real Estate"
+ },
+ "PAR.NS": {
+  "city": "Vadodara",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Par Drugs and Chemicals Limited",
+  "marketCap": 1538079488.0,
+  "sector": "Healthcare"
+ },
+ "PARACABLES.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Communication Equipment",
+  "longName": "Paramount Communications Limited",
+  "marketCap": 18475941888.0,
+  "sector": "Technology"
+ },
+ "PARADEEP.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Agricultural Inputs",
+  "longName": "Paradeep Phosphates Limited",
+  "marketCap": 156816556032.0,
+  "sector": "Basic Materials"
+ },
+ "PARAGMILK.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Packaged Foods",
+  "longName": "Parag Milk Foods Limited",
+  "marketCap": 33127979008.0,
+  "sector": "Consumer Defensive"
+ },
+ "PARAS.NS": {
+  "city": "Navi Mumbai",
+  "country": "India",
+  "industry": "Aerospace & Defense",
+  "longName": "Paras Defence and Space Technologies Limited",
+  "marketCap": 102990602240.0,
+  "sector": "Industrials"
+ },
+ "PARASPETRO.NS": {
+  "city": "Surat",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Paras Petrofils Limited",
+  "marketCap": 678468608.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PARIN.NS": {
+  "city": "Rajkot",
+  "country": "India",
+  "industry": "Furnishings, Fixtures & Appliances",
+  "longName": "Parin Enterprises Limited",
+  "marketCap": 7891556352.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PARKHOSPS.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Medical Care Facilities",
+  "longName": "Park Medi World Limited",
+  "marketCap": 116621336576.0,
+  "sector": "Healthcare"
+ },
+ "PARKHOTELS.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Lodging",
+  "longName": "Apeejay Surrendra Park Hotels Limited",
+  "marketCap": 22079967232.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PARNAXLAB.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Parnax Lab Limited",
+  "sector": "Healthcare"
+ },
+ "PARSVNATH.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Parsvnath Developers Limited",
+  "marketCap": 926936000.0,
+  "sector": "Real Estate"
+ },
+ "PASHUPATI.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Pashupati Cotspin Limited",
+  "marketCap": 12469359616.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PASUPTAC.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Pasupati Acrylon Limited",
+  "marketCap": 6155532800.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PATANJALI.NS": {
+  "city": "Indore",
+  "country": "India",
+  "industry": "Packaged Foods",
+  "longName": "Patanjali Foods Limited",
+  "marketCap": 386360475648.0,
+  "sector": "Consumer Defensive"
+ },
+ "PATELENG.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Patel Engineering Limited",
+  "marketCap": 24831240192.0,
+  "sector": "Industrials"
+ },
+ "PATELRMART.NS": {
+  "city": "Ambernath",
+  "country": "India",
+  "industry": "Department Stores",
+  "longName": "Patel Retail Limited",
+  "marketCap": 7136022528.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PATINTLOG.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Integrated Freight & Logistics",
+  "longName": "Patel Integrated Logistics Limited",
+  "marketCap": 847893696.0,
+  "sector": "Industrials"
+ },
+ "PAUSHAKLTD.NS": {
+  "city": "Vadodara",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Paushak Limited",
+  "marketCap": 16306847744.0,
+  "sector": "Basic Materials"
+ },
+ "PAVNAIND.NS": {
+  "city": "Aligarh",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Pavna Industries Limited",
+  "marketCap": 2140390272.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PAYTM.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Software - Infrastructure",
+  "longName": "One97 Communications Limited",
+  "marketCap": 1058858991616.0,
+  "sector": "Technology"
+ },
+ "PBMPOLY.NS": {
+  "city": "Vadodara",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "PBM Polytex Limited",
+  "marketCap": 403523328.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PCBL.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "PCBL Chemical Limited",
+  "marketCap": 126360510464.0,
+  "sector": "Basic Materials"
+ },
+ "PCJEWELLER.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Luxury Goods",
+  "longName": "PC Jeweller Limited",
+  "marketCap": 126716223488.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PDMJEPAPER.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Paper & Paper Products",
+  "longName": "Pudumjee Paper Products Limited",
+  "marketCap": 9115199488.0,
+  "sector": "Basic Materials"
+ },
+ "PDSL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Business Services",
+  "longName": "PDS Limited",
+  "marketCap": 49009381376.0,
+  "sector": "Industrials"
+ },
+ "PEARLPOLY.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Packaging & Containers",
+  "longName": "Pearl Polymers Limited",
+  "marketCap": 286698912.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PENIND.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Pennar Industries Limited",
+  "marketCap": 23507632128.0,
+  "sector": "Industrials"
+ },
+ "PENINLAND.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Peninsula Land Limited",
+  "marketCap": 4843232256.0,
+  "sector": "Real Estate"
+ },
+ "PERMAGN.NS": {
+  "city": "Thane",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "Permanent Magnets Limited",
+  "sector": "Industrials"
+ },
+ "PERNIASPOP.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Apparel Retail",
+  "longName": "PURPLE STYLE LABS LIMITED",
+  "sector": "Consumer Cyclical"
+ },
+ "PERSISTENT.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "Persistent Systems Limited",
+  "marketCap": 838491963392.0,
+  "sector": "Technology"
+ },
+ "PETRONET.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Oil & Gas Refining & Marketing",
+  "longName": "Petronet LNG Limited",
+  "marketCap": 428250038272.0,
+  "sector": "Energy"
+ },
+ "PFC.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Credit Services",
+  "longName": "Power Finance Corporation Limited",
+  "marketCap": 1049432293376.0,
+  "sector": "Financial Services"
+ },
+ "PFIZER.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Drug Manufacturers - General",
+  "longName": "Pfizer Limited",
+  "marketCap": 176448995328.0,
+  "sector": "Healthcare"
+ },
+ "PFOCUS.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Entertainment",
+  "longName": "Prime Focus Limited",
+  "marketCap": 233593241600.0,
+  "sector": "Communication Services"
+ },
+ "PFS.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Credit Services",
+  "longName": "PTC India Financial Services Limited",
+  "marketCap": 18433531904.0,
+  "sector": "Financial Services"
+ },
+ "PGEL.NS": {
+  "city": "Greater Noida",
+  "country": "India",
+  "industry": "Electronic Components",
+  "longName": "PG Electroplast Limited",
+  "marketCap": 137833562112.0,
+  "sector": "Technology"
+ },
+ "PGHH.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Household & Personal Products",
+  "longName": "Procter & Gamble Hygiene and Health Care Limited",
+  "marketCap": 215863902208.0,
+  "sector": "Consumer Defensive"
+ },
+ "PGHL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Procter & Gamble Health Limited",
+  "marketCap": 88673902592.0,
+  "sector": "Healthcare"
+ },
+ "PGIL.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Apparel Manufacturing",
+  "longName": "Pearl Global Industries Limited",
+  "marketCap": 117869035520.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PHOENIXLTD.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Real Estate - Diversified",
+  "longName": "The Phoenix Mills Limited",
+  "marketCap": 690318278656.0,
+  "sector": "Real Estate"
+ },
+ "PHOENXINTL.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Footwear & Accessories",
+  "longName": "Phoenix International Limited",
+  "marketCap": 472626112.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PICCADIL.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Beverages - Wineries & Distilleries",
+  "longName": "Piccadily Agro Industries Limited",
+  "marketCap": 57960042496.0,
+  "sector": "Consumer Defensive"
+ },
+ "PIDILITIND.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Pidilite Industries Limited",
+  "marketCap": 1491142836224.0,
+  "sector": "Basic Materials"
+ },
+ "PIGL.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Power & Instrumental (Gujarat) Limited",
+  "marketCap": 2001519616.0,
+  "sector": "Industrials"
+ },
+ "PIIND.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Agricultural Inputs",
+  "longName": "PI Industries Limited",
+  "marketCap": 339214925824.0,
+  "sector": "Basic Materials"
+ },
+ "PILANIINVS.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Asset Management",
+  "longName": "Pilani Investment and Industries Corporation Limited",
+  "marketCap": 42969186304.0,
+  "sector": "Financial Services"
+ },
+ "PILITA.NS": {
+  "city": "Udaipur",
+  "country": "India",
+  "industry": "Furnishings, Fixtures & Appliances",
+  "longName": "Pil Italica Lifestyle Limited",
+  "marketCap": 1748400000.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PINELABS.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Software - Infrastructure",
+  "longName": "Pine Labs Limited",
+  "marketCap": 193489698816.0,
+  "sector": "Technology"
+ },
+ "PIONEEREMB.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Pioneer Embroideries Limited",
+  "marketCap": 620931136.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PIONRINV.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Capital Markets",
+  "longName": "Pioneer Investcorp Limited",
+  "marketCap": 897674304.0,
+  "sector": "Financial Services"
+ },
+ "PIRAMALFIN.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Credit Services",
+  "longName": "Piramal Finance Limited",
+  "marketCap": 478597447680.0,
+  "sector": "Financial Services"
+ },
+ "PITTIENG.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Metal Fabrication",
+  "longName": "Pitti Engineering Limited",
+  "marketCap": 41527787520.0,
+  "sector": "Industrials"
+ },
+ "PIXTRANS.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "PIX Transmissions Limited",
+  "marketCap": 24182005760.0,
+  "sector": "Industrials"
+ },
+ "PKTEA.NS": {
+  "city": "Coimbatore",
+  "country": "India",
+  "industry": "Farm Products",
+  "longName": "The Peria Karamalai Tea and Produce Company Limited",
+  "marketCap": 3250672896.0,
+  "sector": "Consumer Defensive"
+ },
+ "PLASTIBLEN.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Plastiblends India Limited",
+  "marketCap": 5020853760.0,
+  "sector": "Basic Materials"
+ },
+ "PLATIND.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Platinum Industries Limited",
+  "marketCap": 11122286592.0,
+  "sector": "Basic Materials"
+ },
+ "PLAZACABLE.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "Plaza Wires Limited",
+  "marketCap": 2493868544.0,
+  "sector": "Industrials"
+ },
+ "PML.NS": {
+  "city": "Chandigarh",
+  "country": "India",
+  "industry": "Capital Markets",
+  "longName": "Paul Merchants Limited",
+  "marketCap": 1479086464.0,
+  "sector": "Financial Services"
+ },
+ "PNB.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Banks - Regional",
+  "longName": "Punjab National Bank",
+  "marketCap": 1259281711104.0,
+  "sector": "Financial Services"
+ },
+ "PNBGILTS.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Capital Markets",
+  "longName": "PNB Gilts Ltd.",
+  "marketCap": 12870724608.0,
+  "sector": "Financial Services"
+ },
+ "PNBHOUSING.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Mortgage Finance",
+  "longName": "PNB Housing Finance Limited",
+  "marketCap": 284797894656.0,
+  "sector": "Financial Services"
+ },
+ "PNC.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Entertainment",
+  "longName": "PNC Media and Entertainment Limited",
+  "marketCap": 260406000.0,
+  "sector": "Communication Services"
+ },
+ "PNCINFRA.NS": {
+  "city": "Agra",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "PNC Infratech Limited",
+  "marketCap": 35658944512.0,
+  "sector": "Industrials"
+ },
+ "PNGJL.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Luxury Goods",
+  "longName": "P N Gadgil Jewellers Limited",
+  "marketCap": 85156700160.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PNGSREVA.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Luxury Goods",
+  "longName": "PNGS Reva Diamond Jewellery Limited",
+  "marketCap": 15963314176.0,
+  "sector": "Consumer Cyclical"
+ },
+ "POCL.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Pondy Oxides And Chemicals Limited",
+  "marketCap": 33219155968.0,
+  "sector": "Basic Materials"
+ },
+ "PODDARMENT.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Poddar Pigments Limited",
+  "marketCap": 2694939904.0,
+  "sector": "Basic Materials"
+ },
+ "POEL.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Chemicals",
+  "longName": "POCL Enterprises Limited",
+  "marketCap": 4247883520.0,
+  "sector": "Basic Materials"
+ },
+ "POKARNA.NS": {
+  "city": "Secunderabad",
+  "country": "India",
+  "industry": "Building Products & Equipment",
+  "longName": "Pokarna Limited",
+  "marketCap": 21704349696.0,
+  "sector": "Industrials"
+ },
+ "POLICYBZR.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Insurance Brokers",
+  "longName": "PB Fintech Limited",
+  "marketCap": 452857888768.0,
+  "sector": "Financial Services"
+ },
+ "POLYCAB.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "Polycab India Limited",
+  "marketCap": 1203574145024.0,
+  "sector": "Industrials"
+ },
+ "POLYMED.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Medical Instruments & Supplies",
+  "longName": "Poly Medicure Limited",
+  "marketCap": 166435520512.0,
+  "sector": "Healthcare"
+ },
+ "POLYPLEX.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Polyplex Corporation Limited",
+  "marketCap": 33826512896.0,
+  "sector": "Basic Materials"
+ },
+ "POLYSPIN.NS": {
+  "city": "Rajapalayam",
+  "country": "India",
+  "industry": "Packaging & Containers",
+  "longName": "Polyspin Exports Limited",
+  "sector": "Consumer Cyclical"
+ },
+ "PONNIERODE.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Confectioners",
+  "longName": "Ponni Sugars (Erode) Limited",
+  "marketCap": 3194312192.0,
+  "sector": "Consumer Defensive"
+ },
+ "POONAWALLA.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Credit Services",
+  "longName": "Poonawalla Fincorp Limited",
+  "marketCap": 379699593216.0,
+  "sector": "Financial Services"
+ },
+ "POWERGRID.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Utilities - Regulated Electric",
+  "longName": "Power Grid Corporation of India Limited",
+  "marketCap": 2367468863488.0,
+  "sector": "Utilities"
+ },
+ "POWERICA.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Powerica Limited",
+  "marketCap": 73779748864.0,
+  "sector": "Industrials"
+ },
+ "POWERINDIA.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "Hitachi Energy India Limited",
+  "marketCap": 1394669256704.0,
+  "sector": "Industrials"
+ },
+ "POWERMECH.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Power Mech Projects Limited",
+  "marketCap": 78218706944.0,
+  "sector": "Industrials"
+ },
+ "PPAP.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "PPAP Automotive Limited",
+  "marketCap": 3310383616.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PPL.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Building Products & Equipment",
+  "longName": "Prakash Pipes Limited",
+  "marketCap": 5872906752.0,
+  "sector": "Industrials"
+ },
+ "PPLPHARMA.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Piramal Pharma Limited",
+  "marketCap": 262751174656.0,
+  "sector": "Healthcare"
+ },
+ "PRABHA.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Oil & Gas E&P",
+  "longName": "Prabha Energy Limited",
+  "marketCap": 33872371712.0,
+  "sector": "Energy"
+ },
+ "PRADPME.NS": {
+  "city": "Navi Mumbai",
+  "country": "India",
+  "industry": "Metal Fabrication",
+  "longName": "Pradeep Metals Limited",
+  "sector": "Industrials"
+ },
+ "PRAENG.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Prajay Engineers Syndicate Limited",
+  "marketCap": 1405709440.0,
+  "sector": "Real Estate"
+ },
+ "PRAJIND.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Praj Industries Limited",
+  "marketCap": 55768891392.0,
+  "sector": "Industrials"
+ },
+ "PRAKASH.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Prakash Industries Limited",
+  "marketCap": 21310738432.0,
+  "sector": "Basic Materials"
+ },
+ "PRAKASHSTL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Prakash Steelage Limited",
+  "marketCap": 624751360.0,
+  "sector": "Basic Materials"
+ },
+ "PRANAV.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "PRANAV CONSTRUCTIONS LTD",
+  "sector": "Real Estate"
+ },
+ "PRASOLCHEM.NS": {
+  "city": "Thane",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "PRASOL CHEMICALS LIMITED",
+  "marketCap": 47524294656.0,
+  "sector": "Basic Materials"
+ },
+ "PRAVEG.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Advertising Agencies",
+  "longName": "Praveg Limited",
+  "marketCap": 6273766912.0,
+  "sector": "Communication Services"
+ },
+ "PRAXIS.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Retail",
+  "longName": "Praxis Home Retail Limited",
+  "marketCap": 811999296.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PRECAM.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Precision Camshafts Limited",
+  "marketCap": 10590920704.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PRECOT.NS": {
+  "city": "Coimbatore",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Precot Limited",
+  "marketCap": 7734000128.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PRECWIRE.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "Precision Wires India Limited",
+  "marketCap": 91952406528.0,
+  "sector": "Industrials"
+ },
+ "PREMCO.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Premco Global Limited",
+  "sector": "Consumer Cyclical"
+ },
+ "PREMEXPLN.NS": {
+  "city": "Secunderabad",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Premier Explosives Limited",
+  "marketCap": 36573216768.0,
+  "sector": "Basic Materials"
+ },
+ "PREMIER.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Premier Limited",
+  "marketCap": 84867576.0,
+  "sector": "Industrials"
+ },
+ "PREMIERENE.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Solar",
+  "longName": "Premier Energies Limited",
+  "marketCap": 396392628224.0,
+  "sector": "Technology"
+ },
+ "PREMIERPOL.NS": {
+  "city": "Ghaziabad",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Premier Polyfilm Ltd.",
+  "marketCap": 9531565056.0,
+  "sector": "Basic Materials"
+ },
+ "PRESTIGE.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Real Estate - Diversified",
+  "longName": "Prestige Estates Projects Limited",
+  "marketCap": 640108199936.0,
+  "sector": "Real Estate"
+ },
+ "PRICOLLTD.NS": {
+  "city": "Coimbatore",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Pricol Limited",
+  "marketCap": 90180124672.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PRIMESECU.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Capital Markets",
+  "longName": "Prime Securities Limited",
+  "marketCap": 10323938304.0,
+  "sector": "Financial Services"
+ },
+ "PRIMO.NS": {
+  "city": "Chandigarh",
+  "country": "India",
+  "industry": "Chemicals",
+  "longName": "Primo Chemicals Limited",
+  "marketCap": 6252454912.0,
+  "sector": "Basic Materials"
+ },
+ "PRINCEPIPE.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Building Products & Equipment",
+  "longName": "Prince Pipes and Fittings Limited",
+  "marketCap": 27529449472.0,
+  "sector": "Industrials"
+ },
+ "PRIORITY.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Luxury Goods",
+  "longName": "PRIORITY JEWELS LIMITED",
+  "marketCap": 5247899648.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PRISMX.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Capital Markets",
+  "longName": "Prismx Global Ventures Limited",
+  "sector": "Financial Services"
+ },
+ "PRITI.NS": {
+  "city": "Jodhpur",
+  "country": "India",
+  "industry": "Furnishings, Fixtures & Appliances",
+  "longName": "Priti International Limited",
+  "marketCap": 439324544.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PRITIKAUTO.NS": {
+  "city": "Mohali",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Pritika Auto Industries Limited",
+  "marketCap": 2689179648.0,
+  "sector": "Industrials"
+ },
+ "PRIVISCL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Privi Speciality Chemicals Limited",
+  "marketCap": 139258544128.0,
+  "sector": "Basic Materials"
+ },
+ "PROSTARM.NS": {
+  "city": "Navi Mumbai",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "Prostarm Info Systems Limited",
+  "marketCap": 7909801984.0,
+  "sector": "Industrials"
+ },
+ "PROTEAN.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "Protean eGov Technologies Limited",
+  "marketCap": 26027300864.0,
+  "sector": "Technology"
+ },
+ "PROZONER.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Real Estate - Diversified",
+  "longName": "Prozone Realty Limited",
+  "marketCap": 8084900352.0,
+  "sector": "Real Estate"
+ },
+ "PRSMJOHNSN.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Building Materials",
+  "longName": "Prism Johnson Limited",
+  "marketCap": 52198076416.0,
+  "sector": "Basic Materials"
+ },
+ "PRUDENT.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Asset Management",
+  "longName": "Prudent Corporate Advisory Services Limited",
+  "marketCap": 128422821888.0,
+  "sector": "Financial Services"
+ },
+ "PRUDMOULI.NS": {
+  "city": "Chittoor",
+  "country": "India",
+  "industry": "Confectioners",
+  "longName": "Prudential Sugar Corporation Ltd.",
+  "marketCap": 441852384.0,
+  "sector": "Consumer Defensive"
+ },
+ "PSB.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Banks - Regional",
+  "longName": "Punjab & Sind Bank",
+  "marketCap": 149433024512.0,
+  "sector": "Financial Services"
+ },
+ "PSPPROJECT.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "PSP Projects Limited",
+  "marketCap": 29378531328.0,
+  "sector": "Industrials"
+ },
+ "PTC.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Utilities - Independent Power Producers",
+  "longName": "PTC India Limited",
+  "marketCap": 45830967296.0,
+  "sector": "Utilities"
+ },
+ "PTCIL.NS": {
+  "city": "Lucknow",
+  "country": "India",
+  "industry": "Metal Fabrication",
+  "longName": "PTC Industries Limited",
+  "marketCap": 328561721344.0,
+  "sector": "Industrials"
+ },
+ "PTL.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Real Estate Services",
+  "longName": "PTL Enterprises Limited",
+  "marketCap": 5001202688.0,
+  "sector": "Real Estate"
+ },
+ "PUNJABCHEM.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Chemicals",
+  "longName": "Punjab Chemicals and Crop Protection Limited",
+  "marketCap": 12752672768.0,
+  "sector": "Basic Materials"
+ },
+ "PURVA.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Puravankara Limited",
+  "marketCap": 49801433088.0,
+  "sector": "Real Estate"
+ },
+ "PVP.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Conglomerates",
+  "longName": "PVP Ventures Limited",
+  "marketCap": 13142574080.0,
+  "sector": "Industrials"
+ },
+ "PVRINOX.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Entertainment",
+  "longName": "PVR INOX Limited",
+  "marketCap": 114755682304.0,
+  "sector": "Communication Services"
+ },
+ "PVSL.NS": {
+  "city": "Ernakulam",
+  "country": "India",
+  "industry": "Auto & Truck Dealerships",
+  "longName": "Popular Vehicles and Services Limited",
+  "marketCap": 6407838208.0,
+  "sector": "Consumer Cyclical"
+ },
+ "PWL.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Education & Training Services",
+  "longName": "Physicswallah Limited",
+  "marketCap": 349645471744.0,
+  "sector": "Consumer Defensive"
+ },
+ "PYRAMID.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Packaging & Containers",
+  "longName": "Pyramid Technoplast Limited",
+  "marketCap": 5642627072.0,
+  "sector": "Consumer Cyclical"
+ },
+ "QMSMEDI.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Medical Instruments & Supplies",
+  "longName": "QMS Medical Allied Services Limited",
+  "marketCap": 3783757568.0,
+  "sector": "Healthcare"
+ },
+ "QPOWER.NS": {
+  "city": "Sangli",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "Quality Power Electrical Equipments Limited",
+  "marketCap": 120425570304.0,
+  "sector": "Industrials"
+ },
+ "QUADFUTURE.NS": {
+  "city": "Mohali",
+  "country": "India",
+  "industry": "Railroads",
+  "longName": "Quadrant Future Tek Limited",
+  "marketCap": 21269999616.0,
+  "sector": "Industrials"
+ },
+ "QUESS.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Staffing & Employment Services",
+  "longName": "Quess Corp Limited",
+  "marketCap": 49939709952.0,
+  "sector": "Industrials"
+ },
+ "QUICKHEAL.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Software - Application",
+  "longName": "Quick Heal Technologies Limited",
+  "marketCap": 7462617088.0,
+  "sector": "Technology"
+ },
+ "QUINT.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Entertainment",
+  "longName": "Quint Digital Limited",
+  "marketCap": 3245078272.0,
+  "sector": "Communication Services"
+ },
+ "QUINTEGRA.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "Quintegra Solutions Limited",
+  "marketCap": 35930532.0,
+  "sector": "Technology"
+ },
+ "RACE.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Waste Management",
+  "longName": "Race Eco Chain Limited",
+  "marketCap": 1935394944.0,
+  "sector": "Industrials"
+ },
+ "RACLGEAR.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "RACL Geartech Limited",
+  "marketCap": 18008594432.0,
+  "sector": "Consumer Cyclical"
+ },
+ "RADAAN.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Entertainment",
+  "longName": "Radaan Mediaworks India Limited",
+  "marketCap": 163026240.0,
+  "sector": "Communication Services"
+ },
+ "RADHIKAJWE.NS": {
+  "city": "Rajkot",
+  "country": "India",
+  "industry": "Luxury Goods",
+  "longName": "Radhika Jeweltech Limited",
+  "marketCap": 8171992064.0,
+  "sector": "Consumer Cyclical"
+ },
+ "RADIANTCMS.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Specialty Business Services",
+  "longName": "Radiant Cash Management Services Limited",
+  "marketCap": 3841484544.0,
+  "sector": "Industrials"
+ },
+ "RADICO.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Beverages - Wineries & Distilleries",
+  "longName": "Radico Khaitan Limited",
+  "marketCap": 567711694848.0,
+  "sector": "Consumer Defensive"
+ },
+ "RADIOCITY.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Broadcasting",
+  "longName": "Music Broadcast Limited",
+  "marketCap": 2037796224.0,
+  "sector": "Communication Services"
+ },
+ "RAILTEL.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Telecom Services",
+  "longName": "RailTel Corporation of India Limited",
+  "marketCap": 82641641472.0,
+  "sector": "Communication Services"
+ },
+ "RAIN.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Rain Industries Limited",
+  "marketCap": 70178521088.0,
+  "sector": "Basic Materials"
+ },
+ "RAINBOW.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Medical Care Facilities",
+  "longName": "Rainbow Children's Medicare Limited",
+  "marketCap": 129856184320.0,
+  "sector": "Healthcare"
+ },
+ "RAJESHEXPO.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Luxury Goods",
+  "longName": "Rajesh Exports Limited",
+  "marketCap": 18453747712.0,
+  "sector": "Consumer Cyclical"
+ },
+ "RAJMET.NS": {
+  "city": "Rewari",
+  "country": "India",
+  "industry": "Copper",
+  "longName": "Rajnandini Metal Limited",
+  "marketCap": 859852800.0,
+  "sector": "Basic Materials"
+ },
+ "RAJOOENG.NS": {
+  "city": "Rajkot",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Rajoo Engineers Limited",
+  "marketCap": 9505525760.0,
+  "sector": "Industrials"
+ },
+ "RAJPALAYAM.NS": {
+  "city": "Rajapalayam",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Rajapalayam Mills Limited",
+  "marketCap": 6868127232.0,
+  "sector": "Consumer Cyclical"
+ },
+ "RAJRATAN.NS": {
+  "city": "Indore",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Rajratan Global Wire Limited",
+  "marketCap": 22999263232.0,
+  "sector": "Basic Materials"
+ },
+ "RAJRILTD.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Raj Rayon Industries Limited",
+  "marketCap": 11295582208.0,
+  "sector": "Consumer Cyclical"
+ },
+ "RAJSREESUG.NS": {
+  "city": "Coimbatore",
+  "country": "India",
+  "industry": "Confectioners",
+  "longName": "Rajshree Sugars & Chemicals Limited",
+  "marketCap": 931773248.0,
+  "sector": "Consumer Defensive"
+ },
+ "RAJTV.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Broadcasting",
+  "longName": "Raj Television Network Limited",
+  "marketCap": 562740672.0,
+  "sector": "Communication Services"
+ },
+ "RALLIS.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Agricultural Inputs",
+  "longName": "Rallis India Limited",
+  "marketCap": 38874329088.0,
+  "sector": "Basic Materials"
+ },
+ "RAMANEWS.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Beverages - Non - Alcoholic",
+  "longName": "Shree Rama Newsprint Limited",
+  "marketCap": 4397543424.0,
+  "sector": "Consumer Defensive"
+ },
+ "RAMAPHO.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Agricultural Inputs",
+  "longName": "Rama Phosphates Limited",
+  "marketCap": 4232570112.0,
+  "sector": "Basic Materials"
+ },
+ "RAMASTEEL.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Rama Steel Tubes Limited",
+  "marketCap": 7313102848.0,
+  "sector": "Basic Materials"
+ },
+ "RAMBHAJO.NS": {
+  "city": "Jaipur",
+  "country": "India",
+  "industry": "Luxury Goods",
+  "longName": "Advit Jewels Limited",
+  "sector": "Consumer Cyclical"
+ },
+ "RAMCOCEM.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Building Materials",
+  "longName": "The Ramco Cements Limited",
+  "marketCap": 196122673152.0,
+  "sector": "Basic Materials"
+ },
+ "RAMCOIND.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Building Products & Equipment",
+  "longName": "Ramco Industries Limited",
+  "marketCap": 26230491136.0,
+  "sector": "Industrials"
+ },
+ "RAMCOSYS.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Software - Application",
+  "longName": "Ramco Systems Limited",
+  "marketCap": 20532371456.0,
+  "sector": "Technology"
+ },
+ "RAMKY.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Ramky Infrastructure Limited",
+  "marketCap": 19046692864.0,
+  "sector": "Industrials"
+ },
+ "RAMRAT.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "Ram Ratna Wires Limited",
+  "marketCap": 57596379136.0,
+  "sector": "Industrials"
+ },
+ "RANASUG.NS": {
+  "city": "Chandigarh",
+  "country": "India",
+  "industry": "Confectioners",
+  "longName": "Rana Sugars Limited",
+  "marketCap": 2010202880.0,
+  "sector": "Consumer Defensive"
+ },
+ "RANEHOLDIN.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Rane Holdings Limited",
+  "marketCap": 21845047296.0,
+  "sector": "Consumer Cyclical"
+ },
+ "RATEGAIN.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Software - Application",
+  "longName": "RateGain Travel Technologies Limited",
+  "marketCap": 99021537280.0,
+  "sector": "Technology"
+ },
+ "RATNAMANI.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Ratnamani Metals & Tubes Limited",
+  "marketCap": 183641047040.0,
+  "sector": "Basic Materials"
+ },
+ "RATNAVEER.NS": {
+  "city": "Vadodara",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Ratnaveer Precision Engineering Limited",
+  "marketCap": 28954591232.0,
+  "sector": "Basic Materials"
+ },
+ "RAYMOND.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Raymond Limited",
+  "marketCap": 79528960000.0,
+  "sector": "Industrials"
+ },
+ "RAYMONDLSL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Apparel Manufacturing",
+  "longName": "Raymond Lifestyle Limited",
+  "marketCap": 38066118656.0,
+  "sector": "Consumer Cyclical"
+ },
+ "RAYMONDREL.NS": {
+  "city": "Thane",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Raymond Realty Limited",
+  "marketCap": 42992226304.0,
+  "sector": "Real Estate"
+ },
+ "RBA.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Restaurants",
+  "longName": "Restaurant Brands Asia Limited",
+  "marketCap": 65524084736.0,
+  "sector": "Consumer Cyclical"
+ },
+ "RBLBANK.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Banks - Regional",
+  "longName": "RBL Bank Limited",
+  "marketCap": 638345740288.0,
+  "sector": "Financial Services"
+ },
+ "RBZJEWEL.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Luxury Goods",
+  "longName": "RBZ Jewellers Limited",
+  "marketCap": 7874799616.0,
+  "sector": "Consumer Cyclical"
+ },
+ "RCF.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Agricultural Inputs",
+  "longName": "Rashtriya Chemicals and Fertilizers Limited",
+  "marketCap": 58760302592.0,
+  "sector": "Basic Materials"
+ },
+ "RCOM.NS": {
+  "city": "Navi Mumbai",
+  "country": "India",
+  "industry": "Telecom Services",
+  "longName": "Reliance Communications Limited",
+  "marketCap": 2405056256.0,
+  "sector": "Communication Services"
+ },
+ "RECLTD.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Credit Services",
+  "longName": "REC Limited",
+  "marketCap": 757710192640.0,
+  "sector": "Financial Services"
+ },
+ "REDINGTON.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "Redington Limited",
+  "marketCap": 311302586368.0,
+  "sector": "Technology"
+ },
+ "REDTAPE.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Footwear & Accessories",
+  "longName": "REDTAPE Limited",
+  "marketCap": 63484424192.0,
+  "sector": "Consumer Cyclical"
+ },
+ "REFEX.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Thermal Coal",
+  "longName": "Refex Industries Limited",
+  "marketCap": 37161488384.0,
+  "sector": "Energy"
+ },
+ "REGAAL.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Packaged Foods",
+  "longName": "Regaal Resources Limited",
+  "marketCap": 8775075840.0,
+  "sector": "Consumer Defensive"
+ },
+ "REGENCERAM.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Building Products & Equipment",
+  "longName": "Regency Ceramics Limited",
+  "marketCap": 845866304.0,
+  "sector": "Industrials"
+ },
+ "RELAXO.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Footwear & Accessories",
+  "longName": "Relaxo Footwears Limited",
+  "marketCap": 70225575936.0,
+  "sector": "Consumer Cyclical"
+ },
+ "RELCHEMQ.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Reliance Chemotex Industries Limited",
+  "marketCap": 852724352.0,
+  "sector": "Consumer Cyclical"
+ },
+ "RELIABLE.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "Reliable Data Services Limited",
+  "marketCap": 1465027328.0,
+  "sector": "Technology"
+ },
+ "RELIANCE.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Oil & Gas Refining & Marketing",
+  "longName": "Reliance Industries Limited",
+  "marketCap": 15801867304960.0,
+  "sector": "Energy"
+ },
+ "RELIGARE.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Insurance - Life",
+  "longName": "Religare Enterprises Limited",
+  "marketCap": 77220356096.0,
+  "sector": "Financial Services"
+ },
+ "RELINFRA.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Utilities - Independent Power Producers",
+  "longName": "Reliance Infrastructure Limited",
+  "marketCap": 18972260352.0,
+  "sector": "Utilities"
+ },
+ "RELTD.NS": {
+  "city": "Belgaum",
+  "country": "India",
+  "industry": "Solar",
+  "longName": "Ravindra Energy Limited",
+  "marketCap": 29782300672.0,
+  "sector": "Technology"
+ },
+ "REMSONSIND.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Remsons Industries Limited",
+  "marketCap": 3997763840.0,
+  "sector": "Consumer Cyclical"
+ },
+ "RENTOMOJO.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Rental & Leasing Services",
+  "longName": "RENTOMOJO LIMITED",
+  "sector": "Industrials"
+ },
+ "RENUKA.NS": {
+  "city": "Belgaum",
+  "country": "India",
+  "industry": "Confectioners",
+  "longName": "Shree Renuka Sugars Limited",
+  "marketCap": 45592248320.0,
+  "sector": "Consumer Defensive"
+ },
+ "REPCOHOME.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Mortgage Finance",
+  "longName": "Repco Home Finance Limited",
+  "marketCap": 21020616704.0,
+  "sector": "Financial Services"
+ },
+ "REPL.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Consulting Services",
+  "longName": "Rudrabhishek Enterprises Limited",
+  "marketCap": 1051105024.0,
+  "sector": "Industrials"
+ },
+ "REPRO.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Business Services",
+  "longName": "Repro India Limited",
+  "marketCap": 4372459008.0,
+  "sector": "Industrials"
+ },
+ "RESPONIND.NS": {
+  "city": "Thane",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Responsive Industries Limited",
+  "marketCap": 43163922432.0,
+  "sector": "Basic Materials"
+ },
+ "RETAIL.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Grocery Stores",
+  "longName": "JHS Svendgaard Retail Ventures Limited",
+  "marketCap": 286586688.0,
+  "sector": "Consumer Defensive"
+ },
+ "RGL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Luxury Goods",
+  "longName": "Renaissance Global Limited",
+  "marketCap": 17201346560.0,
+  "sector": "Consumer Cyclical"
+ },
+ "RHETAN.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Rhetan TMT Limited",
+  "marketCap": 13259999232.0,
+  "sector": "Basic Materials"
+ },
+ "RHFL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Mortgage Finance",
+  "longName": "Reliance Home Finance Limited",
+  "marketCap": 780713728.0,
+  "sector": "Financial Services"
+ },
+ "RHIM.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Metal Fabrication",
+  "longName": "RHI Magnesita India Limited",
+  "marketCap": 79833448448.0,
+  "sector": "Industrials"
+ },
+ "RHL.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Lodging",
+  "longName": "Robust Hotels Limited",
+  "marketCap": 2801254656.0,
+  "sector": "Consumer Cyclical"
+ },
+ "RICOAUTO.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Rico Auto Industries Limited",
+  "marketCap": 16369483776.0,
+  "sector": "Consumer Cyclical"
+ },
+ "RIIL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Reliance Industrial Infrastructure Limited",
+  "marketCap": 10042254336.0,
+  "sector": "Industrials"
+ },
+ "RIR.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Semiconductors",
+  "longName": "Rir Power Electronics Limited",
+  "marketCap": 14076356608.0,
+  "sector": "Technology"
+ },
+ "RISHABH.NS": {
+  "city": "Nashik",
+  "country": "India",
+  "industry": "Scientific & Technical Instruments",
+  "longName": "Rishabh Instruments Limited",
+  "marketCap": 27784425472.0,
+  "sector": "Technology"
+ },
+ "RITCO.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Integrated Freight & Logistics",
+  "longName": "Ritco Logistics Limited",
+  "marketCap": 7886330880.0,
+  "sector": "Industrials"
+ },
+ "RITES.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "RITES Limited",
+  "marketCap": 101417009152.0,
+  "sector": "Industrials"
+ },
+ "RKDL.NS": {
+  "city": "Puducherry",
+  "country": "India",
+  "industry": "Beverages - Wineries & Distilleries",
+  "longName": "Ravi Kumar Distilleries Limited",
+  "marketCap": 414480000.0,
+  "sector": "Consumer Defensive"
+ },
+ "RKEC.NS": {
+  "city": "Visakhapatnam",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "RKEC Projects Limited",
+  "marketCap": 526353792.0,
+  "sector": "Industrials"
+ },
+ "RKFORGE.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Metal Fabrication",
+  "longName": "Ramkrishna Forgings Limited",
+  "marketCap": 128627990528.0,
+  "sector": "Industrials"
+ },
+ "RKSWAMY.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Advertising Agencies",
+  "longName": "R K Swamy Limited",
+  "marketCap": 4386472448.0,
+  "sector": "Communication Services"
+ },
+ "RMC.NS": {
+  "city": "Jaipur",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "RMC Switchgears Limited",
+  "marketCap": 2137537792.0,
+  "sector": "Industrials"
+ },
+ "RMDRIP.NS": {
+  "city": "Nashik",
+  "country": "India",
+  "industry": "Farm & Heavy Construction Machinery",
+  "longName": "R M Drip and Sprinklers Systems Limited",
+  "marketCap": 10106194944.0,
+  "sector": "Industrials"
+ },
+ "RML.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Rane (Madras) Limited",
+  "marketCap": 37475954688.0,
+  "sector": "Consumer Cyclical"
+ },
+ "RNBDENIMS.NS": {
+  "city": "Surat",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "R & B Denims Limited",
+  "marketCap": 2584571648.0,
+  "sector": "Consumer Cyclical"
+ },
+ "ROHLTD.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Lodging",
+  "longName": "Royal Orchid Hotels Limited",
+  "marketCap": 8159001600.0,
+  "sector": "Consumer Cyclical"
+ },
+ "ROLEXRINGS.NS": {
+  "city": "Rajkot",
+  "country": "India",
+  "industry": "Metal Fabrication",
+  "longName": "Rolex Rings Limited",
+  "marketCap": 51679625216.0,
+  "sector": "Industrials"
+ },
+ "ROLLT.NS": {
+  "city": "Rewari",
+  "country": "India",
+  "industry": "Real Estate Services",
+  "longName": "Rollatainers Limited",
+  "marketCap": 1185616128.0,
+  "sector": "Real Estate"
+ },
+ "ROML.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Packaged Foods",
+  "longName": "Raj Oil Mills Limited",
+  "marketCap": 650358976.0,
+  "sector": "Consumer Defensive"
+ },
+ "ROSSARI.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Rossari Biotech Limited",
+  "marketCap": 23542499328.0,
+  "sector": "Basic Materials"
+ },
+ "ROSSELLIND.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Conglomerates",
+  "longName": "Rossell India Limited",
+  "marketCap": 1899902464.0,
+  "sector": "Industrials"
+ },
+ "ROSSTECH.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Aerospace & Defense",
+  "longName": "Rossell Techsys Limited",
+  "marketCap": 57857765376.0,
+  "sector": "Industrials"
+ },
+ "ROTO.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Roto Pumps Limited",
+  "marketCap": 11897625600.0,
+  "sector": "Industrials"
+ },
+ "ROUTE.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Telecom Services",
+  "longName": "Route Mobile Limited",
+  "marketCap": 27648901120.0,
+  "sector": "Communication Services"
+ },
+ "RPEL.NS": {
+  "city": "Jaipur",
+  "country": "India",
+  "industry": "Chemicals",
+  "longName": "Raghav Productivity Enhancers Limited",
+  "marketCap": 82797281280.0,
+  "sector": "Basic Materials"
+ },
+ "RPGLIFE.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "RPG Life Sciences Limited",
+  "marketCap": 48788439040.0,
+  "sector": "Healthcare"
+ },
+ "RPOWER.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Utilities - Independent Power Producers",
+  "longName": "Reliance Power Limited",
+  "marketCap": 80316669952.0,
+  "sector": "Utilities"
+ },
+ "RPPINFRA.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "R.P.P. Infra Projects Limited",
+  "marketCap": 2579955456.0,
+  "sector": "Industrials"
+ },
+ "RPPL.NS": {
+  "city": "Thane",
+  "country": "India",
+  "industry": "Packaging & Containers",
+  "longName": "Rajshree Polypack Limited",
+  "marketCap": 1475228288.0,
+  "sector": "Consumer Cyclical"
+ },
+ "RPSGVENT.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "RPSG Ventures Limited",
+  "marketCap": 27660236800.0,
+  "sector": "Technology"
+ },
+ "RPTECH.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Electronics & Computer Distribution",
+  "longName": "Rashi Peripherals Limited",
+  "marketCap": 63271391232.0,
+  "sector": "Technology"
+ },
+ "RRECL.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Real Estate Services",
+  "longName": "RDB Real Estate Constructions Limited",
+  "marketCap": 3551633920.0,
+  "sector": "Real Estate"
+ },
+ "RRIL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "RRIL Limited",
+  "marketCap": 1831547904.0,
+  "sector": "Consumer Cyclical"
+ },
+ "RRKABEL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "R R Kabel Limited",
+  "marketCap": 285591404544.0,
+  "sector": "Industrials"
+ },
+ "RSDFIN.NS": {
+  "city": "Jamshedpur",
+  "country": "India",
+  "industry": "Asset Management",
+  "longName": "RSD Finance Limited",
+  "sector": "Financial Services"
+ },
+ "RSL.NS": {
+  "city": "Kalol",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Rajputana Stainless Limited",
+  "marketCap": 14624339968.0,
+  "sector": "Basic Materials"
+ },
+ "RSSOFTWARE.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "R S Software (India) Limited",
+  "marketCap": 774936384.0,
+  "sector": "Technology"
+ },
+ "RSWM.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "RSWM Limited",
+  "marketCap": 9467438080.0,
+  "sector": "Consumer Cyclical"
+ },
+ "RSYSTEMS.NS": {
+  "city": "Greater Noida",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "R Systems International Limited",
+  "marketCap": 30903744512.0,
+  "sector": "Technology"
+ },
+ "RTNINDIA.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Internet Retail",
+  "longName": "RattanIndia Enterprises Limited",
+  "marketCap": 35005501440.0,
+  "sector": "Consumer Cyclical"
+ },
+ "RTNPOWER.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Utilities - Independent Power Producers",
+  "longName": "RattanIndia Power Limited",
+  "marketCap": 36409319424.0,
+  "sector": "Utilities"
+ },
+ "RTSPOWR.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "RTS Power Corporation Limited",
+  "marketCap": 1041541568.0,
+  "sector": "Industrials"
+ },
+ "RUBFILA.NS": {
+  "city": "Palakkad",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Rubfila International Limited",
+  "marketCap": 3418854144.0,
+  "sector": "Basic Materials"
+ },
+ "RUBICON.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Drug Manufacturers - General",
+  "longName": "Rubicon Research Limited",
+  "marketCap": 269485932544.0,
+  "sector": "Healthcare"
+ },
+ "RUBYMILLS.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "The Ruby Mills Limited",
+  "marketCap": 16619679744.0,
+  "sector": "Consumer Cyclical"
+ },
+ "RUCHINFRA.NS": {
+  "city": "Indore",
+  "country": "India",
+  "industry": "Specialty Business Services",
+  "longName": "Ruchi Infrastructure Limited",
+  "marketCap": 1149441408.0,
+  "sector": "Industrials"
+ },
+ "RUCHIRA.NS": {
+  "city": "Yamuna Nagar",
+  "country": "India",
+  "industry": "Paper & Paper Products",
+  "longName": "Ruchira Papers Limited",
+  "marketCap": 3037324032.0,
+  "sector": "Basic Materials"
+ },
+ "RUDRA.NS": {
+  "city": "Bhavnagar",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Rudra Global Infra Products Limited",
+  "marketCap": 1859371136.0,
+  "sector": "Basic Materials"
+ },
+ "RUPA.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Apparel Manufacturing",
+  "longName": "Rupa & Company Limited",
+  "marketCap": 10418732032.0,
+  "sector": "Consumer Cyclical"
+ },
+ "RUSHIL.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Furnishings, Fixtures & Appliances",
+  "longName": "Rushil D\u00e9cor Limited",
+  "marketCap": 4644788224.0,
+  "sector": "Consumer Cyclical"
+ },
+ "RUSTOMJEE.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Keystone Realtors Limited",
+  "marketCap": 45475426304.0,
+  "sector": "Real Estate"
+ },
+ "RVHL.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Ravinder Heights Limited",
+  "marketCap": 2342643456.0,
+  "sector": "Real Estate"
+ },
+ "RVNL.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Rail Vikas Nigam Limited",
+  "marketCap": 410748977152.0,
+  "sector": "Industrials"
+ },
+ "RVTH.NS": {
+  "city": "Coimbatore",
+  "country": "India",
+  "industry": "Farm & Heavy Construction Machinery",
+  "longName": "Revathi Equipment India Limited",
+  "marketCap": 2389148672.0,
+  "sector": "Industrials"
+ },
+ "S&SPOWER.NS": {
+  "city": "Maraimalai Nagar",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "S&S Power Switchgear Limited",
+  "marketCap": 3616074240.0,
+  "sector": "Industrials"
+ },
+ "SAATVIKGL.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Solar",
+  "longName": "Saatvik Green Energy Limited",
+  "marketCap": 51680899072.0,
+  "sector": "Technology"
+ },
+ "SAB.NS": {
+  "city": "Chandigarh",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "SAB Industries Limited",
+  "marketCap": 2585713152.0,
+  "sector": "Industrials"
+ },
+ "SADBHAV.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Sadbhav Engineering Limited",
+  "marketCap": 1166681472.0,
+  "sector": "Industrials"
+ },
+ "SADBHIN.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Sadbhav Infrastructure Project Limited",
+  "marketCap": 933396864.0,
+  "sector": "Industrials"
+ },
+ "SADHNANIQ.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Chemicals",
+  "longName": "Sadhana Nitro Chem Limited",
+  "marketCap": 7610807808.0,
+  "sector": "Basic Materials"
+ },
+ "SAFARI.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Footwear & Accessories",
+  "longName": "Safari Industries (India) Limited",
+  "marketCap": 67181756416.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SAGARDEEP.NS": {
+  "city": "Gandhinagar",
+  "country": "India",
+  "industry": "Copper",
+  "longName": "Sagardeep Alloys Limited",
+  "marketCap": 398972576.0,
+  "sector": "Basic Materials"
+ },
+ "SAGCEM.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Building Materials",
+  "longName": "Sagar Cements Limited",
+  "marketCap": 19735533568.0,
+  "sector": "Basic Materials"
+ },
+ "SAGILITY.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Health Information Services",
+  "longName": "Sagility Limited",
+  "marketCap": 202092953600.0,
+  "sector": "Healthcare"
+ },
+ "SAHLIBHFI.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Credit Services",
+  "longName": "Shalibhadra Finance Limited",
+  "marketCap": 2455627776.0,
+  "sector": "Financial Services"
+ },
+ "SAHYADRI.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Building Products & Equipment",
+  "longName": "Sahyadri Industries Limited",
+  "marketCap": 3940667904.0,
+  "sector": "Industrials"
+ },
+ "SAICAPI.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Capital Markets",
+  "longName": "Sai Capital Limited",
+  "sector": "Financial Services"
+ },
+ "SAIL.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Steel Authority of India Limited",
+  "marketCap": 720776658944.0,
+  "sector": "Basic Materials"
+ },
+ "SAILIFE.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Diagnostics & Research",
+  "longName": "Sai Life Sciences Limited",
+  "marketCap": 329248210944.0,
+  "sector": "Healthcare"
+ },
+ "SAIPARENT.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Drug Manufacturers - General",
+  "longName": "Sai Parenteral's Limited",
+  "marketCap": 23096901632.0,
+  "sector": "Healthcare"
+ },
+ "SAKAR.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Sakar Healthcare Limited",
+  "marketCap": 23903451136.0,
+  "sector": "Healthcare"
+ },
+ "SAKHTISUG.NS": {
+  "city": "Coimbatore",
+  "country": "India",
+  "industry": "Confectioners",
+  "longName": "Sakthi Sugars Limited",
+  "marketCap": 2100655232.0,
+  "sector": "Consumer Defensive"
+ },
+ "SAKSOFT.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "Saksoft Limited",
+  "marketCap": 17891262464.0,
+  "sector": "Technology"
+ },
+ "SAKUMA.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Farm Products",
+  "longName": "Sakuma Exports Limited",
+  "marketCap": 2429963776.0,
+  "sector": "Consumer Defensive"
+ },
+ "SALASAR.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Salasar Techno Engineering Limited",
+  "marketCap": 7219035136.0,
+  "sector": "Basic Materials"
+ },
+ "SALONA.NS": {
+  "city": "Coimbatore",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Salona Cotspin Limited",
+  "marketCap": 1367960960.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SALSTEEL.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "S.A.L. Steel Limited",
+  "marketCap": 14462193664.0,
+  "sector": "Basic Materials"
+ },
+ "SALZERELEC.NS": {
+  "city": "Coimbatore",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "Salzer Electronics Limited",
+  "marketCap": 9389533184.0,
+  "sector": "Industrials"
+ },
+ "SAMBANDAM.NS": {
+  "city": "Salem",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Sambandam Spinning Mills Limited",
+  "sector": "Consumer Cyclical"
+ },
+ "SAMBHAAV.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Publishing",
+  "longName": "Sambhaav Media Limited",
+  "marketCap": 1031998592.0,
+  "sector": "Communication Services"
+ },
+ "SAMBHV.NS": {
+  "city": "Raipur",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Sambhv Steel Tubes Limited",
+  "marketCap": 47589433344.0,
+  "sector": "Basic Materials"
+ },
+ "SAMHI.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Lodging",
+  "longName": "SAMHI Hotels Limited",
+  "marketCap": 34354571264.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SAMMAANCAP.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Mortgage Finance",
+  "longName": "Sammaan Capital Limited",
+  "marketCap": 152315887616.0,
+  "sector": "Financial Services"
+ },
+ "SAMPANN.NS": {
+  "city": "Vadodara",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Sampann Utpadan India Limited",
+  "marketCap": 1231239936.0,
+  "sector": "Basic Materials"
+ },
+ "SANATHAN.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Sanathan Textiles Limited",
+  "marketCap": 42168266752.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SANDESH.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Publishing",
+  "longName": "The Sandesh Limited",
+  "marketCap": 7491077632.0,
+  "sector": "Communication Services"
+ },
+ "SANDHAR.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Sandhar Technologies Limited",
+  "marketCap": 34029127680.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SANDUMA.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "The Sandur Manganese & Iron Ores Limited",
+  "marketCap": 86113460224.0,
+  "sector": "Basic Materials"
+ },
+ "SANGAMIND.NS": {
+  "city": "Bhilwara",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Sangam (India) Limited",
+  "marketCap": 31356239872.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SANGHVIMOV.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Rental & Leasing Services",
+  "longName": "Sanghvi Movers Limited",
+  "marketCap": 37400829952.0,
+  "sector": "Industrials"
+ },
+ "SANOFI.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Drug Manufacturers - General",
+  "longName": "Sanofi India Limited",
+  "marketCap": 70013091840.0,
+  "sector": "Healthcare"
+ },
+ "SANOFICONR.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Drug Manufacturers - General",
+  "longName": "Sanofi Consumer Healthcare India Limited",
+  "marketCap": 87069278208.0,
+  "sector": "Healthcare"
+ },
+ "SANSERA.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Sansera Engineering Limited",
+  "marketCap": 265824731136.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SANSTAR.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Chemicals",
+  "longName": "Sanstar Limited",
+  "marketCap": 20467429376.0,
+  "sector": "Basic Materials"
+ },
+ "SANWARIA.NS": {
+  "city": "Bhopal",
+  "country": "India",
+  "industry": "Farm Products",
+  "longName": "Sanwaria Consumer Limited",
+  "marketCap": 277453088.0,
+  "sector": "Consumer Defensive"
+ },
+ "SAPPHIRE.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Restaurants",
+  "longName": "Sapphire Foods India Limited",
+  "marketCap": 67260284928.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SAPPL.NS": {
+  "city": "Vapi",
+  "country": "India",
+  "industry": "Paper & Paper Products",
+  "longName": "Shree Ajit Pulp and Paper Limited",
+  "marketCap": 2771749632.0,
+  "sector": "Basic Materials"
+ },
+ "SARDAEN.NS": {
+  "city": "Raipur",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Sarda Energy & Minerals Limited",
+  "marketCap": 174781120512.0,
+  "sector": "Basic Materials"
+ },
+ "SAREGAMA.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Entertainment",
+  "longName": "Saregama India Limited",
+  "marketCap": 94636023808.0,
+  "sector": "Communication Services"
+ },
+ "SARLAPOLY.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Sarla Performance Fibers Limited",
+  "marketCap": 7377878528.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SARVESHWAR.NS": {
+  "city": "Jammu",
+  "country": "India",
+  "industry": "Packaged Foods",
+  "longName": "Sarveshwar Foods Limited",
+  "marketCap": 4261427712.0,
+  "sector": "Consumer Defensive"
+ },
+ "SASKEN.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "Sasken Technologies Limited",
+  "marketCap": 26235705344.0,
+  "sector": "Technology"
+ },
+ "SATIA.NS": {
+  "city": "Sri Muktsar Sahib",
+  "country": "India",
+  "industry": "Paper & Paper Products",
+  "longName": "Satia Industries Limited",
+  "marketCap": 6849999872.0,
+  "sector": "Basic Materials"
+ },
+ "SATIN.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Credit Services",
+  "longName": "Satin Creditcare Network Limited",
+  "marketCap": 25047570432.0,
+  "sector": "Financial Services"
+ },
+ "SAURASHCEM.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Building Materials",
+  "longName": "Saurashtra Cement Limited",
+  "marketCap": 5898981888.0,
+  "sector": "Basic Materials"
+ },
+ "SAYAJIHOTL.NS": {
+  "city": "Indore",
+  "country": "India",
+  "industry": "Lodging",
+  "longName": "Sayaji Hotels Limited",
+  "marketCap": 5325464576.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SAYAJIIND.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Farm Products",
+  "longName": "Sayaji Industries Limited",
+  "marketCap": 3020960000.0,
+  "sector": "Consumer Defensive"
+ },
+ "SBC.NS": {
+  "city": "Mirzapur",
+  "country": "India",
+  "industry": "Apparel Manufacturing",
+  "longName": "SBC Exports Limited",
+  "marketCap": 27904735232.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SBCL.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Metal Fabrication",
+  "longName": "Shivalik Bimetal Controls Limited",
+  "marketCap": 61757460480.0,
+  "sector": "Industrials"
+ },
+ "SBFC.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Credit Services",
+  "longName": "SBFC Finance Limited",
+  "marketCap": 93452959744.0,
+  "sector": "Financial Services"
+ },
+ "SBGLP.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Suratwwala Business Group Limited",
+  "marketCap": 4002451712.0,
+  "sector": "Real Estate"
+ },
+ "SBICARD.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Credit Services",
+  "longName": "SBI Cards and Payment Services Limited",
+  "marketCap": 535965794304.0,
+  "sector": "Financial Services"
+ },
+ "SBIFUNDS.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Asset Management",
+  "longName": "SBI Funds Management Limited",
+  "marketCap": 1019635957760.0,
+  "sector": "Financial Services"
+ },
+ "SBILIFE.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Insurance - Life",
+  "longName": "SBI Life Insurance Company Limited",
+  "marketCap": 1727462113280.0,
+  "sector": "Financial Services"
+ },
+ "SBIN.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Banks - Regional",
+  "longName": "State Bank of India",
+  "marketCap": 8806932152320.0,
+  "sector": "Financial Services"
+ },
+ "SCANSTL.NS": {
+  "city": "Bhubaneswar",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Scan Steels Limited",
+  "sector": "Basic Materials"
+ },
+ "SCHAEFFLER.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Schaeffler India Limited",
+  "marketCap": 603488452608.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SCHAND.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Publishing",
+  "longName": "S Chand And Company Limited",
+  "marketCap": 5043923456.0,
+  "sector": "Communication Services"
+ },
+ "SCHNEIDER.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "Schneider Electric Infrastructure Limited",
+  "marketCap": 305574936576.0,
+  "sector": "Industrials"
+ },
+ "SCI.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Marine Shipping",
+  "longName": "The Shipping Corporation of India Limited",
+  "marketCap": 125067034624.0,
+  "sector": "Industrials"
+ },
+ "SCILAL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Real Estate Services",
+  "longName": "Shipping Corporation of India Land and Assets Limited",
+  "marketCap": 17057559552.0,
+  "sector": "Real Estate"
+ },
+ "SCODATUBES.NS": {
+  "city": "Mehsana",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Scoda Tubes Limited",
+  "marketCap": 7398749184.0,
+  "sector": "Basic Materials"
+ },
+ "SCPL.NS": {
+  "city": "Amreli",
+  "country": "India",
+  "industry": "Packaged Foods",
+  "longName": "Sheetal Cool Products Limited",
+  "marketCap": 6593999872.0,
+  "sector": "Consumer Defensive"
+ },
+ "SDBL.NS": {
+  "city": "Bhopal",
+  "country": "India",
+  "industry": "Beverages - Brewers",
+  "longName": "Som Distilleries & Breweries Limited",
+  "marketCap": 15490726912.0,
+  "sector": "Consumer Defensive"
+ },
+ "SEAMECLTD.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Marine Shipping",
+  "longName": "Seamec Limited",
+  "marketCap": 40745881600.0,
+  "sector": "Industrials"
+ },
+ "SECMARK.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Consulting Services",
+  "longName": "SecMark Consultancy Limited",
+  "marketCap": 1479714432.0,
+  "sector": "Industrials"
+ },
+ "SECURKLOUD.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Software - Application",
+  "longName": "SecureKloud Technologies Limited",
+  "marketCap": 566309760.0,
+  "sector": "Technology"
+ },
+ "SEDEMAC.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "SEDEMAC Mechatronics Limited",
+  "marketCap": 153217056768.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SEIL.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Education & Training Services",
+  "longName": "Shanti Educational Initiatives Limited",
+  "marketCap": 29784999936.0,
+  "sector": "Consumer Defensive"
+ },
+ "SEJALLTD.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Building Products & Equipment",
+  "longName": "Sejal Glass Limited",
+  "marketCap": 7678780416.0,
+  "sector": "Industrials"
+ },
+ "SEKURITIND.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Saint-Gobain Sekurit India Limited",
+  "marketCap": 9931431936.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SEMAC.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Semac Construction Limited",
+  "marketCap": 754388544.0,
+  "sector": "Industrials"
+ },
+ "SENCO.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Luxury Goods",
+  "longName": "Senco Gold Limited",
+  "marketCap": 51981189120.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SENORES.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Drug Manufacturers - General",
+  "longName": "Senores Pharmaceuticals Limited",
+  "marketCap": 61495357440.0,
+  "sector": "Healthcare"
+ },
+ "SEPC.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "SEPC Limited",
+  "marketCap": 9852646400.0,
+  "sector": "Industrials"
+ },
+ "SERVOTECH.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "Servotech Renewable Power System Limited",
+  "marketCap": 15495248896.0,
+  "sector": "Industrials"
+ },
+ "SESHAPAPER.NS": {
+  "city": "Erode",
+  "country": "India",
+  "industry": "Paper & Paper Products",
+  "longName": "Seshasayee Paper and Boards Limited",
+  "marketCap": 14821012480.0,
+  "sector": "Basic Materials"
+ },
+ "SETCO.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Shilayan Industries Limited",
+  "marketCap": 2514526464.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SETL.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Standard Engineering Technology Limited",
+  "marketCap": 82679324672.0,
+  "sector": "Industrials"
+ },
+ "SETUINFRA.NS": {
+  "city": "Nashik",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Setubandhan Infrastructure Limited",
+  "marketCap": 65739400.0,
+  "sector": "Industrials"
+ },
+ "SEYAIND.NS": {
+  "city": "Palghar",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Seya Industries Limited",
+  "marketCap": 393615808.0,
+  "sector": "Basic Materials"
+ },
+ "SFL.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Furnishings, Fixtures & Appliances",
+  "longName": "Sheela Foam Limited",
+  "marketCap": 67433046016.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SGFIN.NS": {
+  "city": "Ghaziabad",
+  "country": "India",
+  "industry": "Capital Markets",
+  "longName": "SG Finserve Limited",
+  "marketCap": 41639051264.0,
+  "sector": "Financial Services"
+ },
+ "SGIL.NS": {
+  "city": "Kolhapur",
+  "country": "India",
+  "industry": "Metal Fabrication",
+  "longName": "Synergy Green Industries Limited",
+  "marketCap": 9527615488.0,
+  "sector": "Industrials"
+ },
+ "SGL.NS": {
+  "city": "Faridabad",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "STL Global Limited",
+  "marketCap": 3904084.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SGLRES.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Software - Application",
+  "longName": "SGL Resources Limited",
+  "marketCap": 568589184.0,
+  "sector": "Technology"
+ },
+ "SGMART.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Industrial Distribution",
+  "longName": "SG Mart Limited",
+  "marketCap": 93421133824.0,
+  "sector": "Industrials"
+ },
+ "SGRL.NS": {
+  "city": "Ankleshwar",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Shree Ganesh Remedies Limited",
+  "marketCap": 8982482944.0,
+  "sector": "Healthcare"
+ },
+ "SHADOWFAX.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Integrated Freight & Logistics",
+  "longName": "Shadowfax Technologies Limited",
+  "marketCap": 162113650688.0,
+  "sector": "Industrials"
+ },
+ "SHAH.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Shah Metacorp Limited",
+  "marketCap": 3171496192.0,
+  "sector": "Basic Materials"
+ },
+ "SHAHALLOYS.NS": {
+  "city": "Gandhinagar",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Shah Alloys Limited",
+  "marketCap": 1691105792.0,
+  "sector": "Basic Materials"
+ },
+ "SHAILY.NS": {
+  "city": "Vadodara",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Shaily Engineering Plastics Limited",
+  "marketCap": 138905649152.0,
+  "sector": "Basic Materials"
+ },
+ "SHAKTIPUMP.NS": {
+  "city": "Pithampur",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Shakti Pumps (India) Limited",
+  "marketCap": 55862259712.0,
+  "sector": "Industrials"
+ },
+ "SHALBY.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Medical Care Facilities",
+  "longName": "Shalby Limited",
+  "marketCap": 14359163904.0,
+  "sector": "Healthcare"
+ },
+ "SHALPAINTS.NS": {
+  "city": "Thane",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Shalimar Paints Limited",
+  "marketCap": 6572164608.0,
+  "sector": "Basic Materials"
+ },
+ "SHANKARA.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Home Improvement Retail",
+  "longName": "Shankara Building Products Limited",
+  "marketCap": 3042320384.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SHANKESH.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Luxury Goods",
+  "longName": "Shankesh Jewellers Limited",
+  "marketCap": 12996107264.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SHANTI.NS": {
+  "city": "Indore",
+  "country": "India",
+  "industry": "Farm Products",
+  "longName": "Shanti Overseas (India) Limited",
+  "marketCap": 61305120.0,
+  "sector": "Consumer Defensive"
+ },
+ "SHANTIGEAR.NS": {
+  "city": "Coimbatore",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Shanthi Gears Limited",
+  "marketCap": 44424970240.0,
+  "sector": "Industrials"
+ },
+ "SHANTIGOLD.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Luxury Goods",
+  "longName": "Shanti Gold International Limited",
+  "marketCap": 23512973312.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SHARDACROP.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Agricultural Inputs",
+  "longName": "Sharda Cropchem Limited",
+  "marketCap": 64327213056.0,
+  "sector": "Basic Materials"
+ },
+ "SHARDAMOTR.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Sharda Motor Industries Limited",
+  "marketCap": 53581479936.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SHARDUL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Capital Markets",
+  "longName": "Shardul Securities Limited",
+  "marketCap": 5074545664.0,
+  "sector": "Financial Services"
+ },
+ "SHAREINDIA.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Capital Markets",
+  "longName": "Share India Securities Limited",
+  "marketCap": 45253120000.0,
+  "sector": "Financial Services"
+ },
+ "SHBAJRG.NS": {
+  "city": "Raipur",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Shri Bajrang Alliance Limited",
+  "marketCap": 1548000000.0,
+  "sector": "Basic Materials"
+ },
+ "SHEKHAWATI.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Shekhawati Industries Limited",
+  "marketCap": 1037547008.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SHEMAROO.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Entertainment",
+  "longName": "Shemaroo Entertainment Limited",
+  "marketCap": 3310305280.0,
+  "sector": "Communication Services"
+ },
+ "SHERVANI.NS": {
+  "city": "Prayagraj",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Shervani Industrial Syndicate Limited",
+  "marketCap": 861945984.0,
+  "sector": "Real Estate"
+ },
+ "SHILCTECH.NS": {
+  "city": "Vadodara",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "Shilchar Technologies Limited",
+  "marketCap": 46161207296.0,
+  "sector": "Industrials"
+ },
+ "SHILGRAVQ.NS": {
+  "city": "Kalol",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Shilp Gravures Limited",
+  "marketCap": 852362304.0,
+  "sector": "Industrials"
+ },
+ "SHILPAMED.NS": {
+  "city": "Raichur",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Shilpa Medicare Limited",
+  "marketCap": 208099065856.0,
+  "sector": "Healthcare"
+ },
+ "SHINDL.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Farm Products",
+  "longName": "Sharat Industries Limited",
+  "sector": "Consumer Defensive"
+ },
+ "SHIPROCKET.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Software - Application",
+  "longName": "Shiprocket Limited",
+  "marketCap": 87527587840.0,
+  "sector": "Technology"
+ },
+ "SHIVAAGRO.NS": {
+  "city": "Nanded",
+  "country": "India",
+  "industry": "Agricultural Inputs",
+  "longName": "Shiva Global Agro Industries Limited",
+  "marketCap": 393724224.0,
+  "sector": "Basic Materials"
+ },
+ "SHIVACEM.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Building Materials",
+  "longName": "Shiva Cement Limited",
+  "marketCap": 3944150016.0,
+  "sector": "Basic Materials"
+ },
+ "SHIVALIK.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Agricultural Inputs",
+  "longName": "Shivalik Rasayan Limited",
+  "marketCap": 6385690624.0,
+  "sector": "Basic Materials"
+ },
+ "SHIVAMAUTO.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Shivam Autotech Limited",
+  "marketCap": 2257103360.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SHIVAMILLS.NS": {
+  "city": "Coimbatore",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Shiva Mills Limited",
+  "marketCap": 506064288.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SHIVATEX.NS": {
+  "city": "Coimbatore",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Shiva Texyarn Limited",
+  "marketCap": 2371377664.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SHIVAUM.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Shiv Aum Steels Limited",
+  "marketCap": 7500620800.0,
+  "sector": "Basic Materials"
+ },
+ "SHK.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "S H Kelkar and Company Limited",
+  "marketCap": 19039780864.0,
+  "sector": "Basic Materials"
+ },
+ "SHOPERSTOP.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Department Stores",
+  "longName": "Shoppers Stop Limited",
+  "marketCap": 44467986432.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SHRADDHA.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Shraddha Prime Projects Limited",
+  "sector": "Real Estate"
+ },
+ "SHRADHA.NS": {
+  "city": "Nagpur",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Shradha Realty Limited",
+  "marketCap": 2421017344.0,
+  "sector": "Real Estate"
+ },
+ "SHREDIGCEM.NS": {
+  "city": "Jamnagar",
+  "country": "India",
+  "industry": "Building Materials",
+  "longName": "Shree Digvijay Cement Company Limited",
+  "marketCap": 9706134528.0,
+  "sector": "Basic Materials"
+ },
+ "SHREECEM.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Building Materials",
+  "longName": "Shree Cement Limited",
+  "marketCap": 790168403968.0,
+  "sector": "Basic Materials"
+ },
+ "SHREEJISPG.NS": {
+  "city": "Jamnagar",
+  "country": "India",
+  "industry": "Marine Shipping",
+  "longName": "Shreeji Shipping Global Limited",
+  "marketCap": 126351253504.0,
+  "sector": "Industrials"
+ },
+ "SHREEPUSHK.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Shree Pushkar Chemicals & Fertilisers Limited",
+  "marketCap": 15845469184.0,
+  "sector": "Basic Materials"
+ },
+ "SHREERAMA.NS": {
+  "city": "Kalol",
+  "country": "India",
+  "industry": "Packaging & Containers",
+  "longName": "Shree Rama Multi-Tech Limited",
+  "marketCap": 5797850112.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SHRENIK.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Paper & Paper Products",
+  "longName": "Shrenik Limited",
+  "marketCap": 177480000.0,
+  "sector": "Basic Materials"
+ },
+ "SHREYANIND.NS": {
+  "city": "Ludhiana",
+  "country": "India",
+  "industry": "Paper & Paper Products",
+  "longName": "Shreyans Industries Limited",
+  "marketCap": 1728206976.0,
+  "sector": "Basic Materials"
+ },
+ "SHRIKRISH.NS": {
+  "city": "Indore",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Shri Krishna Devcon Limited",
+  "marketCap": 1008000000.0,
+  "sector": "Real Estate"
+ },
+ "SHRINGARMS.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Luxury Goods",
+  "longName": "Shringar House of Mangalsutra Limited",
+  "marketCap": 21215057920.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SHRIPISTON.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "SPR Auto Technologies Limited",
+  "marketCap": 207119351808.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SHRIRAMFIN.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Credit Services",
+  "longName": "Shriram Finance Limited",
+  "marketCap": 2223627567104.0,
+  "sector": "Financial Services"
+ },
+ "SHRIRAMPPS.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Shriram Properties Limited",
+  "marketCap": 11561835520.0,
+  "sector": "Real Estate"
+ },
+ "SHRJAGP.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Shri Jagdamba Polymers Limited",
+  "marketCap": 5894133760.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SHUKRAPHAR.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Shukra Pharmaceuticals Limited",
+  "marketCap": 27328823296.0,
+  "sector": "Healthcare"
+ },
+ "SHYAMCENT.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Shyam Century Ferrous Limited",
+  "marketCap": 1060864960.0,
+  "sector": "Basic Materials"
+ },
+ "SHYAMMETL.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Shyam Metalics and Energy Limited",
+  "marketCap": 291463561216.0,
+  "sector": "Basic Materials"
+ },
+ "SHYAMTEL.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Communication Equipment",
+  "longName": "Shyam Telecom Limited",
+  "marketCap": 125797360.0,
+  "sector": "Technology"
+ },
+ "SICAGEN.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Sicagen India Limited",
+  "marketCap": 2033984640.0,
+  "sector": "Basic Materials"
+ },
+ "SICALLOG.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Integrated Freight & Logistics",
+  "longName": "Sical Logistics Limited",
+  "marketCap": 6941283840.0,
+  "sector": "Industrials"
+ },
+ "SIEL.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Packaging & Containers",
+  "longName": "Superior Industrial Enterprises Limited",
+  "marketCap": 421870976.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SIEMENS.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Siemens Limited",
+  "marketCap": 1354682466304.0,
+  "sector": "Industrials"
+ },
+ "SIGACHI.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Sigachi Industries Limited",
+  "marketCap": 10877884416.0,
+  "sector": "Healthcare"
+ },
+ "SIGIND.NS": {
+  "city": "Dhar",
+  "country": "India",
+  "industry": "Conglomerates",
+  "longName": "Signet Industries Limited",
+  "marketCap": 1984053888.0,
+  "sector": "Industrials"
+ },
+ "SIGMA.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "Sigma Solve Limited",
+  "marketCap": 4624873984.0,
+  "sector": "Technology"
+ },
+ "SIGMAADV.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Aerospace & Defense",
+  "longName": "Sigma Advanced Systems Limited",
+  "marketCap": 204534497280.0,
+  "sector": "Industrials"
+ },
+ "SIGNATURE.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Signatureglobal (India) Limited",
+  "marketCap": 103122862080.0,
+  "sector": "Real Estate"
+ },
+ "SIGNPOST.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Advertising Agencies",
+  "longName": "Signpost India Limited",
+  "marketCap": 13987865600.0,
+  "sector": "Communication Services"
+ },
+ "SIKA.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Aerospace & Defense",
+  "longName": "Sika Interplant Systems Limited",
+  "sector": "Industrials"
+ },
+ "SIKKO.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Agricultural Inputs",
+  "longName": "Sikko Industries Limited",
+  "marketCap": 2708160000.0,
+  "sector": "Basic Materials"
+ },
+ "SIL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Standard Industries Limited",
+  "marketCap": 1012537472.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SILGO.NS": {
+  "city": "Jaipur",
+  "country": "India",
+  "industry": "Luxury Goods",
+  "longName": "Silgo Retail Limited",
+  "marketCap": 2239012096.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SILINV.NS": {
+  "city": "Bhawanimandi",
+  "country": "India",
+  "industry": "Asset Management",
+  "longName": "SIL Investments Limited",
+  "marketCap": 4492644864.0,
+  "sector": "Financial Services"
+ },
+ "SILVERTUC.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "Silver Touch Technologies Limited",
+  "marketCap": 17753399296.0,
+  "sector": "Technology"
+ },
+ "SIMBHALS.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Confectioners",
+  "longName": "Simbhaoli Sugars Limited",
+  "marketCap": 285208928.0,
+  "sector": "Consumer Defensive"
+ },
+ "SIMPLEXINF.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Simplex Infrastructures Limited",
+  "marketCap": 19932026880.0,
+  "sector": "Industrials"
+ },
+ "SIMPLXREA.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Simplex Realty Limited",
+  "sector": "Real Estate"
+ },
+ "SINCLAIR.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Lodging",
+  "longName": "Sinclairs Hotels Limited",
+  "marketCap": 3932154624.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SINDHUTRAD.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Conglomerates",
+  "longName": "Sindhu Trade Links Limited",
+  "marketCap": 41158856704.0,
+  "sector": "Industrials"
+ },
+ "SINGERIND.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "longName": "Singer India Limited"
+ },
+ "SINTERCOM.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Sintercom India Limited",
+  "marketCap": 2044491392.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SIRCA.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Sirca Paints India Limited",
+  "marketCap": 22773135360.0,
+  "sector": "Basic Materials"
+ },
+ "SIS.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Security & Protection Services",
+  "longName": "SIS Limited",
+  "marketCap": 57557442560.0,
+  "sector": "Industrials"
+ },
+ "SITINET.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Entertainment",
+  "longName": "SITI Networks Limited",
+  "marketCap": 323367008.0,
+  "sector": "Communication Services"
+ },
+ "SIYSIL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Siyaram Silk Mills Limited",
+  "marketCap": 24363737088.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SJS.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "S.J.S. Enterprises Limited",
+  "marketCap": 69633179648.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SJVN.NS": {
+  "city": "Shimla",
+  "country": "India",
+  "industry": "Utilities - Renewable",
+  "longName": "SJVN Limited",
+  "marketCap": 227535142912.0,
+  "sector": "Utilities"
+ },
+ "SKFINDIA.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Tools & Accessories",
+  "longName": "SKF India Limited",
+  "marketCap": 71922352128.0,
+  "sector": "Industrials"
+ },
+ "SKFINDUS.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Tools & Accessories",
+  "longName": "SKF India (Industrial) Limited",
+  "marketCap": 132740931584.0,
+  "sector": "Industrials"
+ },
+ "SKIPPER.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Skipper Limited",
+  "marketCap": 66443169792.0,
+  "sector": "Industrials"
+ },
+ "SKMEGGPROD.NS": {
+  "city": "Erode",
+  "country": "India",
+  "industry": "Packaged Foods",
+  "longName": "SKM Egg Products Export (India) Limited",
+  "marketCap": 10734896128.0,
+  "sector": "Consumer Defensive"
+ },
+ "SKYGOLD.NS": {
+  "city": "Thane",
+  "country": "India",
+  "industry": "Luxury Goods",
+  "longName": "Sky Gold and Diamonds Limited",
+  "marketCap": 124983230464.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SKYWAYS.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Integrated Freight & Logistics",
+  "longName": "SKYWAYS AIR SERVICES LTD",
+  "marketCap": 16096798720.0,
+  "sector": "Industrials"
+ },
+ "SMARTLINK.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Communication Equipment",
+  "longName": "Smartlink Holdings Limited",
+  "marketCap": 2117792256.0,
+  "sector": "Technology"
+ },
+ "SMARTWORKS.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Real Estate Services",
+  "longName": "Smartworks Coworking Spaces Limited",
+  "marketCap": 58105585664.0,
+  "sector": "Real Estate"
+ },
+ "SMCGLOBAL.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Capital Markets",
+  "longName": "SMC Global Securities Limited",
+  "marketCap": 20877178880.0,
+  "sector": "Financial Services"
+ },
+ "SMLMAH.NS": {
+  "city": "Mohali",
+  "country": "India",
+  "industry": "Auto Manufacturers",
+  "longName": "SML Mahindra Limited",
+  "marketCap": 90440548352.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SMLT.NS": {
+  "city": "Bhilai",
+  "country": "India",
+  "industry": "Metal Fabrication",
+  "longName": "Sarthak Metals Limited",
+  "marketCap": 1015505664.0,
+  "sector": "Industrials"
+ },
+ "SMSPHARMA.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Drug Manufacturers - General",
+  "longName": "SMS Pharmaceuticals Limited",
+  "marketCap": 44105424896.0,
+  "sector": "Healthcare"
+ },
+ "SNOWMAN.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Integrated Freight & Logistics",
+  "longName": "Snowman Logistics Limited",
+  "marketCap": 5668515840.0,
+  "sector": "Industrials"
+ },
+ "SOBHA.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Sobha Limited",
+  "marketCap": 129414135808.0,
+  "sector": "Real Estate"
+ },
+ "SOFTTECH.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Software - Application",
+  "longName": "SoftTech Engineers Limited",
+  "marketCap": 6644226048.0,
+  "sector": "Technology"
+ },
+ "SOLARA.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Solara Active Pharma Sciences Limited",
+  "marketCap": 34499117056.0,
+  "sector": "Healthcare"
+ },
+ "SOLARINDS.NS": {
+  "city": "Nagpur",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Solar Industries India Limited",
+  "marketCap": 1755507064832.0,
+  "sector": "Basic Materials"
+ },
+ "SOLARWORLD.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Solar",
+  "longName": "Solarworld Energy Solutions Limited",
+  "marketCap": 10851416064.0,
+  "sector": "Technology"
+ },
+ "SOLEX.NS": {
+  "city": "Surat",
+  "country": "India",
+  "industry": "Solar",
+  "longName": "Solex Energy Limited",
+  "marketCap": 7270074880.0,
+  "sector": "Technology"
+ },
+ "SOMANYCERA.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Building Products & Equipment",
+  "longName": "Somany Ceramics Limited",
+  "marketCap": 25200320512.0,
+  "sector": "Industrials"
+ },
+ "SOMATEX.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Soma Textiles & Industries Limited",
+  "marketCap": 2614312704.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SOMICONVEY.NS": {
+  "city": "Jodhpur",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Somi Conveyor Beltings Limited",
+  "marketCap": 1024426752.0,
+  "sector": "Industrials"
+ },
+ "SONA.NS": {
+  "city": "Bhilwara",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Sonaselection India Limited",
+  "marketCap": 5290749952.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SONACOMS.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Sona BLW Precision Forgings Limited",
+  "marketCap": 502423388160.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SONAL.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Credit Services",
+  "longName": "Sonal Mercantile Limited",
+  "marketCap": 1290505216.0,
+  "sector": "Financial Services"
+ },
+ "SONAMLTD.NS": {
+  "city": "Morbi",
+  "country": "India",
+  "industry": "Furnishings, Fixtures & Appliances",
+  "longName": "Sonam Limited",
+  "marketCap": 2757804544.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SONATSOFTW.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "Sonata Software Limited",
+  "marketCap": 70471868416.0,
+  "sector": "Technology"
+ },
+ "SOTL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Savita Oil Technologies Limited",
+  "marketCap": 50254786560.0,
+  "sector": "Basic Materials"
+ },
+ "SOUTHBANK.NS": {
+  "city": "Thrissur",
+  "country": "India",
+  "industry": "Banks - Regional",
+  "longName": "The South Indian Bank Limited",
+  "marketCap": 124426420224.0,
+  "sector": "Financial Services"
+ },
+ "SOUTHWEST.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Oil & Gas Equipment & Services",
+  "longName": "South West Pinnacle Exploration Limited",
+  "marketCap": 5952354304.0,
+  "sector": "Energy"
+ },
+ "SPAL.NS": {
+  "city": "Tirupur",
+  "country": "India",
+  "industry": "Apparel Manufacturing",
+  "longName": "S.P. Apparels Limited",
+  "marketCap": 23856801792.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SPANDANA.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Credit Services",
+  "longName": "Spandana Sphoorty Financial Limited",
+  "marketCap": 19190452224.0,
+  "sector": "Financial Services"
+ },
+ "SPARC.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Sun Pharma Advanced Research Company Limited",
+  "marketCap": 63080509440.0,
+  "sector": "Healthcare"
+ },
+ "SPCENET.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Capital Markets",
+  "longName": "Spacenet Enterprises India Limited",
+  "marketCap": 1845142016.0,
+  "sector": "Financial Services"
+ },
+ "SPECIALITY.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Restaurants",
+  "longName": "Speciality Restaurants Limited",
+  "marketCap": 7422985216.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SPECTRUM.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "Spectrum Electrical Industries Limited",
+  "marketCap": 66077224960.0,
+  "sector": "Industrials"
+ },
+ "SPENCERS.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Department Stores",
+  "longName": "Spencer's Retail Limited",
+  "marketCap": 2344333568.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SPIC.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Agricultural Inputs",
+  "longName": "Southern Petrochemical Industries Corporation Limited",
+  "marketCap": 12690866176.0,
+  "sector": "Basic Materials"
+ },
+ "SPLIL.NS": {
+  "city": "Faridabad",
+  "country": "India",
+  "industry": "Apparel Manufacturing",
+  "longName": "SPL Industries Limited",
+  "marketCap": 834240128.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SPLPETRO.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Supreme Petrochem Limited",
+  "marketCap": 147800489984.0,
+  "sector": "Basic Materials"
+ },
+ "SPMLINFRA.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "SPML Infra Limited",
+  "marketCap": 13379836928.0,
+  "sector": "Industrials"
+ },
+ "SPORTKING.NS": {
+  "city": "Ludhiana",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Sportking India Limited",
+  "marketCap": 26612277248.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SRD.NS": {
+  "city": "Bhilwara",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Shankar Lal Rampal Dye-Chem Limited",
+  "marketCap": 2432656640.0,
+  "sector": "Basic Materials"
+ },
+ "SREEL.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Footwear & Accessories",
+  "longName": "Sreeleathers Limited",
+  "marketCap": 6807573504.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SRF.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Conglomerates",
+  "longName": "SRF Limited",
+  "marketCap": 736924598272.0,
+  "sector": "Industrials"
+ },
+ "SRGHFL.NS": {
+  "city": "Udaipur",
+  "country": "India",
+  "industry": "Mortgage Finance",
+  "longName": "SRG Housing Finance Limited",
+  "marketCap": 2151939584.0,
+  "sector": "Financial Services"
+ },
+ "SRHHYPOLTD.NS": {
+  "city": "Kurnool",
+  "country": "India",
+  "industry": "Chemicals",
+  "longName": "Sree Rayalaseema Hi-Strength Hypo Limited",
+  "marketCap": 9308481536.0,
+  "sector": "Basic Materials"
+ },
+ "SRIKPRIND.NS": {
+  "city": "Secunderabad",
+  "country": "India",
+  "industry": "Building Products & Equipment",
+  "longName": "Sri KPR Industries Limited",
+  "sector": "Industrials"
+ },
+ "SRM.NS": {
+  "city": "Jammu",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "SRM Contractors Limited",
+  "marketCap": 9100238848.0,
+  "sector": "Industrials"
+ },
+ "SRTL.NS": {
+  "city": "Gondal",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Shree Ram Twistex Limited",
+  "marketCap": 1473078656.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SSDL.NS": {
+  "city": "Kolhapur",
+  "country": "India",
+  "industry": "Apparel Retail",
+  "longName": "Saraswati Saree Depot Limited",
+  "marketCap": 2752186112.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SSRETAIL.NS": {
+  "city": "Kolhapur",
+  "country": "India",
+  "industry": "Specialty Retail",
+  "longName": "SS RETAIL LIMITED",
+  "marketCap": 52206039040.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SSWL.NS": {
+  "city": "Chandigarh",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Steel Strips Wheels Limited",
+  "marketCap": 61412024320.0,
+  "sector": "Consumer Cyclical"
+ },
+ "STALLION.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Stallion India Fluorochemicals Limited",
+  "marketCap": 26931890176.0,
+  "sector": "Basic Materials"
+ },
+ "STANLEY.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Furnishings, Fixtures & Appliances",
+  "longName": "Stanley Lifestyles Limited",
+  "marketCap": 7809078272.0,
+  "sector": "Consumer Cyclical"
+ },
+ "STAR.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Strides Pharma Science Limited",
+  "marketCap": 100007395328.0,
+  "sector": "Healthcare"
+ },
+ "STARCEMENT.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Building Materials",
+  "longName": "Star Cement Limited",
+  "marketCap": 71620771840.0,
+  "sector": "Basic Materials"
+ },
+ "STARHEALTH.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Insurance - Life",
+  "longName": "Star Health and Allied Insurance Company Limited",
+  "marketCap": 317443702784.0,
+  "sector": "Financial Services"
+ },
+ "STARPAPER.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Paper & Paper Products",
+  "longName": "Star Paper Mills Limited",
+  "marketCap": 2410397440.0,
+  "sector": "Basic Materials"
+ },
+ "STARTECK.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Credit Services",
+  "longName": "Starteck Finance Limited",
+  "marketCap": 2883906048.0,
+  "sector": "Financial Services"
+ },
+ "STCINDIA.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Conglomerates",
+  "longName": "The State Trading Corporation of India Limited",
+  "marketCap": 6359399936.0,
+  "sector": "Industrials"
+ },
+ "STEAMHOUSE.NS": {
+  "city": "Surat",
+  "country": "India",
+  "industry": "Utilities - Regulated Gas",
+  "longName": "STEAMHOUSE INDIA LIMITED",
+  "sector": "Utilities"
+ },
+ "STEELCAS.NS": {
+  "city": "Bhavnagar",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Steelcast Limited",
+  "marketCap": 35925999616.0,
+  "sector": "Basic Materials"
+ },
+ "STEELCITY.NS": {
+  "city": "Visakhapatnam",
+  "country": "India",
+  "industry": "Capital Markets",
+  "longName": "Steel City Securities Limited",
+  "marketCap": 1220502272.0,
+  "sector": "Financial Services"
+ },
+ "STEELXIND.NS": {
+  "city": "Visakhapatnam",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Steel Exchange India Limited",
+  "marketCap": 14234785792.0,
+  "sector": "Basic Materials"
+ },
+ "STEL.NS": {
+  "city": "Cochin",
+  "country": "India",
+  "industry": "Asset Management",
+  "longName": "STEL Holdings Limited",
+  "marketCap": 10593401856.0,
+  "sector": "Financial Services"
+ },
+ "STERTOOLS.NS": {
+  "city": "Faridabad",
+  "country": "India",
+  "industry": "Tools & Accessories",
+  "longName": "Sterling Tools Limited",
+  "marketCap": 8177495552.0,
+  "sector": "Industrials"
+ },
+ "STLNETWORK.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Telecom Services",
+  "longName": "STL Networks Limited",
+  "marketCap": 22997600256.0,
+  "sector": "Communication Services"
+ },
+ "STLSTRINF.NS": {
+  "city": "Chandigarh",
+  "country": "India",
+  "industry": "Real Estate Services",
+  "longName": "Steel Strips Infrastructures Limited",
+  "marketCap": 184960192.0,
+  "sector": "Real Estate"
+ },
+ "STLTECH.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Communication Equipment",
+  "longName": "Sterlite Technologies Limited",
+  "marketCap": 491104763904.0,
+  "sector": "Technology"
+ },
+ "STOVEKRAFT.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Furnishings, Fixtures & Appliances",
+  "longName": "Stove Kraft Limited",
+  "marketCap": 26816929792.0,
+  "sector": "Consumer Cyclical"
+ },
+ "STUDDS.NS": {
+  "city": "Faridabad",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Studds Accessories Limited",
+  "marketCap": 15853517824.0,
+  "sector": "Consumer Cyclical"
+ },
+ "STYL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Software - Infrastructure",
+  "longName": "Seshaasai Technologies Limited",
+  "marketCap": 59059126272.0,
+  "sector": "Technology"
+ },
+ "STYLAMIND.NS": {
+  "city": "Chandigarh",
+  "country": "India",
+  "industry": "Furnishings, Fixtures & Appliances",
+  "longName": "Stylam Industries Limited",
+  "marketCap": 55115890688.0,
+  "sector": "Consumer Cyclical"
+ },
+ "STYLEBAAZA.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Apparel Retail",
+  "longName": "Baazar Style Retail Limited",
+  "marketCap": 27965513728.0,
+  "sector": "Consumer Cyclical"
+ },
+ "STYRENIX.NS": {
+  "city": "Vadodara",
+  "country": "India",
+  "industry": "Chemicals",
+  "longName": "Styrenix Performance Materials Limited",
+  "marketCap": 36248387584.0,
+  "sector": "Basic Materials"
+ },
+ "SUBEXLTD.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Software - Application",
+  "longName": "Subex Limited",
+  "marketCap": 10775289856.0,
+  "sector": "Technology"
+ },
+ "SUBROS.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Subros Limited",
+  "marketCap": 44425547776.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SUDARCOLOR.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Sudarshan Colorants India Limited",
+  "marketCap": 8476790272.0,
+  "sector": "Basic Materials"
+ },
+ "SUDARSCHEM.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Sudarshan Chemical Industries Limited",
+  "marketCap": 98923945984.0,
+  "sector": "Basic Materials"
+ },
+ "SUDEEPPHRM.NS": {
+  "city": "Vadodara",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Sudeep Pharma Limited",
+  "marketCap": 136103092224.0,
+  "sector": "Healthcare"
+ },
+ "SUKHJITS.NS": {
+  "city": "Phagwara",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "The Sukhjit Starch & Chemicals Limited",
+  "marketCap": 4717843968.0,
+  "sector": "Basic Materials"
+ },
+ "SULA.NS": {
+  "city": "Nashik",
+  "country": "India",
+  "industry": "Beverages - Wineries & Distilleries",
+  "longName": "Sula Vineyards Limited",
+  "marketCap": 11020363776.0,
+  "sector": "Consumer Defensive"
+ },
+ "SUMEDHA.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Capital Markets",
+  "longName": "Sumedha Fiscal Services Limited",
+  "marketCap": 343729440.0,
+  "sector": "Financial Services"
+ },
+ "SUMEETINDS.NS": {
+  "city": "Surat",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Sumeet Industries Limited",
+  "marketCap": 7322659840.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SUMICHEM.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Agricultural Inputs",
+  "longName": "Sumitomo Chemical India Limited",
+  "marketCap": 209765990400.0,
+  "sector": "Basic Materials"
+ },
+ "SUMIT.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Sumit Woods Limited",
+  "marketCap": 2249361408.0,
+  "sector": "Real Estate"
+ },
+ "SUMMITSEC.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Capital Markets",
+  "longName": "Summit Securities Limited",
+  "marketCap": 14444305408.0,
+  "sector": "Financial Services"
+ },
+ "SUNCLAY.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Metal Fabrication",
+  "longName": "Sundaram-Clayton Limited",
+  "marketCap": 26124701696.0,
+  "sector": "Industrials"
+ },
+ "SUNDARAM.NS": {
+  "city": "Palghar",
+  "country": "India",
+  "industry": "Paper & Paper Products",
+  "longName": "Sundaram Multi Pap Limited",
+  "marketCap": 507049216.0,
+  "sector": "Basic Materials"
+ },
+ "SUNDARMFIN.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Credit Services",
+  "longName": "Sundaram Finance Limited",
+  "marketCap": 484648714240.0,
+  "sector": "Financial Services"
+ },
+ "SUNDRMBRAK.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Sundaram Brake Linings Limited",
+  "marketCap": 2636165376.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SUNDRMFAST.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Sundram Fasteners Limited",
+  "marketCap": 237234929664.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SUNDROP.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Packaged Foods",
+  "longName": "Sundrop Brands Limited",
+  "marketCap": 28461123584.0,
+  "sector": "Consumer Defensive"
+ },
+ "SUNFLAG.NS": {
+  "city": "Nagpur",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Sunflag Iron and Steel Company Limited",
+  "marketCap": 78296342528.0,
+  "sector": "Basic Materials"
+ },
+ "SUNLOC.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Sunil Healthcare Limited",
+  "sector": "Healthcare"
+ },
+ "SUNPHARMA.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Sun Pharmaceutical Industries Limited",
+  "marketCap": 4321202143232.0,
+  "sector": "Healthcare"
+ },
+ "SUNRAKSHAK.NS": {
+  "city": "Bhilwara",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Sunrakshakk Industries India Limited",
+  "sector": "Consumer Cyclical"
+ },
+ "SUNSHIEL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Sunshield Chemicals Limited",
+  "sector": "Basic Materials"
+ },
+ "SUNSHINE.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Entertainment",
+  "longName": "Sunshine Pictures Limited",
+  "marketCap": 14127531008.0,
+  "sector": "Communication Services"
+ },
+ "SUNTECK.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Sunteck Realty Limited",
+  "marketCap": 41343373312.0,
+  "sector": "Real Estate"
+ },
+ "SUNTV.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Broadcasting",
+  "longName": "Sun TV Network Limited",
+  "marketCap": 236568985600.0,
+  "sector": "Communication Services"
+ },
+ "SUPERHOUSE.NS": {
+  "city": "Kanpur",
+  "country": "India",
+  "industry": "Footwear & Accessories",
+  "longName": "Superhouse Limited",
+  "marketCap": 1708875008.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SUPERSPIN.NS": {
+  "city": "Coimbatore",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Super Spinning Mills Limited",
+  "marketCap": 420195904.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SUPRAJIT.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Suprajit Engineering Limited",
+  "marketCap": 65516855296.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SUPREME.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Supreme Holdings & Hospitality (India) Limited",
+  "marketCap": 1209863808.0,
+  "sector": "Real Estate"
+ },
+ "SUPREMEENG.NS": {
+  "city": "Navi Mumbai",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Supreme Engineering Limited",
+  "marketCap": 1059787968.0,
+  "sector": "Basic Materials"
+ },
+ "SUPREMEIND.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Building Products & Equipment",
+  "longName": "The Supreme Industries Limited",
+  "marketCap": 429536444416.0,
+  "sector": "Industrials"
+ },
+ "SUPREMEINF.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Supreme Infrastructure India Limited",
+  "marketCap": 6435182080.0,
+  "sector": "Industrials"
+ },
+ "SUPRIYA.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Biotechnology",
+  "longName": "Supriya Lifescience Limited",
+  "marketCap": 74446594048.0,
+  "sector": "Healthcare"
+ },
+ "SUPTANERY.NS": {
+  "city": "Kanpur",
+  "country": "India",
+  "industry": "Footwear & Accessories",
+  "longName": "Super Tannery Limited",
+  "marketCap": 870265344.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SURAJEST.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Suraj Estate Developers Limited",
+  "marketCap": 9583430656.0,
+  "sector": "Real Estate"
+ },
+ "SURAJLTD.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Suraj Limited",
+  "marketCap": 3553453312.0,
+  "sector": "Basic Materials"
+ },
+ "SURAKSHA.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Diagnostics & Research",
+  "longName": "Suraksha Diagnostic Limited",
+  "marketCap": 18280347648.0,
+  "sector": "Healthcare"
+ },
+ "SURANASOL.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Solar",
+  "longName": "Surana Solar Limited",
+  "marketCap": 1195720320.0,
+  "sector": "Technology"
+ },
+ "SURANAT&P.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Utilities - Independent Power Producers",
+  "longName": "Surana Telecom and Power Limited",
+  "marketCap": 2158583552.0,
+  "sector": "Utilities"
+ },
+ "SURYALA.NS": {
+  "city": "Secunderabad",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Suryalata Spinning Mills Limited",
+  "sector": "Consumer Cyclical"
+ },
+ "SURYALAXMI.NS": {
+  "city": "Secunderabad",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Suryalakshmi Cotton Mills Limited",
+  "marketCap": 1048582912.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SURYAROSNI.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Surya Roshni Limited",
+  "marketCap": 48097533952.0,
+  "sector": "Basic Materials"
+ },
+ "SURYODAY.NS": {
+  "city": "Navi Mumbai",
+  "country": "India",
+  "industry": "Banks - Regional",
+  "longName": "Suryoday Small Finance Bank Limited",
+  "marketCap": 15200420864.0,
+  "sector": "Financial Services"
+ },
+ "SUTLEJTEX.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Sutlej Textiles and Industries Limited",
+  "marketCap": 5943435776.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SUVEN.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Suven Life Sciences Limited",
+  "marketCap": 86775005184.0,
+  "sector": "Healthcare"
+ },
+ "SUVIDHAA.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "Suvidhaa Infoserve Limited",
+  "marketCap": 448962528.0,
+  "sector": "Technology"
+ },
+ "SUYOG.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Telecom Services",
+  "longName": "Suyog Telematics Limited",
+  "marketCap": 7920773120.0,
+  "sector": "Communication Services"
+ },
+ "SUZLON.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Suzlon Energy Limited",
+  "marketCap": 534873309184.0,
+  "sector": "Industrials"
+ },
+ "SVGLOBAL.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Real Estate Services",
+  "longName": "S V Global Mill Limited",
+  "sector": "Real Estate"
+ },
+ "SVLL.NS": {
+  "city": "Raipur",
+  "country": "India",
+  "industry": "Trucking",
+  "longName": "Shree Vasu Logistics Limited",
+  "marketCap": 9080023040.0,
+  "sector": "Industrials"
+ },
+ "SVPGLOB.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "SVP Global Textiles Limited",
+  "marketCap": 395945024.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SWANCORP.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Conglomerates",
+  "longName": "Swan Corp Limited",
+  "marketCap": 85479702528.0,
+  "sector": "Industrials"
+ },
+ "SWANDEF.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Aerospace & Defense",
+  "longName": "Swan Defence and Heavy Industries Limited",
+  "marketCap": 142247084032.0,
+  "sector": "Industrials"
+ },
+ "SWARAJ.NS": {
+  "city": "Bhilwara",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Swaraj Suiting Limited",
+  "marketCap": 9906847744.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SWARAJENG.NS": {
+  "city": "Mohali",
+  "country": "India",
+  "industry": "Farm & Heavy Construction Machinery",
+  "longName": "Swaraj Engines Limited",
+  "marketCap": 43071270912.0,
+  "sector": "Industrials"
+ },
+ "SWARNSAR.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Luxury Goods",
+  "longName": "Swarnsarita Jewels India Limited",
+  "sector": "Consumer Cyclical"
+ },
+ "SWASTIKAIN.NS": {
+  "city": "Jaipur",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Swastika Infra Limited",
+  "marketCap": 7523501568.0,
+  "sector": "Industrials"
+ },
+ "SWELECTES.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Solar",
+  "longName": "Swelect Energy Systems Limited",
+  "marketCap": 9093359616.0,
+  "sector": "Technology"
+ },
+ "SWIGGY.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Internet Retail",
+  "longName": "Swiggy Limited",
+  "marketCap": 623560425472.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SWISSMLTRY.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Apparel Manufacturing",
+  "longName": "Swiss Military Consumer Goods Limited",
+  "marketCap": 3303574528.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SWSOLAR.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Solar",
+  "longName": "Sterling and Wilson Renewable Energy Limited",
+  "marketCap": 38581039104.0,
+  "sector": "Technology"
+ },
+ "SYMBIOTEC.NS": {
+  "city": "Indore",
+  "country": "India",
+  "industry": "Drug Manufacturers - General",
+  "longName": "SYMBIOTEC PHARMALAB LTD",
+  "sector": "Healthcare"
+ },
+ "SYMPHONY.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Furnishings, Fixtures & Appliances",
+  "longName": "Symphony Limited",
+  "marketCap": 39413952512.0,
+  "sector": "Consumer Cyclical"
+ },
+ "SYNCOMF.NS": {
+  "city": "Indore",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Syncom Formulations (India) Limited",
+  "marketCap": 22550599680.0,
+  "sector": "Healthcare"
+ },
+ "SYNGENE.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Diagnostics & Research",
+  "longName": "Syngene International Limited",
+  "marketCap": 144518758400.0,
+  "sector": "Healthcare"
+ },
+ "SYRMA.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Electronic Components",
+  "longName": "Syrma SGS Technology Limited",
+  "marketCap": 331314954240.0,
+  "sector": "Technology"
+ },
+ "SYSTMTXC.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Capital Markets",
+  "longName": "Systematix Corporate Services Limited",
+  "marketCap": 10113792000.0,
+  "sector": "Financial Services"
+ },
+ "TAALTECH.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Airports & Air Services",
+  "longName": "TAAL Tech Limited",
+  "marketCap": 14958441472.0,
+  "sector": "Industrials"
+ },
+ "TAINWALCHM.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Tainwala Chemicals and Plastics (India) Limited",
+  "marketCap": 1886818432.0,
+  "sector": "Basic Materials"
+ },
+ "TAJGVK.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Lodging",
+  "longName": "Krishna GVK Luxury Hotels Limited",
+  "marketCap": 19785455616.0,
+  "sector": "Consumer Cyclical"
+ },
+ "TAKE.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Health Information Services",
+  "longName": "TAKE LIMITED",
+  "marketCap": 1849746048.0,
+  "sector": "Healthcare"
+ },
+ "TALBROAUTO.NS": {
+  "city": "Faridabad",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Talbros Automotive Components Limited",
+  "marketCap": 25987551232.0,
+  "sector": "Consumer Cyclical"
+ },
+ "TAMBOLIIN.NS": {
+  "city": "Bhavnagar",
+  "country": "India",
+  "industry": "Metal Fabrication",
+  "longName": "Tamboli Industries Limited",
+  "sector": "Industrials"
+ },
+ "TANAA.NS": {
+  "city": "Krishnagiri",
+  "country": "India",
+  "industry": "Aerospace & Defense",
+  "longName": "Taneja Aerospace and Aviation Limited",
+  "sector": "Industrials"
+ },
+ "TANLA.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Software - Application",
+  "longName": "Tanla Platforms Limited",
+  "marketCap": 64308699136.0,
+  "sector": "Technology"
+ },
+ "TARACHAND.NS": {
+  "city": "Chandigarh",
+  "country": "India",
+  "industry": "Farm & Heavy Construction Machinery",
+  "longName": "Tara Chand Infralogistic Solutions Limited",
+  "marketCap": 3629886464.0,
+  "sector": "Industrials"
+ },
+ "TARAPUR.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Tarapur Transformers Limited",
+  "marketCap": 238095152.0,
+  "sector": "Industrials"
+ },
+ "TARC.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "TARC Limited",
+  "marketCap": 37120167936.0,
+  "sector": "Real Estate"
+ },
+ "TARIL.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "Transformers and Rectifiers (India) Limited",
+  "marketCap": 85247090688.0,
+  "sector": "Industrials"
+ },
+ "TARMAT.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Tarmat Limited",
+  "marketCap": 1448463360.0,
+  "sector": "Industrials"
+ },
+ "TARSONS.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Medical Instruments & Supplies",
+  "longName": "Tarsons Products Limited",
+  "marketCap": 17627240448.0,
+  "sector": "Healthcare"
+ },
+ "TASTYBITE.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Packaged Foods",
+  "longName": "Tasty Bite Eatables Limited",
+  "marketCap": 24500168704.0,
+  "sector": "Consumer Defensive"
+ },
+ "TATACAP.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Credit Services",
+  "longName": "Tata Capital Limited",
+  "marketCap": 1344703299584.0,
+  "sector": "Financial Services"
+ },
+ "TATACHEM.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Chemicals",
+  "longName": "Tata Chemicals Limited",
+  "marketCap": 155006451712.0,
+  "sector": "Basic Materials"
+ },
+ "TATACOMM.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Telecom Services",
+  "longName": "Tata Communications Limited",
+  "marketCap": 480597377024.0,
+  "sector": "Communication Services"
+ },
+ "TATACONSUM.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Packaged Foods",
+  "longName": "Tata Consumer Products Limited",
+  "marketCap": 947133284352.0,
+  "sector": "Consumer Defensive"
+ },
+ "TATAELXSI.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Software - Application",
+  "longName": "Tata Elxsi Limited",
+  "marketCap": 192680083456.0,
+  "sector": "Technology"
+ },
+ "TATAINVEST.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Asset Management",
+  "longName": "Tata Investment Corporation Limited",
+  "marketCap": 311161061376.0,
+  "sector": "Financial Services"
+ },
+ "TATAPOWER.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Utilities - Independent Power Producers",
+  "longName": "The Tata Power Company Limited",
+  "marketCap": 1118848155648.0,
+  "sector": "Utilities"
+ },
+ "TATASTEEL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Tata Steel Limited",
+  "marketCap": 2220428099584.0,
+  "sector": "Basic Materials"
+ },
+ "TATATECH.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "Tata Technologies Limited",
+  "marketCap": 283830222848.0,
+  "sector": "Technology"
+ },
+ "TATVA.NS": {
+  "city": "Vadodara",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Tatva Chintan Pharma Chem Limited",
+  "marketCap": 40936099840.0,
+  "sector": "Basic Materials"
+ },
+ "TBOTEK.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Travel Services",
+  "longName": "TBO Tek Limited",
+  "marketCap": 179290308608.0,
+  "sector": "Consumer Cyclical"
+ },
+ "TBZ.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Luxury Goods",
+  "longName": "Tribhovandas Bhimji Zaveri Limited",
+  "marketCap": 42100350976.0,
+  "sector": "Consumer Cyclical"
+ },
+ "TCC.NS": {
+  "city": "Pune",
+  "country": "India",
+  "longName": "TCC Concept Limited"
+ },
+ "TCI.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Integrated Freight & Logistics",
+  "longName": "Transport Corporation of India Limited",
+  "marketCap": 67515367424.0,
+  "sector": "Industrials"
+ },
+ "TCIEXP.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Integrated Freight & Logistics",
+  "longName": "TCI Express Limited",
+  "marketCap": 19587301376.0,
+  "sector": "Industrials"
+ },
+ "TCIFINANCE.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Credit Services",
+  "longName": "TCI Finance Limited",
+  "marketCap": 187552224.0,
+  "sector": "Financial Services"
+ },
+ "TCPLPACK.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Packaging & Containers",
+  "longName": "TCPL Packaging Limited",
+  "marketCap": 35415531520.0,
+  "sector": "Consumer Cyclical"
+ },
+ "TCS.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "Tata Consultancy Services Limited",
+  "marketCap": 7507531530240.0,
+  "sector": "Technology"
+ },
+ "TDPOWERSYS.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "TD Power Systems Limited",
+  "marketCap": 248769527808.0,
+  "sector": "Industrials"
+ },
+ "TEAMGTY.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Asset Management",
+  "longName": "Team India Guaranty Limited",
+  "marketCap": 2114289408.0,
+  "sector": "Financial Services"
+ },
+ "TEAMLEASE.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Staffing & Employment Services",
+  "longName": "TeamLease Services Limited",
+  "marketCap": 18082482176.0,
+  "sector": "Industrials"
+ },
+ "TECHM.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "Tech Mahindra Limited",
+  "marketCap": 1358120615936.0,
+  "sector": "Technology"
+ },
+ "TECHNOCRAF.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Infrastructure Operations",
+  "longName": "Technocraft Ventures Limited",
+  "marketCap": 18892156928.0,
+  "sector": "Industrials"
+ },
+ "TECHNOE.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Techno Electric & Engineering Company Limited",
+  "marketCap": 116415873024.0,
+  "sector": "Industrials"
+ },
+ "TECHNVISN.NS": {
+  "city": "Secunderabad",
+  "country": "India",
+  "industry": "Software - Application",
+  "longName": "TechNVision Ventures Limited",
+  "marketCap": 23615963136.0,
+  "sector": "Technology"
+ },
+ "TECILCHEM.NS": {
+  "city": "Kochi",
+  "country": "India",
+  "industry": "Shell Companies",
+  "longName": "Tecil Chemicals and Hydro Power Ltd.",
+  "marketCap": 175603872.0,
+  "sector": "Financial Services"
+ },
+ "TEGA.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Tega Industries Limited",
+  "marketCap": 157542776832.0,
+  "sector": "Industrials"
+ },
+ "TEJASNET.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Communication Equipment",
+  "longName": "Tejas Networks Limited",
+  "marketCap": 83083747328.0,
+  "sector": "Technology"
+ },
+ "TEMBO.NS": {
+  "city": "Navi Mumbai",
+  "country": "India",
+  "industry": "Metal Fabrication",
+  "longName": "Tembo Global Industries Limited",
+  "marketCap": 11071173632.0,
+  "sector": "Industrials"
+ },
+ "TEMPSENS.NS": {
+  "city": "Udaipur",
+  "country": "India",
+  "industry": "Scientific & Technical Instruments",
+  "longName": "TEMPSENS INST (INDIA) LTD",
+  "sector": "Technology"
+ },
+ "TENNIND.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Tenneco Clean Air India Limited",
+  "marketCap": 199420903424.0,
+  "sector": "Consumer Cyclical"
+ },
+ "TERAI.NS": {
+  "city": "Siliguri",
+  "country": "India",
+  "industry": "Farm Products",
+  "longName": "Terai Tea Company Limited",
+  "marketCap": 803158272.0,
+  "sector": "Consumer Defensive"
+ },
+ "TERASOFT.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "Tera Software Limited",
+  "marketCap": 2700562944.0,
+  "sector": "Technology"
+ },
+ "TEXINFRA.NS": {
+  "city": "Delhi",
+  "country": "India",
+  "industry": "Real Estate Services",
+  "longName": "Texmaco Infrastructure & Holdings Limited",
+  "marketCap": 15405875200.0,
+  "sector": "Real Estate"
+ },
+ "TEXMOPIPES.NS": {
+  "city": "Burhanpur",
+  "country": "India",
+  "industry": "Building Products & Equipment",
+  "longName": "Texmo Pipes and Products Limited",
+  "marketCap": 1564560000.0,
+  "sector": "Industrials"
+ },
+ "TEXRAIL.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Railroads",
+  "longName": "Texmaco Rail & Engineering Limited",
+  "marketCap": 51773517824.0,
+  "sector": "Industrials"
+ },
+ "TFCILTD.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Credit Services",
+  "longName": "Tourism Finance Corporation of India Limited",
+  "marketCap": 64265871360.0,
+  "sector": "Financial Services"
+ },
+ "TFL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Mortgage Finance",
+  "longName": "Transwarranty Finance Limited",
+  "marketCap": 852647552.0,
+  "sector": "Financial Services"
+ },
+ "TGBHOTELS.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Lodging",
+  "longName": "TGB Banquets and Hotels Limited",
+  "marketCap": 272363520.0,
+  "sector": "Consumer Cyclical"
+ },
+ "TGVSL.NS": {
+  "city": "Kurnool",
+  "country": "India",
+  "industry": "Chemicals",
+  "longName": "TGV SRAAC Limited",
+  "marketCap": 12518797312.0,
+  "sector": "Basic Materials"
+ },
+ "THACKER.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Asset Management",
+  "longName": "Thacker and Company Limited",
+  "marketCap": 1027894464.0,
+  "sector": "Financial Services"
+ },
+ "THAKDEV.NS": {
+  "city": "Nashik",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Thakkers Developers Limited",
+  "marketCap": 1158660096.0,
+  "sector": "Real Estate"
+ },
+ "THANGAMAYL.NS": {
+  "city": "Madurai",
+  "country": "India",
+  "industry": "Luxury Goods",
+  "longName": "Thangamayil Jewellery Limited",
+  "marketCap": 151369433088.0,
+  "sector": "Consumer Cyclical"
+ },
+ "THEINVEST.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Capital Markets",
+  "longName": "The Investment Trust of India Limited",
+  "marketCap": 4749340160.0,
+  "sector": "Financial Services"
+ },
+ "THEJO.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Thejo Engineering Limited",
+  "marketCap": 22410840064.0,
+  "sector": "Industrials"
+ },
+ "THELEELA.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Lodging",
+  "longName": "Leela Palaces Hotels & Resorts Limited",
+  "marketCap": 190322606080.0,
+  "sector": "Consumer Cyclical"
+ },
+ "THEMISMED.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Themis Medicare Limited",
+  "marketCap": 10519069696.0,
+  "sector": "Healthcare"
+ },
+ "THERMAX.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Conglomerates",
+  "longName": "Thermax Limited",
+  "marketCap": 377722273792.0,
+  "sector": "Industrials"
+ },
+ "THOMASCOOK.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Travel Services",
+  "longName": "Thomas Cook (India) Limited",
+  "marketCap": 47480217600.0,
+  "sector": "Consumer Cyclical"
+ },
+ "THOMASCOTT.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Thomas Scott (India) Limited",
+  "marketCap": 4485766144.0,
+  "sector": "Consumer Cyclical"
+ },
+ "THYROCARE.NS": {
+  "city": "Navi Mumbai",
+  "country": "India",
+  "industry": "Diagnostics & Research",
+  "longName": "Thyrocare Technologies Limited",
+  "marketCap": 84514856960.0,
+  "sector": "Healthcare"
+ },
+ "TI.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Beverages - Wineries & Distilleries",
+  "longName": "Tilaknagar Industries Ltd.",
+  "marketCap": 134856458240.0,
+  "sector": "Consumer Defensive"
+ },
+ "TICL.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Twamev Construction and Infrastructure Limited",
+  "marketCap": 1207449984.0,
+  "sector": "Industrials"
+ },
+ "TIGERLOGS.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Integrated Freight & Logistics",
+  "longName": "Tiger Logistics (India) Limited",
+  "marketCap": 2725590528.0,
+  "sector": "Industrials"
+ },
+ "TIIL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Tools & Accessories",
+  "longName": "Technocraft Industries (India) Limited",
+  "marketCap": 65841807360.0,
+  "sector": "Industrials"
+ },
+ "TIINDIA.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Conglomerates",
+  "longName": "Tube Investments of India Limited",
+  "marketCap": 452959240192.0,
+  "sector": "Industrials"
+ },
+ "TIJARIA.NS": {
+  "city": "Jaipur",
+  "country": "India",
+  "industry": "Building Products & Equipment",
+  "longName": "Tijaria Polypipes Limited",
+  "marketCap": 187147872.0,
+  "sector": "Industrials"
+ },
+ "TIL.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Farm & Heavy Construction Machinery",
+  "longName": "TIL Limited",
+  "marketCap": 20610953216.0,
+  "sector": "Industrials"
+ },
+ "TIMETECHNO.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Packaging & Containers",
+  "longName": "Time Technoplast Limited",
+  "marketCap": 89081446400.0,
+  "sector": "Consumer Cyclical"
+ },
+ "TIMEX.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Luxury Goods",
+  "longName": "Timex Group India Limited",
+  "marketCap": 73693503488.0,
+  "sector": "Consumer Cyclical"
+ },
+ "TIMKEN.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Tools & Accessories",
+  "longName": "Timken India Limited",
+  "marketCap": 232952430592.0,
+  "sector": "Industrials"
+ },
+ "TINNARUBR.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Tinna Rubber and Infrastructure Limited",
+  "marketCap": 16945619968.0,
+  "sector": "Basic Materials"
+ },
+ "TIPSFILMS.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Entertainment",
+  "longName": "Tips Films Limited",
+  "marketCap": 1355440896.0,
+  "sector": "Communication Services"
+ },
+ "TIPSMUSIC.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Entertainment",
+  "longName": "Tips Music Limited",
+  "marketCap": 82246860800.0,
+  "sector": "Communication Services"
+ },
+ "TIRUMALCHM.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Thirumalai Chemicals Limited",
+  "marketCap": 17492207616.0,
+  "sector": "Basic Materials"
+ },
+ "TIRUPATIFL.NS": {
+  "city": "Rajkot",
+  "country": "India",
+  "industry": "Metal Fabrication",
+  "longName": "Tirupati Forge Limited",
+  "marketCap": 9517511680.0,
+  "sector": "Industrials"
+ },
+ "TITAGARH.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Railroads",
+  "longName": "Titagarh Rail Systems Limited",
+  "marketCap": 96474234880.0,
+  "sector": "Industrials"
+ },
+ "TITAN.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Luxury Goods",
+  "longName": "Titan Company Limited",
+  "marketCap": 4006836436992.0,
+  "sector": "Consumer Cyclical"
+ },
+ "TMB.NS": {
+  "city": "Thoothukudi",
+  "country": "India",
+  "industry": "Banks - Regional",
+  "longName": "Tamilnad Mercantile Bank Limited",
+  "marketCap": 140141035520.0,
+  "sector": "Financial Services"
+ },
+ "TMCV.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Auto Manufacturers",
+  "longName": "Tata Motors Limited",
+  "marketCap": 1539774218240.0,
+  "sector": "Consumer Cyclical"
+ },
+ "TMPV.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Auto Manufacturers",
+  "longName": "Tata Motors Passenger Vehicles Limited",
+  "marketCap": 1029027987456.0,
+  "sector": "Consumer Cyclical"
+ },
+ "TNPETRO.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Tamilnadu Petroproducts Limited",
+  "marketCap": 10913540096.0,
+  "sector": "Basic Materials"
+ },
+ "TNPL.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Paper & Paper Products",
+  "longName": "Tamil Nadu Newsprint and Papers Limited",
+  "marketCap": 10191260672.0,
+  "sector": "Basic Materials"
+ },
+ "TNTELE.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Communication Equipment",
+  "longName": "Tamilnadu Telecommunications Limited",
+  "marketCap": 527961408.0,
+  "sector": "Technology"
+ },
+ "TOKYOPLAST.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Packaging & Containers",
+  "longName": "Tokyo Plast International Limited",
+  "marketCap": 674694464.0,
+  "sector": "Consumer Cyclical"
+ },
+ "TOLINS.NS": {
+  "city": "Aluva",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Tolins Tyres Limited",
+  "marketCap": 3370103552.0,
+  "sector": "Consumer Cyclical"
+ },
+ "TORNTPHARM.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Torrent Pharmaceuticals Limited",
+  "marketCap": 1813327642624.0,
+  "sector": "Healthcare"
+ },
+ "TORNTPOWER.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Utilities - Independent Power Producers",
+  "longName": "Torrent Power Limited",
+  "marketCap": 628871659520.0,
+  "sector": "Utilities"
+ },
+ "TOTAL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Integrated Freight & Logistics",
+  "longName": "Total Transport Systems Limited",
+  "marketCap": 1134532608.0,
+  "sector": "Industrials"
+ },
+ "TOUCHWOOD.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Advertising Agencies",
+  "longName": "Touchwood Entertainment Limited",
+  "marketCap": 636063552.0,
+  "sector": "Communication Services"
+ },
+ "TOYAMSL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Conglomerates",
+  "longName": "Toyam Sports Limited",
+  "marketCap": 404470464.0,
+  "sector": "Industrials"
+ },
+ "TPHQ.NS": {
+  "city": "Delhi",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Teamo Productions HQ Limited",
+  "marketCap": 548109824.0,
+  "sector": "Industrials"
+ },
+ "TPLPLASTEH.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Packaging & Containers",
+  "longName": "TPL Plastech Limited",
+  "marketCap": 5416528384.0,
+  "sector": "Consumer Cyclical"
+ },
+ "TRACXN.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Software - Application",
+  "longName": "Tracxn Technologies Limited",
+  "marketCap": 3386197760.0,
+  "sector": "Technology"
+ },
+ "TRANSCOR.NS": {
+  "city": "Jaipur",
+  "country": "India",
+  "industry": "Capital Markets",
+  "longName": "Transcorp International Limited",
+  "sector": "Financial Services"
+ },
+ "TRANSPEK.NS": {
+  "city": "Vadodara",
+  "country": "India",
+  "industry": "Chemicals",
+  "longName": "Transpek Industry Limited",
+  "marketCap": 7534932480.0,
+  "sector": "Basic Materials"
+ },
+ "TRANSRAILL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Transrail Lighting Limited",
+  "marketCap": 63127187456.0,
+  "sector": "Industrials"
+ },
+ "TRANSWORLD.NS": {
+  "city": "Navi Mumbai",
+  "country": "India",
+  "industry": "Marine Shipping",
+  "longName": "Transworld Shipping Lines Limited",
+  "marketCap": 3491247616.0,
+  "sector": "Industrials"
+ },
+ "TRAVELFOOD.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Restaurants",
+  "longName": "Travel Food Services Limited",
+  "marketCap": 158710726656.0,
+  "sector": "Consumer Cyclical"
+ },
+ "TREEHOUSE.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Education & Training Services",
+  "longName": "Tree House Education & Accessories Limited",
+  "marketCap": 239901808.0,
+  "sector": "Consumer Defensive"
+ },
+ "TREJHARA.NS": {
+  "city": "Navi Mumbai",
+  "country": "India",
+  "industry": "Software - Application",
+  "longName": "Trejhara Solutions Limited",
+  "marketCap": 3207528192.0,
+  "sector": "Technology"
+ },
+ "TREL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Real Estate Services",
+  "longName": "Transindia Real Estate Limited",
+  "marketCap": 6768911360.0,
+  "sector": "Real Estate"
+ },
+ "TRENT.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Apparel Retail",
+  "longName": "Trent Limited",
+  "marketCap": 1375739314176.0,
+  "sector": "Consumer Cyclical"
+ },
+ "TRF.NS": {
+  "city": "Jamshedpur",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "TRF Limited",
+  "marketCap": 2104263680.0,
+  "sector": "Industrials"
+ },
+ "TRIDENT.NS": {
+  "city": "Barnala",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Trident Limited",
+  "marketCap": 113325793280.0,
+  "sector": "Consumer Cyclical"
+ },
+ "TRIGYN.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "Trigyn Technologies Limited",
+  "marketCap": 1591622528.0,
+  "sector": "Technology"
+ },
+ "TRITONV.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Triton Valves Limited",
+  "sector": "Consumer Cyclical"
+ },
+ "TRITURBINE.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Triveni Turbine Limited",
+  "marketCap": 168360067072.0,
+  "sector": "Industrials"
+ },
+ "TRIVENI.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Confectioners",
+  "longName": "Triveni Engineering & Industries Limited",
+  "marketCap": 51278471168.0,
+  "sector": "Consumer Defensive"
+ },
+ "TRU.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Credit Services",
+  "longName": "TruCap Finance Limited",
+  "marketCap": 508987968.0,
+  "sector": "Financial Services"
+ },
+ "TRUALT.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Oil & Gas Refining & Marketing",
+  "longName": "TruAlt Bioenergy Limited",
+  "marketCap": 38117027840.0,
+  "sector": "Energy"
+ },
+ "TSFINV.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Asset Management",
+  "longName": "TSF Investments Limited",
+  "marketCap": 90262962176.0,
+  "sector": "Financial Services"
+ },
+ "TTKHLTCARE.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Drug Manufacturers - General",
+  "longName": "TTK Healthcare Limited",
+  "marketCap": 14302723072.0,
+  "sector": "Healthcare"
+ },
+ "TTKPRESTIG.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Furnishings, Fixtures & Appliances",
+  "longName": "TTK Prestige Limited",
+  "marketCap": 70099394560.0,
+  "sector": "Consumer Cyclical"
+ },
+ "TTL.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "T.T. Limited",
+  "marketCap": 2032907136.0,
+  "sector": "Consumer Cyclical"
+ },
+ "TTML.NS": {
+  "city": "Navi Mumbai",
+  "country": "India",
+  "industry": "Telecom Services",
+  "longName": "Tata Teleservices (Maharashtra) Limited",
+  "marketCap": 67014922240.0,
+  "sector": "Communication Services"
+ },
+ "TURTLEMINT.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Insurance Brokers",
+  "longName": "Turtlemint Fintech Solutions Limited",
+  "sector": "Financial Services"
+ },
+ "TUTIALKA.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Agricultural Inputs",
+  "longName": "Tuticorin Alkali Chemicals and Fertilizers Limited",
+  "marketCap": 6626650624.0,
+  "sector": "Basic Materials"
+ },
+ "TVSELECT.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Computer Hardware",
+  "longName": "TVS Electronics Limited",
+  "marketCap": 7416987136.0,
+  "sector": "Technology"
+ },
+ "TVSHLTD.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "TVS Holdings Limited",
+  "marketCap": 240296706048.0,
+  "sector": "Consumer Cyclical"
+ },
+ "TVSMOTOR.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Auto Manufacturers",
+  "longName": "TVS Motor Company Limited",
+  "marketCap": 1910884663296.0,
+  "sector": "Consumer Cyclical"
+ },
+ "TVSSCS.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Integrated Freight & Logistics",
+  "longName": "TVS Supply Chain Solutions Limited",
+  "marketCap": 56481054720.0,
+  "sector": "Industrials"
+ },
+ "TVSSRICHAK.NS": {
+  "city": "Madurai",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "TVS Srichakra Limited",
+  "marketCap": 33308168192.0,
+  "sector": "Consumer Cyclical"
+ },
+ "TVTODAY.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Broadcasting",
+  "longName": "T.V. Today Network Limited",
+  "marketCap": 6050397696.0,
+  "sector": "Communication Services"
+ },
+ "TVVISION.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Broadcasting",
+  "longName": "TV Vision Limited",
+  "marketCap": 98798472.0,
+  "sector": "Communication Services"
+ },
+ "UBL.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Beverages - Brewers",
+  "longName": "United Breweries Limited",
+  "marketCap": 312421122048.0,
+  "sector": "Consumer Defensive"
+ },
+ "UCAL.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "UCAL Limited",
+  "marketCap": 3126866176.0,
+  "sector": "Consumer Cyclical"
+ },
+ "UCOBANK.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Banks - Regional",
+  "longName": "UCO Bank",
+  "marketCap": 287406686208.0,
+  "sector": "Financial Services"
+ },
+ "UDAYJEW.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Luxury Goods",
+  "longName": "Uday Jewellery Industries Limited",
+  "sector": "Consumer Cyclical"
+ },
+ "UDS.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Specialty Business Services",
+  "longName": "Updater Services Limited",
+  "marketCap": 13979892736.0,
+  "sector": "Industrials"
+ },
+ "UEL.NS": {
+  "city": "Indore",
+  "country": "India",
+  "industry": "Solar",
+  "longName": "Ujaas Energy Limited",
+  "marketCap": 24145004544.0,
+  "sector": "Technology"
+ },
+ "UFBL.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Restaurants",
+  "longName": "United Foodbrands Limited",
+  "marketCap": 27108538368.0,
+  "sector": "Consumer Cyclical"
+ },
+ "UFLEX.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Packaging & Containers",
+  "longName": "Uflex Limited",
+  "marketCap": 46930247680.0,
+  "sector": "Consumer Cyclical"
+ },
+ "UFO.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Entertainment",
+  "longName": "UFO Moviez India Limited",
+  "marketCap": 2230093824.0,
+  "sector": "Communication Services"
+ },
+ "UGARSUGAR.NS": {
+  "city": "Belgaum",
+  "country": "India",
+  "industry": "Confectioners",
+  "longName": "The Ugar Sugar Works Limited",
+  "marketCap": 6390000128.0,
+  "sector": "Consumer Defensive"
+ },
+ "UGROCAP.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Credit Services",
+  "longName": "UGRO Capital Limited",
+  "marketCap": 12546152448.0,
+  "sector": "Financial Services"
+ },
+ "UJJIVANSFB.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Banks - Regional",
+  "longName": "Ujjivan Small Finance Bank Limited",
+  "marketCap": 127989293056.0,
+  "sector": "Financial Services"
+ },
+ "ULTRACEMCO.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Building Materials",
+  "longName": "UltraTech Cement Limited",
+  "marketCap": 3150556692480.0,
+  "sector": "Basic Materials"
+ },
+ "ULTRAMAR.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Ultramarine & Pigments Limited",
+  "marketCap": 11863959552.0,
+  "sector": "Basic Materials"
+ },
+ "UMAEXPORTS.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Farm Products",
+  "longName": "Uma Exports Limited",
+  "marketCap": 745506752.0,
+  "sector": "Consumer Defensive"
+ },
+ "UMESLTD.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Education & Training Services",
+  "longName": "Usha Martin Education & Solutions Limited",
+  "marketCap": 122427576.0,
+  "sector": "Consumer Defensive"
+ },
+ "UMIYA-MRO.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Communication Equipment",
+  "longName": "MRO-TEK Networks Limited",
+  "marketCap": 1710575360.0,
+  "sector": "Technology"
+ },
+ "UNICHEMLAB.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Unichem Laboratories Limited",
+  "marketCap": 37455859712.0,
+  "sector": "Healthcare"
+ },
+ "UNIDT.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Oil & Gas Equipment & Services",
+  "longName": "United Drilling Tools Limited",
+  "marketCap": 4750931456.0,
+  "sector": "Energy"
+ },
+ "UNIECOM.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Software - Application",
+  "longName": "Unicommerce eSolutions Limited",
+  "marketCap": 9324100608.0,
+  "sector": "Technology"
+ },
+ "UNIENTER.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Chemicals",
+  "longName": "Uniphos Enterprises Limited",
+  "marketCap": 12080113664.0,
+  "sector": "Basic Materials"
+ },
+ "UNIINFO.NS": {
+  "city": "Indore",
+  "country": "India",
+  "industry": "Telecom Services",
+  "longName": "Uniinfo Telecom Services Limited",
+  "marketCap": 112705488.0,
+  "sector": "Communication Services"
+ },
+ "UNIMECH.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Aerospace & Defense",
+  "longName": "Unimech Aerospace and Manufacturing Limited",
+  "marketCap": 90040541184.0,
+  "sector": "Industrials"
+ },
+ "UNIONBANK.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Banks - Regional",
+  "longName": "Union Bank of India",
+  "marketCap": 1279315935232.0,
+  "sector": "Financial Services"
+ },
+ "UNIPARTS.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Farm & Heavy Construction Machinery",
+  "longName": "Uniparts India Limited",
+  "marketCap": 36418953216.0,
+  "sector": "Industrials"
+ },
+ "UNITDSPR.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Beverages - Wineries & Distilleries",
+  "longName": "United Spirits Limited",
+  "marketCap": 947994951680.0,
+  "sector": "Consumer Defensive"
+ },
+ "UNITECH.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Real Estate - Diversified",
+  "longName": "Unitech Limited",
+  "marketCap": 10282062848.0,
+  "sector": "Real Estate"
+ },
+ "UNITEDPOLY.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "United Polyfab Gujarat Limited",
+  "marketCap": 10784933888.0,
+  "sector": "Consumer Cyclical"
+ },
+ "UNITEDTEA.NS": {
+  "city": "Coimbatore",
+  "country": "India",
+  "industry": "Farm Products",
+  "longName": "The United Nilgiri Tea Estates Company Limited",
+  "marketCap": 2083568000.0,
+  "sector": "Consumer Defensive"
+ },
+ "UNIVASTU.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Univastu India Limited",
+  "marketCap": 4857853952.0,
+  "sector": "Industrials"
+ },
+ "UNIVCABLES.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "Universal Cables Limited",
+  "marketCap": 49694195712.0,
+  "sector": "Industrials"
+ },
+ "UNIVPHOTO.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Medical Devices",
+  "longName": "Universus Photo Imagings Limited",
+  "marketCap": 5363835904.0,
+  "sector": "Healthcare"
+ },
+ "UNOMINDA.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Uno Minda Limited",
+  "marketCap": 641566048256.0,
+  "sector": "Consumer Cyclical"
+ },
+ "UPHOT.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Lodging",
+  "longName": "U.P. Hotels Limited",
+  "sector": "Consumer Cyclical"
+ },
+ "UPL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Agricultural Inputs",
+  "longName": "UPL Limited",
+  "marketCap": 436842856448.0,
+  "sector": "Basic Materials"
+ },
+ "URAVIDEF.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Uravi Defence and Technology Limited",
+  "marketCap": 1174200064.0,
+  "sector": "Consumer Cyclical"
+ },
+ "URBANCO.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Software - Application",
+  "longName": "Urban Company Limited",
+  "marketCap": 229716262912.0,
+  "sector": "Technology"
+ },
+ "URJA.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Solar",
+  "longName": "Urja Global Limited",
+  "marketCap": 4791971840.0,
+  "sector": "Technology"
+ },
+ "USHAMART.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Usha Martin Limited",
+  "marketCap": 150373744640.0,
+  "sector": "Basic Materials"
+ },
+ "USK.NS": {
+  "city": "Davanagere",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Udayshivakumar Infra Limited",
+  "marketCap": 1013035712.0,
+  "sector": "Industrials"
+ },
+ "UTIAMC.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Asset Management",
+  "longName": "UTI Asset Management Company Limited",
+  "marketCap": 113115398144.0,
+  "sector": "Financial Services"
+ },
+ "UTKARSHBNK.NS": {
+  "city": "Varanasi",
+  "country": "India",
+  "industry": "Banks - Regional",
+  "longName": "Utkarsh Small Finance Bank Limited",
+  "marketCap": 23987978240.0,
+  "sector": "Financial Services"
+ },
+ "UTLSOLAR.NS": {
+  "city": "Greater Noida",
+  "country": "India",
+  "industry": "Solar",
+  "longName": "Fujiyama Power Systems Limited",
+  "marketCap": 123067604992.0,
+  "sector": "Technology"
+ },
+ "UTTAMSUGAR.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Confectioners",
+  "longName": "Uttam Sugar Mills Limited",
+  "marketCap": 10526120960.0,
+  "sector": "Consumer Defensive"
+ },
+ "UYFINCORP.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Credit Services",
+  "longName": "U. Y. Fincorp Limited",
+  "marketCap": 4354555392.0,
+  "sector": "Financial Services"
+ },
+ "V2RETAIL.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Apparel Retail",
+  "longName": "V2 Retail Limited",
+  "marketCap": 73237454848.0,
+  "sector": "Consumer Cyclical"
+ },
+ "VADILALIND.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Packaged Foods",
+  "longName": "Vadilal Industries Limited",
+  "marketCap": 51752374272.0,
+  "sector": "Consumer Defensive"
+ },
+ "VADILENT.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Food Distribution",
+  "longName": "Vadilal Enterprises Limited",
+  "marketCap": 8549040128.0,
+  "sector": "Consumer Defensive"
+ },
+ "VAIBHAVGBL.NS": {
+  "city": "Jaipur",
+  "country": "India",
+  "industry": "Luxury Goods",
+  "longName": "Vaibhav Global Limited",
+  "marketCap": 34278412288.0,
+  "sector": "Consumer Cyclical"
+ },
+ "VAISHALI.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Vaishali Pharma Limited",
+  "marketCap": 1093272704.0,
+  "sector": "Healthcare"
+ },
+ "VAKRANGEE.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "Vakrangee Limited",
+  "marketCap": 5537218560.0,
+  "sector": "Technology"
+ },
+ "VALIANTLAB.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Valiant Laboratories Limited",
+  "marketCap": 6713025024.0,
+  "sector": "Healthcare"
+ },
+ "VALIANTORG.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Chemicals",
+  "longName": "Valiant Organics Limited",
+  "marketCap": 13177667584.0,
+  "sector": "Basic Materials"
+ },
+ "VAML.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Aluminum",
+  "longName": "Vedanta Aluminium Metal Limited",
+  "marketCap": 1573374787584.0,
+  "sector": "Basic Materials"
+ },
+ "VARDHACRLC.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Vardhman Acrylics Limited",
+  "marketCap": 3567346432.0,
+  "sector": "Consumer Cyclical"
+ },
+ "VARDMNPOLY.NS": {
+  "city": "Ludhiana",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Vardhman Polytex Limited",
+  "marketCap": 2892904192.0,
+  "sector": "Consumer Cyclical"
+ },
+ "VARMORA.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Building Materials",
+  "longName": "Varmora Granito Limited",
+  "marketCap": 30285584384.0,
+  "sector": "Basic Materials"
+ },
+ "VARROC.NS": {
+  "city": "Aurangabad",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Varroc Engineering Limited",
+  "marketCap": 126670643200.0,
+  "sector": "Consumer Cyclical"
+ },
+ "VASCONEQ.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Vascon Engineers Limited",
+  "marketCap": 7456282112.0,
+  "sector": "Industrials"
+ },
+ "VASUPRADA.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Farm Products",
+  "longName": "Shri Vasuprada Plantations Limited",
+  "sector": "Consumer Defensive"
+ },
+ "VASWANI.NS": {
+  "city": "Raipur",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Vaswani Industries Limited",
+  "marketCap": 1467448832.0,
+  "sector": "Basic Materials"
+ },
+ "VBL.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Beverages - Non - Alcoholic",
+  "longName": "Varun Beverages Limited",
+  "marketCap": 1438574968832.0,
+  "sector": "Consumer Defensive"
+ },
+ "VCL.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Vaxtex Cotfab Limited",
+  "marketCap": 251740544.0,
+  "sector": "Consumer Cyclical"
+ },
+ "VEDAVAAG.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "Vedavaag Systems Limited",
+  "marketCap": 522078464.0,
+  "sector": "Technology"
+ },
+ "VEDL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Other Industrial Metals & Mining",
+  "longName": "Vedanta Limited",
+  "marketCap": 984205295616.0,
+  "sector": "Basic Materials"
+ },
+ "VEDPOWER.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Utilities - Independent Power Producers",
+  "longName": "Vedanta Power Limited",
+  "marketCap": 127861096448.0,
+  "sector": "Utilities"
+ },
+ "VEEDOL.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Veedol Corporation Limited",
+  "marketCap": 22977050624.0,
+  "sector": "Basic Materials"
+ },
+ "VEEGALAND.NS": {
+  "city": "Ernakulam",
+  "country": "India",
+  "industry": "Real Estate - Diversified",
+  "longName": "VEEGALAND DEVELOPERS LTD",
+  "sector": "Real Estate"
+ },
+ "VELJAN.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Veljan Denison Limited",
+  "sector": "Industrials"
+ },
+ "VENKEYS.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Farm Products",
+  "longName": "Venky's (India) Limited",
+  "marketCap": 22821484544.0,
+  "sector": "Consumer Defensive"
+ },
+ "VENTIVE.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Lodging",
+  "longName": "Ventive Hospitality Limited",
+  "marketCap": 129615593472.0,
+  "sector": "Consumer Cyclical"
+ },
+ "VENUSPIPES.NS": {
+  "city": "Gandhidham",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Venus Pipes and Tubes Limited",
+  "marketCap": 45844750336.0,
+  "sector": "Basic Materials"
+ },
+ "VENUSREM.NS": {
+  "city": "Panchkula",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Venus Remedies Limited",
+  "marketCap": 24155758592.0,
+  "sector": "Healthcare"
+ },
+ "VERANDA.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Education & Training Services",
+  "longName": "Veranda Learning Solutions Limited",
+  "marketCap": 20488353792.0,
+  "sector": "Consumer Defensive"
+ },
+ "VERTOZ.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Software - Infrastructure",
+  "longName": "Vertoz Limited",
+  "marketCap": 3106633472.0,
+  "sector": "Technology"
+ },
+ "VESUVIUS.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Vesuvius India Limited",
+  "marketCap": 82249867264.0,
+  "sector": "Industrials"
+ },
+ "VETO.NS": {
+  "city": "Jaipur",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "Veto Switchgears and Cables Limited",
+  "marketCap": 2623527680.0,
+  "sector": "Industrials"
+ },
+ "VGCL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Capital Markets",
+  "longName": "Vibrant Global Capital Limited",
+  "marketCap": 1099554304.0,
+  "sector": "Financial Services"
+ },
+ "VGL.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Varvee Global Limited",
+  "marketCap": 3243730432.0,
+  "sector": "Consumer Cyclical"
+ },
+ "VGUARD.NS": {
+  "city": "Kochi",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "V-Guard Industries Limited",
+  "marketCap": 128598884352.0,
+  "sector": "Industrials"
+ },
+ "VHL.NS": {
+  "city": "Ludhiana",
+  "country": "India",
+  "industry": "Asset Management",
+  "longName": "Vardhman Holdings Limited",
+  "marketCap": 10978883584.0,
+  "sector": "Financial Services"
+ },
+ "VHLTD.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Lodging",
+  "longName": "Viceroy Hotels Limited",
+  "marketCap": 9805054976.0,
+  "sector": "Consumer Cyclical"
+ },
+ "VIDHIING.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Vidhi Specialty Food Ingredients Limited",
+  "marketCap": 17430804480.0,
+  "sector": "Basic Materials"
+ },
+ "VIDYAWIRES.NS": {
+  "city": "Anand",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "Vidya Wires Limited",
+  "marketCap": 19248654336.0,
+  "sector": "Industrials"
+ },
+ "VIJAYA.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Diagnostics & Research",
+  "longName": "Vijaya Diagnostic Centre Limited",
+  "marketCap": 146565742592.0,
+  "sector": "Healthcare"
+ },
+ "VIJIFIN.NS": {
+  "city": "Indore",
+  "country": "India",
+  "industry": "Credit Services",
+  "longName": "Viji Finance Limited",
+  "marketCap": 3501959936.0,
+  "sector": "Financial Services"
+ },
+ "VIJSOLX.NS": {
+  "city": "Alwar",
+  "country": "India",
+  "industry": "Packaged Foods",
+  "longName": "Vijay Solvex Limited",
+  "sector": "Consumer Defensive"
+ },
+ "VIKASECO.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Vikas Ecotech Limited",
+  "marketCap": 1430006656.0,
+  "sector": "Basic Materials"
+ },
+ "VIKASLIFE.NS": {
+  "city": "Delhi",
+  "country": "India",
+  "industry": "Farm Products",
+  "longName": "Vikas Lifecare Limited",
+  "marketCap": 2247779072.0,
+  "sector": "Consumer Defensive"
+ },
+ "VIKRAMSOLR.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Solar",
+  "longName": "Vikram Solar Limited",
+  "marketCap": 56164925440.0,
+  "sector": "Technology"
+ },
+ "VIKRAN.NS": {
+  "city": "Thane",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Vikran Engineering Limited",
+  "marketCap": 15087795200.0,
+  "sector": "Industrials"
+ },
+ "VIMTALABS.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Diagnostics & Research",
+  "longName": "Vimta Labs Limited",
+  "marketCap": 26372917248.0,
+  "sector": "Healthcare"
+ },
+ "VINATIORGA.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Vinati Organics Limited",
+  "marketCap": 126553219072.0,
+  "sector": "Basic Materials"
+ },
+ "VINCOFE.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Beverages - Non - Alcoholic",
+  "longName": "Vintage Coffee and Beverages Limited",
+  "marketCap": 26114648064.0,
+  "sector": "Consumer Defensive"
+ },
+ "VINDHYATEL.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Vindhya Telelinks Limited",
+  "marketCap": 31049261056.0,
+  "sector": "Industrials"
+ },
+ "VINEETLAB.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Chemicals",
+  "longName": "Vineet Laboratories Limited",
+  "marketCap": 695266816.0,
+  "sector": "Basic Materials"
+ },
+ "VINNY.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Vinny Overseas Limited",
+  "marketCap": 423374432.0,
+  "sector": "Consumer Cyclical"
+ },
+ "VINYLINDIA.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Vinyl Chemicals (India) Limited",
+  "marketCap": 3910389248.0,
+  "sector": "Basic Materials"
+ },
+ "VIPCLOTHNG.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Apparel Manufacturing",
+  "longName": "VIP Clothing Limited",
+  "marketCap": 1799886464.0,
+  "sector": "Consumer Cyclical"
+ },
+ "VIPIND.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Footwear & Accessories",
+  "longName": "V.I.P. Industries Limited",
+  "marketCap": 39782608896.0,
+  "sector": "Consumer Cyclical"
+ },
+ "VIPULLTD.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Real Estate - Diversified",
+  "longName": "Vipul Limited",
+  "marketCap": 1494170624.0,
+  "sector": "Real Estate"
+ },
+ "VIRAT.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Apparel Manufacturing",
+  "longName": "Brahm Virat Industries Corporation Limited",
+  "marketCap": 4865318400.0,
+  "sector": "Consumer Cyclical"
+ },
+ "VIRINCHI.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Software - Application",
+  "longName": "Virinchi Limited",
+  "marketCap": 1510278784.0,
+  "sector": "Technology"
+ },
+ "VIRTUALG.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Education & Training Services",
+  "longName": "Virtual Global Education Limited",
+  "sector": "Consumer Defensive"
+ },
+ "VISACHROME.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "VISA Chrome Limited",
+  "marketCap": 5248421888.0,
+  "sector": "Basic Materials"
+ },
+ "VISAKAIND.NS": {
+  "city": "Secunderabad",
+  "country": "India",
+  "industry": "Building Products & Equipment",
+  "longName": "Visaka Industries Limited",
+  "marketCap": 7189740032.0,
+  "sector": "Industrials"
+ },
+ "VISHAL.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Vishal Fabrics Limited",
+  "marketCap": 4271272448.0,
+  "sector": "Consumer Cyclical"
+ },
+ "VISHNU.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Vishnu Chemicals Limited",
+  "marketCap": 44293455872.0,
+  "sector": "Basic Materials"
+ },
+ "VISHWARAJ.NS": {
+  "city": "Belgaum",
+  "country": "India",
+  "industry": "Confectioners",
+  "longName": "Vishwaraj Sugar Industries Limited",
+  "marketCap": 1128347392.0,
+  "sector": "Consumer Defensive"
+ },
+ "VISL.NS": {
+  "city": "Panjim",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Vedanta Iron and Steel Limited",
+  "marketCap": 121222029312.0,
+  "sector": "Basic Materials"
+ },
+ "VITAL.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Vital Chemtech Limited",
+  "marketCap": 1280425728.0,
+  "sector": "Basic Materials"
+ },
+ "VIVIANA.NS": {
+  "city": "Vadodara",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Viviana Power Tech Limited",
+  "marketCap": 7796096000.0,
+  "sector": "Industrials"
+ },
+ "VIVIDHA.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Visagar Polytex Limited",
+  "marketCap": 143423264.0,
+  "sector": "Consumer Cyclical"
+ },
+ "VIVIMEDLAB.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Vivimed Labs Limited",
+  "marketCap": 473438432.0,
+  "sector": "Healthcare"
+ },
+ "VIVOBIOT.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Biotechnology",
+  "longName": "Vivo Bio Tech Limited",
+  "marketCap": 375021600.0,
+  "sector": "Healthcare"
+ },
+ "VIYASH.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Viyash Scientific Limited",
+  "marketCap": 102361980928.0,
+  "sector": "Healthcare"
+ },
+ "VLEGOV.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "VL E-Governance & IT Solutions Limited",
+  "marketCap": 1055231360.0,
+  "sector": "Technology"
+ },
+ "VLSFINANCE.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Capital Markets",
+  "longName": "VLS Finance Limited",
+  "marketCap": 7217092608.0,
+  "sector": "Financial Services"
+ },
+ "VMART.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Department Stores",
+  "longName": "V-Mart Retail Limited",
+  "marketCap": 58973319168.0,
+  "sector": "Consumer Cyclical"
+ },
+ "VMM.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Department Stores",
+  "longName": "Vishal Mega Mart Limited",
+  "marketCap": 466138464256.0,
+  "sector": "Consumer Cyclical"
+ },
+ "VMSTMT.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "VMS TMT Limited",
+  "marketCap": 2340607744.0,
+  "sector": "Basic Materials"
+ },
+ "VOEPL.NS": {
+  "city": "Nashik",
+  "country": "India",
+  "industry": "Consumer Electronics",
+  "longName": "Virtuoso Optoelectronics Limited",
+  "marketCap": 17046759424.0,
+  "sector": "Technology"
+ },
+ "VOGL.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Other Industrial Metals & Mining",
+  "longName": "Vedanta Oil and Gas Limited",
+  "marketCap": 125011066880.0,
+  "sector": "Basic Materials"
+ },
+ "VOITHPAPR.NS": {
+  "city": "Faridabad",
+  "country": "India",
+  "industry": "Paper & Paper Products",
+  "longName": "Voith Paper Fabrics India Limited",
+  "sector": "Basic Materials"
+ },
+ "VOLTAMP.NS": {
+  "city": "Vadodara",
+  "country": "India",
+  "industry": "Electrical Equipment & Parts",
+  "longName": "Voltamp Transformers Limited",
+  "marketCap": 105865543680.0,
+  "sector": "Industrials"
+ },
+ "VOLTAS.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Furnishings, Fixtures & Appliances",
+  "longName": "Voltas Limited",
+  "marketCap": 348487778304.0,
+  "sector": "Consumer Cyclical"
+ },
+ "VPRPL.NS": {
+  "city": "Jodhpur",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Vishnu Prakash R Punglia Limited",
+  "marketCap": 3566522880.0,
+  "sector": "Industrials"
+ },
+ "VRAJ.NS": {
+  "city": "Raipur",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Vraj Iron and Steel Limited",
+  "marketCap": 4018932224.0,
+  "sector": "Basic Materials"
+ },
+ "VRLLOG.NS": {
+  "city": "Hubli",
+  "country": "India",
+  "industry": "Trucking",
+  "longName": "VRL Logistics Limited",
+  "marketCap": 49857044480.0,
+  "sector": "Industrials"
+ },
+ "VSSL.NS": {
+  "city": "Ludhiana",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Vardhman Special Steels Limited",
+  "marketCap": 37001609216.0,
+  "sector": "Basic Materials"
+ },
+ "VSTIND.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Tobacco",
+  "longName": "VST Industries Limited",
+  "marketCap": 34018934784.0,
+  "sector": "Consumer Defensive"
+ },
+ "VSTL.NS": {
+  "city": "Hisar",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Vibhor Steel Tubes Limited",
+  "marketCap": 2090609408.0,
+  "sector": "Basic Materials"
+ },
+ "VSTTILLERS.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Farm & Heavy Construction Machinery",
+  "longName": "V.S.T. Tillers Tractors Limited",
+  "marketCap": 37206843392.0,
+  "sector": "Industrials"
+ },
+ "VTL.NS": {
+  "city": "Ludhiana",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Vardhman Textiles Limited",
+  "marketCap": 153422184448.0,
+  "sector": "Consumer Cyclical"
+ },
+ "VTMLTD.NS": {
+  "city": "Virudhunagar",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "VTM Limited",
+  "marketCap": 3921185536.0,
+  "sector": "Consumer Cyclical"
+ },
+ "WAAREEENER.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Solar",
+  "longName": "Waaree Energies Limited",
+  "marketCap": 673104134144.0,
+  "sector": "Technology"
+ },
+ "WAAREEINDO.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Solar",
+  "longName": "Indosolar Limited",
+  "marketCap": 8429324288.0,
+  "sector": "Technology"
+ },
+ "WAAREERTL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Waaree Renewable Technologies Limited",
+  "marketCap": 84541947904.0,
+  "sector": "Industrials"
+ },
+ "WABAG.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "VA Tech Wabag Limited",
+  "marketCap": 125545562112.0,
+  "sector": "Industrials"
+ },
+ "WAKEFIT.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Furnishings, Fixtures & Appliances",
+  "longName": "Wakefit Innovations Limited",
+  "marketCap": 46264508416.0,
+  "sector": "Consumer Cyclical"
+ },
+ "WALCHANNAG.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Walchandnagar Industries Limited",
+  "marketCap": 13309287424.0,
+  "sector": "Industrials"
+ },
+ "WANBURY.NS": {
+  "city": "Navi Mumbai",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Wanbury Limited",
+  "marketCap": 6884987904.0,
+  "sector": "Healthcare"
+ },
+ "WARDINMOBI.NS": {
+  "city": "Vadodara",
+  "country": "India",
+  "industry": "Auto Manufacturers",
+  "longName": "Wardwizard Innovations & Mobility Limited",
+  "sector": "Consumer Cyclical"
+ },
+ "WATERBASE.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Packaged Foods",
+  "longName": "The Waterbase Limited",
+  "marketCap": 1897346432.0,
+  "sector": "Consumer Defensive"
+ },
+ "WCIL.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Integrated Freight & Logistics",
+  "longName": "Western Carriers (India) Limited",
+  "marketCap": 9555243008.0,
+  "sector": "Industrials"
+ },
+ "WEALTH.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Capital Markets",
+  "longName": "Wealth First Portfolio Managers Limited",
+  "marketCap": 9431805952.0,
+  "sector": "Financial Services"
+ },
+ "WEBELSOLAR.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Solar",
+  "longName": "Websol Energy System Limited",
+  "marketCap": 29314715648.0,
+  "sector": "Technology"
+ },
+ "WEIZMANIND.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Weizmann Limited",
+  "marketCap": 1107035648.0,
+  "sector": "Consumer Cyclical"
+ },
+ "WEL.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Furnishings, Fixtures & Appliances",
+  "longName": "Wonder Electricals Limited",
+  "marketCap": 9620434944.0,
+  "sector": "Consumer Cyclical"
+ },
+ "WELCORP.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Welspun Corp Limited",
+  "marketCap": 680382562304.0,
+  "sector": "Basic Materials"
+ },
+ "WELENT.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "Welspun Enterprises Limited",
+  "marketCap": 97777557504.0,
+  "sector": "Industrials"
+ },
+ "WELINV.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Capital Markets",
+  "longName": "Welspun Investments and Commercials Limited",
+  "marketCap": 9085681664.0,
+  "sector": "Financial Services"
+ },
+ "WELSPLSOL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Welspun Specialty Solutions Limited",
+  "sector": "Basic Materials"
+ },
+ "WELSPUNLIV.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Welspun Living Limited",
+  "marketCap": 225005355008.0,
+  "sector": "Consumer Cyclical"
+ },
+ "WENDT.NS": {
+  "city": "Hosur",
+  "country": "India",
+  "industry": "Tools & Accessories",
+  "longName": "Wendt (India) Limited",
+  "marketCap": 16199999488.0,
+  "sector": "Industrials"
+ },
+ "WESTLIFE.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Restaurants",
+  "longName": "Westlife Foodworld Limited",
+  "marketCap": 90801217536.0,
+  "sector": "Consumer Cyclical"
+ },
+ "WEWIN.NS": {
+  "city": "Bhopal",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "We Win Limited",
+  "marketCap": 515670752.0,
+  "sector": "Technology"
+ },
+ "WEWORK.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Real Estate Services",
+  "longName": "WeWork India Management Limited",
+  "marketCap": 92070944768.0,
+  "sector": "Real Estate"
+ },
+ "WHBRADY.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Industrial Distribution",
+  "longName": "W. H. Brady & Company Limited",
+  "marketCap": 1185750016.0,
+  "sector": "Industrials"
+ },
+ "WHEELS.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "Wheels India Limited",
+  "marketCap": 60037373952.0,
+  "sector": "Consumer Cyclical"
+ },
+ "WHIRLPOOL.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Furnishings, Fixtures & Appliances",
+  "longName": "Whirlpool of India Limited",
+  "marketCap": 108516892672.0,
+  "sector": "Consumer Cyclical"
+ },
+ "WILLAMAGOR.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Credit Services",
+  "longName": "Williamson Magor & Co. Limited",
+  "marketCap": 232165280.0,
+  "sector": "Financial Services"
+ },
+ "WINDLAS.NS": {
+  "city": "Dehradun",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Windlas Biotech Limited",
+  "marketCap": 22200455168.0,
+  "sector": "Healthcare"
+ },
+ "WINDMACHIN.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Windsor Machines Limited",
+  "marketCap": 30479144960.0,
+  "sector": "Industrials"
+ },
+ "WIPL.NS": {
+  "city": "Kannur",
+  "country": "India",
+  "industry": "Lumber & Wood Production",
+  "longName": "The Western India Plywoods Limited",
+  "marketCap": 1366461696.0,
+  "sector": "Basic Materials"
+ },
+ "WIPRO.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "Wipro Limited",
+  "marketCap": 1576519335936.0,
+  "sector": "Technology"
+ },
+ "WOCKPHARMA.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Wockhardt Limited",
+  "marketCap": 337528750080.0,
+  "sector": "Healthcare"
+ },
+ "WONDERLA.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Leisure",
+  "longName": "Wonderla Holidays Limited",
+  "marketCap": 31464036352.0,
+  "sector": "Consumer Cyclical"
+ },
+ "WORTHPERI.NS": {
+  "city": "Indore",
+  "country": "India",
+  "industry": "Packaging & Containers",
+  "longName": "Worth Peripherals Limited",
+  "marketCap": 2301221120.0,
+  "sector": "Consumer Cyclical"
+ },
+ "WPIL.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "WPIL Limited",
+  "sector": "Industrials"
+ },
+ "WSI.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Engineering & Construction",
+  "longName": "W.S. Industries (India) Limited",
+  "marketCap": 4093034752.0,
+  "sector": "Industrials"
+ },
+ "WSTCSTPAPR.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Paper & Paper Products",
+  "longName": "West Coast Paper Mills Limited",
+  "marketCap": 48334589952.0,
+  "sector": "Basic Materials"
+ },
+ "XCHANGING.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "Xchanging Solutions Limited",
+  "marketCap": 6650801664.0,
+  "sector": "Technology"
+ },
+ "XELPMOC.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "Xelpmoc Design and Tech Limited",
+  "marketCap": 1401503104.0,
+  "sector": "Technology"
+ },
+ "XPROINDIA.NS": {
+  "city": "New Delhi",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Xpro India Limited",
+  "marketCap": 26615425024.0,
+  "sector": "Basic Materials"
+ },
+ "XTGLOBAL.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Software - Application",
+  "longName": "XTGlobal Infotech Limited",
+  "marketCap": 3862762496.0,
+  "sector": "Technology"
+ },
+ "XTRANET.NS": {
+  "city": "Bhopal",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "Xtranet Technologies Limited",
+  "marketCap": 14357653504.0,
+  "sector": "Technology"
+ },
+ "YASHO.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Specialty Chemicals",
+  "longName": "Yasho Industries Limited",
+  "marketCap": 48168095744.0,
+  "sector": "Basic Materials"
+ },
+ "YATHARTH.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Medical Care Facilities",
+  "longName": "Yatharth Hospital & Trauma Care Services Limited",
+  "marketCap": 99726761984.0,
+  "sector": "Healthcare"
+ },
+ "YATRA.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Travel Services",
+  "longName": "Yatra Online Limited",
+  "marketCap": 15519011840.0,
+  "sector": "Consumer Cyclical"
+ },
+ "YESBANK.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Banks - Regional",
+  "longName": "Yes Bank Limited",
+  "marketCap": 651323113472.0,
+  "sector": "Financial Services"
+ },
+ "YOGI.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Real Estate - Development",
+  "longName": "Yogi Limited",
+  "sector": "Real Estate"
+ },
+ "YUKEN.NS": {
+  "city": "Bengaluru",
+  "country": "India",
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Yuken India Limited",
+  "marketCap": 15485759488.0,
+  "sector": "Industrials"
+ },
+ "ZAGGLE.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Software - Infrastructure",
+  "longName": "Zaggle Prepaid Ocean Services Limited",
+  "marketCap": 23132049408.0,
+  "sector": "Technology"
+ },
+ "ZEEL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Broadcasting",
+  "longName": "Zee Entertainment Enterprises Limited",
+  "marketCap": 69138194432.0,
+  "sector": "Communication Services"
+ },
+ "ZEELEARN.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Education & Training Services",
+  "longName": "Zee Learn Limited",
+  "marketCap": 2073432704.0,
+  "sector": "Consumer Defensive"
+ },
+ "ZEEMEDIA.NS": {
+  "city": "Noida",
+  "country": "India",
+  "industry": "Broadcasting",
+  "longName": "Zee Media Corporation Limited",
+  "marketCap": 4738749440.0,
+  "sector": "Communication Services"
+ },
+ "ZENITHEXPO.NS": {
+  "city": "Kolkata",
+  "country": "India",
+  "industry": "Textile Manufacturing",
+  "longName": "Zenith Exports Limited",
+  "marketCap": 1100834944.0,
+  "sector": "Consumer Cyclical"
+ },
+ "ZENITHSTL.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Steel",
+  "longName": "Zenith Steel Pipes & Industries Limited",
+  "marketCap": 722784640.0,
+  "sector": "Basic Materials"
+ },
+ "ZENSARTECH.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Information Technology Services",
+  "longName": "Zensar Technologies Limited",
+  "marketCap": 98657763328.0,
+  "sector": "Technology"
+ },
+ "ZENTEC.NS": {
+  "city": "Hyderabad",
+  "country": "India",
+  "industry": "Aerospace & Defense",
+  "longName": "Zen Technologies Limited",
+  "marketCap": 141704626176.0,
+  "sector": "Industrials"
+ },
+ "ZFCVINDIA.NS": {
+  "city": "Chennai",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "ZF Commercial Vehicle Control Systems India Limited",
+  "marketCap": 254355308544.0,
+  "sector": "Consumer Cyclical"
+ },
+ "ZFSTEERING.NS": {
+  "city": "Pune",
+  "country": "India",
+  "industry": "Auto Parts",
+  "longName": "ZF Steering Gear (India) Limited",
+  "marketCap": 6442042880.0,
+  "sector": "Consumer Cyclical"
+ },
+ "ZIMLAB.NS": {
+  "city": "Nagpur",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "ZIM Laboratories Limited",
+  "marketCap": 7389767168.0,
+  "sector": "Healthcare"
+ },
+ "ZODIAC.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "longName": "Zodiac Energy Limited"
+ },
+ "ZODIACLOTH.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Apparel Manufacturing",
+  "longName": "Zodiac Clothing Company Limited",
+  "marketCap": 1831457280.0,
+  "sector": "Consumer Cyclical"
+ },
+ "ZOTA.NS": {
+  "city": "Surat",
+  "country": "India",
+  "industry": "Biotechnology",
+  "longName": "Zota Health Care Limited",
+  "marketCap": 43398094848.0,
+  "sector": "Healthcare"
+ },
+ "ZSARACOM.NS": {
+  "city": "Mumbai",
+  "country": "India",
+  "industry": "Asset Management",
+  "longName": "Saraswati Commercial (India) Limited",
+  "marketCap": 11122573312.0,
+  "sector": "Financial Services"
+ },
+ "ZUARI.NS": {
+  "city": "Sancoale",
+  "country": "India",
+  "industry": "Agricultural Inputs",
+  "longName": "Zuari Agro Chemicals Limited",
+  "marketCap": 9084529664.0,
+  "sector": "Basic Materials"
+ },
+ "ZUARIIND.NS": {
+  "city": "Gurugram",
+  "country": "India",
+  "industry": "Conglomerates",
+  "longName": "Zuari Industries Limited",
+  "marketCap": 8352133632.0,
+  "sector": "Industrials"
+ },
+ "ZYDUSLIFE.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Zydus Lifesciences Limited",
+  "marketCap": 1142840098816.0,
+  "sector": "Healthcare"
+ },
+ "ZYDUSWELL.NS": {
+  "city": "Ahmedabad",
+  "country": "India",
+  "industry": "Packaged Foods",
+  "longName": "Zydus Wellness Limited",
+  "marketCap": 158650826752.0,
+  "sector": "Consumer Defensive"
+ }
+}

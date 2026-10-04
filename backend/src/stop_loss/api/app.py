@@ -96,9 +96,26 @@ def create_app(
         }
 
     @app.get("/assets/search", dependencies=[Depends(internal)])
-    async def search(q: Annotated[str, Query(min_length=1, max_length=64)]) -> dict[str, Any]:
-        matches, _ = await service.kit.yahoo.search(q.strip(), quotes=10, news=0)
-        return {"results": [m.model_dump() for m in matches if is_nse_symbol(m.symbol)]}
+    async def search(
+        q: Annotated[str, Query(min_length=1, max_length=64)],
+        limit: Annotated[int, Query(ge=1, le=100)] = 50,
+    ) -> dict[str, Any]:
+        query_str = q.strip()
+        matches, _ = await service.kit.yahoo.search(query_str, quotes=limit, news=0)
+        return {
+            "results": [
+                {
+                    "symbol": m.symbol,
+                    "name": m.name,
+                    "shortname": m.name,
+                    "longname": m.name,
+                    "exchange": m.exchange or "NSE",
+                    "quoteType": m.quote_type or "EQUITY",
+                    "sector": m.sector,
+                }
+                for m in matches
+            ]
+        }
 
     @app.get("/market/chart", dependencies=[Depends(internal)])
     async def chart(
@@ -161,7 +178,10 @@ def create_app(
         if (hit := feed_cache.get("feed")) is not None:
             return hit
         feed = await build_feed(service.kit.yahoo, service.kit.news, settings.feed_indian_tickers)
-        feed_cache.put("feed", feed)
+        if not feed.get("topStories"):
+            print("WARNING: build_feed returned empty topStories:", feed)
+        else:
+            feed_cache.put("feed", feed)
         return feed
 
     def sse(run: Run, after: int) -> StreamingResponse:
@@ -268,5 +288,7 @@ def _log_feedback(
 
 def main() -> None:
     import uvicorn
+    import os
 
-    uvicorn.run("stop_loss.api.app:create_app", factory=True, host="127.0.0.1", port=8000)
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run("stop_loss.api.app:create_app", factory=True, host="0.0.0.0", port=port)

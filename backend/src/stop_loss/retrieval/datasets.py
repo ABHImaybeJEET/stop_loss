@@ -210,7 +210,7 @@ def india_news(
 
 
 def companies(root: Path) -> Iterator[Record]:
-    path = root / "company_metadata_cleaned.json"
+    path = root / "company_metadata_yfinance.json"
     data: dict[str, dict[str, Any]] = json.loads(path.read_text(encoding="utf-8"))
     for index, (ticker, info) in enumerate(data.items(), start=1):
         name = info.get("longName") or info.get("shortName") or ticker
