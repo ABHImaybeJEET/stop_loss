@@ -77,22 +77,21 @@ ENRICHED_FILE = "company_metadata_yfinance.json"
 
 class NseUniverse:
     def __init__(self, data_dir: Path = DATA_DIR) -> None:
-        self.enriched_path = data_dir / ENRICHED_FILE
-        metadata_path = data_dir / "company_metadata_cleaned.json"
-        metadata: dict[str, dict[str, Any]] = {}
-        if metadata_path.exists():
-            metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
-        # Profiles fetched from yfinance for tickers the dataset lacks (see `enrich`).
-        self._enriched: dict[str, dict[str, Any]] = {}
-        if self.enriched_path.exists():
-            self._enriched = json.loads(self.enriched_path.read_text(encoding="utf-8"))
+        self.enriched_path = data_dir / "company_metadata_yfinance.json"
+        yfinance_path = data_dir / "company_metadata_yfinance.json"
+        yfinance_data: dict[str, dict[str, Any]] = {}
+        if yfinance_path.exists():
+            yfinance_data = json.loads(yfinance_path.read_text(encoding="utf-8"))
+
+        metadata = yfinance_data
+        self._enriched = yfinance_data
         self._lock = Lock()
         symbols = {path.stem.upper() for path in (data_dir / "nse_historical").glob("*.NS.csv")} | {
             symbol.upper() for symbol in metadata
         }
         self._companies: dict[str, Company] = {}
         for symbol in sorted(s for s in symbols if is_nse_symbol(s)):
-            info = {**self._enriched.get(symbol, {}), **_present(metadata.get(symbol) or {})}
+            info = {**_present(cleaned_data.get(symbol) or {}), **_present(yfinance_data.get(symbol) or {})}
             self._companies[symbol] = _company(symbol, info)
 
     def __len__(self) -> int:
