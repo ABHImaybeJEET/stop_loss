@@ -7,7 +7,8 @@ from stop_loss.analytics.news import NewsClient
 
 THEME_QUERIES = {
     "news_tariff": "(India OR global) (tariff OR trade war OR export restrictions)",
-    "news_banktax": "(India OR RBI) (bank tax OR bank levy OR interest rates OR reserve requirements)",
+    "news_banktax": "(India OR RBI) "
+    "(bank tax OR bank levy OR interest rates OR reserve requirements)",
     "news_war": "(war OR sanctions OR shipping disruption OR oil supply) (India OR global)",
 }
 

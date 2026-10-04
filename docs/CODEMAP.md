@@ -9,3 +9,6 @@
 - **Data**: `data/` (raw/processed NSE, macro, calamity, news CSVs) and `backend/data/` (SQLite + `evidence.jsonl`) are off-limits to read; loaders live in `stop_loss/retrieval/datasets.py`, `stop_loss/analytics/{analogs,event_windows}.py`, root `download_*.py`, `scripts/preprocess_data.py`.
 - **Checks**: `make check` = ruff lint + ruff format --check + pytest (`backend/tests/{fin_terminal,terminal,unit}`, fixtures in `backend/tests/fixtures/`).
 - **Run events (SSE)**: models in `stop_loss/agents/run_events.py` (only file to edit; `make schema` → `frontend/types/run-events.schema.json`, drift-tested). `agents/event_stream.py` translates `astream_events` v2 → run_started/node_started/node_finished/node_error/final_answer; `api/graph_runs.py` (RunRegistry subclass) persists via `api/run_store.py` (`RUNS_DB_PATH`).
+- **Phase 0 (baseline)**: `make check` is green (Windows: `.tools/make.exe check`). Prompt modules `agents/llm.py` and `agents/portfolio_llm.py` are exempt from E501 (prompt text is kept verbatim).
+  Offline tests expect `analogs` to be `unavailable` (no vector index), so ticker results are `partial` with `failed_agents == ["analogs"]`.
+  The coordinator always forces `mode="analysis"`; follow-ups return a full `final` result, not a `reply`.

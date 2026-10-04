@@ -192,9 +192,9 @@ class AnalysisService:
     def _build_retriever(self, settings: TerminalSettings) -> HistoricalRetriever | None:
         try:
             from fin_terminal.config import secret_value
-            from fin_terminal.vectorstore.pinecone import PineconeVectorAdapter
-            from fin_terminal.vectorstore.factory import create_vectorstore
             from fin_terminal.embeddings import LazyEmbeddings
+            from fin_terminal.vectorstore.factory import create_vectorstore
+            from fin_terminal.vectorstore.pinecone import PineconeVectorAdapter
 
             if not secret_value(settings.pinecone_api_key):
                 return None

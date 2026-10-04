@@ -43,7 +43,8 @@ from stop_loss.agents.result import (
     sources_section,
 )
 from stop_loss.agents.state import AnalysisState
-from stop_loss.analytics.hazards import HazardClient
+from stop_loss.analytics.exposure import exposure_points
+from stop_loss.analytics.hazards import HazardClient, near
 from stop_loss.analytics.macro import MacroClient
 from stop_loss.analytics.models import (
     AssetProfile,
@@ -63,11 +64,9 @@ from stop_loss.analytics.scoring import (
 )
 from stop_loss.analytics.weather import WeatherClient
 from stop_loss.analytics.yahoo import SymbolNotFoundError, YahooFinanceClient
+from stop_loss.retrieval.search import HistoricalRetriever
 from stop_loss.settings import TerminalSettings
 from stop_loss.universe import get_universe
-from stop_loss.analytics.exposure import exposure_points
-from stop_loss.analytics.hazards import near
-from stop_loss.retrieval.search import HistoricalRetriever
 
 logger = logging.getLogger("stop_loss.agents")
 NAME_SUFFIX = re.compile(
@@ -131,7 +130,8 @@ def clean_company_name(name: str) -> str:
 
 
 def normalize_citations(text: str) -> str:
-    """Normalizes compound citation brackets like [E1, E2], [E1, 10], [E1,2,3] into [E1] [E2] [E3]."""
+    """Normalizes compound citation brackets like [E1, E2], [E1, 10], [E1,2,3] into
+    [E1] [E2] [E3]."""
 
     def _expand(match: re.Match) -> str:
         parts = re.findall(r"E?(\d+)", match.group(1), re.I)
@@ -159,7 +159,7 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
         asset, prompt = state["asset"], state["user_prompt"]
         previous = state.get("active_asset")
         switched = bool(previous) and previous.get("symbol") != asset["symbol"]
-        first_look = asset["symbol"] not in (state.get("analyzed_symbols") or [])
+        first_look = asset["symbol"] not in (state.get("analyzed_symbols") or [])  # noqa: F841
         history = history_lines(state.get("messages", [])[:-1])
         plan = heuristic_plan(prompt)
         if kit.model_for("coordinator") is not None:
@@ -337,8 +337,8 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
                 nearest_label = alert.nearby[0]["place"]
                 for outlook in outlooks:
                     if outlook.location == nearest_label:
-                        from stop_loss.analytics.models import WeatherExtreme
                         from stop_loss.agents.reporting import now_iso
+                        from stop_loss.analytics.models import WeatherExtreme
 
                         outlook.extremes.append(
                             WeatherExtreme(

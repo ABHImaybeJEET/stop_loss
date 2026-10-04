@@ -170,8 +170,9 @@ class HazardClient:
             events.append(
                 HazardAlert(
                     source="gdacs",
-                    event_type=GDACS_TYPES.get(str(props.get("eventtype")),
-                                               str(props.get("eventtype"))),
+                    event_type=GDACS_TYPES.get(
+                        str(props.get("eventtype")), str(props.get("eventtype"))
+                    ),
                     name=str(props.get("name") or props.get("eventname") or "Unnamed event"),
                     alert_level=props.get("alertlevel"),
                     country=props.get("country"),

@@ -74,5 +74,6 @@ class TerminalSettings(Settings):
 @lru_cache
 def get_terminal_settings() -> TerminalSettings:
     return TerminalSettings()
-# Reloaded model config
 
+
+# Reloaded model config
