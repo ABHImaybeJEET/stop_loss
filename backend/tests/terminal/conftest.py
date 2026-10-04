@@ -24,6 +24,8 @@ def settings(tmp_path: Path) -> TerminalSettings:
         conversation_db_path=tmp_path / "conversations.sqlite",
         feedback_db_path=tmp_path / "feedback.sqlite",
         runs_db_path=tmp_path / "runs.sqlite",
+        source_health_db_path=tmp_path / "source_health.sqlite",
+        latency_report_path=tmp_path / "latency_report.md",
         langsmith_tracing=False,
         langsmith_api_key=None,
         openai_api_key=None,

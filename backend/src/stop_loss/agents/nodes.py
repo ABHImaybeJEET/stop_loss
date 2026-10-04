@@ -434,6 +434,7 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
                         "text": hit.metadata.get("text", ""),
                         "published_at": date_str,
                         "score": hit.score,
+                        "namespace": hit.namespace,
                         "themes": hit.metadata.get("theme_tags", []),
                         "forward_5d": fwd.get("forward_5d"),
                         "forward_20d": fwd.get("forward_20d"),

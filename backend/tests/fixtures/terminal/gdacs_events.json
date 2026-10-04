@@ -1,0 +1,616 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "bbox": [
+    98.9954,
+    17.1054,
+    98.9954,
+    17.1054
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     98.9954,
+     17.1054
+    ]
+   },
+   "properties": {
+    "eventtype": "FL",
+    "eventid": 1104169,
+    "episodeid": 1,
+    "eventname": "",
+    "glide": "",
+    "name": "Flood in Thailand",
+    "description": "Flood in Thailand",
+    "htmldescription": "Green Flood in Thailand from: 05 Oct 2026 01 to: 07 Oct 2026 01.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=FL&eventid=1104169&episodeid=1",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1104169&episodeid=1&eventtype=FL",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=FL&eventid=1104169"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "true",
+    "country": "Thailand",
+    "fromdate": "2026-10-05T01:00:00",
+    "todate": "2026-10-07T01:00:00",
+    "datemodified": "2026-09-18T06:16:34",
+    "iso3": "THA",
+    "source": "GLOFAS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "TH",
+      "iso3": "THA",
+      "countryname": "Thailand"
+     }
+    ],
+    "severitydata": {
+     "severity": 0.0,
+     "severitytext": "Magnitude 0 ",
+     "severityunit": ""
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -100.0,
+    17.6667,
+    -100.0,
+    17.6667
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -100.0,
+     17.6667
+    ]
+   },
+   "properties": {
+    "eventtype": "FL",
+    "eventid": 1104191,
+    "episodeid": 1,
+    "eventname": "",
+    "glide": "",
+    "name": "Flood in Mexico",
+    "description": "Flood in Mexico",
+    "htmldescription": "Green Flood in Mexico from: 05 Oct 2026 01 to: 07 Oct 2026 01.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=FL&eventid=1104191&episodeid=1",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1104191&episodeid=1&eventtype=FL",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=FL&eventid=1104191"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "true",
+    "country": "Mexico",
+    "fromdate": "2026-10-05T01:00:00",
+    "todate": "2026-10-07T01:00:00",
+    "datemodified": "2026-09-26T06:33:31",
+    "iso3": "MEX",
+    "source": "GLOFAS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "MX",
+      "iso3": "MEX",
+      "countryname": "Mexico"
+     }
+    ],
+    "severitydata": {
+     "severity": 0.0,
+     "severitytext": "Magnitude 0 ",
+     "severityunit": ""
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -112.8,
+    20.0,
+    -112.8,
+    20.0
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -112.8,
+     20.0
+    ]
+   },
+   "properties": {
+    "eventtype": "TC",
+    "eventid": 1001329,
+    "episodeid": 28,
+    "eventname": "RACHEL-26",
+    "glide": "",
+    "name": "Tropical Cyclone RACHEL-26",
+    "description": "Tropical Cyclone RACHEL-26",
+    "htmldescription": "Green Tropical Cyclone RACHEL-26 in Mexico from: 27 Sep 2026  to: 04 Oct 2026 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/TC.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/TC.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=TC&eventid=1001329&episodeid=28",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1001329&episodeid=28&eventtype=TC",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=TC&eventid=1001329"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 1.0,
+    "istemporary": "false",
+    "iscurrent": "true",
+    "country": "Mexico",
+    "fromdate": "2026-09-27T09:00:00",
+    "todate": "2026-10-04T03:00:00",
+    "datemodified": "2026-10-04T05:12:24",
+    "iso3": "",
+    "source": "NOAA",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "countryonland": "",
+    "affectedcountries": [
+     {
+      "iso2": "MX",
+      "iso3": "MEX",
+      "countryname": "Mexico"
+     }
+    ],
+    "severitydata": {
+     "severity": 194.4432,
+     "severitytext": "Hurricane/Typhoon > 74 mph (maximum wind speed of 194 km/h)",
+     "severityunit": "km/h"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -175.1,
+    23.4,
+    -175.1,
+    23.4
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -175.1,
+     23.4
+    ]
+   },
+   "properties": {
+    "eventtype": "TC",
+    "eventid": 1001321,
+    "episodeid": 54,
+    "eventname": "NOLO-26",
+    "glide": "TC-2026-000184-MEX",
+    "name": "Tropical Cyclone NOLO-26",
+    "description": "Tropical Cyclone NOLO-26",
+    "htmldescription": "Green Tropical Cyclone NOLO-26 in United States from: 13 Sep 2026  to: 04 Oct 2026 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/TC.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/TC.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=TC&eventid=1001321&episodeid=54",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1001321&episodeid=54&eventtype=TC",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=TC&eventid=1001321"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 1.0,
+    "istemporary": "false",
+    "iscurrent": "true",
+    "country": "United States",
+    "fromdate": "2026-09-13T21:00:00",
+    "todate": "2026-10-04T03:00:00",
+    "datemodified": "2026-10-04T05:00:14",
+    "iso3": "",
+    "source": "NOAA",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "countryonland": "",
+    "affectedcountries": [
+     {
+      "iso2": "US",
+      "iso3": "USA",
+      "countryname": "United States"
+     }
+    ],
+    "severitydata": {
+     "severity": 249.9984,
+     "severitytext": "Hurricane/Typhoon > 74 mph (maximum wind speed of 250 km/h)",
+     "severityunit": "km/h"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -23.3522,
+    -58.1594,
+    -23.3522,
+    -58.1594
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -23.3522,
+     -58.1594
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1569381,
+    "episodeid": 1737592,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in South Sandwich Islands Region",
+    "description": "Earthquake in South Sandwich Islands Region",
+    "htmldescription": "Green M 4.9 Earthquake in South Sandwich Islands Region at: 04 Oct 2026 01:47:52.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1569381&episodeid=1737592",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1569381&episodeid=1737592&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1569381"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "true",
+    "country": "South Sandwich Islands Region",
+    "fromdate": "2026-10-04T01:47:52",
+    "todate": "2026-10-04T01:47:52",
+    "datemodified": "2026-10-04T03:15:05",
+    "iso3": "",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [],
+    "severitydata": {
+     "severity": 4.9,
+     "severitytext": "Magnitude 4.9M, Depth:10km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    147.1353,
+    -6.5916,
+    147.1353,
+    -6.5916
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     147.1353,
+     -6.5916
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1569369,
+    "episodeid": 1737580,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in Papua New Guinea",
+    "description": "Earthquake in Papua New Guinea",
+    "htmldescription": "Green M 4.9 Earthquake in Papua New Guinea at: 04 Oct 2026 01:38:46.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1569369&episodeid=1737580",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1569369&episodeid=1737580&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1569369"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "true",
+    "country": "Papua New Guinea",
+    "fromdate": "2026-10-04T01:38:46",
+    "todate": "2026-10-04T01:38:46",
+    "datemodified": "2026-10-04T02:19:02",
+    "iso3": "PNG",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "PG",
+      "iso3": "PNG",
+      "countryname": "Papua New Guinea"
+     }
+    ],
+    "severitydata": {
+     "severity": 4.9,
+     "severitytext": "Magnitude 4.9M, Depth:94.221km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    30.0753,
+    -7.2494,
+    30.0753,
+    -7.2494
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     30.0753,
+     -7.2494
+    ]
+   },
+   "properties": {
+    "eventtype": "WF",
+    "eventid": 1032552,
+    "episodeid": 1,
+    "eventname": "",
+    "glide": "",
+    "name": "Forest fires in The Democratic Republic of Congo",
+    "description": "Forest fires in The Democratic Republic of Congo",
+    "htmldescription": "Green Forest fires in The Democratic Republic of Congo from: 01 Oct 2026 to: 03 Oct 2026.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=WF&eventid=1032552&episodeid=1",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1032552&episodeid=1&eventtype=WF",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=WF&eventid=1032552"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "true",
+    "country": "The Democratic Republic of Congo",
+    "fromdate": "2026-10-01T00:00:00",
+    "todate": "2026-10-03T00:00:00",
+    "datemodified": "2026-10-04T03:01:06",
+    "iso3": "COD",
+    "source": "GWIS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [],
+    "severitydata": {
+     "severity": 10102.0,
+     "severitytext": "Green impact for forestfire in 10102 ha",
+     "severityunit": "ha"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -50.7776,
+    -4.2793,
+    -50.7776,
+    -4.2793
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -50.7776,
+     -4.2793
+    ]
+   },
+   "properties": {
+    "eventtype": "WF",
+    "eventid": 1032517,
+    "episodeid": 7,
+    "eventname": "",
+    "glide": "",
+    "name": "Forest fires in Brazil",
+    "description": "Forest fires in Brazil",
+    "htmldescription": "Green Forest fires in Brazil from: 30 Sep 2026 to: 03 Oct 2026.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=WF&eventid=1032517&episodeid=7",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1032517&episodeid=7&eventtype=WF",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=WF&eventid=1032517"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "true",
+    "country": "Brazil",
+    "fromdate": "2026-09-30T00:00:00",
+    "todate": "2026-10-03T00:00:00",
+    "datemodified": "2026-10-04T03:01:40",
+    "iso3": "BRA",
+    "source": "GWIS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "BR",
+      "iso3": "BRA",
+      "countryname": "Brazil"
+     }
+    ],
+    "severitydata": {
+     "severity": 9279.0,
+     "severitytext": "Green impact for forestfire in 9279 ha",
+     "severityunit": "ha"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    85.444,
+    44.019,
+    85.444,
+    44.019
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     85.444,
+     44.019
+    ]
+   },
+   "properties": {
+    "eventtype": "DR",
+    "eventid": 1027491,
+    "episodeid": 10,
+    "eventname": "Central Asia-2026",
+    "glide": "",
+    "name": "Drought in China, Kazakhstan, Mongolia, Russia",
+    "description": "Drought in China, Kazakhstan, Mongolia, Russia",
+    "htmldescription": "Green Drought in China, Kazakhstan, Mongolia, Russia from: 21 Jun 2026  to: 02 Oct 2026 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=DR&eventid=1027491&episodeid=10",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1027491&episodeid=10&eventtype=DR",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=DR&eventid=1027491"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "China, Kazakhstan, Mongolia, Russia",
+    "fromdate": "2026-06-21T00:00:00",
+    "todate": "2026-10-02T00:00:00",
+    "datemodified": "2026-10-04T05:17:23",
+    "iso3": "CHN",
+    "source": "GDO",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "CN",
+      "iso3": "CHN",
+      "countryname": "China"
+     },
+     {
+      "iso2": "KZ",
+      "iso3": "KAZ",
+      "countryname": "Kazakhstan"
+     },
+     {
+      "iso2": "MN",
+      "iso3": "MNG",
+      "countryname": "Mongolia"
+     },
+     {
+      "iso2": "RU",
+      "iso3": "RUS",
+      "countryname": "Russia"
+     }
+    ],
+    "severitydata": {
+     "severity": 341951.0,
+     "severitytext": "Minor impact for agricultural drought in 341951 km2",
+     "severityunit": "km2"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -105.399,
+    36.392,
+    -105.399,
+    36.392
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -105.399,
+     36.392
+    ]
+   },
+   "properties": {
+    "eventtype": "DR",
+    "eventid": 1018546,
+    "episodeid": 17,
+    "eventname": "Central-Western USA, Northern Mexico-2026",
+    "glide": "",
+    "name": "Drought in Mexico, United States",
+    "description": "Drought in Mexico, United States",
+    "htmldescription": "Green Drought in Mexico, United States from: 21 Feb 2026  to: 02 Oct 2026 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=DR&eventid=1018546&episodeid=17",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1018546&episodeid=17&eventtype=DR",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=DR&eventid=1018546"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.75,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Mexico, United States",
+    "fromdate": "2026-02-21T00:00:00",
+    "todate": "2026-10-02T00:00:00",
+    "datemodified": "2026-10-04T05:17:35",
+    "iso3": "MEX",
+    "source": "GDO",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "MX",
+      "iso3": "MEX",
+      "countryname": "Mexico"
+     },
+     {
+      "iso2": "US",
+      "iso3": "USA",
+      "countryname": "United States"
+     }
+    ],
+    "severitydata": {
+     "severity": 497162.0,
+     "severitytext": "Minor impact for agricultural drought in 497162 km2",
+     "severityunit": "km2"
+    }
+   }
+  }
+ ],
+ "bbox": null
+}

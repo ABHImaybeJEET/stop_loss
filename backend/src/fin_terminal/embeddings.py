@@ -4,6 +4,7 @@ import asyncio
 import hashlib
 import logging
 import math
+import os
 from threading import Lock
 
 from langchain_core.embeddings import Embeddings
@@ -103,6 +104,43 @@ class TransformerEmbeddings(Embeddings):
         return self._encode([f"{self.query_instruction}{text}"])[0]
 
 
+class OnnxEmbeddings(Embeddings):
+    """The same BGE model on CPU through ONNX Runtime (fastembed): CLS pooling + L2 norm,
+    no torch. Measured self-cosine >= 0.999 against the GPU-indexed vectors (ADR T17)."""
+
+    def __init__(
+        self,
+        model_name: str,
+        *,
+        batch_size: int,
+        query_instruction: str = "",
+        threads: int | None = None,
+    ) -> None:
+        from fastembed import TextEmbedding
+
+        self.model = TextEmbedding(model_name, threads=threads)
+        self.batch_size = batch_size
+        self.query_instruction = query_instruction
+        self._lock = Lock()
+
+    def embed_documents(self, texts: list[str]) -> list[list[float]]:
+        with self._lock:
+            return [v.tolist() for v in self.model.embed(texts, batch_size=self.batch_size)]
+
+    def embed_query(self, text: str) -> list[float]:
+        # Instruction applied here (not fastembed's query_embed) to match TransformerEmbeddings.
+        return self.embed_documents([f"{self.query_instruction}{text}"])[0]
+
+
+def _onnx(settings: Settings) -> Embeddings:
+    return OnnxEmbeddings(
+        settings.embedding_model_name,
+        batch_size=min(settings.embedding_batch_size, 64),
+        query_instruction=settings.embedding_query_instruction,
+        threads=settings.embedding_threads or min(8, os.cpu_count() or 1),
+    )
+
+
 def resolve_device(requested: str) -> str:
     if requested != "auto":
         return requested
@@ -136,10 +174,18 @@ class LazyEmbeddings:
                 model=self.settings.openai_embedding_model,
                 api_key=secret_value(self.settings.openai_api_key),
             )
+        if self.settings.embedding_backend == "onnx":
+            return _onnx(self.settings)
         try:
             import torch  # noqa: F401
             import transformers  # noqa: F401
         except ImportError:
+            try:  # no torch: the CPU ONNX build of the same model keeps vectors compatible
+                model = _onnx(self.settings)
+                logger.info("torch unavailable; using ONNX %s", self.settings.embedding_model_name)
+                return model
+            except ImportError:
+                pass
             self.semantic = False
             logger.warning(
                 "Local embedding model unavailable (install the 'local-embeddings' extra); "

@@ -59,11 +59,14 @@ class Settings(LegacySettings):
     pinecone_history_namespace: str = "history"
     pinecone_cloud: str = "aws"
     pinecone_region: str = "us-east-1"
-    embedding_backend: Literal["local", "openai"] = "local"
+    embedding_backend: Literal["local", "onnx", "openai"] = "local"
     # Local sentence-transformers runtime: "auto" picks CUDA (fp16) when available.
     embedding_device: Literal["auto", "cuda", "cpu"] = "auto"
     embedding_batch_size: int = Field(default=128, ge=1, le=2048)
     embedding_dimensions: int = Field(default=768, ge=8, le=4096)
+    # ONNX (CPU) intra-op threads; None = min(8, cpu count). All cores is slower after idle
+    # gaps (thread-pool wake-up): measured 129 ms vs 34 ms per item at 8 threads (ADR T17).
+    embedding_threads: int | None = Field(default=None, ge=1, le=256)
     # BGE retrieval models expect this prefix on queries only (never on documents).
     embedding_query_instruction: str = "Represent this sentence for searching relevant passages: "
     openai_embedding_model: str = "text-embedding-3-small"

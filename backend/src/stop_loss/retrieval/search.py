@@ -1,10 +1,15 @@
-"""Semantic retrieval over the indexed history (historical analogs, past news, profiles)."""
+"""Semantic retrieval over the indexed history (historical analogs, past news, profiles)
+and the live namespace: one query per namespace, merged by score, each hit tagged."""
 
+import asyncio
+import logging
 from dataclasses import dataclass
 from typing import Any
 
 from fin_terminal.embeddings import LazyEmbeddings
 from fin_terminal.vectorstore.pinecone import PineconeVectorAdapter
+
+logger = logging.getLogger("stop_loss.retrieval")
 
 
 @dataclass(frozen=True)
@@ -12,6 +17,7 @@ class Hit:
     id: str
     score: float
     metadata: dict[str, Any]
+    namespace: str = ""
 
     @property
     def text(self) -> str:
@@ -50,21 +56,46 @@ def build_filter(
 
 
 class HistoricalRetriever:
-    def __init__(self, embedder: LazyEmbeddings, adapter: PineconeVectorAdapter, namespace: str):
+    def __init__(
+        self,
+        embedder: LazyEmbeddings,
+        adapter: PineconeVectorAdapter,
+        namespace: str,
+        *extra_namespaces: str,
+    ):
         self.embedder = embedder
         self.adapter = adapter
         self.namespace = namespace
+        self.namespaces = tuple(dict.fromkeys((namespace, *extra_namespaces)))
 
     async def search(self, query: str, *, top_k: int = 8, **filters: Any) -> list[Hit]:
+        """Top-k across all namespaces by score. Cosine scores from one index and one model
+        are directly comparable, so a plain merge is sound. A failing extra namespace
+        degrades to the others; if every namespace fails, the first error is raised."""
         vector = await self.embedder.embed_query(query)
-        matches = await self.adapter.query(
-            vector, top_k=top_k, filter=build_filter(**filters), namespace=self.namespace
+        flt = build_filter(**filters)
+        results = await asyncio.gather(
+            *(
+                self.adapter.query(vector, top_k=top_k, filter=flt, namespace=ns)
+                for ns in self.namespaces
+            ),
+            return_exceptions=True,
         )
-        return [
-            Hit(
-                id=str(m.get("id")),
-                score=float(m.get("score", 0.0)),
-                metadata=m.get("metadata") or {},
-            )
-            for m in matches
-        ]
+        errors = [r for r in results if isinstance(r, BaseException)]
+        if len(errors) == len(results):
+            raise errors[0]
+        hits: list[Hit] = []
+        for ns, matches in zip(self.namespaces, results, strict=True):
+            if isinstance(matches, BaseException):
+                logger.warning("namespace %s query failed: %s", ns, type(matches).__name__)
+                continue
+            hits += [
+                Hit(
+                    id=str(m.get("id")),
+                    score=float(m.get("score", 0.0)),
+                    metadata=m.get("metadata") or {},
+                    namespace=ns,
+                )
+                for m in matches
+            ]
+        return sorted(hits, key=lambda h: h.score, reverse=True)[:top_k]

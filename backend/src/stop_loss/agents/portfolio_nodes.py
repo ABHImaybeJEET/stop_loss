@@ -529,6 +529,7 @@ def build_portfolio_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one c
                     date=day.isoformat() if day else None,
                     doc_type=hit.metadata.get("doc_type"),
                     score=round(hit.score, 3),
+                    namespace=hit.namespace or None,
                     returns=returns,
                     brent_5d=_pct(forward_return(CHANNELS["brent"], day, 5, root)) if day else None,
                     nifty_5d=_pct(forward_return(CHANNELS["nifty"], day, 5, root)) if day else None,

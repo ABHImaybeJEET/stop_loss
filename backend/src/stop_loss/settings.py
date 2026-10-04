@@ -29,6 +29,27 @@ class TerminalSettings(Settings):
     conversation_db_path: Path = Path("data/conversations.sqlite")
     feedback_db_path: Path = Path("data/feedback.sqlite")
     runs_db_path: Path = Path("data/runs.sqlite")
+    # Live ingestion (stop-loss-vectors live): per-source poll intervals and health.
+    pinecone_live_namespace: str = "live"
+    live_news_seconds: float = Field(default=120, gt=0)
+    live_gdacs_seconds: float = Field(default=300, gt=0)
+    live_usgs_seconds: float = Field(default=300, gt=0)
+    live_weather_seconds: float = Field(default=1800, gt=0)
+    live_backoff_max_seconds: float = Field(default=900, gt=0)
+    live_down_after_failures: int = Field(default=3, ge=1)
+    # Items per embed+upsert call. 1 = per-item latency (the streaming invariant); larger
+    # batches raise throughput but every item then waits for its whole batch.
+    live_microbatch: int = Field(default=1, ge=1, le=100)
+    live_news_queries: list[str] = Field(
+        default_factory=lambda: [
+            "India tariff OR export controls OR trade war",
+            "RBI OR bank levy OR windfall tax India banks",
+            "war OR sanctions OR Strait of Hormuz oil supply",
+            "cyclone OR flood OR heatwave India",
+        ]
+    )
+    source_health_db_path: Path = Path("data/source_health.sqlite")
+    latency_report_path: Path = Path("../docs/latency_report.md")
     # Bulk datasets (repo-level data/processed) and the backfill checkpoint file.
     datasets_dir: Path = Path("../data/processed")
     backfill_progress_path: Path = Path("data/backfill_progress.sqlite")

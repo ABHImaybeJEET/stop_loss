@@ -27,6 +27,8 @@ from stop_loss.api.newsfeed import build_feed
 from stop_loss.api.portfolio import PortfolioData, parse_holdings, parse_symbols
 from stop_loss.api.run_store import RunStore
 from stop_loss.api.runs import Run, RunRegistry, ThreadBusyError
+from stop_loss.retrieval.live import source_intervals
+from stop_loss.retrieval.source_health import SourceHealth, SourceHealthStore
 from stop_loss.settings import TerminalSettings, get_terminal_settings
 from stop_loss.symbols import is_nse_symbol, nse_symbol
 
@@ -44,6 +46,9 @@ def create_app(
     run_store = RunStore(settings.runs_db_path)
     graph_runs = GraphRunRegistry(service, settings, run_store)
     feedback = FeedbackStore(settings.feedback_db_path)
+    source_health = SourceHealthStore(
+        settings.source_health_db_path, down_after=settings.live_down_after_failures
+    )
     feed_cache = Cached(300)
     token = secret_value(settings.api_internal_token)
 
@@ -56,6 +61,7 @@ def create_app(
         await service.aclose()
         feedback.close()
         run_store.close()
+        source_health.close()
 
     app = FastAPI(title="StopLoss Terminal API", version="0.2.0", lifespan=lifespan)
 
@@ -101,6 +107,21 @@ def create_app(
             if service.llm_enabled
             else None,
         }
+
+    @app.get("/health/sources", dependencies=[Depends(internal)])
+    async def health_sources() -> dict[str, Any]:
+        """Live-ingestion source health (written by `stop-loss-vectors live`). A source the
+        loop has never run is reported down, never assumed healthy."""
+        known = {h.source: h for h in await asyncio.to_thread(source_health.snapshot)}
+        sources = [
+            known.get(name)
+            or SourceHealth(
+                source=name, status="down", last_error="never_run", interval_seconds=interval
+            )
+            for name, interval in source_intervals(settings).items()
+        ]
+        sources += [h for name, h in known.items() if name not in source_intervals(settings)]
+        return {"sources": [s.model_dump() for s in sources]}
 
     @app.get("/assets/search", dependencies=[Depends(internal)])
     async def search(q: Annotated[str, Query(min_length=1, max_length=64)]) -> dict[str, Any]:

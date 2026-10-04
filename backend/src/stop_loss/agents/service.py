@@ -204,7 +204,12 @@ class AnalysisService:
                 return None
 
             embedder = LazyEmbeddings(settings)
-            return HistoricalRetriever(embedder, adapter, settings.pinecone_history_namespace)
+            return HistoricalRetriever(
+                embedder,
+                adapter,
+                settings.pinecone_history_namespace,
+                settings.pinecone_live_namespace,
+            )
         except Exception as exc:
             import logging
 
