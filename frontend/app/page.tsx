@@ -6,11 +6,36 @@ import { useAuth } from "@/context/AuthContext";
 import NewsSection from "@/components/NewsSection";
 import GlobalInflationMap from "@/components/GlobalInflationMap";
 import StopLossLogo from "@/components/StopLossLogo";
+const FaultyTerminal = dynamic(() => import("@/components/FaultyTerminal"), {
+  ssr: false,
+});
+
 export default function EntryPage() {
   const { user, logout } = useAuth();
 
   return (
     <div className="bg-white text-gray-950 font-sans relative border-t-2 border-black">
+      {/* Full-Screen Interactive WebGL Light-Mode Background */}
+      <div className="fixed inset-0 w-full h-full z-0 pointer-events-none opacity-30">
+        <FaultyTerminal
+          lightMode={true}
+          tint="#ffffff"
+          scale={2.0}
+          gridMul={[2, 1]}
+          digitSize={1.0}
+          timeScale={0.3}
+          mouseReact={true}
+          mouseStrength={0.4}
+          scanlineIntensity={0.08}
+          glitchAmount={0.8}
+          flickerAmount={0.8}
+          noiseAmp={0.8}
+          curvature={0}
+          pageLoadAnimation={true}
+          brightness={0.8}
+        />
+      </div>
+
       {/* Sticky Hero Full Viewport Container */}
       <div className="sticky top-0 h-screen w-full flex flex-col justify-between z-10 overflow-hidden">
         {/* Top Header Bar */}
