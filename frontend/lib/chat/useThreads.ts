@@ -1,5 +1,6 @@
 "use client";
 
+import { displaySymbol } from "@/lib/symbols";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   collection,
@@ -49,7 +50,7 @@ function plain<T>(value: T): T {
 
 export function makeTitle(prompt: string, asset: AssetRef): string {
   const text = prompt.replace(/\s+/g, " ").trim();
-  return `${asset.symbol} · ${text.length > 48 ? `${text.slice(0, 47)}…` : text}`;
+  return `${displaySymbol(asset.symbol)} · ${text.length > 48 ? `${text.slice(0, 47)}…` : text}`;
 }
 
 function sortThreads(threads: ThreadMeta[]): ThreadMeta[] {

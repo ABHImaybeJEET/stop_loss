@@ -64,6 +64,10 @@ from stop_loss.analytics.scoring import (
 from stop_loss.analytics.weather import WeatherClient
 from stop_loss.analytics.yahoo import SymbolNotFoundError, YahooFinanceClient
 from stop_loss.settings import TerminalSettings
+from stop_loss.universe import get_universe
+from stop_loss.analytics.exposure import exposure_points
+from stop_loss.analytics.hazards import near
+from stop_loss.retrieval.search import HistoricalRetriever
 
 logger = logging.getLogger("stop_loss.agents")
 NAME_SUFFIX = re.compile(
@@ -85,6 +89,7 @@ class Toolkit:
     evidence_log: EvidenceLog
     agent_models: dict[AgentId, BaseChatModel | None] = field(default_factory=dict)
     hazards: HazardClient | None = None
+    retriever: HistoricalRetriever | None = None
 
     def model_for(self, agent: AgentId) -> BaseChatModel | None:
         return self.agent_models.get(agent) if self.agent_models else self.llm
@@ -127,6 +132,7 @@ def clean_company_name(name: str) -> str:
 
 def normalize_citations(text: str) -> str:
     """Normalizes compound citation brackets like [E1, E2], [E1, 10], [E1,2,3] into [E1] [E2] [E3]."""
+
     def _expand(match: re.Match) -> str:
         parts = re.findall(r"E?(\d+)", match.group(1), re.I)
         return " ".join(f"[E{p}]" for p in parts)
@@ -159,8 +165,9 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
         if kit.model_for("coordinator") is not None:
             rep.progress("Classifying intent, horizon and position")
             plan = await plan_query(kit.model_for("coordinator"), prompt, asset, history) or plan
-        if first_look or switched:
-            plan = plan.model_copy(update={"mode": "analysis"})
+
+        # Always output a full analysis to keep the terminal panels visible.
+        plan = plan.model_copy(update={"mode": "analysis"})
         data = plan.model_dump() | {"asset_switched": switched}
         label = "Full analysis" if plan.mode == "analysis" else "Follow-up answer"
         extras = [
@@ -273,70 +280,174 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
             }
         }
 
-    async def macro(state: AnalysisState) -> dict[str, Any]:
-        rep = AgentReporter("macro")
-        rep.start("Pulling FRED: WTI, CPI, Fed funds, 10Y and the 2s10s curve")
+    async def impact(state: AnalysisState) -> dict[str, Any]:
+        rep = AgentReporter("impact")
+        symbol = state["asset"]["symbol"]
+        rep.start("Fetching macro snapshot and hazard alerts")
+
         try:
             snapshot = await kit.macro.snapshot()
-        except Exception as exc:  # noqa: BLE001
-            rep.error(f"Macro data unavailable ({short_error(exc)})")
-            kit.log(state, "macro", "error", error=short_error(exc))
-            return {"macro": {"status": "unavailable", "error": short_error(exc)}}
-        flags = ", ".join(f.replace("_", " ") for f in snapshot.flags) or "no flags"
-        rep.done(f"{len(snapshot.indicators)} indicators · {flags}")
-        kit.log(state, "macro", "done", series=[i.series_id for i in snapshot.indicators])
-        return {"macro": {"status": "ok", "data": snapshot.model_dump(mode="json")}}
-
-    async def weather(state: AnalysisState) -> dict[str, Any]:
-        rep = AgentReporter("weather")
-        symbol = state["asset"]["symbol"]
-        rep.start("Locating facilities exposed to weather")
-        try:
-            profile: AssetProfile | None = await kit.yahoo.profile(symbol)
-        except Exception:  # noqa: BLE001 - no profile simply means no known facility
-            profile = None
-        targets: list[tuple[float, float, str, str]] = []
-        if profile and profile.city:
-            rep.progress(f"Geocoding headquarters: {profile.city}")
-            try:
-                place = await kit.weather.geocode(profile.city)
-            except Exception:  # noqa: BLE001
-                place = None
-            if place:
-                targets.append((*place, "Company headquarters"))
-        if profile and (profile.sector or "").lower() == "energy":
-            s = kit.settings
-            targets.append(
-                (
-                    s.weather_latitude,
-                    s.weather_longitude,
-                    s.weather_location_name,
-                    "Gulf Coast refining hub (energy exposure)",
-                )
+            flags = ", ".join(f.replace("_", " ") for f in snapshot.flags) or "no flags"
+            rep.progress(f"Macro: {len(snapshot.indicators)} indicators · {flags}")
+            kit.log(
+                state, "impact", "macro_done", series=[i.series_id for i in snapshot.indicators]
             )
-        if not targets:
-            rep.done("Not applicable: no facility location known for this asset")
-            kit.log(state, "weather", "not_applicable")
-            return {"weather": {"status": "not_applicable", "data": []}}
-        rep.progress(f"Fetching 7-day forecast for {len(targets)} location(s)")
-        results = await asyncio.gather(
-            *(
-                kit.weather.outlook(lat, lon, location=label, reason=reason)
-                for lat, lon, label, reason in targets
-            ),
-            return_exceptions=True,
-        )
-        outlooks = [r for r in results if not isinstance(r, BaseException)]
-        if not outlooks:
-            rep.error("Weather forecast unavailable")
-            kit.log(state, "weather", "error")
-            return {"weather": {"status": "unavailable", "error": "forecast_unavailable"}}
-        extremes = sum(len(o.extremes) for o in outlooks)
-        rep.done(f"{len(outlooks)} location(s) · {extremes} extreme(s) in the 7-day forecast")
-        kit.log(
-            state, "weather", "done", locations=[o.location for o in outlooks], extremes=extremes
-        )
-        return {"weather": {"status": "ok", "data": [o.model_dump(mode="json") for o in outlooks]}}
+            macro_out = {"status": "ok", "data": snapshot.model_dump(mode="json")}
+        except Exception as exc:  # noqa: BLE001
+            kit.log(state, "impact", "macro_error", error=short_error(exc))
+            macro_out = {"status": "unavailable", "error": short_error(exc)}
+
+        try:
+            rep.progress("Locating facilities exposed to weather and hazards")
+            company = get_universe().get(symbol)
+            if company:
+                points = await exposure_points(company, kit.weather)
+            else:
+                points = []
+
+            if not points:
+                rep.done("Macro fetched. No facility location known for weather/hazards.")
+                kit.log(state, "impact", "weather_not_applicable")
+                weather_out = {"status": "not_applicable", "data": []}
+                return {"macro": macro_out, "weather": weather_out}
+
+            places = [(p.label, p.latitude, p.longitude) for p in points]
+
+            rep.progress("Scanning GDACS/USGS for live hazards")
+            try:
+                alerts = await kit.hazards.alerts() if kit.hazards else []
+                local_alerts = near(alerts, places)
+            except Exception as exc:
+                local_alerts = []
+                kit.log(state, "impact", "hazards_error", error=short_error(exc))
+
+            rep.progress(f"Fetching 7-day forecast for {len(points)} location(s)")
+            results = await asyncio.gather(
+                *(
+                    kit.weather.outlook(p.latitude, p.longitude, location=p.label, reason=p.reason)
+                    for p in points
+                ),
+                return_exceptions=True,
+            )
+            outlooks = [r for r in results if not isinstance(r, BaseException)]
+
+            for alert in local_alerts:
+                if not alert.nearby:
+                    continue
+                nearest_label = alert.nearby[0]["place"]
+                for outlook in outlooks:
+                    if outlook.location == nearest_label:
+                        from stop_loss.analytics.models import WeatherExtreme
+                        from stop_loss.agents.reporting import now_iso
+
+                        outlook.extremes.append(
+                            WeatherExtreme(
+                                date=alert.started_at or now_iso(),
+                                metric="hazard",
+                                value=alert.magnitude or 1.0,
+                                threshold=0.0,
+                                unit="alert",
+                                description=f"{alert.name} ({alert.source.upper()})",
+                            )
+                        )
+                        break
+
+            if not outlooks:
+                rep.error("Weather forecast unavailable")
+                kit.log(state, "impact", "weather_error")
+                weather_out = {"status": "unavailable", "error": "forecast_unavailable"}
+            else:
+                extremes = sum(len(o.extremes) for o in outlooks)
+                rep.done(
+                    f"Macro done · {len(outlooks)} location(s) · {extremes} extreme(s) / hazard(s)"
+                )
+                kit.log(
+                    state,
+                    "impact",
+                    "weather_done",
+                    locations=[o.location for o in outlooks],
+                    extremes=extremes,
+                )
+                weather_out = {
+                    "status": "ok",
+                    "data": [o.model_dump(mode="json") for o in outlooks],
+                }
+        except Exception as exc:
+            kit.log(state, "impact", "weather_error", error=short_error(exc))
+            weather_out = {"status": "unavailable", "error": short_error(exc)}
+            rep.error("Failed to fetch weather/hazards")
+
+        return {"macro": macro_out, "weather": weather_out}
+
+    async def analogs(state: AnalysisState) -> dict[str, Any]:
+        rep = AgentReporter("analogs")
+        asset_ref = AssetRef.model_validate(state["asset"])
+        sym = asset_ref.symbol
+
+        if not kit.retriever:
+            rep.error("Retrieval backend not configured")
+            return {"analogs": {"status": "unavailable", "error": "not_configured"}}
+
+        try:
+            rep.start("Searching historical analogs")
+            from stop_loss.analytics.analogs import measure_forward_returns
+
+            news_out = _ok(state.get("news"))
+            news_items = [NewsItem.model_validate(n) for n in (news_out or [])]
+
+            if state.get("user_prompt"):
+                query = state["user_prompt"]
+            else:
+                query_terms = [asset_ref.name]
+                themes = set()
+                for n in news_items:
+                    themes.update(n.themes)
+                if themes:
+                    query_terms.extend(themes)
+                query = " ".join(query_terms)
+
+            hits = await kit.retriever.search(query, top_k=5)
+            nse_dir = kit.settings.datasets_dir / "nse_historical"
+
+            results = []
+            for hit in hits:
+                pts = hit.metadata.get("published_ts")
+                if pts:
+                    import datetime
+
+                    date_str = datetime.datetime.fromtimestamp(float(pts), datetime.UTC).strftime(
+                        "%Y-%m-%d"
+                    )
+                else:
+                    date_str = ""
+
+                fwd = (
+                    measure_forward_returns(sym, date_str, nse_dir)
+                    if date_str
+                    else {"forward_5d": None, "forward_20d": None}
+                )
+                results.append(
+                    {
+                        "id": hit.id,
+                        "title": hit.metadata.get("title")
+                        or str(hit.metadata.get("text", ""))[:100],
+                        "text": hit.metadata.get("text", ""),
+                        "published_at": date_str,
+                        "score": hit.score,
+                        "themes": hit.metadata.get("theme_tags", []),
+                        "forward_5d": fwd.get("forward_5d"),
+                        "forward_20d": fwd.get("forward_20d"),
+                    }
+                )
+
+            rep.done(f"Found {len(results)} historical analogs")
+            kit.log(state, "analogs", "search_done", hits=len(results))
+            return {"analogs": {"status": "ok", "data": results}}
+
+        except Exception as exc:
+            rep.error("Analog search failed")
+            kit.log(state, "analogs", "search_error", error=short_error(exc))
+            return {"analogs": {"status": "unavailable", "error": short_error(exc)}}
 
     async def quant(state: AnalysisState) -> dict[str, Any]:
         rep = AgentReporter("quant")
@@ -391,7 +502,9 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
             )
         var = f" · VaR95 {metrics.var_95_1d:.2%}" if metrics.var_95_1d is not None else ""
         score = f"risk {risk.score:.0f} ({risk.band})" if risk.score is not None else "risk n/a"
-        corr_info = f" · {len([c for c in metrics.correlations if c.correlation is not None])} corrs"
+        corr_info = (
+            f" · {len([c for c in metrics.correlations if c.correlation is not None])} corrs"
+        )
         rep.done(f"{score}{var}{corr_info} · {metrics.observations} obs")
         kit.log(state, "quant", "done", risk_score=risk.score, observations=metrics.observations)
         return {
@@ -407,6 +520,7 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
     def _inputs(state: AnalysisState) -> dict[str, Any]:
         market_data = _ok(state.get("market")) or {}
         quant_data = _ok(state.get("quant")) or {}
+        analogs_data = _ok(state.get("analogs")) or []
         return {
             "market": _load(ChartSeries, market_data.get("daily")),
             "profile": _load(AssetProfile, market_data.get("profile")),
@@ -415,6 +529,7 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
             "news": [NewsItem.model_validate(n) for n in _ok(state.get("news")) or []],
             "macro": _load(MacroSnapshot, _ok(state.get("macro"))),
             "weather": [WeatherOutlook.model_validate(w) for w in _ok(state.get("weather")) or []],
+            "analogs": analogs_data,
         }
 
     async def hedging(state: AnalysisState) -> dict[str, Any]:
@@ -478,9 +593,7 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
                 }
             )
         elif isinstance(draft, ReplyDraft):
-            draft = draft.model_copy(
-                update={"markdown": normalize_citations(draft.markdown)}
-            )
+            draft = draft.model_copy(update={"markdown": normalize_citations(draft.markdown)})
         how = "language model" if source == "llm" else "deterministic rules (no LLM configured)"
         detail = (
             f"{len(draft.suggestions)} suggestions"
@@ -526,7 +639,20 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
         evidence = [EvidenceItem.model_validate(e) for e in narrative["evidence"]]
         known = {e.id for e in evidence}
         data = _inputs(state)
-        statuses = {a: (state.get(a) or {}).get("status") for a in DATA_AGENTS}
+        statuses = {}
+        for a in DATA_AGENTS:
+            if a == "impact":
+                macro_st = (state.get("macro") or {}).get("status")
+                weather_st = (state.get("weather") or {}).get("status")
+                if macro_st == "ok" and weather_st in ("ok", "not_applicable"):
+                    statuses[a] = "ok"
+                elif macro_st == "not_applicable" and weather_st == "not_applicable":
+                    statuses[a] = "not_applicable"
+                else:
+                    statuses[a] = "error"
+            else:
+                statuses[a] = (state.get(a) or {}).get("status")
+
         ok = sum(1 for s in statuses.values() if s in ("ok", "not_applicable"))
         failed = [a for a, s in statuses.items() if s not in ("ok", "not_applicable")]
         generated_at = datetime.now(UTC).isoformat()
@@ -633,8 +759,8 @@ def build_nodes(kit: Toolkit) -> dict[str, Any]:  # noqa: C901 - one closure per
         "coordinator": coordinator,
         "market": market,
         "news": news,
-        "macro": macro,
-        "weather": weather,
+        "impact": impact,
+        "analogs": analogs,
         "quant": quant,
         "hedging": hedging,
         "audit": audit,

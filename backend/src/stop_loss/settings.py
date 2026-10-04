@@ -18,6 +18,8 @@ class TerminalSettings(Settings):
     groq_news_api_key: SecretStr | None = None
     groq_macro_api_key: SecretStr | None = None
     groq_weather_api_key: SecretStr | None = None
+    groq_impact_api_key: SecretStr | None = None
+    groq_analogs_api_key: SecretStr | None = None
     groq_quant_api_key: SecretStr | None = None
     groq_hedging_api_key: SecretStr | None = None
     groq_audit_api_key: SecretStr | None = None

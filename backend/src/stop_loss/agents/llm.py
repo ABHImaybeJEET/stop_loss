@@ -106,6 +106,7 @@ Rules:
 - Copy figures as shown in each item's `display` (rounding to fewer decimals is fine).
 - Never compute or invent new figures (no projected prices, no invented percentages or targets).
 - If the user asks for something not covered by EVIDENCE, explicitly state: "Info not known from verified sources."
+- Historical analog returns (e.g. "5d forward return on asset") show the actual historical impact on the asset during similar events. You MUST use these to answer how an event affects the asset.
 - Do not promise returns. Recommendations are informational, not investment advice.
 """
 

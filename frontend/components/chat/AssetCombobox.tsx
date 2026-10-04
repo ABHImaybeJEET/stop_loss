@@ -1,5 +1,6 @@
 "use client";
 
+import { displaySymbol } from "@/lib/symbols";
 import React, { useEffect, useId, useRef, useState } from "react";
 import useSWR from "swr";
 import { Search, X } from "lucide-react";
@@ -71,7 +72,7 @@ export default function AssetCombobox({ value, onChange, disabled, onSelected, p
   if (value) {
     return (
       <div className="flex min-w-0 items-center gap-1.5 border border-ink bg-ink py-1 pl-2 pr-1 text-white" data-testid="asset-chip">
-        <span className="num text-xs font-bold">{value.symbol}</span>
+        <span className="num text-xs font-bold">{displaySymbol(value.symbol)}</span>
         <span className="hidden max-w-[10rem] truncate text-2xs text-white/70 sm:inline">{value.name}</span>
         {value.exchange && <span className="hidden font-mono text-2xs text-white/50 md:inline">{value.exchange}</span>}
         <button
@@ -81,7 +82,7 @@ export default function AssetCombobox({ value, onChange, disabled, onSelected, p
             requestAnimationFrame(() => inputRef.current?.focus());
           }}
           disabled={disabled}
-          aria-label={`Remove asset ${value.symbol}`}
+          aria-label={`Remove ${displaySymbol(value.symbol)}`}
           className="ml-0.5 flex h-5 w-5 items-center justify-center text-white/70 hover:bg-white/10 hover:text-white disabled:opacity-40"
         >
           <X className="h-3.5 w-3.5" aria-hidden="true" />
@@ -147,7 +148,7 @@ export default function AssetCombobox({ value, onChange, disabled, onSelected, p
               )}
             >
               <span className="min-w-0">
-                <span className="num block text-xs font-bold">{match.symbol}</span>
+                <span className="num block text-xs font-bold">{displaySymbol(match.symbol)}</span>
                 <span className={cn("block truncate text-2xs", i === active ? "text-white/70" : "text-muted")}>{match.name}</span>
               </span>
               <span className={cn("shrink-0 text-right font-mono text-2xs", i === active ? "text-white/60" : "text-muted")}>

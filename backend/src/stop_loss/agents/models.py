@@ -2,25 +2,25 @@
 
 from typing import Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from stop_loss.analytics.models import MarketState, Sentiment
 from stop_loss.symbols import nse_symbol
 
 AgentStatus = Literal["queued", "running", "done", "error"]
-AgentId = Literal["coordinator", "market", "news", "macro", "weather", "quant", "hedging", "audit"]
+AgentId = Literal["coordinator", "market", "news", "impact", "analogs", "quant", "hedging", "audit"]
 
 AGENTS: list[tuple[AgentId, str, str]] = [
     ("coordinator", "Query Coordinator", "Parses the request and plans the run"),
     ("market", "Market Data Agent", "Live quote, profile and price history"),
     ("news", "News Sentiment Agent", "Headlines, sentiment and theme tags"),
-    ("macro", "Macro Analysis Agent", "Rates, inflation, oil and the yield curve"),
-    ("weather", "Weather Impact Agent", "Facility weather extremes"),
+    ("impact", "Weather & Macro Impact", "Rates, extremes and hazards"),
+    ("analogs", "Historical Analogs Agent", "Retrieves past events and forward returns"),
     ("quant", "Quantitative Risk Agent", "Volatility, VaR, drawdown, beta, scores"),
     ("hedging", "Hedging Strategy Agent", "Evidence-grounded narrative and actions"),
     ("audit", "Evidence & Audit Agent", "Verifies figures and scores trust"),
 ]
-DATA_AGENTS: tuple[AgentId, ...] = ("market", "news", "macro", "weather", "quant")
+DATA_AGENTS: tuple[AgentId, ...] = ("market", "news", "impact", "analogs", "quant")
 
 
 class Wire(BaseModel):
@@ -43,11 +43,44 @@ class HistoryTurn(Wire):
     content: str = Field(max_length=8000)
 
 
+class HoldingIn(Wire):
+    symbol: str = Field(min_length=1, max_length=32)
+    quantity: float = Field(gt=0, le=1e9)
+    avg_price: float | None = Field(default=None, gt=0)
+    name: str | None = Field(default=None, max_length=200)
+
+    @field_validator("symbol")
+    @classmethod
+    def validate_nse(cls, value: str) -> str:
+        return nse_symbol(value, allow_index=False)
+
+
 class ChatRequest(Wire):
     thread_id: str = Field(min_length=8, max_length=64, pattern=r"^[A-Za-z0-9_-]+$")
     message_id: str = Field(min_length=8, max_length=64, pattern=r"^[A-Za-z0-9_-]+$")
     prompt: str = Field(min_length=1, max_length=4000)
-    asset: AssetRef
+    # "ticker" analyzes one NSE stock; "portfolio" analyzes the user's holdings.
+    mode: Literal["ticker", "portfolio"] = "ticker"
+    asset: AssetRef | None = None
+    holdings: list[HoldingIn] = Field(default_factory=list, max_length=30)
+
+    @model_validator(mode="after")
+    def scope_matches_mode(self) -> "ChatRequest":
+        if self.mode == "ticker" and self.asset is None:
+            raise ValueError("ticker mode requires an asset")
+        if self.mode == "portfolio":
+            if not self.holdings:
+                raise ValueError("portfolio mode requires at least one holding")
+            merged: dict[str, HoldingIn] = {}
+            for h in self.holdings:
+                prev = merged.get(h.symbol)
+                merged[h.symbol] = (
+                    h
+                    if prev is None
+                    else prev.model_copy(update={"quantity": prev.quantity + h.quantity})
+                )
+            self.holdings = list(merged.values())
+        return self
 
 
 class EvidenceItem(Wire):

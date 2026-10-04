@@ -1,3 +1,4 @@
+import { stripNs } from "@/lib/symbols";
 import React from "react";
 import type { EvidenceItem } from "@/lib/chat/types";
 
@@ -13,7 +14,7 @@ export function normalizeCitations(text: string): string {
 /** Renders text, turning [E12]-style citations into evidence chips with provenance. */
 export function EvidenceRef({ id, evidence }: { id: string; evidence: Map<string, EvidenceItem> }) {
   const item = evidence.get(id);
-  const label = item ? `${item.label}: ${item.display} (source: ${item.source})` : `Evidence ${id}`;
+  const label = item ? stripNs(`${item.label}: ${item.display} (source: ${item.source})`) : `Evidence ${id}`;
   const className =
     "mx-0.5 inline-flex -translate-y-px items-center gap-0.5 border border-line-strong bg-subtle px-1 py-0.2 font-mono text-[9px] font-semibold leading-[14px] text-ink hover:border-ink hover:bg-canvas transition-colors cursor-pointer rounded-xs";
   if (item?.url) {
@@ -34,7 +35,7 @@ export function EvidenceRef({ id, evidence }: { id: string; evidence: Map<string
 
 export default function EvidenceText({ text, evidence }: { text: string; evidence: Map<string, EvidenceItem> }) {
   if (!text) return null;
-  const normalized = normalizeCitations(text);
+  const normalized = normalizeCitations(stripNs(text));
   const parts = normalized.split(/\[(E\d+)\]/g);
   return (
     <>

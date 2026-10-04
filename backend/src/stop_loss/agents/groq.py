@@ -52,9 +52,19 @@ class GroqChatModel(BaseChatModel):
             )
 
         async with httpx.AsyncClient(timeout=self.timeout_seconds) as client:
+            def wait_for(state: Any) -> float:
+                # Free-tier tokens-per-minute limits: honour Groq's Retry-After (<= 20 s).
+                exc = state.outcome.exception() if state.outcome else None
+                if isinstance(exc, httpx.HTTPStatusError) and exc.response.status_code == 429:
+                    try:
+                        return min(20.0, float(exc.response.headers.get("retry-after", 5)))
+                    except ValueError:
+                        return 5.0
+                return wait_random_exponential(max=4)(state)
+
             async for attempt in AsyncRetrying(
-                stop=stop_after_attempt(3),
-                wait=wait_random_exponential(max=4),
+                stop=stop_after_attempt(4),
+                wait=wait_for,
                 retry=retry_if_exception(transient),
                 reraise=True,
             ):

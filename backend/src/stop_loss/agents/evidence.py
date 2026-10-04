@@ -92,6 +92,7 @@ def build_catalog(
     news: list[NewsItem],
     macro: MacroSnapshot | None,
     weather: list[WeatherOutlook],
+    analogs: list[dict[str, Any]] | None = None,
 ) -> Catalog:
     cat = Catalog()
     if market is not None:
@@ -249,7 +250,7 @@ def build_catalog(
             if ind.latest is None:
                 continue
             cat.add(
-                "macro",
+                "impact",
                 ind.label,
                 ind.latest,
                 f"{ind.latest:,.2f} {ind.unit or ''}".strip(),
@@ -260,7 +261,7 @@ def build_catalog(
             )
             if ind.change_pct is not None and ind.previous_date:
                 cat.add(
-                    "macro",
+                    "impact",
                     f"{ind.label} change since {ind.previous_date}",
                     round(ind.change_pct, 2),
                     f"{ind.change_pct:+.2f}%",
@@ -271,7 +272,7 @@ def build_catalog(
                 )
             if ind.yoy_pct is not None:
                 cat.add(
-                    "macro",
+                    "impact",
                     f"{ind.label} year-over-year",
                     round(ind.yoy_pct, 2),
                     f"{ind.yoy_pct:.2f}%",
@@ -282,7 +283,7 @@ def build_catalog(
                 )
         for flag in macro.flags:
             cat.add(
-                "macro",
+                "impact",
                 "Macro flag",
                 flag,
                 flag.replace("_", " "),
@@ -294,7 +295,7 @@ def build_catalog(
         kw = {"source": "Open-Meteo", "url": outlook.source_url}
         if gusts:
             cat.add(
-                "weather",
+                "impact",
                 f"Max 7-day wind gust, {outlook.location}",
                 max(gusts),
                 f"{max(gusts):g} km/h",
@@ -303,7 +304,7 @@ def build_catalog(
             )
         if rain:
             cat.add(
-                "weather",
+                "impact",
                 f"Max daily rainfall (7d), {outlook.location}",
                 max(rain),
                 f"{max(rain):g} mm",
@@ -312,7 +313,7 @@ def build_catalog(
             )
         for extreme in outlook.extremes:
             cat.add(
-                "weather",
+                "impact",
                 f"{outlook.location} {extreme.date}",
                 extreme.value,
                 extreme.description,
@@ -320,4 +321,95 @@ def build_catalog(
                 observed_at=extreme.date,
                 **kw,
             )
+
+    if analogs:
+        asset_name = (
+            getattr(profile, "long_name", None)
+            if profile
+            else (
+                getattr(market, "name", None) or getattr(market, "symbol", "the asset")
+                if market
+                else "the asset"
+            )
+        )
+        for a in analogs:
+            date_str = a.get("published_at") or "unknown date"
+            # We must use "analogs" as the AgentId here.
+            cat.add(
+                "analogs",
+                f"Historical Event ({date_str}): {a['title']}",
+                a.get("score"),
+                f"Similarity score {a.get('score', 0):.2f}. Event Description: {a.get('text', '')}",
+                source="Vector Search",
+                observed_at=date_str if date_str != "unknown date" else None,
+            )
+            if a.get("forward_5d") is not None:
+                cat.percent(
+                    "analogs",
+                    f"5d forward return on {asset_name} after {date_str} event",
+                    a["forward_5d"],
+                    source="NSE Historical Pricing",
+                    signed=True,
+                )
+            if a.get("forward_20d") is not None:
+                cat.percent(
+                    "analogs",
+                    f"20d forward return on {asset_name} after {date_str} event",
+                    a["forward_20d"],
+                    source="NSE Historical Pricing",
+                    signed=True,
+                )
+
+        # Price-impact estimate
+        import statistics
+
+        f5 = [a["forward_5d"] for a in analogs if a.get("forward_5d") is not None]
+        f20 = [a["forward_20d"] for a in analogs if a.get("forward_20d") is not None]
+
+        if f5:
+            cat.percent(
+                "analogs",
+                f"Historical 5d impact on {asset_name} (Median)",
+                statistics.median(f5),
+                source="NSE Historical Pricing",
+                signed=True,
+            )
+            cat.percent(
+                "analogs",
+                f"Historical 5d impact on {asset_name} (Range Min)",
+                min(f5),
+                source="NSE Historical Pricing",
+                signed=True,
+            )
+            cat.percent(
+                "analogs",
+                f"Historical 5d impact on {asset_name} (Range Max)",
+                max(f5),
+                source="NSE Historical Pricing",
+                signed=True,
+            )
+
+        if f20:
+            cat.percent(
+                "analogs",
+                f"Historical 20d impact on {asset_name} (Median)",
+                statistics.median(f20),
+                source="NSE Historical Pricing",
+                signed=True,
+            )
+            cat.percent(
+                "analogs",
+                f"Historical 20d impact on {asset_name} (Range Min)",
+                min(f20),
+                source="NSE Historical Pricing",
+                signed=True,
+            )
+            cat.percent(
+                "analogs",
+                f"Historical 20d impact on {asset_name} (Range Max)",
+                max(f20),
+                source="NSE Historical Pricing",
+                signed=True,
+            )
+
     return cat

@@ -14,6 +14,14 @@ import { useChatStream } from "@/lib/chat/useChatStream";
 import { useThreads } from "@/lib/chat/useThreads";
 import { fetchUserProfile, type UserProfile } from "@/lib/userProfile";
 import type { AssetRef, ChatMessage } from "@/lib/chat/types";
+import type { ChatScope } from "@/lib/chat/scope";
+import { usePortfolio } from "@/context/PortfolioContext";
+import { PORTFOLIO_SYMBOL } from "@/lib/symbols";
+
+function toScope(asset: AssetRef | null): ChatScope | null {
+  if (!asset) return null;
+  return asset.symbol === PORTFOLIO_SYMBOL ? { kind: "portfolio" } : { kind: "ticker", asset };
+}
 
 function latestAsset(messages: ChatMessage[]): AssetRef | null {
   for (let i = messages.length - 1; i >= 0; i--) {
@@ -37,7 +45,10 @@ export default function ChatTerminal() {
   const uid = user?.uid;
 
   const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [asset, setAsset] = useState<AssetRef | null>(null);
+  const [scope, setScope] = useState<ChatScope | null>(null);
+  const portfolio = usePortfolio();
+  const holdingsRef = useRef(portfolio.holdings);
+  holdingsRef.current = portfolio.holdings;
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [announcement, setAnnouncement] = useState("");
   const [loadingThread, setLoadingThread] = useState(false);
@@ -74,6 +85,7 @@ export default function ChatTerminal() {
     ensureThread,
     onAuthExpired,
     announce: setAnnouncement,
+    portfolioHoldings: () => holdingsRef.current,
   });
   const { load } = chat;
 
@@ -91,7 +103,7 @@ export default function ChatTerminal() {
       if (cancelled) return;
       load(messages);
       const meta = threads.threads.find((t) => t.id === threadId);
-      setAsset(latestAsset(messages) ?? meta?.asset ?? null);
+      setScope(toScope(latestAsset(messages) ?? meta?.asset ?? null));
       setLoadingThread(false);
     });
     return () => {
@@ -108,7 +120,7 @@ export default function ChatTerminal() {
     if (chat.running) chat.stop();
     createdRef.current = null;
     load([]);
-    setAsset(null);
+    setScope(null);
     router.push("/chat");
     closeOnMobile();
   };
@@ -139,7 +151,7 @@ export default function ChatTerminal() {
       <div className="mb-4 flex h-10 w-10 items-center justify-center bg-ink font-mono text-sm font-bold text-white">S</div>
       <h1 className="text-base font-bold text-ink">Asset Analysis Terminal</h1>
       <p className="mt-1 max-w-md font-mono text-xs text-muted">
-        Pick an asset, ask a question, and eight agents gather live market, news, macro and weather data, then compute risk
+        Choose your portfolio or one NSE stock, ask a question, and eight agents gather live market, news, macro, weather and historical-analog evidence, then compute risk
         and evidence-backed hedges.
       </p>
       <ul className="mt-6 w-full max-w-lg space-y-1.5 text-left">
@@ -223,7 +235,15 @@ export default function ChatTerminal() {
             onFeedback={chat.setFeedback}
             empty={empty}
           />
-          <Composer asset={asset} onAssetChange={setAsset} running={chat.running} onSend={chat.send} onStop={chat.stop} />
+          <Composer
+            scope={scope}
+            onScopeChange={setScope}
+            holdingsCount={portfolio.holdings.length}
+            onEditPortfolio={portfolio.openEditor}
+            running={chat.running}
+            onSend={chat.send}
+            onStop={chat.stop}
+          />
         </main>
       </div>
       <div className="sr-only" aria-live="polite" aria-atomic="true">

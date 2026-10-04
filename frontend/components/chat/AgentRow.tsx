@@ -1,8 +1,9 @@
+import { stripNs } from "@/lib/symbols";
 import React from "react";
 import {
   CandlestickChart,
   Check,
-  CloudLightning,
+  Globe,
   Landmark,
   Newspaper,
   Shield,
@@ -10,6 +11,7 @@ import {
   Sigma,
   Workflow,
   X,
+  History,
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/components/ui/primitives";
@@ -20,8 +22,8 @@ const ICONS: Record<string, LucideIcon> = {
   coordinator: Workflow,
   market: CandlestickChart,
   news: Newspaper,
-  macro: Landmark,
-  weather: CloudLightning,
+  impact: Globe,
+  analogs: History,
   quant: Sigma,
   hedging: Shield,
   audit: ShieldCheck,
@@ -78,8 +80,8 @@ export default function AgentRow({ agent, now }: { agent: AgentState; now: numbe
             </span>
           )}
         </div>
-        <p className={cn("truncate font-mono text-2xs", agent.status === "error" ? "text-loss" : "text-muted")} title={agent.message}>
-          {agent.message ?? agent.role ?? "Waiting"}
+        <p className={cn("truncate font-mono text-2xs", agent.status === "error" ? "text-loss" : "text-muted")} title={stripNs(agent.message)}>
+          {stripNs(agent.message) || agent.role || "Waiting"}
         </p>
       </div>
       <div className="relative flex items-center gap-2">

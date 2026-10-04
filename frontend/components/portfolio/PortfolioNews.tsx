@@ -1,5 +1,6 @@
 "use client";
 
+import { stripNs } from "@/lib/symbols";
 import React, { useState } from "react";
 import { ExternalLink, Newspaper } from "lucide-react";
 import { Badge, Skeleton, cn } from "@/components/ui/primitives";
@@ -46,7 +47,7 @@ export default function PortfolioNews({ items, error, symbols }: { items?: Portf
               <li key={item.id} className="flex items-start gap-3 px-3 py-2">
                 <div className="min-w-0 flex-1">
                   <a href={item.url} target="_blank" rel="noopener noreferrer" className="group inline-flex items-start gap-1 text-xs font-semibold text-ink hover:underline">
-                    <span className="line-clamp-2">{item.title}</span>
+                    <span className="line-clamp-2">{stripNs(item.title)}</span>
                     <ExternalLink className="mt-0.5 h-3 w-3 shrink-0 text-muted" aria-hidden="true" />
                     <span className="sr-only">(opens in a new tab)</span>
                   </a>

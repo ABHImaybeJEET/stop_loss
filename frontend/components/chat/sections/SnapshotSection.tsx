@@ -1,3 +1,4 @@
+import { displaySymbol } from "@/lib/symbols";
 import React from "react";
 import { Activity } from "lucide-react";
 import EvidenceText from "@/components/chat/EvidenceText";
@@ -41,7 +42,7 @@ export default function SnapshotSection({
     >
       <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
         <div className="min-w-0">
-          <p className="num text-sm font-bold text-ink">{asset.symbol}</p>
+          <p className="num text-sm font-bold text-ink">{displaySymbol(asset.symbol)}</p>
           <p className="truncate text-xs text-muted">
             {asset.name}
             {asset.exchange ? ` · ${asset.exchange}` : ""}

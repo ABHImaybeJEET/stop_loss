@@ -14,7 +14,7 @@ from stop_loss.agents.service import AnalysisService
 from stop_loss.settings import TerminalSettings
 
 logger = logging.getLogger("stop_loss.api")
-TERMINAL_EVENTS = {"final", "reply", "error", "cancelled"}
+TERMINAL_EVENTS = {"final", "portfolio_final", "reply", "error", "cancelled"}
 
 
 @dataclass

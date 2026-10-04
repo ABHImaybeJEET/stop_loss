@@ -48,8 +48,19 @@ export default function MessageList({ messages, threadId, running, userInitial, 
   // A new thread or a new send re-pins to the bottom.
   const count = messages.filter((m) => m.kind === "user").length;
   useEffect(() => {
-    pinnedRef.current = true;
-    scrollToBottom(false);
+    // When a new message is sent, we want to scroll the new user message into view.
+    // The user message is the last user message in the list.
+    const lastUserMessage = [...messages].reverse().find((m) => m.kind === "user");
+    if (lastUserMessage) {
+      const el = document.getElementById(`msg-${lastUserMessage.id}`);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        pinnedRef.current = false; // Unpin from bottom so we don't yank them down during streaming
+      }
+    } else {
+      pinnedRef.current = true;
+      scrollToBottom(false);
+    }
   }, [threadId, count, scrollToBottom]);
 
   const lastAssistantId = [...messages].reverse().find(isAssistant)?.id;
@@ -61,7 +72,7 @@ export default function MessageList({ messages, threadId, running, userInitial, 
           {messages.length === 0
             ? empty
             : messages.map((message) => {
-                if (message.kind === "user") return <UserMessage key={message.id} message={message} initial={userInitial} />;
+                if (message.kind === "user") return <div id={`msg-${message.id}`} key={message.id}><UserMessage message={message} initial={userInitial} /></div>;
                 if (message.kind === "divider") return <AssetDivider key={message.id} message={message} />;
                 return (
                   <AssistantTurn

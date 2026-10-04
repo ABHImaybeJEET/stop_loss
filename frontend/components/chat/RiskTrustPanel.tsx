@@ -1,5 +1,6 @@
 "use client";
 
+import { displaySymbol, stripNs } from "@/lib/symbols";
 import React from "react";
 import { ShieldAlert } from "lucide-react";
 import {
@@ -205,7 +206,7 @@ export default function RiskTrustPanel({
                 <div key={c.symbol} className="border border-line bg-canvas p-2">
                   <div className="flex items-center justify-between text-2xs">
                     <span className="font-semibold text-ink">{c.asset}</span>
-                    <span className="font-mono text-muted">{c.symbol}</span>
+                    <span className="font-mono text-muted">{displaySymbol(c.symbol)}</span>
                   </div>
                   <div className="mt-1 flex items-baseline justify-between">
                     <span
@@ -267,8 +268,8 @@ export default function RiskTrustPanel({
                     <td className="num px-2 py-1 align-top text-muted">{e.id}</td>
                     <td className="px-2 py-1 align-top font-mono text-muted">{e.agent}</td>
                     <td className="px-2 py-1 align-top text-ink">
-                      <span className="text-muted">{e.label.startsWith("Headline:") ? "" : `${e.label}: `}</span>
-                      <span className="num">{e.display}</span>
+                      <span className="text-muted">{e.label.startsWith("Headline:") ? "" : `${stripNs(e.label)}: `}</span>
+                      <span className="num">{stripNs(e.display)}</span>
                     </td>
                     <td className="px-2 py-1 align-top">
                       {e.url ? (
